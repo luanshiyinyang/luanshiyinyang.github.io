@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-08-20T02:23:45.543Z</updated>
+  <updated>2020-08-20T09:47:18.852Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>yolo5-train</title>
+    <link href="https://zhouchen1998.cn/2020/08/20/yolo5-train/"/>
+    <id>https://zhouchen1998.cn/2020/08/20/yolo5-train/</id>
+    <published>2020-08-20T09:44:33.000Z</published>
+    <updated>2020-08-20T09:47:18.852Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;YOLOv5自定义数据集训练&quot;&gt;&lt;a href=&quot;#YOLOv5自定义数据集训练&quot; class=&quot;headerlink&quot; title=&quot;YOLOv5自定义数据集训练&quot;&gt;&lt;/a&gt;YOLOv5自定义数据集训练&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>anchor-free detection</title>

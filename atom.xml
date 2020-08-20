@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-08-20T09:47:18.852Z</updated>
+  <updated>2020-08-20T09:56:07.586Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhouchen1998.cn/2020/08/20/yolo5-train/"/>
     <id>https://zhouchen1998.cn/2020/08/20/yolo5-train/</id>
     <published>2020-08-20T09:44:33.000Z</published>
-    <updated>2020-08-20T09:47:18.852Z</updated>
+    <updated>2020-08-20T09:56:07.586Z</updated>
     
     
       
@@ -34,6 +34,10 @@
     
     
     
+    <category term="目标检测" scheme="https://zhouchen1998.cn/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+    
+    
+    <category term="yolov5自定义数据集训练" scheme="https://zhouchen1998.cn/tags/yolov5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E8%AE%AD%E7%BB%83/"/>
     
   </entry>
   

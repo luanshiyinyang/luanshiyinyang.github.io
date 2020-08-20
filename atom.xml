@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-08-19T11:59:57.911Z</updated>
+  <updated>2020-08-20T02:08:13.845Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>anchor-free detection</title>
+    <link href="https://zhouchen1998.cn/2020/08/20/anchor-free-detection/"/>
+    <id>https://zhouchen1998.cn/2020/08/20/anchor-free-detection/</id>
+    <published>2020-08-20T02:01:11.000Z</published>
+    <updated>2020-08-20T02:08:13.845Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Anchor-free目标检测&quot;&gt;&lt;a href=&quot;#Anchor-free目标检测&quot; class=&quot;headerlink&quot; title=&quot;Anchor-free目标检测&quot;&gt;&lt;/a&gt;Anchor-free目标检测&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

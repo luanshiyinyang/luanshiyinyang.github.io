@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-08-20T02:08:13.845Z</updated>
+  <updated>2020-08-20T02:10:58.247Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhouchen1998.cn/2020/08/20/anchor-free-detection/"/>
     <id>https://zhouchen1998.cn/2020/08/20/anchor-free-detection/</id>
     <published>2020-08-20T02:01:11.000Z</published>
-    <updated>2020-08-20T02:08:13.845Z</updated>
+    <updated>2020-08-20T02:10:58.247Z</updated>
     
     
       
@@ -34,6 +34,10 @@
     
     
     
+    <category term="目标检测" scheme="https://zhouchen1998.cn/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+    
+    
+    <category term="anchor-free目标检测" scheme="https://zhouchen1998.cn/tags/anchor-free%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
     
   </entry>
   

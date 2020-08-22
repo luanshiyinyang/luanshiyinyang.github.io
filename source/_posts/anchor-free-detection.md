@@ -1,7 +1,7 @@
 ---
 title: anchor-free detection
-top: false
-cover: false
+top: true
+cover: true
 toc: true
 mathjax: true
 reprintPolicy: cc-by

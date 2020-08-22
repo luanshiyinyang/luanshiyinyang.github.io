@@ -674,8 +674,7 @@ wd <span class="token operator">=</span> getcwd<span class="token punctuation">(
 <span class="token comment" spellcheck="true"># class names</span>
 <span class="token key atrule">names</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'window_shielding'</span><span class="token punctuation">,</span> <span class="token string">'multi_signs'</span><span class="token punctuation">,</span> <span class="token string">'non_traffic_signs'</span><span class="token punctuation">]</span></code></pre>
 <p>然后，编辑模型的配置文件，此时需要先在项目根目录下的weights目录下执行其中的download_weights.sh这个shell脚本来下载四种模型的权重。然后，选择一个模型，编辑项目根目录下models目录中选择的模型的配置文件，将第一个参数nc改为自己的数据集类别数即可，例如我使用yolov5x模型，则修改yolov5x.yaml文件。<strong>这里weights的下载可能因为网络而难以进行，我也将其上传到了百度网盘，<a href="%E9%93%BE%E6%8E%A5%EF%BC%9Ahttps://pan.baidu.com/s/1UQX6URxaJP0ZqALvWpDWkA">地址</a>给出，提取码为vjlx。</strong></p>
-<p>#3# 模型训练</p>
-<p>此时，可以使用下面的命令进行模型的训练，训练日志默认保存在<code>./runs/</code>下，包括模型参数、Tensorboard记录等。此时TensorBoard以已经默认打开，浏览器访问效果如下图（由于数据量很小，很快过拟合）。</p>
+<h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><p>此时，可以使用下面的命令进行模型的训练，训练日志默认保存在<code>./runs/</code>下，包括模型参数、Tensorboard记录等。此时TensorBoard以已经默认打开，浏览器访问效果如下图（由于数据量很小，很快过拟合）。</p>
 <pre class=" language-shell"><code class="language-shell">python train.py --img 640 --batch 8 --epoch 300 --data ./data/ads.yaml --cfg ./models/yolov5x.yaml --weights weights/yolov5x.pt --device '0'</code></pre>
 <p><img src="https://i.loli.net/2020/08/20/GrLI9OTtZD3fJFH.png"></p>
 <h3 id="模型测试"><a href="#模型测试" class="headerlink" title="模型测试"></a>模型测试</h3><p>最后，测试模型，使用下面的命令（该命令中<code>save-txt</code>选项用于生成结果的txt标注文件，不指定则只会生成结果图像）。其中，weights使用最满意的实验即可，source则提供一个包含所有测试图片的文件夹即可。</p>

@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-08-25T09:14:40.782Z</updated>
+  <updated>2020-09-15T07:27:33.788Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DY-ReLU论文解读</title>
+    <link href="https://zhouchen1998.cn/2020/09/15/dy-relu/"/>
+    <id>https://zhouchen1998.cn/2020/09/15/dy-relu/</id>
+    <published>2020-09-15T07:23:16.000Z</published>
+    <updated>2020-09-15T07:27:33.788Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Dynamic-ReLU&quot;&gt;&lt;a href=&quot;#Dynamic-ReLU&quot; class=&quot;headerlink&quot; title=&quot;Dynamic ReLU&quot;&gt;&lt;/a&gt;Dynamic</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="Dynamic ReLU" scheme="https://zhouchen1998.cn/tags/Dynamic-ReLU/"/>
+    
+  </entry>
   
   <entry>
     <title>人脸表情识别</title>

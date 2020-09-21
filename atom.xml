@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-09-15T07:27:33.788Z</updated>
+  <updated>2020-09-21T08:16:55.623Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Matplotlib绘制动图</title>
+    <link href="https://zhouchen1998.cn/2020/09/21/dynamic-picture/"/>
+    <id>https://zhouchen1998.cn/2020/09/21/dynamic-picture/</id>
+    <published>2020-09-21T08:14:49.000Z</published>
+    <updated>2020-09-21T08:16:55.623Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据可视化" scheme="https://zhouchen1998.cn/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    
+    <category term="Matplotlib动态图" scheme="https://zhouchen1998.cn/tags/Matplotlib%E5%8A%A8%E6%80%81%E5%9B%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>DY-ReLU论文解读</title>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="DY-ReLU论文解读, Chen&#39;s blog">
+    <meta name="keywords" content="Matplotlib绘制动图, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>DY-ReLU论文解读 | Chen&#39;s blog</title>
+    <title>Matplotlib绘制动图 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">DY-ReLU论文解读</h1>
+                    <h1 class="description center-align post-title">Matplotlib绘制动图</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Dynamic-ReLU/">
-                                <span class="chip bg-color">Dynamic ReLU</span>
+                            <a href="/tags/Matplotlib%E5%8A%A8%E6%80%81%E5%9B%BE/">
+                                <span class="chip bg-color">Matplotlib动态图</span>
                             </a>
                         
                     </div>
@@ -443,8 +443,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
-                                论文解读
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-category">
+                                数据可视化
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-09-15
+                    2020-09-21
                 </div>
                 
 
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    1.8k
                 </div>
                 
 
@@ -482,114 +482,141 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Dynamic-ReLU"><a href="#Dynamic-ReLU" class="headerlink" title="Dynamic ReLU"></a>Dynamic ReLU</h1><blockquote>
-<p>其实一直在做论文阅读心得方面的工作，只是一直没有分享出来，这篇文章可以说是这个前沿论文解读系列的第一篇文章，希望能坚持下来。</p>
-</blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>论文提出了动态线性修正单元（Dynamic Relu，下文简称 DY-ReLU），它能够依据输入动态调整对应分段函数，与 ReLU 及其静态变种相比，仅仅需要增加一些可以忽略不计的参数就可以带来大幅的性能提升，它可以无缝嵌入已有的主流模型中，在轻量级模型（如 MobileNetV2）上效果更加明显。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Matplotlib是非常著名的Python绘图库，支持非常复杂的底层定制化操作。本文通过Matplotlib中的动画绘制工具来讲解如何绘制动态图，首先讲解通过交互模式如何显示动态图，继而讲解通过两个动画类来实现动图地保存（GIF格式）。</p>
+<h2 id="显示动态图"><a href="#显示动态图" class="headerlink" title="显示动态图"></a>显示动态图</h2><p>首先，需要明确，Matplotlib绘图有两种显示模式，分别为<strong>阻塞模式</strong>和<strong>交互模式</strong>，他们具体的说明如下。</p>
+<ol>
+<li>阻塞模式，该模式下绘制地图地显示必须使用<code>plt.show()</code>进行展示（默认会弹出一个窗口），代码会运行到该行阻塞不继续执行，直到关闭这个展示（默认是关闭弹出的显示窗口，Pycharm等集成开发环境会自动捕获图片然后跳过阻塞）。</li>
+<li>交互模式，该模式下任何绘图相关的操作如<code>plt.plot()</code>会立即显示绘制的图形然后迅速关闭，继续代码的运行，不发生阻塞。</li>
+</ol>
+<p>默认情况下，Matplotlib使用阻塞模式，要想打开交互模式需要通过下面的几个函数来做操作，下面直接列出要用的核心函数。</p>
+<pre class=" language-python"><code class="language-python">plt<span class="token punctuation">.</span>ion<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 打开交互模式</span>
+plt<span class="token punctuation">.</span>ioff<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 关闭交互模式</span>
+plt<span class="token punctuation">.</span>clf<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 清除当前的Figure对象</span>
+plt<span class="token punctuation">.</span>pause<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 暂停GUI功能多少秒</span></code></pre>
+<p>然后就是要清楚，所谓的动图或者视频是怎么做到的，其实它们本质上就是很多静态图以较快的速度连续播放从而给人一种动感，利用Matplotlib绘制动图的原理也是一样的，遵循<code>画布绘图</code>-&gt;<code>清理画布</code>-&gt;<code>画布绘图</code>的循环就行了，不过这里注意，由于交互模式下绘图都是一闪而过，因此<strong>通过<code>plt.pause(n)</code>暂停GUI显示n秒才能得到连续有显示的图像</strong>。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+
+<span class="token keyword">def</span> <span class="token function">io_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fig <span class="token operator">=</span> plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 生成画布</span>
+    plt<span class="token punctuation">.</span>ion<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 打开交互模式</span>
+    <span class="token keyword">for</span> index <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        fig<span class="token punctuation">.</span>clf<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 清空当前Figure对象</span>
+        fig<span class="token punctuation">.</span>suptitle<span class="token punctuation">(</span><span class="token string">"3d io pic"</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># 生成数据</span>
+        point_count <span class="token operator">=</span> <span class="token number">100</span>  <span class="token comment" spellcheck="true"># 随机生成100个点</span>
+        x <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>random<span class="token punctuation">(</span>point_count<span class="token punctuation">)</span>
+        y <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>random<span class="token punctuation">(</span>point_count<span class="token punctuation">)</span>
+        z <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>random<span class="token punctuation">(</span>point_count<span class="token punctuation">)</span>
+        color <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>random<span class="token punctuation">(</span>point_count<span class="token punctuation">)</span>
+        scale <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>random<span class="token punctuation">(</span>point_count<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">100</span>
+        ax <span class="token operator">=</span> fig<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">111</span><span class="token punctuation">,</span> projection<span class="token operator">=</span><span class="token string">"3d"</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 绘图</span>
+        ax<span class="token punctuation">.</span>scatter3D<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> s<span class="token operator">=</span>scale<span class="token punctuation">,</span> c<span class="token operator">=</span>color<span class="token punctuation">,</span> marker<span class="token operator">=</span><span class="token string">"o"</span><span class="token punctuation">)</span>
+        ax<span class="token punctuation">.</span>set_xlabel<span class="token punctuation">(</span><span class="token string">"X"</span><span class="token punctuation">)</span>
+        ax<span class="token punctuation">.</span>set_ylabel<span class="token punctuation">(</span><span class="token string">"Y"</span><span class="token punctuation">)</span>
+        ax<span class="token punctuation">.</span>set_zlabel<span class="token punctuation">(</span><span class="token string">"Z"</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 暂停</span>
+        plt<span class="token punctuation">.</span>pause<span class="token punctuation">(</span><span class="token number">0.2</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 关闭交互模式</span>
+    plt<span class="token punctuation">.</span>ioff<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    io_test<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>上述代码演示了三维空间如何动态显示100个随机点的变化，使用录制软件得到的动图如下，其本质就是不停显示不同的图像而已。</p>
+<p><img src="https://i.loli.net/2020/09/21/lyQHWBXOGv6KSZ3.gif"></p>
+<h2 id="动图保存"><a href="#动图保存" class="headerlink" title="动图保存"></a>动图保存</h2><p>很多时候我们的需求并不是在窗口中动态显示图像，还需要保存到本地GIF图像，显然使用录制工具是一个比较低效的用法，Matplotlib的<code>animation</code>模块提供了两个动画绘制接口，分别是<strong>FuncAnimation</strong>和<strong>ArtistAnimation</strong>，它们都是继承自<code>TimedAnimation</code>的类，因而也具有<code>Animation</code>对象的通用方法，如<code>Animation.save()</code>和<code>Animation.to_html5_video()</code>两个方法实例化一个<code>Animation</code>对象后均可调用，前者表示将动画保存为一个图像，后者表示将动画表示为一个HTML视频。</p>
 <ul>
-<li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2003.10027">http://arxiv.org/abs/2003.10027</a></p>
-</li>
-<li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Islanna/DynamicReLU">https://github.com/Islanna/DynamicReLU</a></p>
-</li>
+<li>FuncAnimation: 通过反复调用同一更新函数来制作动画。</li>
+<li>ArtistAnimation: 通过调用一个固定的Artist对象来制作动画，例如给定的图片序列或者Matplotlib的绘图对象。</li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>ReLU 在深度学习的发展中地位举足轻重，它简单而且高效，极大地提高了深度网络的性能，被很多 CV 任务的经典网络使用。不过 ReLU 及其变种（无参数的 leaky ReLU 和有参数的 PReLU）都是静态的，也就是说他们最终的参数都是固定的。<strong>那么自然会引发一个问题，能否根据输入的数据动态调整 ReLU 的参数呢？</strong></p>
-<p><img src="https://i.loli.net/2020/09/15/NHuT5iLaxc4Drbo.png"></p>
-<p>针对上述问题，论文提出了 DY-ReLU，它是一个分段函数$f_{\boldsymbol{\theta}(\boldsymbol{x})}(\boldsymbol{x})$，其参数由超函数$\boldsymbol{\theta {(x)}}$根据$x$计算得到。如上图所示，输入$x$在进入激活函数前分成两个流分别输入$\boldsymbol{\theta {(x)}}$和$f_{\boldsymbol{\theta}(\boldsymbol{x})}(\boldsymbol{x})$，前者用于获得激活函数的参数，后者用于获得激活函数的输出值。超函数$\boldsymbol{\theta {(x)}}$能够编码输入$x$的各个维度（对卷积网络而言，这里指的就是通道，所以原文采用 c 来标记）的全局上下文信息来自适应激活函数$f_{\boldsymbol{\theta}(\boldsymbol{x})}(\boldsymbol{x})$。</p>
-<p>该设计能够在引入极少量的参数的情况下大大增强网络的表示能力，本文对于空间和通道上不同的共享机制设计了三种 DY-ReLU，分别是 DY-ReLU-A、DY-ReLU-B 以及 DY-ReLU-C。</p>
-<h2 id="Dynamic-ReLU-1"><a href="#Dynamic-ReLU-1" class="headerlink" title="Dynamic ReLU"></a>Dynamic ReLU</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><img src="https://i.loli.net/2020/09/15/MKfwy57uRIHxFs3.png"></p>
-<p>原始的 ReLU 为$\boldsymbol{y}=\max {\boldsymbol{x}, 0}$，这是一个非常简单的分段函数。对于输入向量$x$的第$c$个通道的输入$x_c$，对应的激活函数可以记为$y_{c}=\max \left{x_{c}, 0\right}$。进而，ReLU 可以统一表示为带参分段线性函数$y_{c}=\max <em>{k}\left{a</em>{c}^{k} x_{c}+b_{c}^{k}\right}$，基于此提出下式动态 ReLU 来针对$\boldsymbol{x}=\left{x_{c}\right}$自适应$a_c^k$和$b_c^k$。</p>
-<p>$$y_{c}=f_{\boldsymbol{\theta}(\boldsymbol{x})}\left(x_{c}\right)=\max <em>{1 \leq k \leq K}\left{a</em>{c}^{k}(\boldsymbol{x}) x_{c}+b_{c}^{k}(\boldsymbol{x})\right}$$</p>
-<p>系数$\left(a_{c}^{k}, b_{c}^{k}\right)$由超函数$\boldsymbol{\theta (x)}$计算得到，具体如下，其中$K$为函数的数目，$C$为通道数目。且参数$\left(a_{c}^{k}, b_{c}^{k}\right)$不仅仅与$x_c$有关，还和$x_{j \neq c}$有关。</p>
-<p>$\left[a_{1}^{1}, \ldots, a_{C}^{1}, \ldots, a_{1}^{K}, \ldots, a_{C}^{K}, b_{1}^{1}, \ldots, b_{C}^{1}, \ldots, b_{1}^{K}, \ldots, b_{C}^{K}\right]^{T}=\boldsymbol{\theta}(\boldsymbol{x})$</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>DY-ReLU 的核心超函数$\boldsymbol{\theta {(x)}}$的实现采用 SE 模块（SENet 提出的）实现，对于维度为$C \times H \times W$的张量输入，首先通过一个全局池化层压缩空间信息，然后经过两个中间夹着一个 ReLU 的全连接层，最后一个标准化层用于标准化输出的范围在$(-1,1)$之间（采用 sigmoid<br>函数）。该模块最终输出$2KC$个元素，分别是$a_{1: C}^{1: K}$和$b_{1: C}^{1: K}$的残差，记为$\Delta a_{1: C}^{1: K}$和$\Delta b_{1: C}^{1: K}$，最后的输出为初始值和残差的加权和，计算式如下。</p>
-<p>$$a_{c}^{k}(\boldsymbol{x})=\alpha^{k}+\lambda_{a} \Delta a_{c}^{k}(\boldsymbol{x}), b_{c}^{k}(\boldsymbol{x})=\beta^{k}+\lambda_{b} \Delta b_{c}^{k}(\boldsymbol{x})$$</p>
-<p>其中，$\alpha^k$和$\beta^k$分别为$a_c^k$和$b_c^k$的初始值，$\lambda_a$和$\lambda_b$为残差范围控制标量，也就是加的权。$\alpha^k$和$\beta^k$以及$\lambda_a$、$\lambda_b$都是超参数。若$K=2$，有$\alpha^{1}=1, \alpha^{2}=\beta^{1}=\beta^{2}=0$，这就是原始 ReLU。默认的$\lambda_a$和$\lambda_b$分别为 1.0 和 0.5。</p>
-<p><img src="https://i.loli.net/2020/09/15/Z9FVGdh1jJiavCy.png"></p>
-<p>对于学习到不同的参数，DY-ReLU 会有不同的形式，它可以等价于 ReLU、Leaky ReLU 和 PReLU，也可以等价于 SE 模块或者 Maxout 算子，至于具体的形式依据输入而改变，是一种非常灵活的动态激活函数。</p>
-<h3 id="变种设计"><a href="#变种设计" class="headerlink" title="变种设计"></a>变种设计</h3><p>主要提出三种不同的 DY-ReLU 设计，分别是 DY-ReLU-A、DY-ReLU-B 以及 DY-ReLU-C。DY-ReLU-A 空间和通道均共享，只会输出$2K$个参数，计算简单，表达能力较弱；DY-ReLU-B 仅空间上共享，输出$2KC$个参数；DY-ReLU-C 空间和通道均不共享，参数量极大。</p>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>经过对比实验得出 DY-ReLU-B 更适合图像分类，DY-ReLU-C 更适合关键点检测任务，在几个典型网络上改用论文提出的 DY-ReLU，效果如下图，不难发现，在轻量级网络上突破较大。</p>
-<p><img src="https://i.loli.net/2020/09/15/LaHep6XgyjnOFkZ.png"></p>
-<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>下面是 DY-ReLU-B 的 Pytorch 实现。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> torch
-<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<p>下面给出上述两个类的构造函数所需参数，它们的主要参数也是类似的，都是一个Figure对象作为画布，然后一个对象作为更新的实现方式（前者需要一个反复绘图的更新函数，后者则为一个图像列表或者绘图对象列表）。</p>
+<pre class=" language-python"><code class="language-python">ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>FuncAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> func<span class="token punctuation">,</span> frames<span class="token operator">=</span>None<span class="token punctuation">,</span> init_func<span class="token operator">=</span>None<span class="token punctuation">,</span> fargs<span class="token operator">=</span>None<span class="token punctuation">,</span> save_count<span class="token operator">=</span>None<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">,</span> cache_frame_data<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>ArtistAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> artists<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span></code></pre>
+<p>相比较而言，我更喜欢使用<code>FuncAnimation</code>，它的使用要求简洁且定制化程度较高。但是如果想将很多图片合并为一个动图，那么<code>ArtistAnimation</code>是最合适的选择。</p>
+<p>下面的代码演示了如何保存一个动态变化渲染的柱状图，<code>ArtistAnimation</code>传入了一个图像序列，序列中每个元素为绘制的柱状图。然后通过使用<code>Animation</code>的<code>save</code>方法保存了动态图，**需要注意的是，这里有个动画写入器（writer）可以选择，默认不是pillow，我个人觉得pillow安装简单一些。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>animation <span class="token keyword">as</span> animation
 
-<span class="token keyword">class</span> <span class="token class-name">DyReLU</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> channels<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        super<span class="token punctuation">(</span>DyReLU<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>channels <span class="token operator">=</span> channels
-        self<span class="token punctuation">.</span>k <span class="token operator">=</span> k
-        self<span class="token punctuation">.</span>conv_type <span class="token operator">=</span> conv_type
-        <span class="token keyword">assert</span> self<span class="token punctuation">.</span>conv_type <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'1d'</span><span class="token punctuation">,</span> <span class="token string">'2d'</span><span class="token punctuation">]</span>
+fig<span class="token punctuation">,</span> ax <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplots<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> tmp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
 
-        self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels<span class="token punctuation">,</span> channels <span class="token operator">//</span> reduction<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span>inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels <span class="token operator">//</span> reduction<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>k<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>sigmoid <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    x<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    y<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+    temp <span class="token operator">=</span> ax<span class="token punctuation">.</span>bar<span class="token punctuation">(</span>x<span class="token punctuation">,</span> height<span class="token operator">=</span>y<span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">0.3</span><span class="token punctuation">)</span>
+    tmp<span class="token punctuation">.</span>append<span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
 
-        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'lambdas'</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token operator">*</span>k <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">]</span><span class="token operator">*</span>k<span class="token punctuation">)</span><span class="token punctuation">.</span>float<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'init_v'</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>float<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>ArtistAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> tmp<span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span> repeat_delay<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span>
+ani<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"bar.gif"</span><span class="token punctuation">,</span> writer<span class="token operator">=</span><span class="token string">'pillow'</span><span class="token punctuation">)</span></code></pre>
+<p>上面代码的执行结果如下图。</p>
+<p><img src="https://i.loli.net/2020/09/21/LHoTe14VU2tqlX9.gif"></p>
+<p>接着，演示使用范围更广的<code>FuncAnimation</code>如何使用。下面的代码中，动态展示了梯度下降在三维图上的优化过程，其中最为核心的代码如下。用于构造<code>Animation</code>对象的除了画布就是一个更新函数，在这个更新函数内部多次绘制散点图从而形成动态效果， <code>frames</code>是帧数，如果设置了这个帧数，那么<code>update</code>函数第一个参数必须有一个<code>num</code>占位，这个<code>num</code>由<code>Animation</code>对象维护，每次内部执行<code>update</code>会自动递增，后面的参数列表<code>fargs</code>只需要传入除了<code>num</code>后面的参数即可。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> ax<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span><span class="token punctuation">,</span> z<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span>
+    ax<span class="token punctuation">.</span>scatter3D<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> color<span class="token operator">=</span><span class="token string">'black'</span><span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ax
 
-    <span class="token keyword">def</span> <span class="token function">get_relu_coefs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        theta <span class="token operator">=</span> torch<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'2d'</span><span class="token punctuation">:</span>
-            theta <span class="token operator">=</span> torch<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>theta<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> theta
-
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">raise</span> NotImplementedError
+ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>FuncAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> update<span class="token punctuation">,</span> frames<span class="token operator">=</span><span class="token number">25</span><span class="token punctuation">,</span> fargs<span class="token operator">=</span><span class="token punctuation">(</span>x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list<span class="token punctuation">,</span> ax3d<span class="token punctuation">)</span><span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> blit<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span></code></pre>
+<p>上面的代码演示效果如下图，完整的代码附在文末补充说明中。</p>
+<p><img src="https://i.loli.net/2020/09/21/Kp6qMkuLIt3rFwo.gif"></p>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文介绍了如何使用Matplotlib绘制动态图，主要通过交互模式和<code>animation</code>模块进行，如果觉得有所帮助，欢迎点赞。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>animation <span class="token keyword">as</span> animation
 
 
-<span class="token keyword">class</span> <span class="token class-name">DyReLUB</span><span class="token punctuation">(</span>DyReLU<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> channels<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        super<span class="token punctuation">(</span>DyReLUB<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>channels<span class="token punctuation">,</span> reduction<span class="token punctuation">,</span> k<span class="token punctuation">,</span> conv_type<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels <span class="token operator">//</span> reduction<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>k<span class="token operator">*</span>channels<span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">GD</span><span class="token punctuation">(</span>x0<span class="token punctuation">,</span> y0<span class="token punctuation">,</span> lr<span class="token punctuation">,</span> epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    f <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> x <span class="token operator">**</span> <span class="token number">2</span> <span class="token operator">-</span> y <span class="token operator">**</span> <span class="token number">2</span>
+    g_x <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> <span class="token number">2</span> <span class="token operator">*</span> x
+    x<span class="token punctuation">,</span> y <span class="token operator">=</span> x0<span class="token punctuation">,</span> y0
+    x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>epoch<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        y_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+        z_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>f<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1.01</span><span class="token punctuation">)</span>
 
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">assert</span> x<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>channels
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>get_relu_coefs<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        grad_x<span class="token punctuation">,</span> grad_y <span class="token operator">=</span> g_x<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> g_x<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+        x <span class="token operator">-=</span> lr <span class="token operator">*</span> grad_x
+        y <span class="token operator">-=</span> lr <span class="token operator">*</span> grad_y
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Epoch&amp;#123;&amp;#125;: grad=&amp;#123;&amp;#125; &amp;#123;&amp;#125;, x=&amp;#123;&amp;#125;"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>i<span class="token punctuation">,</span> grad_x<span class="token punctuation">,</span> grad_y<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> abs<span class="token punctuation">(</span>grad_x<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">1e</span><span class="token operator">-</span><span class="token number">6</span> <span class="token operator">and</span> abs<span class="token punctuation">(</span>grad_y<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">1e</span><span class="token operator">-</span><span class="token number">6</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+    <span class="token keyword">return</span> x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list
 
-        relu_coefs <span class="token operator">=</span> theta<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>channels<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>self<span class="token punctuation">.</span>k<span class="token punctuation">)</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>lambdas <span class="token operator">+</span> self<span class="token punctuation">.</span>init_v
 
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'1d'</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># BxCxL -> LxBxCx1</span>
-            x_perm <span class="token operator">=</span> x<span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-            output <span class="token operator">=</span> x_perm <span class="token operator">*</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span>self<span class="token punctuation">.</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span>
-            <span class="token comment" spellcheck="true"># LxBxCx2 -> BxCxL</span>
-            result <span class="token operator">=</span> torch<span class="token punctuation">.</span>max<span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> ax<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span><span class="token punctuation">,</span> z<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span>
+    ax<span class="token punctuation">.</span>scatter3D<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> color<span class="token operator">=</span><span class="token string">'black'</span><span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ax
 
-        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'2d'</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># BxCxHxW -> HxWxBxCx1</span>
-            x_perm <span class="token operator">=</span> x<span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-            output <span class="token operator">=</span> x_perm <span class="token operator">*</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span>self<span class="token punctuation">.</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span>
-            <span class="token comment" spellcheck="true"># HxWxBxCx2 -> BxCxHxW</span>
-            result <span class="token operator">=</span> torch<span class="token punctuation">.</span>max<span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-        <span class="token keyword">return</span> result</code></pre>
-<p>这个结构和上文我所说的 SE 模块是大体对应的，目前支持一维和二维卷积，要想使用只需要像下面这样替换激活层即可（DY-ReLU 需要指定输入通道数目和卷积类型）。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
-<span class="token keyword">from</span> dyrelu <span class="token keyword">import</span> DyReluB
+<span class="token keyword">def</span> <span class="token function">draw_gd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fig <span class="token operator">=</span> plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    x<span class="token punctuation">,</span> y <span class="token operator">=</span> np<span class="token punctuation">.</span>meshgrid<span class="token punctuation">(</span>np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    z <span class="token operator">=</span> x <span class="token operator">**</span> <span class="token number">2</span> <span class="token operator">-</span> y <span class="token operator">**</span> <span class="token number">2</span>
+    ax3d <span class="token operator">=</span> plt<span class="token punctuation">.</span>gca<span class="token punctuation">(</span>projection<span class="token operator">=</span><span class="token string">'3d'</span><span class="token punctuation">)</span>
+    ax3d<span class="token punctuation">.</span>set_xlabel<span class="token punctuation">(</span><span class="token string">"X"</span><span class="token punctuation">)</span>
+    ax3d<span class="token punctuation">.</span>set_ylabel<span class="token punctuation">(</span><span class="token string">"Y"</span><span class="token punctuation">)</span>
+    ax3d<span class="token punctuation">.</span>set_zlabel<span class="token punctuation">(</span><span class="token string">"Z"</span><span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>tick_params<span class="token punctuation">(</span>labelsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+    ax3d<span class="token punctuation">.</span>plot_surface<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> cstride<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">,</span> rstride<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">,</span> cmap<span class="token operator">=</span><span class="token string">"jet"</span><span class="token punctuation">)</span>
 
-<span class="token keyword">class</span> <span class="token class-name">Model</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        super<span class="token punctuation">(</span>Model<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>conv1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> DyReLUB<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span>
+    x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list <span class="token operator">=</span> GD<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.01</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>x_list<span class="token punctuation">)</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>y_list<span class="token punctuation">)</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>z_list<span class="token punctuation">)</span>
 
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        x <span class="token operator">=</span> self<span class="token punctuation">.</span>conv1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        x <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> x</code></pre>
-<blockquote>
-<p>有空的话我会在 MobileNet 和 ResNet 上具体实验，看看实际效果是否如论文所述。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>论文提出了 DY-ReLU，能够根据输入动态地调整激活函数，与 ReLU 及其变种对比，仅需额外的少量计算即可带来大幅的性能提升，能无缝嵌入到当前的主流模型中，是一个涨点利器。本质上，DY-ReLU 就是各种 ReLU 的数学归纳和拓展，这对后来激活函数的研究有指导意义。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] Chen Y, Dai X, Liu M, et al. Dynamic ReLU[J]. arXiv:2003.10027 [cs], 2020.</p>
+    ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>FuncAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> update<span class="token punctuation">,</span> frames<span class="token operator">=</span><span class="token number">25</span><span class="token punctuation">,</span> fargs<span class="token operator">=</span><span class="token punctuation">(</span>x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list<span class="token punctuation">,</span> ax3d<span class="token punctuation">)</span><span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> blit<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+    ani<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">'test.gif'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    draw_gd<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -636,8 +663,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Dynamic-ReLU/">
-                                    <span class="chip bg-color">Dynamic ReLU</span>
+                                <a href="/tags/Matplotlib%E5%8A%A8%E6%80%81%E5%9B%BE/">
+                                    <span class="chip bg-color">Matplotlib动态图</span>
                                 </a>
                             
                         </div>
@@ -808,7 +835,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-09-15T15-23-16',
+        id: '2020-09-21T16-14-49',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -832,9 +859,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/09/21/dynamic-picture/">
                     <div class="card-image">
@@ -852,9 +880,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -867,6 +895,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -885,34 +914,34 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/08/25/facial-expression-recognition/">
+                <a href="/2020/09/15/dy-relu/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="人脸表情识别">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="DY-ReLU论文解读">
                         
-                        <span class="card-title">人脸表情识别</span>
+                        <span class="card-title">DY-ReLU论文解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            人脸表情识别
-2020.8.22，重构了整个仓库代码，改用Tensorflow2中的keras api实现整个系统。考虑到很多反映jupyter notebook写的train使用起来不太方便，这里改成了py脚本实现。
+                            Dynamic ReLU
+其实一直在做论文阅读心得方面的工作，只是一直没有分享出来，这篇文章可以说是这个前沿论文解读系列的第一篇文章，希望能坚持下来。
 
-简介使用卷积神经网
+简介论文提出了动态线性修正单元（Dynamic Relu，下文简称 DY-ReLU），
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                    深度学习项目
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                    论文解读
                                 </a>
                             
                             
@@ -922,8 +951,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BA%BA%E8%84%B8%E8%A1%A8%E6%83%85%E8%AF%86%E5%88%AB/">
-                        <span class="chip bg-color">人脸表情识别</span>
+                    <a href="/tags/Dynamic-ReLU/">
+                        <span class="chip bg-color">Dynamic ReLU</span>
                     </a>
                     
                 </div>

@@ -1,5 +1,5 @@
 ---
-title: yolo5-train
+title: YOLOv5自定义训练
 top: true
 cover: true
 toc: true
@@ -238,7 +238,7 @@ val: dataset/val.txt
 nc: 3
  
 # class names
-names: ['window_shielding', 'multi_signs', 'non_traffic_signs']
+names: ['window_shielding', 'multi_signs', 'non_traffic_sign']
 ```
 
 然后，编辑模型的配置文件，此时需要先在项目根目录下的weights目录下执行其中的download_weights.sh这个shell脚本来下载四种模型的权重。然后，选择一个模型，编辑项目根目录下models目录中选择的模型的配置文件，将第一个参数nc改为自己的数据集类别数即可，例如我使用yolov5x模型，则修改yolov5x.yaml文件。**这里weights的下载可能因为网络而难以进行，我也将其上传到了百度网盘，[地址](链接：https://pan.baidu.com/s/1UQX6URxaJP0ZqALvWpDWkA)给出，提取码为vjlx。**
@@ -254,7 +254,22 @@ python train.py --img 640 --batch 8 --epoch 300 --data ./data/ads.yaml --cfg ./m
 ![](https://i.loli.net/2020/08/20/GrLI9OTtZD3fJFH.png)
 
 ### 模型测试
-最后，测试模型，使用下面的命令（该命令中`save-txt`选项用于生成结果的txt标注文件，不指定则只会生成结果图像）。其中，weights使用最满意的实验即可，source则提供一个包含所有测试图片的文件夹即可。
+接着，就是在有标注的测试集或者验证集上进行模型效果的评估，在目标检测中最常使用的指标为mAP。通过下面的命令进行模型测试，由于这是个比赛，测试集没有标注，这里使用验证集作为测试用数据，下述命令只需要指定数据集配置文件和训练结果模型即可。
+```shell
+python test.py  --data ./data/ads.yaml --weights ./runs/exp0/weights/best.pt --augment
+```
+不进行测试时数据增强和进行测试时数据增强（TTA）在验证集上的表现分别如下。
+```
+Class  Images  Targets   P       R      mAP@.5    mAP@.5:.95
+all    400      970    0.376    0.441     0.35       0.235
+```
+```
+Class  Images  Targets    P      R      mAP@.5    mAP@.5:.95
+all     400     970     0.272   0.532   0.366        0.24
+```
+
+### 模型推理
+最后，模型在没有标注的数据上进行推理，使用下面的命令（该命令中`save-txt`选项用于生成结果的txt标注文件，不指定则只会生成结果图像）。其中，weights使用最满意的实验即可，source则提供一个包含所有测试图片的文件夹即可。
 
 ```shell
  python detect.py --weights runs/exp0/weights/best.pt --source ./dataset/test/ --device 0 --save-txt
@@ -264,7 +279,7 @@ python train.py --img 640 --batch 8 --epoch 300 --data ./data/ads.yaml --cfg ./m
 
 ![](https://i.loli.net/2020/08/20/l86zj2dw9xHnTFO.png)
 
-我这里因为是一个比赛，再将这个txt处理为了json文件。**不论是这里的处理代码还是上面对`detec.py`修改的代码，都可以在文末给出的Github仓库找到。**
+我这里因为是一个比赛，再将这个txt处理为了json文件。**不论是这里的处理代码还是上面对`detect.py`修改的代码，都可以在文末给出的Github仓库找到。**
 
 ## 补充说明
 本文介绍了如何使用YOLOv5在自己的数据集上进行训练，按部就班地进行了讲解。该项目在YOLOv5地源码基础上修改完成，代码开源于我的Github，欢迎star或者fork。

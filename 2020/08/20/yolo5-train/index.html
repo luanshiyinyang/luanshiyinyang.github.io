@@ -597,7 +597,7 @@ file_train<span class="token punctuation">.</span>close<span class="token punctu
 file_val<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 file_test<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <p><img src="https://i.loli.net/2020/08/20/HY5yUEdALgmVthw.png"></p>
-<p>接下来，我们要做的就是每个xml标注提取bbox信息为txt格式，每个图像对应一个txt文件，文件每一行为一个目标的信息，包括<code>类别 xmin xmax ymin ymax</code>。使用的脚本<code>voc_label.py</code>内容如下（<strong>注意，类别要替换为当前数据集的类别列表</strong>），<strong>在数据集根目录（此时包含Annotations、anno_txt以及images三个文件夹的目录）下执行该脚本</strong>，如<code>python ../../utils/voc_label.py</code>。</p>
+<p>接下来，我们要做的就是每个xml标注提取bbox信息为txt格式（这个称为yolo_txt格式），每个图像对应一个txt文件，文件每一行为一个目标的信息，包括<code>类别 xmin xmax ymin ymax</code>。使用的脚本<code>voc_label.py</code>内容如下（<strong>注意，类别要替换为当前数据集的类别列表</strong>），<strong>在数据集根目录（此时包含Annotations、anno_txt以及images三个文件夹的目录）下执行该脚本</strong>，如<code>python ../../utils/voc_label.py</code>。</p>
 <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
 
 <span class="token keyword">import</span> xml<span class="token punctuation">.</span>etree<span class="token punctuation">.</span>ElementTree <span class="token keyword">as</span> ET

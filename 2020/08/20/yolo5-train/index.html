@@ -665,8 +665,8 @@ wd <span class="token operator">=</span> getcwd<span class="token punctuation">(
 <p><img src="https://i.loli.net/2020/08/20/NPwkyM3o4T2cn9m.png"></p>
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>下面需要两个配置文件用于模型的训练，一个用于数据集的配置，一个用于模型的配置。</p>
 <p>首先是数据集的配置，在根目录下的data目录下新建一个yaml文件，内容如下，首先是训练集和验证集的划分文件，这个文件在上面一节最后生成得到了，然后是目标的类别数目和具体类别列表，这个列表务必和上一节最后<code>voc_label.py</code>中的一致。</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">train</span><span class="token punctuation">:</span> dataset/train.txt
-<span class="token key atrule">val</span><span class="token punctuation">:</span> dataset/val.txt
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">train</span><span class="token punctuation">:</span> dataset/train/train.txt
+<span class="token key atrule">val</span><span class="token punctuation">:</span> dataset/train/val.txt
 
 <span class="token comment" spellcheck="true"># number of classes</span>
 <span class="token key atrule">nc</span><span class="token punctuation">:</span> <span class="token number">3</span>

@@ -154,7 +154,7 @@ file_test.close()
 
 ![](https://i.loli.net/2020/08/20/HY5yUEdALgmVthw.png)
 
-接下来，我们要做的就是每个xml标注提取bbox信息为txt格式，每个图像对应一个txt文件，文件每一行为一个目标的信息，包括`类别 xmin xmax ymin ymax`。使用的脚本`voc_label.py`内容如下（**注意，类别要替换为当前数据集的类别列表**），**在数据集根目录（此时包含Annotations、anno_txt以及images三个文件夹的目录）下执行该脚本**，如`python ../../utils/voc_label.py`。
+接下来，我们要做的就是每个xml标注提取bbox信息为txt格式（这个称为yolo_txt格式），每个图像对应一个txt文件，文件每一行为一个目标的信息，包括`类别 xmin xmax ymin ymax`。使用的脚本`voc_label.py`内容如下（**注意，类别要替换为当前数据集的类别列表**），**在数据集根目录（此时包含Annotations、anno_txt以及images三个文件夹的目录）下执行该脚本**，如`python ../../utils/voc_label.py`。
 
 ```python
 # -*- coding: utf-8 -*-
@@ -231,8 +231,8 @@ for image_set in sets:
 首先是数据集的配置，在根目录下的data目录下新建一个yaml文件，内容如下，首先是训练集和验证集的划分文件，这个文件在上面一节最后生成得到了，然后是目标的类别数目和具体类别列表，这个列表务必和上一节最后`voc_label.py`中的一致。
 
 ```yaml
-train: dataset/train.txt
-val: dataset/val.txt
+train: dataset/train/train.txt
+val: dataset/train/val.txt
  
 # number of classes
 nc: 3

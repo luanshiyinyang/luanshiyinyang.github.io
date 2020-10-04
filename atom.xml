@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-09-21T08:16:55.623Z</updated>
+  <updated>2020-10-04T02:56:32.699Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>BorderDet 论文解读</title>
+    <link href="https://zhouchen1998.cn/2020/10/04/borderdet/"/>
+    <id>https://zhouchen1998.cn/2020/10/04/borderdet/</id>
+    <published>2020-10-04T02:51:16.000Z</published>
+    <updated>2020-10-04T02:56:32.699Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;目前密集目标检测器很受欢迎，其速度很快且精度不低，不过这种这种基于点的特征虽然使用方便，但会缺少关键的边界信息。旷视于 ECCV2020</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="BorderDet" scheme="https://zhouchen1998.cn/tags/BorderDet/"/>
+    
+  </entry>
   
   <entry>
     <title>Matplotlib绘制动图</title>

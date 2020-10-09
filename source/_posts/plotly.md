@@ -23,7 +23,7 @@ Plotly 是一个非常强大的开源数据可视化框架，它通过构建基�
 
 `pip install plotly`
 
-Plotly Python 其对应的官网为https://plotly.com/python/，上面有一些教程和官方API接口的查询。
+Plotly Python 其对应的[官网](https://plotly.com/python/)，上面有一些教程和官方API接口的查询。
 
 ![](https://i.loli.net/2020/10/09/BHfGe7nIWZ49oVt.png)
 

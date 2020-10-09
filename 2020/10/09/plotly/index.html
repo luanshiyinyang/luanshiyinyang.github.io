@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BorderDet 论文解读, Chen&#39;s blog">
+    <meta name="keywords" content="Plotly基础教程, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BorderDet 论文解读 | Chen&#39;s blog</title>
+    <title>Plotly基础教程 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BorderDet 论文解读</h1>
+                    <h1 class="description center-align post-title">Plotly基础教程</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/BorderDet/">
-                                <span class="chip bg-color">BorderDet</span>
+                            <a href="/tags/Plotly%E6%95%99%E7%A8%8B/">
+                                <span class="chip bg-color">Plotly教程</span>
                             </a>
                         
                     </div>
@@ -443,8 +443,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
-                                论文解读
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-category">
+                                数据可视化
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-04
+                    2020-10-09
                 </div>
                 
 
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    1.4k
                 </div>
                 
 
@@ -482,40 +482,121 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>目前密集目标检测器很受欢迎，其速度很快且精度不低，不过这种这种基于点的特征虽然使用方便，但会缺少关键的边界信息。旷视于 ECCV2020 发表的这篇 BorderDet，其中的核心就是设计了 Border Align 操作来从边界极限点提取边界特征用于加强点的特征。以此为基础设计了 BorderDet 框架，该框架依据 FCOS 的 baseline 插入 Border Align 构成，其在多个数据集上涨点明显。Border Align 是适用于几乎所有基于点的密集目标检测算法的即插即用模块。</p>
-<ul>
-<li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2007.11056">https://arxiv.org/abs/2007.11056</a></p>
-</li>
-<li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Megvii-BaseDetection/BorderDet">https://github.com/Megvii-BaseDetection/BorderDet</a></p>
-</li>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Plotly 是一个非常强大的开源数据可视化框架，它通过构建基于 HTML 的交互式图表来显示信息，可创建各种形式的精美图表。本文所说的 Plotly 指的是 Plotly.js 的 Python 封装，<a target="_blank" rel="noopener" href="https://plotly.com/">plotly</a>本身是个生态非常复杂的绘图工具，它对很多编程语言提供接口。交互式和美观易用应该是 Plotly 最大的优势，而 Matplotlib 的特点则是可定制化程度高，但语法也相对难学，各有优缺点。</p>
+<h2 id="安装及开发工具"><a href="#安装及开发工具" class="headerlink" title="安装及开发工具"></a>安装及开发工具</h2><p>安装通过 PIP 进行即可。</p>
+<p><code>pip install plotly</code></p>
+<p>Plotly Python 其对应的官网为<a target="_blank" rel="noopener" href="https://plotly.com/python/%EF%BC%8C%E4%B8%8A%E9%9D%A2%E6%9C%89%E4%B8%80%E4%BA%9B%E6%95%99%E7%A8%8B%E5%92%8C%E5%AE%98%E6%96%B9API%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9F%A5%E8%AF%A2%E3%80%82">https://plotly.com/python/，上面有一些教程和官方API接口的查询。</a></p>
+<p><img src="https://i.loli.net/2020/10/09/BHfGe7nIWZ49oVt.png"></p>
+<p><strong>上面说了 Plotly 是基于 HTML 显示的，所以这里推荐使用 Jupyter lab（Jupyter notebook 也行）作为开发工具，Jupyter lab 的安装本文不多提及，可以自行查找。尤其注意的是，Plotly 主要维护 Jupyter notebook，所以对 Jupyter lab 支持不是很好，绘图无法显示，最新版 Plotly 需要通过命令<code>conda install nodejs</code>和<code>jupyter labextension install jupyterlab-plotly@4.11.0</code>安装支持插件。</strong></p>
+<h2 id="Plotly-生态"><a href="#Plotly-生态" class="headerlink" title="Plotly 生态"></a>Plotly 生态</h2><ul>
+<li>Plotly 是绘图基础库，它可以深度定制调整绘图，但是 API 复杂学习成本较高。</li>
+<li>Plotly_exprress 则是对 Plotly 的高级封装，上手容易，它对 Plotly 的常用绘图函数进行了封装。缺点是没有 plotly 那样自由度高，个人感觉类似 Seaborn 和 Matplotlib 的关系。<strong>本文不以express为主。</strong></li>
+<li>Dash 用于创建交互式绘图工具，可以方便地用它来探索数据，其绘图基于 Plotly。使用 Dash 需要注册并购买套餐，也就是常说的“在线模式”，一般，我们在 Jupyter 内本地绘图就够用了，这是“离线模式”。</li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>目前大多数 point-based 的目标检测算法（如 SSD、RetinaNet、FCOS 等方法）都使用特征图上的 single-point 进行目标的回归和分类，但是，single-point 特征没有足够的信息表示一个目标实例，主要是因为缺乏边界信息。此前有很多方法来补充 single-point 的表示能力，但是这些方法往往带来较大计算量的同时并没有引入太多有用的信息，反而带来一些无用的背景信息。这篇文章设计了新的特征提取操作 BorderAlign 来直接利用边界特征优化 single-point 特征，以 BorderAlign 为拓展配合作为 baseline 的 FCOS，提出新的检测框架 BorderDet，实现 SOTA。</p>
-<p>本文的贡献文中列了不少，但在我看来，只有一个核心：<strong>分析密集目标检测器的特征表示，发现边界信息对 single-point 特征的重要性，并设计了一个高效的边界特征提取器 BorderAlign。</strong> 其他的贡献都是顺理成章的附属产物。</p>
-<h2 id="BorderAlign"><a href="#BorderAlign" class="headerlink" title="BorderAlign"></a>BorderAlign</h2><p><img src="https://i.loli.net/2020/10/04/BAv3C6PYKR17f4c.png"></p>
-<p>BorderAlign 的提出是基于大量的实验对比的，我这边就按照作者的思路来进行阐述。首先，采用如上图不同的特征增强方式在 FCOS 的基础上评估效果，结果如下表，根据效果最好的二四两行，发现，只使用边界上中心点做增强效果媲美 region-based 的方法。因此，得出结论，<strong>point-based 方法做目标检测确实缺乏完整的目标特征，但从完整的边界框中密集提取特征是没必要且冗余的，高效的边界特征提取策略可以获得更好的特征增强效果。</strong></p>
-<p><img src="https://i.loli.net/2020/10/04/cLVCn1SkRBZXlTK.png"></p>
-<p>针对上述结论，一种高效显式自适应提取边界特征的方法，BorderAlign 被提出。如下图所示，一个$5C$的 border-sensitive 特征图作为输入，其中$4C$维度对应边界框的四条边，另外$C$维度对应原始 anchor 点的特征。对于一个 anchor 点预测的边界框，对其四个边界在特征图上的特征做池化操作，由于框的位置是小数，所以采用双线性插值取边界特征。</p>
-<p>这里具体的实现如下：假设输入的 5 个通道表示(single point, left border, top border, right border, bottom border)，那么对 anchor 点$(i, j)$对应的 bbox 各边均匀采样$N$个点，$N$默认是 5，如下图所示。采样点的值采用上面所说的双线性插值，然后通过逐通道最大池化得到输出，每个边只会输出值最大的采样点，那么每个 anchor 点最后采用 5 个点的特征作为输出，所以输出也是$5C$维度的。</p>
-<p><img src="https://i.loli.net/2020/10/04/GvkmthPsnaNMyWg.png"></p>
-<p>输出特征图相对输入特征图，各通道计算式如下，$(x_0, y_0, x_!, y_1)$为 anchor 点预测的 bbox。</p>
-<p><img src="https://i.loli.net/2020/10/04/UqBdCvYag6FJi7R.png"></p>
-<p>显然，BorderAlign 是一种自适应的通过边界极限点得到边界特征的方法。文章中对其进行了一些可视化工作，下图所示的边上的小圆圈是边界极限点，大圆圈是不同 channel 上预测的边界极限点。</p>
-<p><img src="https://i.loli.net/2020/10/04/JwlLQHDmBPtZvsE.png"></p>
-<h2 id="BAM-Border-Alignment-Module"><a href="#BAM-Border-Alignment-Module" class="headerlink" title="BAM(Border Alignment Module)"></a>BAM(Border Alignment Module)</h2><p><img src="https://i.loli.net/2020/10/04/d1p4NU2JvhKrEVZ.png"></p>
-<p>该模块用于修正粗糙的 detection 结果，因而必须保证输入输出是同维张量，而其中的 BorderAlign 需求的是 5 个通道，所以必然要经历<strong>降维、特征增强、升维</strong>的过程，为了验证 border feature 的效果，BAM 采用 1x1 卷积实现维度变换。</p>
-<h2 id="BorderDet"><a href="#BorderDet" class="headerlink" title="BorderDet"></a>BorderDet</h2><p><img src="https://i.loli.net/2020/10/04/8QERAPL2jxT3zYm.png"></p>
-<p>上图的框架采用 FCOS 作为 baseline，上面是分类分支，下面是回归分支，coarse cls score 和 coarse box reg 表示 FCOS 的输出。在四个卷积层后引出一个分支做 BorderAlign 操作，也就是进入 BAM 模块，该模块需要 bbox 位置信息，所以看到 coarse box reg 送入两个 BAM 中。最终这两个 BAM 预测得到 border cls score 和 border box reg，和检测器原始输出组合变为最终输出。</p>
-<p>最后补充一点，BorderDet 在推理时对两种分类结果进行直接的相乘输出，而对于 bbox 定位则使用 border 定位预测对初步定位的 bbox 进行原论文中公式(2)的反向转换，对所有的结果进行 NMS 输出（IOU 阈值设置为 0.6）。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>论文进行了非常丰富的消融实验以对比 BorderAlign 的效果。</p>
-<h3 id="各分支效果"><a href="#各分支效果" class="headerlink" title="各分支效果"></a>各分支效果</h3><p>对比两个 BAM 模块有无的实际效果，发现两个分支效果提升差不多，都是 1.1 左右。<br><img src="https://i.loli.net/2020/10/04/bGoiQs1RwuaUyFS.png"></p>
-<h3 id="相比其他特征增强效果"><a href="#相比其他特征增强效果" class="headerlink" title="相比其他特征增强效果"></a>相比其他特征增强效果</h3><p>和其他经典的特征增强手段相比，BorderAlign 在速度（使用 CUDA 实现了 BorderAlign）和精度上都有突破。<br><img src="https://i.loli.net/2020/10/04/PKk3SOw6Np2IoM8.png"></p>
-<h3 id="集成到检测器涨点效果"><a href="#集成到检测器涨点效果" class="headerlink" title="集成到检测器涨点效果"></a>集成到检测器涨点效果</h3><p>有比较明显的改进。<br><img src="https://i.loli.net/2020/10/04/tZvEcdHCjyYMqBw.png"></p>
-<h3 id="和主流检测器对比"><a href="#和主流检测器对比" class="headerlink" title="和主流检测器对比"></a>和主流检测器对比</h3><p>可以看到，即使不使用多尺度策略，BorderDet 和当前 SOTA 相比效果也是不遑多让的。<br><img src="https://i.loli.net/2020/10/04/DmlrKSEqVpw4nhI.png"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>边界信息对于 OD 问题十分重要，BorderDet 的核心思想 BorderAlign 高效地将边界特征融入到目标预测中，而且能够 PnP 融入到各种 point-based 目标检测算法中以带来较大的性能提升。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Qiu H, Ma Y, Li Z, et al. BorderDet: Border Feature for Dense Object Detection[J]. arXiv preprint arXiv:2007.11056, 2020.</p>
-<p>[2]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/163044323">https://zhuanlan.zhihu.com/p/163044323</a></p>
+<h2 id="绘图教程"><a href="#绘图教程" class="headerlink" title="绘图教程"></a>绘图教程</h2><p>下面涉及到的内容均可以在<a target="_blank" rel="noopener" href="https://plotly.com/python/">官方文档</a>找到参考，下面的内容也只涉及基础的图形绘制（使用Plotly实现），一些比较基础的图形库知识查看<a target="_blank" rel="noopener" href="https://plotly.com/python/plotly-fundamentals/">对应教程</a>。</p>
+<h3 id="基本图表"><a href="#基本图表" class="headerlink" title="基本图表"></a>基本图表</h3><p>在 Plotly 中，预定义了如下的一些基本图表，包括散点图、折线图、柱状图、饼图等，它们的使用方式都是类似的，通过向Figure上添加绘图对象进行绘图，而向绘图对象传递的就是其需要的格式的数据。</p>
+<p><img src="https://i.loli.net/2020/10/09/HDkcCSLxO1Q83eo.png"></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+N <span class="token operator">=</span> <span class="token number">1000</span>
+t <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>t<span class="token punctuation">)</span>
+
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>t<span class="token punctuation">,</span> y<span class="token operator">=</span>y<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>下面的代码就是简单散点图的绘制，其在Jupyter中的执行结果如下图，不妨来仔细看看这张图，<strong>在绘制的图形右上角有一行菜单栏且这个图形是可交互的</strong>（包括缩放、旋转、裁剪等），右上角的菜单包括图像下载、缩放、裁剪、在dash中编辑等。</p>
+<p><img src="https://i.loli.net/2020/10/09/VrR52bqpQA4yzea.png"></p>
+<p>也可以通过<code>add_trace</code>来逐个添加绘图对象</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+
+<span class="token comment" spellcheck="true"># Create random data with numpy</span>
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+N <span class="token operator">=</span> <span class="token number">100</span>
+random_x <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span>
+random_y0 <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span>N<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">5</span>
+random_y1 <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span>N<span class="token punctuation">)</span>
+random_y2 <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span>N<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">5</span>
+
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># Add traces</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y0<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y1<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y2<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="https://i.loli.net/2020/10/09/2n6AJes5rNKqtiH.png"></p>
+<p>其他基本图表类似，传入指定格式的数据即可。</p>
+<h3 id="统计图表"><a href="#统计图表" class="headerlink" title="统计图表"></a>统计图表</h3><p>很多统计学图表也预先定义在了Plotly中，主要包括下图所示的箱型图、直方图、热力图、等高线图等。</p>
+<p><img src="https://i.loli.net/2020/10/09/GpthdgN5PvaOEyz.png"></p>
+<p>和上面的基本图表类似，绘图方式是固定的，只是绘图对象改变了而已。下面的代码就是直方图绘制</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Bar<span class="token punctuation">(</span>
+    name<span class="token operator">=</span><span class="token string">'Control'</span><span class="token punctuation">,</span>
+    x<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Trial 1'</span><span class="token punctuation">,</span> <span class="token string">'Trial 2'</span><span class="token punctuation">,</span> <span class="token string">'Trial 3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    error_y<span class="token operator">=</span>dict<span class="token punctuation">(</span>type<span class="token operator">=</span><span class="token string">'data'</span><span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1.5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Bar<span class="token punctuation">(</span>
+    name<span class="token operator">=</span><span class="token string">'Experimental'</span><span class="token punctuation">,</span>
+    x<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Trial 1'</span><span class="token punctuation">,</span> <span class="token string">'Trial 2'</span><span class="token punctuation">,</span> <span class="token string">'Trial 3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    error_y<span class="token operator">=</span>dict<span class="token punctuation">(</span>type<span class="token operator">=</span><span class="token string">'data'</span><span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>update_layout<span class="token punctuation">(</span>barmode<span class="token operator">=</span><span class="token string">'group'</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="https://i.loli.net/2020/10/09/rwXYOZnCmokGjaI.png"></p>
+<h3 id="AI图表"><a href="#AI图表" class="headerlink" title="AI图表"></a>AI图表</h3><p>同时，Plotly也支持绘制一些简单的机器学习图表，不过都是依靠上面的基本图表实现的，如下述的线性回归。</p>
+<p><img src="https://i.loli.net/2020/10/09/UIqydzwFvbRK5Q4.png"></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> plotly<span class="token punctuation">.</span>express <span class="token keyword">as</span> px
+<span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>linear_model <span class="token keyword">import</span> LinearRegression
+
+df <span class="token operator">=</span> px<span class="token punctuation">.</span>data<span class="token punctuation">.</span>tips<span class="token punctuation">(</span><span class="token punctuation">)</span>
+X <span class="token operator">=</span> df<span class="token punctuation">.</span>total_bill<span class="token punctuation">.</span>values<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+model <span class="token operator">=</span> LinearRegression<span class="token punctuation">(</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X<span class="token punctuation">,</span> df<span class="token punctuation">.</span>tip<span class="token punctuation">)</span>
+
+x_range <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span>X<span class="token punctuation">.</span>min<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> X<span class="token punctuation">.</span>max<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+y_range <span class="token operator">=</span> model<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_range<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+fig <span class="token operator">=</span> px<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>df<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token string">'tip'</span><span class="token punctuation">,</span> opacity<span class="token operator">=</span><span class="token number">0.65</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_traces<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>x_range<span class="token punctuation">,</span> y<span class="token operator">=</span>y_range<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'Regression Fit'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="https://i.loli.net/2020/10/09/Q12kFUBOcmKgqX5.png"></p>
+<h3 id="科学绘图"><a href="#科学绘图" class="headerlink" title="科学绘图"></a>科学绘图</h3><p>下面的这些数据科学领域用的挺多的图也做了封装，例如下面的代码就是绘制heatmap的样例。</p>
+<p><img src="https://i.loli.net/2020/10/09/2tSgERp8NkrxJDi.png"></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span>go<span class="token punctuation">.</span>Heatmap<span class="token punctuation">(</span>
+                   z<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> None<span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   x<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Monday'</span><span class="token punctuation">,</span> <span class="token string">'Tuesday'</span><span class="token punctuation">,</span> <span class="token string">'Wednesday'</span><span class="token punctuation">,</span> <span class="token string">'Thursday'</span><span class="token punctuation">,</span> <span class="token string">'Friday'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Morning'</span><span class="token punctuation">,</span> <span class="token string">'Afternoon'</span><span class="token punctuation">,</span> <span class="token string">'Evening'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   hoverongaps <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="https://i.loli.net/2020/10/09/ElyNPz96JOrmnuF.png"></p>
+<h3 id="三维绘图"><a href="#三维绘图" class="headerlink" title="三维绘图"></a>三维绘图</h3><p>Plotly的三维绘图真的很好看，而且其是可交互的，非常方便，例如下面的3D曲面图。</p>
+<p><img src="https://i.loli.net/2020/10/09/aP16hAGqZrT4C8p.png"></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+<span class="token comment" spellcheck="true"># Read data from a csv</span>
+z_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">'https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv'</span><span class="token punctuation">)</span>
+
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span>go<span class="token punctuation">.</span>Surface<span class="token punctuation">(</span>z<span class="token operator">=</span>z_data<span class="token punctuation">.</span>values<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+fig<span class="token punctuation">.</span>update_layout<span class="token punctuation">(</span>title<span class="token operator">=</span><span class="token string">'test'</span><span class="token punctuation">,</span> autosize<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+                  width<span class="token operator">=</span><span class="token number">500</span><span class="token punctuation">,</span> height<span class="token operator">=</span><span class="token number">500</span><span class="token punctuation">,</span>
+                  margin<span class="token operator">=</span>dict<span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> r<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> b<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="https://i.loli.net/2020/10/09/DT2Oz5plMsvkCFJ.png"></p>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文简单介绍了Plotly的基本绘图方式，其实只要了解了Plotly的生态，使用它并不难，更多的子图、标注等技巧本文没有涉及，还是建议到<a target="_blank" rel="noopener" href="https://plotly.com/python/">官网教程</a>查看，非常易读。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -562,8 +643,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/BorderDet/">
-                                    <span class="chip bg-color">BorderDet</span>
+                                <a href="/tags/Plotly%E6%95%99%E7%A8%8B/">
+                                    <span class="chip bg-color">Plotly教程</span>
                                 </a>
                             
                         </div>
@@ -734,7 +815,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-10-04T10-51-16',
+        id: '2020-10-09T11-56-33',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -758,9 +839,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/10/09/plotly/">
                     <div class="card-image">
@@ -778,9 +860,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -793,6 +875,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -811,31 +894,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/21/dynamic-picture/">
+                <a href="/2020/10/04/borderdet/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="Matplotlib绘制动图">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/22.jpg" class="responsive-img" alt="BorderDet 论文解读">
                         
-                        <span class="card-title">Matplotlib绘制动图</span>
+                        <span class="card-title">BorderDet 论文解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介Matplotlib是非常著名的Python绘图库，支持非常复杂的底层定制化操作。本文通过Matplotlib中的动画绘制工具来讲解如何绘制动态图，首先讲解通过交互模式如何显示动态图，继而讲解通过两个动画类来实现动图地保存（GIF格式）
+                            简介目前密集目标检测器很受欢迎，其速度很快且精度不低，不过这种这种基于点的特征虽然使用方便，但会缺少关键的边界信息。旷视于 ECCV2020 发表的这篇 BorderDet，其中的核心就是设计了 Border Align 操作来从边界极限点
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-category">
-                                    数据可视化
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                    论文解读
                                 </a>
                             
                             
@@ -845,8 +928,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Matplotlib%E5%8A%A8%E6%80%81%E5%9B%BE/">
-                        <span class="chip bg-color">Matplotlib动态图</span>
+                    <a href="/tags/BorderDet/">
+                        <span class="chip bg-color">BorderDet</span>
                     </a>
                     
                 </div>

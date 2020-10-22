@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-10-17T05:01:13.184Z</updated>
+  <updated>2020-10-09T04:03:11.326Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,32 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Pycharm远程开发教程</title>
-    <link href="https://zhouchen1998.cn/2020/10/17/pycharm-remote/"/>
-    <id>https://zhouchen1998.cn/2020/10/17/pycharm-remote/</id>
-    <published>2020-10-17T04:55:51.000Z</published>
-    <updated>2020-10-17T05:01:13.184Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;最近项目中使用到了Pycharm的远程开发，记录一下具体的使用方式，本文涉及到的操作均为Pycharm专业版（环境为Win10和Ubuntu16），社区版功能是否这么丰富我不确定，使用学生邮箱(&lt;code&gt;.edu&lt;/code&gt;后缀)注册Jetbr</summary>
-        
-      
-    
-    
-    
-    <category term="环境配置" scheme="https://zhouchen1998.cn/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    
-    
-    <category term="pycharm教程" scheme="https://zhouchen1998.cn/tags/pycharm%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
   
   <entry>
     <title>Plotly基础教程</title>

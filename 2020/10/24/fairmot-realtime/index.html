@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="DLA 论文解读, Chen&#39;s blog">
+    <meta name="keywords" content="FairMOT实时多目标跟踪系统, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>DLA 论文解读 | Chen&#39;s blog</title>
+    <title>FairMOT实时多目标跟踪系统 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">DLA 论文解读</h1>
+                    <h1 class="description center-align post-title">FairMOT实时多目标跟踪系统</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DLA%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">DLA论文解读</span>
+                            <a href="/tags/FairMOT%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/">
+                                <span class="chip bg-color">FairMOT摄像头实时多目标跟踪</span>
                             </a>
                         
                     </div>
@@ -443,8 +443,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
-                                论文解读
+                            <a href="/categories/%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/" class="post-category">
+                                多目标跟踪
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-22
+                    2020-10-24
                 </div>
                 
 
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    1.6k
                 </div>
                 
 
@@ -482,54 +482,117 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>沿着卷积神经网络在计算机视觉的发展史，可以发现，丰富的表示（representations）是视觉任务最需要的。随着网络的深度增加，单独一层的信息是远远不够的，只有聚合各层信息才能提高网络对 what（识别）和 where（定位）两个问题的推断能力。现有的很多网络设计工作主要致力于设计更深更宽的网络，但是如何更好地组合不同网络层（layer）、不同结构块（block）其实值得更多的关注。尽管跳跃连接（skip connecions）常用来组合多层，不过这样的连接依然是浅层的（因为其只采用了简单的单步运算）。该论文通过更深层的聚合来增强标准网络的能力。DLA 结构能够迭代式层级组合多层特征以提高精度的同时减参。实验证明，DLA 相比现有的分支和合并结构，效果更好。</p>
-<ul>
-<li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1707.06484">https://arxiv.org/abs/1707.06484</a></p>
-</li>
-<li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ucbdrive/dla">https://github.com/ucbdrive/dla</a></p>
-</li>
-</ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>表示学习和迁移学习的发展推动了计算机视觉的发展，可以简单组合的特性催生了很多深度网络。为了满足各种不同的任务，寻找合适的网络结构至关重要。随着网络尺寸的增加，模块化的设计更为重要，所以现在的网络越来越深的同时，更紧密的连接能否带来提升呢？</p>
-<p>更多的非线性、更强的表示能力、更大的感受野一般能够提高网络精度，但是会带来难以优化和计算量大的问题。为了克服这些缺陷，不同的block和modul被集成到一起来平衡和优化这些特点，如使用bottlenecks进行降维、使用residual、gated和concatnative连接特征以及梯度传播算法。这些技术使得网络可以到达100甚至1000层。</p>
-<p>然而，如何连接这些layer和module还需要更多的探索。简单地通过序列化堆叠层来构造网络，如LeNet、AlexNet以及ResNet。经过复杂的分析，更深的网络层能提取到更多语义和全局的特征，但是这并不能表明最后一层就是任务需要的表示。实际上“跳跃连接”已经证明了对于分类、回归以及其他结构化问题的有效性。因此，如何聚合，尤其是深度与宽度上的聚合，对于网络结构的优化是一个非常重要的技术。</p>
-<p><img src="https://i.loli.net/2020/10/22/ELq8voPCiXpZRWk.png"></p>
-<p>论文研究了如何聚合各层特征来融合语义和空间信息以进行识别与定位任务。通过扩展现有的“浅跳跃连接”（单层内部进行连接），论文提出的聚合结构实现了更深的信息共享。文中主要引入两种DLA结构：iterative deep aggregation (IDA，迭代式深度聚合)和hierarchal deep aggregation (HDA，层级深度聚合)。为了更好的兼容现有以及以后的网络结构，IDA和HDA结构通过独立于backbone的结构化框架实现。IDA主要进行跨分辨率和尺度的融合，而HDA主要用于融合各个module和channel的特征。<strong>从上图也可以看出来，DLA集成了密集连接和特征金字塔的优势，IDA根据基础网络结构，逐级提炼分辨率和聚合尺度（语义信息的融合（发生在通道和深度上），类似残差模块），HDA通过自身的树状连接结构，将各个层级聚合为不同等级的表征（空间信息的融合（发生在分辨率和尺度上），类似于FPN）。本文的策略可以通过混合使用IDA与HDA来共同提升效果。</strong> </p>
-<p>DLA通过实验在现有的ResNet和ResNeXt网络结构上采用DLA架构进行拓展，来进行图像分类、细粒度的图像识别、语义分割和边界检测任务。实验表明，DLA的可以在现有的ResNet、ResNeXt、DenseNet等网络结构的基础上提升模型的性能、减少参数数量以及减少显存消耗。DLA达到了目前分类任务中compact models的最佳精度，在分割等任务也达到超越SOTA。DLA是一种通用而有效的深度网络拓展技术。</p>
-<h2 id="DLA"><a href="#DLA" class="headerlink" title="DLA"></a>DLA</h2><p>文中将“聚合”定义为跨越整个网络的多层组合，文中研究的也是那些深度、分辨率、尺度上能有效聚合的一系列网络。由于网络可以包含许多层和连接，模块化的设计可以通过分组和重复来克服复杂度问题。多个layer组合为一个block，多个block再根据分辨率组合为一个stage，DLA则主要探讨block和stage的组合（stage间网络保持一致分辨率，那么空间融合发生在stage间，语义融合发生在stage内）。</p>
-<p><img src="https://i.loli.net/2020/10/22/6cypY4rg9Hkt12h.png"></p>
-<h3 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h3><p>IDA沿着迭代堆叠的backbone进行，依据分辨率对整个网络分stage，越深的stage含有更多的语义信息但空间信息很少。“跳跃连接”由浅至深融合了不同尺度以及分辨率信息，但是这样的“跳跃连接”都是线性且都融合了最浅层的信息，如上图b中，每个stage都只融合上一步的信息。</p>
-<p>因此，论文提出了IDA结构，从最浅最小的尺度开始，迭代式地融合更深更大尺度地信息，这样可以使得浅层网络信息在后续stage中获得更多地处理从而得到精炼，上图c就是IDA基本结构。</p>
-<p>IDA对应的聚合函数$I$对不同层的特征，随着加深的语义信息表示如下（N表示聚合结点，后文会提到）：</p>
-<p>$$<br>I\left(\mathbf{x}<em>{1}, \ldots, \mathbf{x}</em>{n}\right)=\left{\begin{array}{ll}<br>\mathbf{x}<em>{1} &amp; \text { if } n=1 \<br>I\left(N\left(\mathbf{x}</em>{1}, \mathbf{x}<em>{2}\right), \ldots, \mathbf{x}</em>{n}\right) &amp; \text { otherwise }<br>\end{array}\right.<br>$$</p>
-<h3 id="HDA"><a href="#HDA" class="headerlink" title="HDA"></a>HDA</h3><p>HDA以树的形式合并block和stage来保持和组合特征通道，通过HDA，浅层和深层的网络层可以组合到一起，这样的组合信息可以跨越各个层级从而学得更加丰富。尽管IDA可以高效组合stage，但它依然是序列性的，不足以用来融合网络各个block信息。上图d就是HDA的深度分支结构，这是一个明显的树形结构。</p>
-<p>在基础的HDA结构上，可以改进其深度和效率，将一个聚合结点的输出重置为主干网络用于下一棵子树的输入。结构如上图e所示，这样，之前所有block的信息都被送入后续处理中。同时，为了效率，作者将同一深度的聚合结点（指的是父亲和左孩子，也就是相同特征图尺寸的）合并，如上图f。</p>
-<p>HDA的聚合函数$T_n$计算如下，$n$表示深度，$N$依然是聚合结点。</p>
-<p>$$<br>\begin{array}{r}<br>T_{n}(\mathbf{x})=N\left(R_{n-1}^{n}(\mathbf{x}), R_{n-2}^{n}(\mathbf{x}), \ldots,\right.<br>\left.R_{1}^{n}(\mathbf{x}), L_{1}^{n}(\mathbf{x}), L_{2}^{n}(\mathbf{x})\right),<br>\end{array}<br>$$</p>
-<p>上面式子的$R$和$L$定义如下，表示左树和右树，下式$B$表示卷积块。</p>
-<p>$$<br>\begin{aligned}<br>L_{2}^{n}(\mathbf{x}) &amp;=B\left(L_{1}^{n}(\mathbf{x})\right), \quad L_{1}^{n}(\mathbf{x})=B\left(R_{1}^{n}(\mathbf{x})\right) \<br>R_{m}^{n}(\mathbf{x}) &amp;=\left{\begin{array}{ll}<br>T_{m}(\mathbf{x}) &amp; \text { if } m=n-1 \<br>T_{m}\left(R_{m+1}^{n}(\mathbf{x})\right) &amp; \text { otherwise }<br>\end{array}\right.<br>\end{aligned}<br>$$</p>
-<h3 id="结构元素"><a href="#结构元素" class="headerlink" title="结构元素"></a>结构元素</h3><p><strong>聚合结点（Aggregation Nodes ）</strong></p>
-<p>其主要功能是组合压缩输入，它通过学习如何选择和投射重要的信息，以在它们的输出中保持与单个输入相同的维度。论文中，IDA都是二分的（两个输入），HDA则根据树结构深度不同有不定量的参数。</p>
-<p>虽然聚合结点可以采用任意结构，不过为了简单起见，文中采用了conv-BN-激活函数的组合。图像分类中所有聚合结点采用1x1卷积，分割任务中，额外一个IDA用来特征插值，此时采用3x3卷积。</p>
-<p>由于残差连接的有效性，本文聚合结点也采用了残差连接，这能保证梯度不会消失和爆炸。基础聚合函数定义如下，其中$\sigma$是非线性激活函数，$w$和$b$是卷积核参数。</p>
-<p>$$<br>N\left(\mathbf{x}<em>{1}, \ldots, \mathbf{x}</em>{n}\right)=\sigma\left(\text { BatchNorm }\left(\sum_{i} W_{i} \mathbf{x}_{i}+\mathbf{b}\right)\right)<br>$$</p>
-<p>包含残差连接的聚合函数变为下式。</p>
-<p>$$<br>N\left(\mathbf{x}<em>{1}, \ldots, \mathbf{x}</em>{n}\right)=\sigma\left(\text { Batch } \operatorname{Norm}\left(\sum_{i} W_{i} \mathbf{x}<em>{i}+\mathbf{b}\right)+\mathbf{x}</em>{n}\right)<br>$$</p>
-<p><strong>块和层（Blocks and Stages）</strong></p>
-<p>DLA是一系列适用于各种backbone的结构，它对block和stage内部结构没有要求。论文主要实验了三种残差块，分别如下。</p>
-<ul>
-<li>Basic blocks：将堆叠的卷积层通过一个跳跃连接连接起来；</li>
-<li>Bottleneck blocks：通过1x1卷积对堆叠的卷积层进行降维来进行正则化；</li>
-<li>Split blocks：将不同的通道分组到不同的路径（称为cardinality split）来对特征图进行分散。</li>
-</ul>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者设计了分类网络和密集预测网络，前者基于ResNet等修改设计了如下的DLA网络，下表是设计的一系列网络的配置。</p>
-<p><img src="https://i.loli.net/2020/10/22/kJOICgQwhpxYnKD.png"></p>
-<p><img src="https://i.loli.net/2020/10/22/xNY5ERprfaWTnMm.png"></p>
-<p>DLA网络在Imagenet上对比其他的紧凑网络，结果如下，从精度和参数量来看，性能都是卓越的。</p>
-<p><img src="https://i.loli.net/2020/10/22/U4E2mg5ZM8GITuy.png"></p>
-<p>作者还在检测等任务上也做了实验，这里我就不分析了，感兴趣的可以去阅读原论文。</p>
-<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>在很多人还在致力于研究如何设计更深更宽的网络的时候，DLA 想到的问题是如何更好地聚合一个网络中不同层和块的信息，并开创性地提出了 IDA 和 HDA 两种聚合思路。在多类任务上效果都有明显改善，包括分类、分割、细粒度分类等。而且，相比于普通 backbone，DLA 结构的网络参数量更少（并不意味着运算速度快，因为这种跳跃连接结构是很耗内存的），在原始网络上进行 DLA 改进往往能获得更为不错的效果。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FairMOT是今年很火的一个多目标跟踪算法，前不久也开放了最新版本的论文，并于最近重构了开源代码，我也在实际工程视频上进行了测试，效果是很不错的。不过，官方源码没有提高实时摄像头跟踪的编程接口，我在源码的基础上进行了修改，增加了实时跟踪模块。本文介绍如何进行环境配置和脚本修改，实现摄像头跟踪（<strong>本文均采用Ubuntu16.04进行环境配置，使用Windows在安装DCN等包的时候会有很多问题，不建议使用</strong>）。</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><blockquote>
+<p>下述环境配置需要保证用户已经安装了git和conda，否则配置pytorch和cuda会诸多不便。</p>
+</blockquote>
+<p>首先，通过下面的git命令从Github克隆源码到本地并进入该项目。访问<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1H1Zp8wrTKDk20_DSPAeEkg">链接</a>（提取码uouv）下载训练好的模型，在项目根目录下新建<code>models</code>目录（和已有的<code>assets</code>、<code>src</code>等目录同级），将刚刚下载好的模型文件<code>fairmot_dla34.pth</code>放到这个<code>models</code>目录下。</p>
+<pre class=" language-shell"><code class="language-shell">git clone git@github.com:ifzhang/FairMOT.git
+cd FairMOT</code></pre>
+<p>下面，通过conda创建适用于该项目的虚拟环境（环境隔离），国内用户速度慢可以参考<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/86086919">我conda的文章</a>配置国内源。创建之后通过<code>activate</code>激活环境（该命令出错将<code>conda</code>换为<code>source</code>）。然后在当前虚拟环境下（<strong>后续关于该项目的操作都需要在该虚拟环境下</strong>）安装pytorch和cuda（这里也建议配置国内源后安装<code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch</code>）。最后，通过pip命令安装所需d的Python包（国内建议<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/106420275">配置清华源</a>），注意先安装cython。</p>
+<pre class=" language-shell"><code class="language-shell">conda create -n fairmot python=3.6
+conda activate fairmot
+conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0
+pip install cython
+pip install -r requirements.txt
+pip install -U opencv-python==4.1.1.26</code></pre>
+<p>同时，用于项目使用了DCNv2所以需要安装该包，该包只能通过源码安装，依次执行下述命令即可（安装过程报warning是正常情况，不报error就行）。</p>
+<pre class=" language-shell"><code class="language-shell">git clone https://github.com/CharlesShang/DCNv2
+cd DCNv2
+./make.sh
+cd ../</code></pre>
+<p>至此，所有的环境配置已经完成，由于这里还需要使用到ffmpeg来生成视频文件，所以系统需要安装ffmpeg（Ubuntu采用apt安装即可），教程很多，不多赘述。</p>
+<p>想要试试项目是否正常工作，可以使用下面的命令在demo视频上进行跟踪测试（初次允许需要下载dla34模型，这个模型国内下载速度还可以，我就直接通过允许代码下载的）。</p>
+<pre class=" language-shell"><code class="language-shell">cd src
+python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/fairmot_dla34.pth --conf_thres 0.4</code></pre>
+<p>默认文件输出在项目根目录的<code>demos</code>文件夹下，包括每一帧的检测结果以及组合成的视频。</p>
+<p><img src="https://i.loli.net/2020/10/24/bxVoM7ZyjTBmhLI.png"></p>
+<p><img src="https://i.loli.net/2020/10/24/NF7idqKkQ8CyfG9.png"></p>
+<h2 id="实时跟踪"><a href="#实时跟踪" class="headerlink" title="实时跟踪"></a>实时跟踪</h2><p>实时跟踪主要在两个方面进行修改，一是数据加载器，二是跟踪器。首先，我们在<code>src</code>目录下新建一个类似于<code>demo.py</code>的脚本文件名为<code>camera.py</code>，写入和<code>demo.py</code>类似的内容，不过，我们把视频路径换位摄像机编号（这是考虑到JDE采用opencv进行视频读取，而opencv视频读取和摄像机视频流读取是一个接口）。具体<code>camera.py</code>内容如下。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> os
+
+<span class="token keyword">import</span> _init_paths
+<span class="token keyword">from</span> opts <span class="token keyword">import</span> opts
+<span class="token keyword">from</span> tracking_utils<span class="token punctuation">.</span>utils <span class="token keyword">import</span> mkdir_if_missing
+<span class="token keyword">import</span> datasets<span class="token punctuation">.</span>dataset<span class="token punctuation">.</span>jde <span class="token keyword">as</span> datasets
+<span class="token keyword">from</span> track <span class="token keyword">import</span> eval_seq
+
+
+<span class="token keyword">def</span> <span class="token function">recogniton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result_root <span class="token operator">=</span> opt<span class="token punctuation">.</span>output_root <span class="token keyword">if</span> opt<span class="token punctuation">.</span>output_root <span class="token operator">!=</span> <span class="token string">''</span> <span class="token keyword">else</span> <span class="token string">'.'</span>
+    mkdir_if_missing<span class="token punctuation">(</span>result_root<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"start tracking"</span><span class="token punctuation">)</span>
+    dataloader <span class="token operator">=</span> datasets<span class="token punctuation">.</span>LoadVideo<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>img_size<span class="token punctuation">)</span>
+    result_filename <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>result_root<span class="token punctuation">,</span> <span class="token string">'results.txt'</span><span class="token punctuation">)</span>
+    frame_rate <span class="token operator">=</span> dataloader<span class="token punctuation">.</span>frame_rate
+
+    frame_dir <span class="token operator">=</span> None <span class="token keyword">if</span> opt<span class="token punctuation">.</span>output_format <span class="token operator">==</span> <span class="token string">'text'</span> <span class="token keyword">else</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>result_root<span class="token punctuation">,</span> <span class="token string">'frame'</span><span class="token punctuation">)</span>
+    eval_seq<span class="token punctuation">(</span>opt<span class="token punctuation">,</span> dataloader<span class="token punctuation">,</span> <span class="token string">'mot'</span><span class="token punctuation">,</span> result_filename<span class="token punctuation">,</span>
+             save_dir<span class="token operator">=</span>frame_dir<span class="token punctuation">,</span> show_image<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> frame_rate<span class="token operator">=</span>frame_rate<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'CUDA_VISIBLE_DEVICES'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'0'</span>
+    opt <span class="token operator">=</span> opts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    recogniton<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>接着，原来JDE关于视频加载是针对真正的视频的，对于摄像头这种无限视频流，修改其帧数为无限大（很大很大的整数值即可），也就是将<code>src/lib/datasets/dataset/jde.py</code>中<code>LoadVideo</code>修改如下。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">LoadVideo</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token punctuation">,</span> img_size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1088</span><span class="token punctuation">,</span> <span class="token number">608</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>cap <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>frame_rate <span class="token operator">=</span> int<span class="token punctuation">(</span>round<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FPS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>vw <span class="token operator">=</span> int<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_WIDTH<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>vh <span class="token operator">=</span> int<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_HEIGHT<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> type<span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>vn <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">**</span> <span class="token number">32</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>vn <span class="token operator">=</span> int<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_COUNT<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>width <span class="token operator">=</span> img_size<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>height <span class="token operator">=</span> img_size<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span>
+
+        self<span class="token punctuation">.</span>w<span class="token punctuation">,</span> self<span class="token punctuation">.</span>h <span class="token operator">=</span> <span class="token number">1920</span><span class="token punctuation">,</span> <span class="token number">1080</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Lenth of the video: &amp;#123;:d&amp;#125; frames'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>self<span class="token punctuation">.</span>vn<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">get_size</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> vw<span class="token punctuation">,</span> vh<span class="token punctuation">,</span> dw<span class="token punctuation">,</span> dh<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        wa<span class="token punctuation">,</span> ha <span class="token operator">=</span> float<span class="token punctuation">(</span>dw<span class="token punctuation">)</span> <span class="token operator">/</span> vw<span class="token punctuation">,</span> float<span class="token punctuation">(</span>dh<span class="token punctuation">)</span> <span class="token operator">/</span> vh
+        a <span class="token operator">=</span> min<span class="token punctuation">(</span>wa<span class="token punctuation">,</span> ha<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> int<span class="token punctuation">(</span>vw <span class="token operator">*</span> a<span class="token punctuation">)</span><span class="token punctuation">,</span> int<span class="token punctuation">(</span>vh <span class="token operator">*</span> a<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        <span class="token keyword">return</span> self
+
+    <span class="token keyword">def</span> <span class="token function">__next__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">==</span> len<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> StopIteration
+        <span class="token comment" spellcheck="true"># Read image</span>
+        res<span class="token punctuation">,</span> img0 <span class="token operator">=</span> self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># BGR</span>
+        <span class="token keyword">assert</span> img0 <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">,</span> <span class="token string">'Failed to load frame &amp;#123;:d&amp;#125;'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>self<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+        img0 <span class="token operator">=</span> cv2<span class="token punctuation">.</span>resize<span class="token punctuation">(</span>img0<span class="token punctuation">,</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>w<span class="token punctuation">,</span> self<span class="token punctuation">.</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># Padded resize</span>
+        img<span class="token punctuation">,</span> _<span class="token punctuation">,</span> _<span class="token punctuation">,</span> _ <span class="token operator">=</span> letterbox<span class="token punctuation">(</span>img0<span class="token punctuation">,</span> height<span class="token operator">=</span>self<span class="token punctuation">.</span>height<span class="token punctuation">,</span> width<span class="token operator">=</span>self<span class="token punctuation">.</span>width<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># Normalize RGB</span>
+        img <span class="token operator">=</span> img<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>transpose<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        img <span class="token operator">=</span> np<span class="token punctuation">.</span>ascontiguousarray<span class="token punctuation">(</span>img<span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span>
+        img <span class="token operator">/=</span> <span class="token number">255.0</span>
+
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>count<span class="token punctuation">,</span> img<span class="token punctuation">,</span> img0
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>vn  <span class="token comment" spellcheck="true"># number of frames</span></code></pre>
+<p>至此，读取视频流也通过一个粗暴的方式实现了，然后就是窗口显示了，原来项目中跟踪器只会一帧一帧写入跟踪后的结果图像，然后通过<code>ffmpeg</code>将这些图像组合为视频。不过，原项目已经设计了实时显示跟踪结果窗口的接口了，只需要调用<code>track.py</code>中的<code>eval_seq</code>函数时，参数<code>show_image</code>设置为<code>True</code>即可。不过，也许作者并没有测试过这个模块，这里显示会有些问题，务必将<code>eval_seq</code>中下述代码段进行如下修改。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">if</span> show_image<span class="token punctuation">:</span>
+    cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'online_im'</span><span class="token punctuation">,</span> online_im<span class="token punctuation">)</span>
+    cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></code></pre>
+<p>调整完成后，输入下面的命令运行跟踪脚本（命令行Ctrl+C停止跟踪，跟踪的每一帧存放在指定的<code>output-root</code>目录下的<code>frame</code>目录中）。</p>
+<pre class=" language-shell"><code class="language-shell">python camera.py mot --load_model ../models/fairmot_dla34.pth --output-root ../results</code></pre>
+<p><img src="https://i.loli.net/2020/10/24/Kp52w4qlb7nyVRQ.png"></p>
+<p>上图是我实际测试得到的运行结果，摄像头分辨率比较低并且我做了一些隐私模糊处理，不过，整个算法的实用性还是非常强的，平均FPS也有18左右（单卡2080Ti）。</p>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文对FairMOT源码进行了简单粗暴的修改以实现了一个摄像头视频实时跟踪系统，只是研究FairMOT代码闲暇之余的小demo，具体代码可以在<a target="_blank" rel="noopener" href="https://github.com/luanshiyinyang/FairMOT">我的Github</a>找到。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -576,8 +639,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DLA%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">DLA论文解读</span>
+                                <a href="/tags/FairMOT%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/">
+                                    <span class="chip bg-color">FairMOT摄像头实时多目标跟踪</span>
                                 </a>
                             
                         </div>
@@ -748,7 +811,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-10-22T14-53-53',
+        id: '2020-10-24T10-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -772,9 +835,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/10/24/fairmot-realtime/">
                     <div class="card-image">
@@ -792,9 +856,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -807,6 +871,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -825,31 +890,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/09/plotly/">
+                <a href="/2020/10/22/dla/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg" class="responsive-img" alt="Plotly基础教程">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="DLA 论文解读">
                         
-                        <span class="card-title">Plotly基础教程</span>
+                        <span class="card-title">DLA 论文解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介Plotly 是一个非常强大的开源数据可视化框架，它通过构建基于 HTML 的交互式图表来显示信息，可创建各种形式的精美图表。本文所说的 Plotly 指的是 Plotly.js 的 Python 封装，plotly本身是个生态非常复杂
+                            简介沿着卷积神经网络在计算机视觉的发展史，可以发现，丰富的表示（representations）是视觉任务最需要的。随着网络的深度增加，单独一层的信息是远远不够的，只有聚合各层信息才能提高网络对 what（识别）和 where（定位）两个问
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-category">
-                                    数据可视化
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                    论文解读
                                 </a>
                             
                             
@@ -859,8 +924,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Plotly%E6%95%99%E7%A8%8B/">
-                        <span class="chip bg-color">Plotly教程</span>
+                    <a href="/tags/DLA%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">DLA论文解读</span>
                     </a>
                     
                 </div>

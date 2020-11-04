@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="FairMOT实时多目标跟踪系统, Chen&#39;s blog">
+    <meta name="keywords" content="LambdaNetworks 论文解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>FairMOT实时多目标跟踪系统 | Chen&#39;s blog</title>
+    <title>LambdaNetworks 论文解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">FairMOT实时多目标跟踪系统</h1>
+                    <h1 class="description center-align post-title">LambdaNetworks 论文解读</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/FairMOT%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/">
-                                <span class="chip bg-color">FairMOT摄像头实时多目标跟踪</span>
+                            <a href="/tags/LambdaNetworks/">
+                                <span class="chip bg-color">LambdaNetworks</span>
                             </a>
                         
                     </div>
@@ -443,8 +443,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/" class="post-category">
-                                多目标跟踪
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                论文解读
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-24
+                    2020-11-04
                 </div>
                 
 
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    3.8k
                 </div>
                 
 
@@ -482,117 +482,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FairMOT是今年很火的一个多目标跟踪算法，前不久也开放了最新版本的论文，并于最近重构了开源代码，我也在实际工程视频上进行了测试，效果是很不错的。不过，官方源码没有提高实时摄像头跟踪的编程接口，我在源码的基础上进行了修改，增加了实时跟踪模块。本文介绍如何进行环境配置和脚本修改，实现摄像头跟踪（<strong>本文均采用Ubuntu16.04进行环境配置，使用Windows在安装DCN等包的时候会有很多问题，不建议使用</strong>）。</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><blockquote>
-<p>下述环境配置需要保证用户已经安装了git和conda，否则配置pytorch和cuda会诸多不便。</p>
+                <blockquote>
+<p>最近有不少人和我提到 ViT 以及 DETR 以及商汤提出的 Deformable DETR，仿若看到了 Transformer 在计算机视觉中大放异彩的未来，甚至谷歌对其在自注意力机制上进行了调整并提出 Performer。但是，由于 Transformer 的自注意力机制对内存的需求是输入的平方倍，这在图像任务上计算效率过低，当输入序列很长的时候，自注意力对长程交互建模计算量更是庞大无比。而且，Transformer 是出了名的难训练。所以，想要看到其在视觉任务上有更好的表现，还需要面临不小的挑战，不过，LambdaNetworks倒是提出了一种新的长程交互信息捕获的新范式，而且在视觉任务中效果很不错。</p>
 </blockquote>
-<p>首先，通过下面的git命令从Github克隆源码到本地并进入该项目。访问<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1H1Zp8wrTKDk20_DSPAeEkg">链接</a>（提取码uouv）下载训练好的模型，在项目根目录下新建<code>models</code>目录（和已有的<code>assets</code>、<code>src</code>等目录同级），将刚刚下载好的模型文件<code>fairmot_dla34.pth</code>放到这个<code>models</code>目录下。</p>
-<pre class=" language-shell"><code class="language-shell">git clone git@github.com:ifzhang/FairMOT.git
-cd FairMOT</code></pre>
-<p>下面，通过conda创建适用于该项目的虚拟环境（环境隔离），国内用户速度慢可以参考<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/86086919">我conda的文章</a>配置国内源。创建之后通过<code>activate</code>激活环境（该命令出错将<code>conda</code>换为<code>source</code>）。然后在当前虚拟环境下（<strong>后续关于该项目的操作都需要在该虚拟环境下</strong>）安装pytorch和cuda（这里也建议配置国内源后安装<code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch</code>）。最后，通过pip命令安装所需d的Python包（国内建议<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/106420275">配置清华源</a>），注意先安装cython。</p>
-<pre class=" language-shell"><code class="language-shell">conda create -n fairmot python=3.6
-conda activate fairmot
-conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0
-pip install cython
-pip install -r requirements.txt
-pip install -U opencv-python==4.1.1.26</code></pre>
-<p>同时，用于项目使用了DCNv2所以需要安装该包，该包只能通过源码安装，依次执行下述命令即可（安装过程报warning是正常情况，不报error就行）。</p>
-<pre class=" language-shell"><code class="language-shell">git clone https://github.com/CharlesShang/DCNv2
-cd DCNv2
-./make.sh
-cd ../</code></pre>
-<p>至此，所有的环境配置已经完成，由于这里还需要使用到ffmpeg来生成视频文件，所以系统需要安装ffmpeg（Ubuntu采用apt安装即可），教程很多，不多赘述。</p>
-<p>想要试试项目是否正常工作，可以使用下面的命令在demo视频上进行跟踪测试（初次允许需要下载dla34模型，这个模型国内下载速度还可以，我就直接通过允许代码下载的）。</p>
-<pre class=" language-shell"><code class="language-shell">cd src
-python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/fairmot_dla34.pth --conf_thres 0.4</code></pre>
-<p>默认文件输出在项目根目录的<code>demos</code>文件夹下，包括每一帧的检测结果以及组合成的视频。</p>
-<p><img src="https://i.loli.net/2020/10/24/bxVoM7ZyjTBmhLI.png"></p>
-<p><img src="https://i.loli.net/2020/10/24/NF7idqKkQ8CyfG9.png"></p>
-<h2 id="实时跟踪"><a href="#实时跟踪" class="headerlink" title="实时跟踪"></a>实时跟踪</h2><p>实时跟踪主要在两个方面进行修改，一是数据加载器，二是跟踪器。首先，我们在<code>src</code>目录下新建一个类似于<code>demo.py</code>的脚本文件名为<code>camera.py</code>，写入和<code>demo.py</code>类似的内容，不过，我们把视频路径换位摄像机编号（这是考虑到JDE采用opencv进行视频读取，而opencv视频读取和摄像机视频流读取是一个接口）。具体<code>camera.py</code>内容如下。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> os
-
-<span class="token keyword">import</span> _init_paths
-<span class="token keyword">from</span> opts <span class="token keyword">import</span> opts
-<span class="token keyword">from</span> tracking_utils<span class="token punctuation">.</span>utils <span class="token keyword">import</span> mkdir_if_missing
-<span class="token keyword">import</span> datasets<span class="token punctuation">.</span>dataset<span class="token punctuation">.</span>jde <span class="token keyword">as</span> datasets
-<span class="token keyword">from</span> track <span class="token keyword">import</span> eval_seq
-
-
-<span class="token keyword">def</span> <span class="token function">recogniton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    result_root <span class="token operator">=</span> opt<span class="token punctuation">.</span>output_root <span class="token keyword">if</span> opt<span class="token punctuation">.</span>output_root <span class="token operator">!=</span> <span class="token string">''</span> <span class="token keyword">else</span> <span class="token string">'.'</span>
-    mkdir_if_missing<span class="token punctuation">(</span>result_root<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"start tracking"</span><span class="token punctuation">)</span>
-    dataloader <span class="token operator">=</span> datasets<span class="token punctuation">.</span>LoadVideo<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>img_size<span class="token punctuation">)</span>
-    result_filename <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>result_root<span class="token punctuation">,</span> <span class="token string">'results.txt'</span><span class="token punctuation">)</span>
-    frame_rate <span class="token operator">=</span> dataloader<span class="token punctuation">.</span>frame_rate
-
-    frame_dir <span class="token operator">=</span> None <span class="token keyword">if</span> opt<span class="token punctuation">.</span>output_format <span class="token operator">==</span> <span class="token string">'text'</span> <span class="token keyword">else</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>result_root<span class="token punctuation">,</span> <span class="token string">'frame'</span><span class="token punctuation">)</span>
-    eval_seq<span class="token punctuation">(</span>opt<span class="token punctuation">,</span> dataloader<span class="token punctuation">,</span> <span class="token string">'mot'</span><span class="token punctuation">,</span> result_filename<span class="token punctuation">,</span>
-             save_dir<span class="token operator">=</span>frame_dir<span class="token punctuation">,</span> show_image<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> frame_rate<span class="token operator">=</span>frame_rate<span class="token punctuation">)</span>
-
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'CUDA_VISIBLE_DEVICES'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'0'</span>
-    opt <span class="token operator">=</span> opts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>init<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    recogniton<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p>接着，原来JDE关于视频加载是针对真正的视频的，对于摄像头这种无限视频流，修改其帧数为无限大（很大很大的整数值即可），也就是将<code>src/lib/datasets/dataset/jde.py</code>中<code>LoadVideo</code>修改如下。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">LoadVideo</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token punctuation">,</span> img_size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1088</span><span class="token punctuation">,</span> <span class="token number">608</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>cap <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>frame_rate <span class="token operator">=</span> int<span class="token punctuation">(</span>round<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FPS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>vw <span class="token operator">=</span> int<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_WIDTH<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>vh <span class="token operator">=</span> int<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_HEIGHT<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> type<span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>vn <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">**</span> <span class="token number">32</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>vn <span class="token operator">=</span> int<span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_COUNT<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-        self<span class="token punctuation">.</span>width <span class="token operator">=</span> img_size<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>height <span class="token operator">=</span> img_size<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span>
-
-        self<span class="token punctuation">.</span>w<span class="token punctuation">,</span> self<span class="token punctuation">.</span>h <span class="token operator">=</span> <span class="token number">1920</span><span class="token punctuation">,</span> <span class="token number">1080</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Lenth of the video: &amp;#123;:d&amp;#125; frames'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>self<span class="token punctuation">.</span>vn<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">get_size</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> vw<span class="token punctuation">,</span> vh<span class="token punctuation">,</span> dw<span class="token punctuation">,</span> dh<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        wa<span class="token punctuation">,</span> ha <span class="token operator">=</span> float<span class="token punctuation">(</span>dw<span class="token punctuation">)</span> <span class="token operator">/</span> vw<span class="token punctuation">,</span> float<span class="token punctuation">(</span>dh<span class="token punctuation">)</span> <span class="token operator">/</span> vh
-        a <span class="token operator">=</span> min<span class="token punctuation">(</span>wa<span class="token punctuation">,</span> ha<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> int<span class="token punctuation">(</span>vw <span class="token operator">*</span> a<span class="token punctuation">)</span><span class="token punctuation">,</span> int<span class="token punctuation">(</span>vh <span class="token operator">*</span> a<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-        <span class="token keyword">return</span> self
-
-    <span class="token keyword">def</span> <span class="token function">__next__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">==</span> len<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">raise</span> StopIteration
-        <span class="token comment" spellcheck="true"># Read image</span>
-        res<span class="token punctuation">,</span> img0 <span class="token operator">=</span> self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># BGR</span>
-        <span class="token keyword">assert</span> img0 <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">,</span> <span class="token string">'Failed to load frame &amp;#123;:d&amp;#125;'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>self<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
-        img0 <span class="token operator">=</span> cv2<span class="token punctuation">.</span>resize<span class="token punctuation">(</span>img0<span class="token punctuation">,</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>w<span class="token punctuation">,</span> self<span class="token punctuation">.</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-        <span class="token comment" spellcheck="true"># Padded resize</span>
-        img<span class="token punctuation">,</span> _<span class="token punctuation">,</span> _<span class="token punctuation">,</span> _ <span class="token operator">=</span> letterbox<span class="token punctuation">(</span>img0<span class="token punctuation">,</span> height<span class="token operator">=</span>self<span class="token punctuation">.</span>height<span class="token punctuation">,</span> width<span class="token operator">=</span>self<span class="token punctuation">.</span>width<span class="token punctuation">)</span>
-
-        <span class="token comment" spellcheck="true"># Normalize RGB</span>
-        img <span class="token operator">=</span> img<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>transpose<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        img <span class="token operator">=</span> np<span class="token punctuation">.</span>ascontiguousarray<span class="token punctuation">(</span>img<span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span>
-        img <span class="token operator">/=</span> <span class="token number">255.0</span>
-
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>count<span class="token punctuation">,</span> img<span class="token punctuation">,</span> img0
-
-    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>vn  <span class="token comment" spellcheck="true"># number of frames</span></code></pre>
-<p>至此，读取视频流也通过一个粗暴的方式实现了，然后就是窗口显示了，原来项目中跟踪器只会一帧一帧写入跟踪后的结果图像，然后通过<code>ffmpeg</code>将这些图像组合为视频。不过，原项目已经设计了实时显示跟踪结果窗口的接口了，只需要调用<code>track.py</code>中的<code>eval_seq</code>函数时，参数<code>show_image</code>设置为<code>True</code>即可。不过，也许作者并没有测试过这个模块，这里显示会有些问题，务必将<code>eval_seq</code>中下述代码段进行如下修改。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">if</span> show_image<span class="token punctuation">:</span>
-    cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'online_im'</span><span class="token punctuation">,</span> online_im<span class="token punctuation">)</span>
-    cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></code></pre>
-<p>调整完成后，输入下面的命令运行跟踪脚本（命令行Ctrl+C停止跟踪，跟踪的每一帧存放在指定的<code>output-root</code>目录下的<code>frame</code>目录中）。</p>
-<pre class=" language-shell"><code class="language-shell">python camera.py mot --load_model ../models/fairmot_dla34.pth --output-root ../results</code></pre>
-<p><img src="https://i.loli.net/2020/10/24/Kp52w4qlb7nyVRQ.png"></p>
-<p>上图是我实际测试得到的运行结果，摄像头分辨率比较低并且我做了一些隐私模糊处理，不过，整个算法的实用性还是非常强的，平均FPS也有18左右（单卡2080Ti）。</p>
-<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文对FairMOT源码进行了简单粗暴的修改以实现了一个摄像头视频实时跟踪系统，只是研究FairMOT代码闲暇之余的小demo，具体代码可以在<a target="_blank" rel="noopener" href="https://github.com/luanshiyinyang/FairMOT">我的Github</a>找到。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>文章对于捕获输入和结构化上下文之间的长程交互提出了一种新的通用框架，该方法名为Lambda Layer。它通过将可用上下文转化为名为lambdas的线性函数，并将这些函数分别应用于每个输入。Lambda层是通用的，它可以建模全局或者局部的内容和位置上的信息交互。并且，由于其避开了使用“昂贵”的注意力图，使得其可以适用于超长序列或者高分辨率图像。由Lambda构成的LambdaNetworks在计算上是高效的，并且可以通过主流计算库实现。实验证明，LambdaNetworks在图像分类、目标检测、实例分割等任务上达到sota水准且计算更加高效。同时，作者也基于ResNet改进设计了LambdaResNet并且获得和EfficientNet相当的效果，快了4.5倍。</p>
+<ul>
+<li><p>论文地址</p>
+<p>  <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=xTJEN-ggl1b">https://openreview.net/forum?id=xTJEN-ggl1b</a></p>
+</li>
+<li><p>论文源码</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/lucidrains/lambda-networks">https://github.com/lucidrains/lambda-networks</a></p>
+</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>建模长程信息交互是机器学习领域很重要的课题，注意力机制是当前最主流的范式，然而，自注意力的二次内存占用不利于处理超长序列或者多维输入，比如包含数万像素的图像。论文中这里举了个例子，一批256个64x64的图像使用8head的多头注意力就需要32G的内存。</p>
+<p>考虑到自注意力的局限性，论文提出了Lambda层，该层为捕获输入和结构化的上下文之间的长程信息交互提供了一种新的通用框架。Lambda层捕获信息交互的方式也很简单，它将可用上下文转化为线性函数，并将这些线性函数分别应用于每个输入，这些线性函数就是lambda。Lambda层可以成为注意力机制的替代品，注意力在输入和上下文之间定义了一个相似性核，而Lambda层将上下文信息总结为一个固定size的线性函数，这样就避开了很耗内存的注意力图。他俩的对比，可以通过下面的图看出来（左图是一个包含三个query的局部上下文，它们同处一个全局上下文中；中图是attention机制产生的注意力图；右图则是lambda层线性函数作用于query的结果）。</p>
+<p><img src="https://i.loli.net/2020/11/04/eDh6RuJ7BsMjgZx.png"></p>
+<p>Lambda层用途广泛，可以实现为在全局、局部或masked上下文中对内容和基于位置的交互进行建模。由此产生的神经网络结构LambdaNetworks具有高效的计算能力，并且可以以较小的内存开销建模长程依赖，因此非常适用于超大结构化输入，如高分辨率图像。</p>
+<p>后文也用实验证明，在注意力表现很好的任务中，LambdaNetworks表现相当，且计算更为高效且更快。</p>
+<h2 id="长程信息交互建模"><a href="#长程信息交互建模" class="headerlink" title="长程信息交互建模"></a>长程信息交互建模</h2><p>论文在第二部分主要对一些Lambda的术语进行了定义，引入keys作为捕获queries和它们的上下文之间信息交互的需求，而且，作者也说明，Lambda layer采用了很多自注意力的术语来减少阅读差异，这就是为什么很多人觉得两者在很多名称定义上差异不大的原因。</p>
+<h3 id="queries、contexts和interactions"><a href="#queries、contexts和interactions" class="headerlink" title="queries、contexts和interactions"></a><strong>queries、contexts和interactions</strong></h3><p>$\mathcal{Q}=\left{\left(\boldsymbol{q}<em>{n}, n\right)\right}$和$\mathcal{C}=\left{\left(\boldsymbol{c}</em>{m}, m\right)\right}$分别表示queries和contexts，每个$\left(\boldsymbol{q}<em>{n}, n\right)$都包含内容$\boldsymbol{q}</em>{n} \in \mathbb{R}^{|k|}$和位置$n$，同样的，每个上下文元素$\left(\boldsymbol{c}<em>{m}, m\right)$都包含内容$\boldsymbol{c}</em>{m}$和位置$m$，而$(n, m)$指的是任意结构化元素之间的成对关系。举个例子，这个(n,m)对可以指被固定在二维栅格上的两个像素的相对距离，也可以指图（Graph）上俩node之间的关系。</p>
+<p>下面，作者介绍了Lambda layer的工作过程。先是考虑给定的上下文$\mathcal{C}$的情况下通过函数$\boldsymbol{F}:\left(\left(\boldsymbol{q}<em>{n}, n\right), \mathcal{C}\right) \mapsto \boldsymbol{y}</em>{n}$将query映射到输出向量$\boldsymbol{y}<em>{n}$。显然，如果处理的是结构化输入，那么这个函数可以作为神经网络中的一个层来看待。将$\left(\boldsymbol{q}</em>{n}, \boldsymbol{c}<em>{m}\right)$称为基于内容的交互，$\left(\boldsymbol{q}</em>{n},(n, m)\right)$则为基于位置的交互。此外，若$\boldsymbol{y}<em>{n}$依赖于所有的$\left(\boldsymbol{q}</em>{n}, \boldsymbol{c}<em>{m}\right)$或者$\left(\boldsymbol{q}</em>{n},(n, m)\right)$，则称$\boldsymbol{F}$捕获了全局信息交互，如果只是围绕$n$的一个较小的受限上下文用于映射，则称$\boldsymbol{F}$捕获了局部信息交互。最后，若这些交互包含了上下文中所有$|m|$个元素则称为密集交互（dense interaction），否则为稀疏交互（sparse interaction）。</p>
+<h3 id="引入key来捕获长程信息交互"><a href="#引入key来捕获长程信息交互" class="headerlink" title="引入key来捕获长程信息交互"></a><strong>引入key来捕获长程信息交互</strong></h3><p>在深度学习这种依赖GPU计算的场景下，我们优先考虑快速的线性操作并且通过点积操作来捕获信息交互。这就促使了引入可以和query通过点击进行交互的向量，该向量和query同维。特别是基于内容的交互$\left(\boldsymbol{q}<em>{n}, \boldsymbol{c}</em>{m}\right)$需要一个依赖$\boldsymbol{c}<em>{m}$的$k$维向量，这个向量就是key（键）。相反，基于位置的交互$\left(\boldsymbol{q}</em>{n},(n, m)\right)$则需要位置编码$\boldsymbol{e}<em>{n m} \in \mathbb{R}^{|k|}$，有时也称为相对key。query和key的深度$|k|$以及上下文空间维度$|m|$不在输出$\boldsymbol{y}</em>{n} \in \mathbb{R}^{|v|}$，因此需要将这些维度收缩为layer计算的一部分。因此，捕获长程交互的每一层都可以根据它是收缩查询深度还是首先收缩上下文位置来表征。</p>
+<h3 id="注意力交互"><a href="#注意力交互" class="headerlink" title="注意力交互"></a><strong>注意力交互</strong></h3><p>收缩query的深度首先会在query和上下文元素之间创建一个相似性核，这就是attention操作。随着上下文位置$|m|$的增大而输入输出维度$|k|$和$|v|$不变，考虑到层输出是一个很小维度的向量$|v| \ll|m|$，注意力图（attention map）的计算会变得很浪费资源。</p>
+<h3 id="Lambda交互"><a href="#Lambda交互" class="headerlink" title="Lambda交互"></a><strong>Lambda交互</strong></h3><p>相反，通过一个线性函数$\boldsymbol{\lambda}(\mathcal{C}, n)$获得输出$\boldsymbol{y}<em>{n}=F\left(\left(\boldsymbol{q}</em>{n}, n\right), \mathcal{C}\right)=\boldsymbol{\lambda}(\mathcal{C}, n)\left(\boldsymbol{q}<em>{n}\right)$会更高效地简化映射过程（map）。在这个场景中，上下文被聚合为一个固定size的线性函数$\boldsymbol{\lambda}</em>{n}=\boldsymbol{\lambda}(\mathcal{C}, n)$。每个$\boldsymbol{\lambda}_{n}$作为一个小的线性函数独立于上下文并且被用到相关的query$\boldsymbol{q}_n$后丢弃。这个机制很容易联想到影响比较大的函数式编程和lambda积分，所以称为lambda层。</p>
+<h2 id="Lambda层"><a href="#Lambda层" class="headerlink" title="Lambda层"></a>Lambda层</h2><p>一个lambda层将输入$\boldsymbol{X} \in \mathbb{R}^{|n| \times d_{i n}}$和上下文$\boldsymbol{C} \in \mathbb{R}^{|m| \times d_{c}}$作为输入并产生线性函数lambdas分别作用于query，返回输出$\boldsymbol{Y} \in \mathbb{R}^{|n| \times d_{o u t}}$。显然，在自注意力中，$\boldsymbol{C} = \boldsymbol{X}$。为了不失一般性，我们假定$d_{i n}=d_{c}=d_{o u t}=d$。在接下来的论文里，作者将重点放在了lambda层的一个具体实例上，并且证明lambda层可以获得密集的长程内容和位置的信息交互而不需要构建注意力图。</p>
+<h3 id="将上下文转化为线性函数"><a href="#将上下文转化为线性函数" class="headerlink" title="将上下文转化为线性函数"></a><strong>将上下文转化为线性函数</strong></h3><p>首先，假定上下文只有一个query$\left(\boldsymbol{q}_{n}, n\right)$。我们希望产生一个线性函数lambda$\mathbb{R}^{|k|} \rightarrow \mathbb{R}^{|v|}$，我们将$\mathbb{R}^{|k| \times|v|}$称为函数。下表所示的就是lambda层的超参、参数以及其他相关的配置。</p>
+<p><img src="https://i.loli.net/2020/11/04/rRBmAzS2dYHeniW.png"></p>
+<p><strong>生成上下文lambda函数</strong>：lambda层首先通过线性投影上下文来计算keys和values，并且使用softmax操作跨上下文对keys进行标准化从而得到标准化后的$\bar{K}$。它的实现可以看作是一种函数式消息传递，每个上下文元素贡献一个内容function$\boldsymbol{\mu}<em>{m}^{c}=\overline{\boldsymbol{K}}</em>{m} \boldsymbol{V}<em>{\boldsymbol{m}}^{T}$和位置function$\boldsymbol{\mu}</em>{n m}^{p}=\boldsymbol{E}<em>{n m} \boldsymbol{V}</em>{\boldsymbol{m}}^{T}$，最终的lambda函数其实是两者的和，具体如下，式子中的$\boldsymbol{\lambda}^{c}$为内容lambda，而$\boldsymbol{\lambda}^p_n$为位置lambda。内容$\boldsymbol{\lambda}^{c}$对上下文元素的排列是不变的，在所有的query位置$n$之间共享，并仅基于上下文内容对$\boldsymbol{q}<em>{n}$进行编码转换。不同的是，位置$\lambda</em>{n}^{p}$基于内容$\boldsymbol{c}_{m}$和位置$(n, m)$对查询query进行编码转换，从而支持对结构化输入建模如图像。</p>
+<p>$$<br>\begin{aligned}<br>\boldsymbol{\lambda}^{c} &amp;=\sum_{m} \boldsymbol{\mu}<em>{m}^{c}=\sum</em>{m} \overline{\boldsymbol{K}}<em>{m} \boldsymbol{V}</em>{\boldsymbol{m}}^{T} \<br>\boldsymbol{\lambda}<em>{n}^{p} &amp;=\sum</em>{m} \boldsymbol{\mu}<em>{n m}^{p}=\sum</em>{m} \boldsymbol{E}<em>{n m} \boldsymbol{V}</em>{\boldsymbol{m}}^{T} \<br>\boldsymbol{\lambda}<em>{n} &amp;=\boldsymbol{\lambda}^{c}+\boldsymbol{\lambda}</em>{n}^{p} \in \mathbb{R}^{|k| \times|v|}<br>\end{aligned}<br>$$</p>
+<p><strong>应用lambda到query</strong>：输入被转化为query$\boldsymbol{q}<em>{n}=\boldsymbol{W}</em>{Q} \boldsymbol{x}_{n}$，然后lambda层获得如下输出。</p>
+<p>$$<br>\boldsymbol{y}<em>{n}=\boldsymbol{\lambda}</em>{n} \boldsymbol{q}<em>{n}=\left(\boldsymbol{\lambda}^{c}+\boldsymbol{\lambda}</em>{n}^{p}\right) \boldsymbol{q}_{n} \in \mathbb{R}^{|v|}<br>$$</p>
+<p><strong>Lambda的解释</strong>：$\boldsymbol{\lambda}<em>{n} \in \mathbb{R}^{|k| \times|v|}$矩阵的列可以看作$|k| |v|$维上下文特征的固定size的集合。这些上下文特征从上下文内容和结构聚合而来。应用lambda线性函数动态地分布这些上下文特征来产生输出$\boldsymbol{y}</em>{n}=\sum_{k} q_{n k} \boldsymbol{\lambda}_{n k}$。这个过程捕获密集地内容和位置的长程信息交互，而不需要产生注意力图。</p>
+<p><strong>标准化</strong>： 实验表明，非线性或者标准化操作对计算是有帮助的，作者在计算的query和value之后应用batch normalization发现是有效的。</p>
+<h3 id="对结构化上下文应用Lambda函数"><a href="#对结构化上下文应用Lambda函数" class="headerlink" title="对结构化上下文应用Lambda函数"></a><strong>对结构化上下文应用Lambda函数</strong></h3><p>在这一节，作者主要介绍如何将lambda层应用于结构化上下文。</p>
+<p><strong>Translation equivariance</strong>：在很多机器学习场景中，Translation equivariance是一个很强的归纳偏置。由于基于内容的信息交互是排列等变的，因此本就是translation equivariant。而位置的信息交互获得translation equivariant则通过对任意的translation $t$确保位置编码满足$\boldsymbol{E}<em>{n m}=\boldsymbol{E}</em>{t(n) t(m)}$来做到。实际中，我们定义一个相对位置编码的张量$\boldsymbol{R} \in \mathbb{R}^{|k| \times|r| \times|u|}$，其中$r$索引对所有的$(n,m)$对可能的相对位置，并将其重新索引为$\boldsymbol{E} \in \mathbb{R}^{|k| \times|n| \times|m| \times|u|}$，如$\boldsymbol{E}<em>{n m}=\boldsymbol{R}</em>{r(n, m)}$。</p>
+<p><strong>Lambda 卷积</strong>： 尽管有长程信息交互的好处，局部性在许多任务中仍然是一个强烈的归纳偏置。从计算的角度来看，使用全局上下文可能会产生噪声或过度。因此，将位置交互的范围限制到查询位置$n$周围的一个局部邻域，就像局部自注意和卷积的情况一样，可能是有用的。这可以通过对所需范围之外的上下文位置$m$的位置嵌入进行归零来实现。然而，对于较大的$|m|$值，这种策略仍然代价高昂，因为计算仍然会发生(它们只是被归零)。在上下文被安排在多维网格上时，可以通过常规卷积从局部上下文中生成位置lambdas，将$\boldsymbol{V}$中的$v$维视为额外的空间维度。考虑在一维序列上的大小为$|r|$的局部域上生成位置lambdas。相对位置编码张量$\boldsymbol{R} \in \mathbb{R}^{|r| \times|u| \times|k|}$可以被reshape到$\overline{\boldsymbol{R}} \in \mathbb{R}^{|r| \times 1 \times|u| \times|k|}$，并且被用作二维卷积核来计算需要的位置lambda，算式如下。</p>
+<p>$$<br>\boldsymbol{\lambda}<em>{b n v k}=\operatorname{conv} 2 \mathrm{d}\left(\boldsymbol{V}</em>{b n v u}, \overline{\boldsymbol{R}}_{r 1 u k}\right)<br>$$</p>
+<p>这个操作称为lambda卷积，由于计算被限制在一个局部范围，lambda卷积相对于输入只需要线性时间和内存复杂度的消耗。lambda卷积很容易和其他功能一起使用，如dilation和striding，并且在硬件计算上享受告诉运算。计算效率和局部自注意力形成了鲜明对比，如下表。</p>
+<p><img src="https://i.loli.net/2020/11/04/bmIGXYyWcRNJ23T.png"></p>
+<h3 id="multiquery-lambdas减少复杂性"><a href="#multiquery-lambdas减少复杂性" class="headerlink" title="multiquery lambdas减少复杂性"></a><strong>multiquery lambdas减少复杂性</strong></h3><p>这部分作者主要对计算复杂度进行了分析，设计了多query lambda，计算复杂度对比如下。</p>
+<p><img src="https://i.loli.net/2020/11/04/41S9hjkmUFdxiXb.png"></p>
+<p>提出的multiquery lambdas可以通过einsum高效实现。</p>
+<p>$$<br>\begin{aligned}<br>\boldsymbol{\lambda}<em>{b k v}^{c}=&amp; \operatorname{einsum}\left(\overline{\boldsymbol{K}}</em>{b m k u}, \boldsymbol{V}<em>{b m v u}\right) \<br>\boldsymbol{\lambda}</em>{b n k v}^{p} &amp;=\operatorname{einsum}\left(\boldsymbol{E}<em>{k n m u}, \boldsymbol{V}</em>{b m v u}\right) \<br>\boldsymbol{Y}<em>{b n h v}^{c} &amp;=\operatorname{einsum}\left(\boldsymbol{Q}</em>{b n h k}, \boldsymbol{\lambda}<em>{b k v}^{c}\right) \<br>\boldsymbol{Y}</em>{b n h v}^{p} &amp;=\operatorname{einsum}\left(\boldsymbol{Q}<em>{b n h k}, \boldsymbol{\lambda}</em>{b n k v}^{p}\right) \<br>\boldsymbol{Y}<em>{b n h v} &amp;=\boldsymbol{Y}</em>{b n h v}^{c}+\boldsymbol{Y}_{b n h v}^{p}<br>\end{aligned}<br>$$</p>
+<p>然后，对比了lambda 层和自注意力在resnet50架构上的imagenet分类任务效果。显然，lambda层参数量是很少的，且准确率很高。</p>
+<p><img src="https://i.loli.net/2020/11/04/fehAXKUOJM6Nas2.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在大尺度高分辨率计算机视觉任务上进行了充分的实验，和SOTA的EfficientNet相比，可以说无论是速度还是精度都有不小的突破。</p>
+<p><img src="https://i.loli.net/2020/11/04/mWH1QgTY4JGOfdZ.png"></p>
+<p>其长子检测任务上，LambdaResNet也极具优势。</p>
+<p><img src="https://i.loli.net/2020/11/04/1PTjFqlRaEcmJkK.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>作者提出了Lambda Layer代替自注意力机制，获得了较好的改进。并借此设计了LambdaNetworks，其在各个任务上都超越了SOTA且速度提高了很多。如果实践证明，Lambda Layer的效果具有足够的鲁棒性，在以后的研究中应该会被广泛使用。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] Anonymous. LambdaNetworks: Modeling long-range Interactions without Attention[A]. 2020.</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -639,8 +578,8 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/FairMOT%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/">
-                                    <span class="chip bg-color">FairMOT摄像头实时多目标跟踪</span>
+                                <a href="/tags/LambdaNetworks/">
+                                    <span class="chip bg-color">LambdaNetworks</span>
                                 </a>
                             
                         </div>
@@ -811,7 +750,7 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-10-24T10-00-00',
+        id: '2020-11-04T10-56-51',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -835,9 +774,10 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/11/04/lambdanetworks/">
                     <div class="card-image">
@@ -856,9 +796,9 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -871,6 +811,7 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -889,31 +830,31 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/22/dla/">
+                <a href="/2020/10/24/fairmot-realtime/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="DLA 论文解读">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/20.jpg" class="responsive-img" alt="FairMOT实时多目标跟踪系统">
                         
-                        <span class="card-title">DLA 论文解读</span>
+                        <span class="card-title">FairMOT实时多目标跟踪系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介沿着卷积神经网络在计算机视觉的发展史，可以发现，丰富的表示（representations）是视觉任务最需要的。随着网络的深度增加，单独一层的信息是远远不够的，只有聚合各层信息才能提高网络对 what（识别）和 where（定位）两个问
+                            简介FairMOT是今年很火的一个多目标跟踪算法，前不久也开放了最新版本的论文，并于最近重构了开源代码，我也在实际工程视频上进行了测试，效果是很不错的。不过，官方源码没有提高实时摄像头跟踪的编程接口，我在源码的基础上进行了修改，增加了实时跟
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
-                                    论文解读
+                            <a href="/categories/%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/" class="post-category">
+                                    多目标跟踪
                                 </a>
                             
                             
@@ -923,8 +864,8 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DLA%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">DLA论文解读</span>
+                    <a href="/tags/FairMOT%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/">
+                        <span class="chip bg-color">FairMOT摄像头实时多目标跟踪</span>
                     </a>
                     
                 </div>

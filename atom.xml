@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-10-24T00:53:03.637Z</updated>
+  <updated>2020-11-04T02:57:50.183Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LambdaNetworks 论文解读</title>
+    <link href="https://zhouchen1998.cn/2020/11/04/lambdanetworks/"/>
+    <id>https://zhouchen1998.cn/2020/11/04/lambdanetworks/</id>
+    <published>2020-11-04T02:56:51.000Z</published>
+    <updated>2020-11-04T02:57:50.183Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最近有不少人和我提到 ViT 以及 DETR 以及商汤提出的 Deformable DETR，仿若看到了 Transformer 在计算机视觉中大放异彩的未来，甚至谷歌对其在自注意力机制上进行了调整并提出 Performer。但是，由于</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="LambdaNetworks" scheme="https://zhouchen1998.cn/tags/LambdaNetworks/"/>
+    
+  </entry>
   
   <entry>
     <title>FairMOT实时多目标跟踪系统</title>

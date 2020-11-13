@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-11-04T02:57:50.183Z</updated>
+  <updated>2020-11-13T03:32:42.421Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DCN &amp; RepPoints解读</title>
+    <link href="https://zhouchen1998.cn/2020/11/13/dcn-reppoints/"/>
+    <id>https://zhouchen1998.cn/2020/11/13/dcn-reppoints/</id>
+    <published>2020-11-13T03:31:14.000Z</published>
+    <updated>2020-11-13T03:32:42.421Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="DCN解读" scheme="https://zhouchen1998.cn/tags/DCN%E8%A7%A3%E8%AF%BB/"/>
+    
+    <category term="RepPoints解读" scheme="https://zhouchen1998.cn/tags/RepPoints%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>LambdaNetworks 论文解读</title>

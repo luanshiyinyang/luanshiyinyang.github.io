@@ -484,8 +484,14 @@
             <div id="articleContent">
                 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Challenge 的榜单。最近，CSTrack 这篇文章则在 JDE 范式的基础上进行了改进，获得了相当不错的跟踪表现（基本上暂时稳定在榜单前 5），本文就简单解读一下这篇短文（目前在 Arxiv 上开放的是一个 4 页短文的版本）。</p>
 <ul>
+<li><p>论文标题</p>
+<p>Rethinking the competition between detection and ReID in Multi-Object Tracking</p>
+</li>
 <li><p>论文地址</p>
 <p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2010.12138">http://arxiv.org/abs/2010.12138</a></p>
+</li>
+<li><p>论文源码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/JudasDie/SOTS">https://github.com/JudasDie/SOTS</a></p>
 </li>
 </ul>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为了追求速度和精度的平衡，联合训练检测模型和 ReID 模型的 JDE 范式（如下图，具体提出参考 JDE 原论文 Towards Real-Time Multi-Object Tracking）受到了学术界和工业界越来越多的关注。这主要是针对之前的 two-stage 方法先是使用现有的检测器检测出行人然后再根据检测框提取对应行人的外观特征进行关联的思路，这种方法在精度上的表现不错，然而由于检测模型不小且 ReID 模型需要在每个检测框上进行推理，计算量非常之大，所以 JDE 这种 one-shot 的思路的诞生是一种必然。</p>

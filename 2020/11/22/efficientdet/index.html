@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CSTrack 解读, Chen&#39;s blog">
+    <meta name="keywords" content="EfficientDet 解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CSTrack 解读 | Chen&#39;s blog</title>
+    <title>EfficientDet 解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CSTrack 解读</h1>
+                    <h1 class="description center-align post-title">EfficientDet 解读</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">CSTrack解读</span>
+                            <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">EfficientDet解读</span>
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-20
+                    2020-11-22
                 </div>
                 
 
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2.3k
                 </div>
                 
 
@@ -482,36 +482,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Challenge 的榜单。最近，CSTrack 这篇文章则在 JDE 范式的基础上进行了改进，获得了相当不错的跟踪表现（基本上暂时稳定在榜单前 5），本文就简单解读一下这篇短文（目前在 Arxiv 上开放的是一个 4 页短文的版本）。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这篇发表于 CVPR2020 的检测论文不同于大火的 anchor-free，还是基于 one-stage 的范式做的设计，是 ICML2019 的 EfficientNet 的拓展，将分类模型引入到了目标检测任务中。近些年目标检测发展迅猛，精度提升的同时也使得模型越来越大、算力需求越来越高，这制约了算法的落地。近些年出现了很多高效的目标检测思路，如 one-stage、anchor-free 以及模型压缩策略，它们基本上都是以牺牲精度为代价获得效率的。EfficientDet 直指当前目标检测的痛点：有没有可能在大量的资源约束前提下，实现高效且高精度的目标检测框架？<strong>这就是 EfficientDet 的由来。</strong></p>
 <ul>
 <li><p>论文标题</p>
-<p>Rethinking the competition between detection and ReID in Multi-Object Tracking</p>
+<p>EfficientDet: Scalable and Efficient Object Detection</p>
 </li>
 <li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2010.12138">http://arxiv.org/abs/2010.12138</a></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/1911.09070">http://arxiv.org/abs/1911.09070</a></p>
 </li>
 <li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/JudasDie/SOTS">https://github.com/JudasDie/SOTS</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/google/automl/tree/master/efficientdet">https://github.com/google/automl/tree/master/efficientdet</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为了追求速度和精度的平衡，联合训练检测模型和 ReID 模型的 JDE 范式（如下图，具体提出参考 JDE 原论文 Towards Real-Time Multi-Object Tracking）受到了学术界和工业界越来越多的关注。这主要是针对之前的 two-stage 方法先是使用现有的检测器检测出行人然后再根据检测框提取对应行人的外观特征进行关联的思路，这种方法在精度上的表现不错，然而由于检测模型不小且 ReID 模型需要在每个检测框上进行推理，计算量非常之大，所以 JDE 这种 one-shot 的思路的诞生是一种必然。</p>
-<p><img src="https://i.loli.net/2020/11/20/XSvleZbIjwDo1Yd.png"></p>
-<p>然而，就像之前 FairMOT 分析的那样，检测和 ReID 模型是<strong>存在不公平的过度竞争</strong>的，这种竞争制约了两个任务（检测任务和 ReID 任务 ）的表示学习，导致 了学习的混淆。具体而言，检测任务需要的是同类的不同目标拥有相似的语义信息（类间距离最大），而 ReID 要求的是同类目标有不同的语义信息（类内距离最大）。此外，<strong>目标较大的尺度变化</strong>依然是 MOT 的痛点。在 ReID 中图像被调整到统一的固定尺寸来进行查询 ，而在 MOT 中，提供在 ReID 网络的特征需要拥有尺度感知能力，这是因为沿着帧目标可能会有巨大的 size 变化。</p>
-<p>为了解决上述的过度竞争问题，论文提出了一种新的互相关网络（CCN）来改进单阶段跟踪框架下 detection 和 ReID 任务之间的协作学习。作者首先将 detection 和 ReID 解耦为两个分支，分别学习。然后两个任务的特征通过自注意力方式获得自注意力权重图和互相关性权重图。自注意力图是促进各自任务的学习，互相关图是为了提高两个任务的协同学习。而且，为了解决上述的尺度问题，设计了尺度感知注意力网络（SAAN）用于 ReID 特征的进一步优化，SAAN 使用了空间和通道注意力，该网络能够获得目标 不同尺度的外观信息，最后 不同尺度外观特征融合输出即可。</p>
-<h2 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h2><p>整体的思路还是采用 JDE 的框架，下图的右图是整体 pipeline 的设计，和左侧的 JDE 相比，中间增加了一个 CCN 网络（互相相关网络）用于构建 detection 和 ReID 两个分支不同的特征图（这里解释一下为什么要解耦成两个特征图送入后续的两个任务中，其实原始的 JDE 就是一个特征图送入检测和 ReID 分支中，作者这边认为这会造成后续的混淆，所以在这里分开了，FairMOT 也发现了这个问题，只是用另一种思路解决的而已）。构建的两个特征图分别送入 Detection head 和 SAAN（多尺度+注意力+ReID）中，Detection head 将 JDE 的 YOLO3 换为了更快更准的 YOLO5，其他没什么变动，下文检测这边我就不多提了。检测完成的同时，SAAN 也输出了多尺度融合后的 ReID 特征，至此也就完成了 JDE 联合检测和 ReID 的任务，后续就是关联问题了。</p>
-<p><img src="https://i.loli.net/2020/11/20/KIpS3jV1ezicCk5.png"></p>
-<p>所以，从整个框架来看，CSTrack 对 JDE 的改动主要集中在上图的 CCN 和 SAAN，而这两部分都是在特征优化上做了文章，且主要是基于注意力手段的特征优化（不知道是好是坏呢）。</p>
-<h2 id="CCN"><a href="#CCN" class="headerlink" title="CCN"></a>CCN</h2><p>CCN（Cross-correlation Network）用于提取更适合 detection 和 ReID 任务的一般特征和特定特征。在特定性学习方面，通过学习反映不同特征通道之间相互关系的自联系，增强了每个任务的特征表示。对于一般性学习，可以通过精心设计的相互关系机制来学习两个任务之间的共享信息。</p>
-<p><img src="https://i.loli.net/2020/11/20/XoOUnxREIqfCy3K.png"></p>
-<p>CCN 的结构如上图，我们对着这个图来理解 CCN 的思路。从检测器的 backbone 得到的特征图为$\mathbf{F} \in R^{C \times H \times W}$，首先，这个特征经过平均池化降维获得统计信息（更精炼的特征图）$\mathbf{F}^{\prime} \in R^{C \times H^{\prime} \times W^{\prime}}$。然后，两个不同的卷积层作用于$\mathbf{F}^{\prime}$生成两个特征图$\mathbf{T_1}$和$\mathbf{T_2}$，这两个特征图被 reshape 为特征$\left{\mathbf{M}<em>{\mathbf{1}}, \mathbf{M}</em>{\mathbf{2}}\right} \in R^{C \times N^{\prime}}$（$N^{\prime}=H^{\prime} \times W^{\prime}$）。下面的上下两个分支操作是一致的，先用矩阵$\mathbf{M_1}$或者$\mathbf{M_2}$和自己的转置矩阵相乘获得各自的自注意力图$\left{\mathbf{W}<em>{\mathrm{T}</em>{1}}, \mathbf{W}<em>{\mathrm{T}</em>{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$，然后$\mathbf{M_1}$和$\mathbf{M_2}$的转置进行矩阵乘法获得互注意力图$\left{\mathbf{W}<em>{\mathrm{S}</em>{1}}, \mathbf{W}<em>{\mathrm{S}</em>{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$（这是$\mathbf{M_1}$的，转置之后 softmax 就是$\mathbf{M_2}$的）。然后，对每个分支，自注意力图和互注意力图相加获得通道级别的注意力图，和原始的输入特征图$\mathbf{F}$相乘再和$\mathbf{F}$相加得到输出特征图$\mathrm{F}<em>{\mathrm{T} 1}$和$\mathrm{F}</em>{\mathrm{T} 2}$。</p>
-<p>上述学到的$\mathrm{F}_{\mathrm{T} 1}$用于 Detection head 的检测处理，后者则用于下面的 SAAN 中 ReID 特征的处理。</p>
-<p><img src="https://i.loli.net/2020/11/20/KhYU9rfR3g7VnFe.png"></p>
-<p>上图就是作者设计的 ReID 分支，用于对 ReID 特征进行多尺度融合，这个设计挺简单的，不同分支采用不同的下采样倍率获得不同尺度的特征图（其中通过空间注意力进行特征优化），然后融合产生的特征通过空间注意力加强，最终输出不同目标的 embedding$\mathbf{E} \in R^{512 \times W \times H}$（特征图每个通道对应不同的 anchor 的 embedding）。</p>
-<p><strong>这样，整个 JDE 框架就完成了。</strong></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在 MOT16 和 MOT17 上实验结果如下图，比较的方法都比较新，MOTA 也是刷到了 70 以上，不过速度稍许有点慢了，总的精度还是很不错的。</p>
-<p><img src="https://i.loli.net/2020/11/20/Tcv3j8x1ruYHsQh.png"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CSTrack 在 JDE 的基础上使用了更强的检测器也对 ReID 特征进行了优化，获得了相当不错的表现。不过，从结果上看这种暴力解耦还是会对整个跟踪的速度有影响的。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Liang C, Zhang Z, Lu Y, et al. Rethinking the competition between detection and ReID in Multi-Object Tracking[J]. arXiv:2010.12138 [cs], 2020.</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>之前提到，EfficientDet 是 EfficientNet 的拓展，我们首先来简单聊一聊 EfficientNet，感兴趣的请阅读<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1905.11946">原文</a>。在 EfficientNet 中提到了一个很重要的概念 Compound Scaling（符合缩放），这是基于一个公认的事实：调整模型的深度、宽度以及输入的分辨率在一定范围内会对模型性能有影响，但是过大的深度、宽度和分辨率对性能改善不大还会严重影响模型前向效率，所以 EfficientNet 提出复合系数$\phi$统一缩放网络的宽度、深度和分辨率，具体如下。</p>
+<p><img src="https://i.loli.net/2020/11/22/rQsZnAzVWE986He.png"></p>
+<p>这里的$\alpha, \beta, \gamma$都是由一个很小范围的网络搜索得到的常量，直观上来讲，$\phi$是一个特定的系数，可以用来控制资源的使用量，$\alpha, \beta, \gamma$决定了具体是如何分配资源的。值得注意的是，常规卷积操作的计算量是和$d, w^{2}, r^{2}$成正比的，加倍深度会使得 FLOPS 加倍，但是加倍宽度和分辨率会使得 FLOPS 加 4 倍。由于卷积 ops 经常在 CNN 中占据了大部分计算量，使用等式上式缩放卷积网络将会使得整体计算量近似增加$\left(\alpha \cdot \beta^{2} \cdot \gamma^{2}\right)^{\phi}$倍。由于 EfficientNet 对任意$\phi$增加了约束$\alpha \cdot \beta^{2} \cdot \gamma^{2} \approx 2$，整体的计算量近似增加了$2^{\phi}$倍。</p>
+<p><strong>对比 EfficientNet 从 B0 到 B7 的提升，不难知道，这种复合缩放可以较大的提升模型性能，所以 EfficientDet 也将其引入了进来。</strong></p>
+<p>论文首先分析了目前 OD（object detection，目标检测）的两个挑战：<strong>高效多尺度特征融合</strong>和<strong>模型缩放</strong>。</p>
+<p><strong>多尺度特征融合</strong>：FPN 如今被广泛用于多尺度特征融合，最近 PANet、NAS-FPN 等方法研究了更多跨尺度特征融合的结构。不过，这些方法融合不同尺度特征的方式都是简单加和，这默认了不同尺度特征的贡献是同等的，然而往往不是这样的。为了解决这个问题，论文提出了一种简单但是高效的加权双向特征金字塔网络（<strong>BiFPN</strong>），它对不同的输入特征学习权重。</p>
+<p><strong>模型缩放</strong>：之前的方法依赖于更大的 backbone 或者更大分辨率的输入，论文发现放大特征网络和预测网络对精度和速度的考量是很重要的。基于 EfficientNet 的基础，论文为目标检测设计了一种复合缩放（<strong>Compound Scaling</strong>）方法，联合调整 backbone、特征网络、预测网络的深度、宽度和分辨率。</p>
+<p>和 EfficientNet 一样，EfficientDet 指的是一系列网络，如下图包含 D1 到 D7，速度逐渐变慢，精度逐渐提升。在理解 EfficientDet 两个核心工作（<strong>BiFPN</strong>和<strong>Compound Scaling</strong>）之前，可以先看看下图的 SOTA 方法比较，可以看到 EfficientDet-D7 的效果非常惊人，在 FLOPs 仅为 AmoebaNet+NAS-FPN+AA 的十分之一的前提下，COCO2017 验证集上的 AP 到达了 55.1，超越了 SOTA5 个点。而且单尺度训练的 EfficientD7 现在依然霸榜 PaperWithCode 上。</p>
+<p><img src="https://i.loli.net/2020/11/22/NU35fMiRe6Fo2BT.png"></p>
+<p><img src="https://i.loli.net/2020/11/22/LI5h3EBkVtWQzjO.png"></p>
+<p>此外，查看官方仓库提供的模型，其参数量其实是不大的（当然，这不绝对意味着计算量小）。</p>
+<p><img src="https://i.loli.net/2020/11/22/giL6hNfOYMVA2I1.png"></p>
+<h2 id="BiFPN"><a href="#BiFPN" class="headerlink" title="BiFPN"></a>BiFPN</h2><p>CVPR2017 的 FPN 指出了不同层之间特征融合的重要性如下图 a，不过它采用的是自上而下的特征图融合，融合方式也是很简单的高层特征加倍后和低层特征相加的方式。此后，下图 b 所示的 PANet 在 FPN 的基础上又添加了自下而上的信息流。再后来出现了不少其他的融合方式，直到 NAS-FPN 采用了 NAS 策略搜索最佳 FPN 结构，得到的是下图 c 的版本，不过 NAS-FPN 虽然简单高效，但是精度和 PANet 还是有所差距的，并且 NAS-FPN 这种结构是很怪异的，难以理解的。所以，EfficientDet 在 PANet 的基础上进行了优化如下图的 d：移除只有一个输入的节点；同一个 level 的输入和输出节点进行连接，类似 skip connection；PANet 这种一次自上而下再自下而上的特征融合可以作为一个单元重复多次从而获得更加丰富的特征，不过重复多少次是速度和精度的权衡选择，这在后面的复合 22 缩放部分讲到。</p>
+<p><img src="https://i.loli.net/2020/11/22/iuAG38EdxKI9DqF.png"></p>
+<p>上述是 FPN 特征流动的结构，如何数学上组合这些特征也是一个重要的方面。此前的方法都是上一层特征 resize 之后和当前层特征相加。这种方式存在诸多不合理之处，因为这样其实默认融合的两层特征是同权重的，事实上不同尺度的特征对输出特征的贡献是不平等的，应当对每个输入特征加权，这个权重需要网络自己学习。当然，学习到的权重需要归一化到和为 1，采用 softmax 是一个选择，但是 softmax 指数运算开销大，所以作者这里简化为快速标准化融合的方式（Fast normalized fusion），它的计算方法如下，其实就是去掉了 softmax 的指数运算，这种方式在 GPU 上快了很多，精度略微下降，可以接受。</p>
+<p>$$<br>O=\sum_{i} \frac{w_{i}}{\epsilon+\sum_{j} w_{j}} \cdot I_{i}<br>$$</p>
+<h2 id="Compound-Scaling"><a href="#Compound-Scaling" class="headerlink" title="Compound Scaling"></a>Compound Scaling</h2><p>在看复合缩放之前，我们先要知道，有了 BiFPN 又有了 EfficientNet 再加上 head 部分，其实网络框架已经确定了，如下图所示，左边是 backbone（EfficientDet），中间是多层 BiFPN，右边是 prediction head 部分。</p>
+<p><img src="https://i.loli.net/2020/11/22/P28ZjJ4sgwYSXGh.png"></p>
+<p>结合 EfficientNet 的联合调整策略，论文提出目标检测的联合调整策略，用复合系数$\phi$统一调整.调整的内容包括 backbone（EfficientNet 版本，B0 到 B6）、neck 部分的 BiFPN（通道数、layer 数）以及 head 部分（包括层数）还要输入图像分辨率。不过，和 EfficientNet 不同，由于参数太多采用网格搜索计算量很大，论文采用启发式的调整策略。其中 backbone 的选择系数控制，BiFPN 的配置用下面第一个式子计算，head 的层数和输入分辨率是下面 2、3 式的计算方式。</p>
+<p>$$<br>W_{b i f p n}=64 \cdot\left(1.35^{\phi}\right), \quad D_{b i f p n}=3+\phi<br>$$</p>
+<p>$$<br>D_{b o x}=D_{c l a s s}=3+\lfloor\phi / 3\rfloor<br>$$</p>
+<p>$$<br>R_{\text {input}}=512+\phi \cdot 128<br>$$</p>
+<p>最后得到的 8 种结构的配置表如下图。</p>
+<p><img src="https://i.loli.net/2020/11/22/fw7sLOZj8KNtUm2.png"></p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>在简介里我已经提到很多这个检测框架的过人之处了，这里就简单看一下在 COCO 验证集的效果，可以说无论是速度还是精度都是吊打其他 SOTA 方法的，至今依然在 COCO 验证集榜首的位置。</p>
+<p><img src="https://i.loli.net/2020/11/22/KUOb2RJcBCQt5fu.png"></p>
+<p>此外作者也将其拓展到语义分割，潜力也是比较大的。还做了不少消融实验，感兴趣的可以自行查看论文原文。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文最大的亮点在于提出了目标检测网络联合调整复杂度的策略，从而刷新了 SOTA 结果。这个思路来自 EfficientDet，同样 backbone 的高效也源自该网络。文中另一个突出的成果在于设计了 BiFPN 以及堆叠它，可以看到效果还是很显著的。此外，除了官方的 TF 实现外，这里也推荐一个目前公认最好的 PyTorch 实现（由国内大佬完成），<a target="_blank" rel="noopener" href="https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch">Github 地址</a>给出，这也是唯一一个达到论文效果的 PyTorch 复现（作者复现时官方还没有开源）。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Tan M, Pang R, Le Q V. EfficientDet: Scalable and Efficient Object Detection[J]. arXiv:1911.09070 [cs, eess], 2020.</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -558,8 +569,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">CSTrack解读</span>
+                                <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">EfficientDet解读</span>
                                 </a>
                             
                         </div>
@@ -730,7 +741,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-11-20T09-01-47',
+        id: '2020-11-22T12-27-32',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -754,9 +765,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/11/22/efficientdet/">
                     <div class="card-image">
@@ -774,9 +786,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -789,6 +801,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -807,24 +820,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/13/dcn-reppoints/">
+                <a href="/2020/11/20/cstrack/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/19.jpg" class="responsive-img" alt="DCN &amp; RepPoints解读">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="CSTrack 解读">
                         
-                        <span class="card-title">DCN &amp; RepPoints解读</span>
+                        <span class="card-title">CSTrack 解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介近几年，Anchor-free的目标检测方法受到了很大的关注，究其原因，该类方法不需要像Anchor-base方法那样受限于anchor的配置（anchor的设置要求开发者对数据很了解）就可以获得不错的检测结果，大大减少了数据分析的复杂
+                            简介自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Chal
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
                             </span>
                         <span class="publish-author">
                             
@@ -841,12 +854,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DCN%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">DCN解读</span>
-                    </a>
-                    
-                    <a href="/tags/RepPoints%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">RepPoints解读</span>
+                    <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">CSTrack解读</span>
                     </a>
                     
                 </div>

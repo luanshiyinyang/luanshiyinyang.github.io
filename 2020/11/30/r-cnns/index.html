@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="EfficientDet 解读, Chen&#39;s blog">
+    <meta name="keywords" content="R-CNN系列解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>EfficientDet 解读 | Chen&#39;s blog</title>
+    <title>R-CNN系列解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">EfficientDet 解读</h1>
+                    <h1 class="description center-align post-title">R-CNN系列解读</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,24 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">EfficientDet解读</span>
+                            <a href="/tags/R-CNN%E7%B3%BB%E5%88%97%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">R-CNN系列解读</span>
+                            </a>
+                        
+                            <a href="/tags/R-CNN%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">R-CNN解读</span>
+                            </a>
+                        
+                            <a href="/tags/Fast-R-CNN%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">Fast R-CNN解读</span>
+                            </a>
+                        
+                            <a href="/tags/Faster-R-CNN%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">Faster R-CNN解读</span>
+                            </a>
+                        
+                            <a href="/tags/Sparse-R-CNN%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">Sparse R-CNN解读</span>
                             </a>
                         
                     </div>
@@ -456,7 +472,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-22
+                    2020-11-30
                 </div>
                 
 
@@ -465,7 +481,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    3.9k
                 </div>
                 
 
@@ -482,47 +498,54 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这篇发表于 CVPR2020 的检测论文不同于大火的 anchor-free，还是基于 one-stage 的范式做的设计，是 ICML2019 的 EfficientNet 的拓展，将分类模型引入到了目标检测任务中。近些年目标检测发展迅猛，精度提升的同时也使得模型越来越大、算力需求越来越高，这制约了算法的落地。近些年出现了很多高效的目标检测思路，如 one-stage、anchor-free 以及模型压缩策略，它们基本上都是以牺牲精度为代价获得效率的。EfficientDet 直指当前目标检测的痛点：有没有可能在大量的资源约束前提下，实现高效且高精度的目标检测框架？<strong>这就是 EfficientDet 的由来。</strong></p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近香港大学和加州伯克利开放了一篇新的基于 R-CNN 的工作 Sparse R-CNN，这是一个类似于 DETR 的稀疏端到端目标检测框架，使用少量可学习的 proposal 即可达到 SOTA 性能。这为稀疏端到端目标检测开辟了一条新的路，也将更多研究者的目标吸引了过来。本文从 R-CNN 开始，逐步讲解 R-CNN 系列目标检测算法的发展优化之路。，它们都是沿着 region proposal 这个思路的，只是处理方式大不相同。下面的图是我非常喜欢的目标检测综述《Object detection in 20 years: A survey》中归纳的目标检测里程碑式作品，可以看到，R-CNN 系的三个算法是目标检测发展史上避不开的话题。</p>
 <ul>
-<li><p>论文标题</p>
-<p>EfficientDet: Scalable and Efficient Object Detection</p>
-</li>
-<li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/1911.09070">http://arxiv.org/abs/1911.09070</a></p>
-</li>
-<li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/google/automl/tree/master/efficientdet">https://github.com/google/automl/tree/master/efficientdet</a></p>
-</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1311.2524">R-CNN</a>（CVPR2014）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1504.08083">Fast R-CNN</a> （ICCV2015）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497">Faster R-CNN</a>（NIPS2015）</li>
+<li><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2011.12450">Sparse R-CNN</a>（暂未收录）</li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>之前提到，EfficientDet 是 EfficientNet 的拓展，我们首先来简单聊一聊 EfficientNet，感兴趣的请阅读<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1905.11946">原文</a>。在 EfficientNet 中提到了一个很重要的概念 Compound Scaling（符合缩放），这是基于一个公认的事实：调整模型的深度、宽度以及输入的分辨率在一定范围内会对模型性能有影响，但是过大的深度、宽度和分辨率对性能改善不大还会严重影响模型前向效率，所以 EfficientNet 提出复合系数$\phi$统一缩放网络的宽度、深度和分辨率，具体如下。</p>
-<p><img src="https://i.loli.net/2020/11/22/rQsZnAzVWE986He.png"></p>
-<p>这里的$\alpha, \beta, \gamma$都是由一个很小范围的网络搜索得到的常量，直观上来讲，$\phi$是一个特定的系数，可以用来控制资源的使用量，$\alpha, \beta, \gamma$决定了具体是如何分配资源的。值得注意的是，常规卷积操作的计算量是和$d, w^{2}, r^{2}$成正比的，加倍深度会使得 FLOPS 加倍，但是加倍宽度和分辨率会使得 FLOPS 加 4 倍。由于卷积 ops 经常在 CNN 中占据了大部分计算量，使用等式上式缩放卷积网络将会使得整体计算量近似增加$\left(\alpha \cdot \beta^{2} \cdot \gamma^{2}\right)^{\phi}$倍。由于 EfficientNet 对任意$\phi$增加了约束$\alpha \cdot \beta^{2} \cdot \gamma^{2} \approx 2$，整体的计算量近似增加了$2^{\phi}$倍。</p>
-<p><strong>对比 EfficientNet 从 B0 到 B7 的提升，不难知道，这种复合缩放可以较大的提升模型性能，所以 EfficientDet 也将其引入了进来。</strong></p>
-<p>论文首先分析了目前 OD（object detection，目标检测）的两个挑战：<strong>高效多尺度特征融合</strong>和<strong>模型缩放</strong>。</p>
-<p><strong>多尺度特征融合</strong>：FPN 如今被广泛用于多尺度特征融合，最近 PANet、NAS-FPN 等方法研究了更多跨尺度特征融合的结构。不过，这些方法融合不同尺度特征的方式都是简单加和，这默认了不同尺度特征的贡献是同等的，然而往往不是这样的。为了解决这个问题，论文提出了一种简单但是高效的加权双向特征金字塔网络（<strong>BiFPN</strong>），它对不同的输入特征学习权重。</p>
-<p><strong>模型缩放</strong>：之前的方法依赖于更大的 backbone 或者更大分辨率的输入，论文发现放大特征网络和预测网络对精度和速度的考量是很重要的。基于 EfficientNet 的基础，论文为目标检测设计了一种复合缩放（<strong>Compound Scaling</strong>）方法，联合调整 backbone、特征网络、预测网络的深度、宽度和分辨率。</p>
-<p>和 EfficientNet 一样，EfficientDet 指的是一系列网络，如下图包含 D1 到 D7，速度逐渐变慢，精度逐渐提升。在理解 EfficientDet 两个核心工作（<strong>BiFPN</strong>和<strong>Compound Scaling</strong>）之前，可以先看看下图的 SOTA 方法比较，可以看到 EfficientDet-D7 的效果非常惊人，在 FLOPs 仅为 AmoebaNet+NAS-FPN+AA 的十分之一的前提下，COCO2017 验证集上的 AP 到达了 55.1，超越了 SOTA5 个点。而且单尺度训练的 EfficientD7 现在依然霸榜 PaperWithCode 上。</p>
-<p><img src="https://i.loli.net/2020/11/22/NU35fMiRe6Fo2BT.png"></p>
-<p><img src="https://i.loli.net/2020/11/22/LI5h3EBkVtWQzjO.png"></p>
-<p>此外，查看官方仓库提供的模型，其参数量其实是不大的（当然，这不绝对意味着计算量小）。</p>
-<p><img src="https://i.loli.net/2020/11/22/giL6hNfOYMVA2I1.png"></p>
-<h2 id="BiFPN"><a href="#BiFPN" class="headerlink" title="BiFPN"></a>BiFPN</h2><p>CVPR2017 的 FPN 指出了不同层之间特征融合的重要性如下图 a，不过它采用的是自上而下的特征图融合，融合方式也是很简单的高层特征加倍后和低层特征相加的方式。此后，下图 b 所示的 PANet 在 FPN 的基础上又添加了自下而上的信息流。再后来出现了不少其他的融合方式，直到 NAS-FPN 采用了 NAS 策略搜索最佳 FPN 结构，得到的是下图 c 的版本，不过 NAS-FPN 虽然简单高效，但是精度和 PANet 还是有所差距的，并且 NAS-FPN 这种结构是很怪异的，难以理解的。所以，EfficientDet 在 PANet 的基础上进行了优化如下图的 d：移除只有一个输入的节点；同一个 level 的输入和输出节点进行连接，类似 skip connection；PANet 这种一次自上而下再自下而上的特征融合可以作为一个单元重复多次从而获得更加丰富的特征，不过重复多少次是速度和精度的权衡选择，这在后面的复合 22 缩放部分讲到。</p>
-<p><img src="https://i.loli.net/2020/11/22/iuAG38EdxKI9DqF.png"></p>
-<p>上述是 FPN 特征流动的结构，如何数学上组合这些特征也是一个重要的方面。此前的方法都是上一层特征 resize 之后和当前层特征相加。这种方式存在诸多不合理之处，因为这样其实默认融合的两层特征是同权重的，事实上不同尺度的特征对输出特征的贡献是不平等的，应当对每个输入特征加权，这个权重需要网络自己学习。当然，学习到的权重需要归一化到和为 1，采用 softmax 是一个选择，但是 softmax 指数运算开销大，所以作者这里简化为快速标准化融合的方式（Fast normalized fusion），它的计算方法如下，其实就是去掉了 softmax 的指数运算，这种方式在 GPU 上快了很多，精度略微下降，可以接受。</p>
-<p>$$<br>O=\sum_{i} \frac{w_{i}}{\epsilon+\sum_{j} w_{j}} \cdot I_{i}<br>$$</p>
-<h2 id="Compound-Scaling"><a href="#Compound-Scaling" class="headerlink" title="Compound Scaling"></a>Compound Scaling</h2><p>在看复合缩放之前，我们先要知道，有了 BiFPN 又有了 EfficientNet 再加上 head 部分，其实网络框架已经确定了，如下图所示，左边是 backbone（EfficientDet），中间是多层 BiFPN，右边是 prediction head 部分。</p>
-<p><img src="https://i.loli.net/2020/11/22/P28ZjJ4sgwYSXGh.png"></p>
-<p>结合 EfficientNet 的联合调整策略，论文提出目标检测的联合调整策略，用复合系数$\phi$统一调整.调整的内容包括 backbone（EfficientNet 版本，B0 到 B6）、neck 部分的 BiFPN（通道数、layer 数）以及 head 部分（包括层数）还要输入图像分辨率。不过，和 EfficientNet 不同，由于参数太多采用网格搜索计算量很大，论文采用启发式的调整策略。其中 backbone 的选择系数控制，BiFPN 的配置用下面第一个式子计算，head 的层数和输入分辨率是下面 2、3 式的计算方式。</p>
-<p>$$<br>W_{b i f p n}=64 \cdot\left(1.35^{\phi}\right), \quad D_{b i f p n}=3+\phi<br>$$</p>
-<p>$$<br>D_{b o x}=D_{c l a s s}=3+\lfloor\phi / 3\rfloor<br>$$</p>
-<p>$$<br>R_{\text {input}}=512+\phi \cdot 128<br>$$</p>
-<p>最后得到的 8 种结构的配置表如下图。</p>
-<p><img src="https://i.loli.net/2020/11/22/fw7sLOZj8KNtUm2.png"></p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>在简介里我已经提到很多这个检测框架的过人之处了，这里就简单看一下在 COCO 验证集的效果，可以说无论是速度还是精度都是吊打其他 SOTA 方法的，至今依然在 COCO 验证集榜首的位置。</p>
-<p><img src="https://i.loli.net/2020/11/22/KUOb2RJcBCQt5fu.png"></p>
-<p>此外作者也将其拓展到语义分割，潜力也是比较大的。还做了不少消融实验，感兴趣的可以自行查看论文原文。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文最大的亮点在于提出了目标检测网络联合调整复杂度的策略，从而刷新了 SOTA 结果。这个思路来自 EfficientDet，同样 backbone 的高效也源自该网络。文中另一个突出的成果在于设计了 BiFPN 以及堆叠它，可以看到效果还是很显著的。此外，除了官方的 TF 实现外，这里也推荐一个目前公认最好的 PyTorch 实现（由国内大佬完成），<a target="_blank" rel="noopener" href="https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch">Github 地址</a>给出，这也是唯一一个达到论文效果的 PyTorch 复现（作者复现时官方还没有开源）。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Tan M, Pang R, Le Q V. EfficientDet: Scalable and Efficient Object Detection[J]. arXiv:1911.09070 [cs, eess], 2020.</p>
+<p><img src="https://i.loli.net/2020/11/30/I6oZrcKxTzlfQ8q.png"></p>
+<h2 id="目标检测思路"><a href="#目标检测思路" class="headerlink" title="目标检测思路"></a>目标检测思路</h2><p>在聊具体的算法之前，我们首先要知道目标检测永不过时的核心思路：<strong>目标定位</strong>+<strong>目标分类</strong>，这是任务本身决定的，后来所谓的 two-stage 方法和 one-stage 方法其实都还是这个思路，只是处理的技巧不同罢了。</p>
+<p>我们知道，<strong>目标分类</strong>这个任务已经基本上被 CNN 所解决，所以只要在 pipeline 中引入卷积分类模型就能确保不错的分类精度。留给目标检测的核心问题其实就是<strong>目标定位</strong>。我们当然会想到很直接很粗暴的想法：遍历图片中所有可能的位置，搜索不同大小、宽高比的所有区域，逐个检测其中是否存在某个目标，以概率较大的结果作为输出。这个就是传统的滑窗方法，这个方法显然是一种密集采样的方式，类似后来的 anchor 策略，R-CNN 系列则采用了一种候选框提名的方式减少滑窗的复杂性形成了 Dense-to-Sparse 方法，Sparse R-CNN 则完全采用 Sparse 策略，获得了低维的 proposal 输入。</p>
+<p><img src="https://i.loli.net/2020/11/30/cQYRqUzH1SvgA5I.png"></p>
+<h2 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a><strong>R-CNN</strong></h2><p>R-CNN 是 2014 年出现的一篇目标检测方法，为后来目标检测的研究奠定了基础，R-CNN 结合了传统的滑窗法和边框回归思路，开创性地提出了候选区的概念（Region proposals），先从输入图像中找到一些可能存在对象的候选区，这个过程称为 Selective Search（根据输入图像的特征如颜色等提取出候选区）。在 R-CNN 中这些候选区大概会有 2000 个，对这些区域进行分类和微调即可完成目标检测。候选区的提出大大减少了目标定位的时间，提高了目标检测的效率。然而由于深度学习分类器的存在，非常耗费算力，且 proposal 的生成都是在 CPU 上完成的，因此 R-CNN 处理一张图片大概需要 49 秒，这和实时检测差的还很远。</p>
+<p><img src="https://i.loli.net/2020/11/30/c4A15kyVlfmbi9v.png"></p>
+<p>下面我们来理解一下 R-CNN 的具体训练流程，它的整体思路如上图，具体细节如下。</p>
+<ul>
+<li><strong>Region proposals</strong>：使用 Selective Search 方法生成大约 2000 个候选框（proposals），与 ground truth box（以下简称 GT box）的 IOU（交并比）大于 0.5 则认为这个 proposal 为值得学习的 positive（正例），否则为 negative（负例，即 background）。</li>
+<li><strong>Supervised pre-training and Domain-specific fine-tuning</strong>：在 ImageNet 上预训练 VGG16 这样的视觉深度模型用于提取图像特征，然后在 VOC 数据集上 fine tune 为 21 类（包括背景），这样就得到了一个优质的特征提取器，只要将 proposal 区域 resize 到这个卷积模型的需要尺寸就能提取特征，提取的特征用于目标的分类和边框回归。</li>
+<li><strong>Object category classifiers and Bounding box regression</strong>：分类器使用 SVM 进行分类。分类完成后，边框回归模型用于精调边框的位置，论文对每一类目标使用了简单的线性回归模型。具体训练的细节如优化器等配置这里就不细细展开了。</li>
+</ul>
+<p>测试时（推理时）思路类似，先对图像产生大量的 proposal，然后进行分类和边框回归，然后使用 NMS 算法（非极大值抑制）去除冗余的边框得到最终的检测结果。</p>
+<p><strong>至此，我们理解了 R-CNN 的思路，尽管它不像传统方法那样穷举可能的目标位置，然而 Selective Search 方法提取的候选框多达 2000 个，这 2000 个框都需要 resize 后送入 CNN 和 SVM 中，这就是说，对一幅图像的检测需要对 2000 个图像进行 CNN 特征提取，这在这个算力爆炸的时代都是很费时的，何况在当时，这就导致 R-CNN 平均处理一张图片需要 49 秒。</strong></p>
+<p>那么，有没有办法提高检测的速度呢？其实很容易发现，这 2000 个 proposal 都是图像的一部分，完全可以对图像提取一次特征，然后只需要将 proposal 在原图的位置映射到特征图上，就得到该 proposal 区域的特征了。这样，对一幅图像只需要一次得到卷积特征，然后将每个 proposal 特征送入全连接进行后续任务的端到端学习。</p>
+<h2 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a><strong>Fast R-CNN</strong></h2><p>在上面一节的最后，得到一个优化 R-CNN 的思路，SPPNet 沿着这个思路走了下去，其中最关键的一个问题就是 crop/warp 操作使得 proposal 尺寸固定送入了 CNN 中，这是为了全连接层固定输入的要求，但是导致了图像的失真，因此作者设计了金字塔池化来使得任意输入的图像获得同维的特征。有了这个方法，就能对 R-CNN 进行优化了，只对原图进行一次卷积计算，便得到整张图的卷积特征 feature map，然后找到每个候选框在 feature map 上的映射 patch，将此 patch 作为每个候选框的卷积特征输入到 SPP layer（空间金字塔池化层） 和之后的层，完成特征提取工作。如此，对一幅图，SPPNet 只需要提取一次卷积特征，提速 R-CNN 百倍左右。</p>
+<p>Fast R-CNN 吸取了 SPPNet 的思路，对 R-CNN 进行了改进，获得了进一步的性能提升。它采用了单层空间金字塔池化（文中为 RoI Pooling）代替原来的池化操作使得不同的 proposal 在最后一层 feature map 上映射得到的区域上经过池化后得到同维特征。原本的 proposal 位置经过下采样倍率除法就可以得到其在特征图上的位置从而获得特征，这个不难理解，遇到除不尽的就取整即可。<strong>问题是，RoI Pooling 是如何保证任意尺度的特征图都能得到同维的输出特征呢 2？RoI Pooling 采用了一个简单的策略，那就是网格划分。</strong></p>
+<p>假设我有个$w=7,h=5$的 RoI 特征矩阵，我需要得到$W=2,H=2$的输出特征，那么其实只需要将$7\times 5$的矩阵划分为四个部分，每个部分取最大元素值就行，不过，由于非方阵，，难以等分，所以 RoI Pooling 会先进行取整，这样$w$被划分为 3 和 4，$h$被划分为 2 和 3。这样就完成了 RoI 区域的固定维度特征提取，有意思的是，<strong>上述过程其实发生了两次取整，一次计算 proposal 在 feature map 上的坐标，一次计算 feature map 上的 RoI 区域的网格划分，这个过程是有问题的，所以后来提出了 RoI Align。</strong></p>
+<p><img src="https://i.loli.net/2020/11/30/wVenWRkUbPrCfY3.png"></p>
+<p>上图所示的就是 Fast R-CNN 的 pipeline 设计，现在一次卷积特征提取就能得到 2000 个 proposal 的特征了，后续的任务作者也做了改变。彼时，<strong>多任务学习</strong>已经初有起色，原先在 R-CNN 中是先提 proposal，然后 CNN 提取特征，之后用 SVM 分类器，最后再做 bbox regression 的，在 Fast R-CNN 中则将对 proposal 的分类和边框回归同时通过全连接层完成，利用一个上图所示的多任务学习网络。实验也证明，这两个任务能够共享卷积特征，并相互促进。</p>
+<p>其他方面，和 R-CNN 处理思路类似，其实，除了 proposal 的生成，整个 Fast R-CNN 已经是端到端训练的了，Fast-RCNN 很重要的一个贡献是为 Region Proposal + CNN 这种实时检测框架提供了一丝可能性，这也为后来的 Faster R-CNN 埋下伏笔。</p>
+<p>最后提一下，Fast R-CNN 单图平均处理时间缩短到了 2.3 秒，这是一个巨大的突破，不过，对实时检测而言还是有点慢，而下一节的 Faster R-CNN 则将实时检测的可能性化为了现实。</p>
+<h2 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a><strong>Faster R-CNN</strong></h2><p>在 Fast R-CNN 中留下了一个遗憾，也是制约网络速度和端到端训练的部件，那就是 Selective Search 求得候选框，这个方法其实非常耗时，Faster R-CNN 就设计了一个 Region Proposal Network（RPN，区域推荐网络）代替 Selective Search，同时也引入了 anchor box 应对目标形状的变化问题（anchor 可以理解为位置和大小固定的 bbox，或者说事先设置好的固定的 proposal）。</p>
+<p><img src="https://i.loli.net/2020/11/30/LUgclEvd8bXsipn.png"></p>
+<p>具体而言，就像上图一样，RPN 网络会在最后一层特征图上对大量的预定义的 anchor 进行正例挑选（这是个分类任务）以及边界框回归（这是个回归任务），通过这两个任务会得到较为准确的 proposal，这就完成了 Fast R-CNN 中 Selective Search 得到的 proposal 了。接着，这些 proposal 会被用于和 Fast R-CNN 中一样的目标分类和边框回归来得到精确的检测结果。</p>
+<p><img src="https://i.loli.net/2020/11/30/KWs7YZC2EbJtmFv.png"></p>
+<p>RPN 的引入使得端到端目标检测框架得以实现，这大大提高了目标检测的速度，它单图检测时间只需要 0.2 秒。直到今天，Faster R-CNN 这种基于候选框的二阶段目标检测框架仍然是目标检测的一个重要研究领域，Faster R-CNN 也成为目标检测领域绕不过的里程碑。</p>
+<h2 id="Sparse-R-CNN"><a href="#Sparse-R-CNN" class="headerlink" title="Sparse R-CNN"></a><strong>Sparse R-CNN</strong></h2><p>距离 Faster R-CNN 的出现已经过去了 5 年的时间，这 5 年是目标检测告诉发展的 5 年，在 Faster R-CNN 之后出现了 anchor-based 的单阶段目标跟踪范式，它主张去掉 RPN 直接对 anchor 进行处理，在速度上获得了卓越的表现，如 SSD、RetinaNet 等，它们成为了目标检测的新 SOTA。再后来，受到工业界普遍关注的高效<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/108032597">anchor-free 方法</a>为目标检测开拓了全新的方向，如 FCOS、CenterNet 等。今年，FaceBook 发布了使用 Transformer 构建的 DETR 框架，它只需要少量的低维输入即可获得 SOTA 检测表现，这为稀疏检测带来了一丝契机。</p>
+<p>最近，沿着目标检测中 Dense 和 Dense-to-Sparse 的框架的设计思路，Sparse R-CNN 建立了一种彻底的稀疏框架，它完全脱离了 anchor、RPN 和 NMS 后处理等设计。</p>
+<p>首先，我们来回顾一下目标检测的范式。最著名的为<strong>Dense范式</strong>，密集检测器的思路从深度学习时代之前沿用至今，这种范式最典型的特征是会设置大量的候选（candidates），无论是anchor、参考点还是其他的形式，最后，网络会对这些候选进行过滤以及分类和边框微调。接着，取得过突出成果的<strong>Dense-to-Sparse范式</strong>最典型的代表就是上文所说的R-CNN系列，这种范式的典型特点是对一组较为稀疏的候选进行分类和回归，这组稀疏的候选其实还是来自密集检测中那种。</p>
+<p><img src="https://i.loli.net/2020/11/30/cQYRqUzH1SvgA5I.png"></p>
+<p>很多人认为目标检测已经是个几乎solved problem，然而Dense范式总有一些问题难以忽略：较慢的NMS后处理、多对一的正负样本分类、candidates的设计等。这些问题可以通过Sparse范式解决，DETR提出了一个解决方案：DETR中，candidates是一组sparse的可学习的object queries，正负样本分配是一对一的二分图匹配，而且，不需要NMS就能获得检测结果。然而，DETR使用的Transformer无形之中使得每个object query与全局特征图进行了注意力交互，这还是Dense的交互。</p>
+<p>Sparse R-CNN作者认为，Sparse的检测框架不仅仅是稀疏的候选，也应该是稀疏的特征交互，因此提出了Sparse R-CNN。</p>
+<p><img src="https://i.loli.net/2020/11/30/bRAIPkMeNhSv7L9.png"></p>
+<p>Sparse R-CNN的出发点是通过少量的（如100个）proposal代替RPN产生的动辄上千的proposal。不妨看一下上面的pipeline设计，Sparse R-CNN的proposal是一组可学习参数，就是上面绿色框中的$N*4$向量，其中$N$表示proposal的数目，一般几百个就够了，4代表物体边框的4个属性，为归一化后的中心点坐标$(x,y)$以及宽高（$w$和$h$），这个向量作为可学习参数和其他参数一起被网络优化，这就是整体的设计。</p>
+<p>但是，如果这也就可以了那么前人早就实现了，这个学习到的proposal可以理解为什么呢？其实就是根据图像信息推理得到的可能出现物体的统计值，这种“肤浅”的proposal确定的RoI特征显然不足以用来精确定位和恶分类目标，事实上作者在Faster R-CNN基础上换成这种可学习的proposal后精度下降了20个点。于是，，作者提出了上图蓝色框中的特征层面的proposal，它和proposal box数目一致，是一个高维特征向量（256维左右）。<strong>proposal box和proposal feature一一对应，proposal feature和proposal box提取出来的RoI feature做一对一的交互，使得RoI特征更利于分类和回归。这种交互如下图所示，类似于注意力机制，这种交互模块可以多个拼接以进一步精炼特征，所以该模块为Dynamic Instance Interactive Module，堆叠多个这样的模块构成了该框架的Dynamic Instance Interactive Head。</strong> 由于交互是一对一的，所以特征的交互和proposal一样是稀疏的。</p>
+<p><img src="https://i.loli.net/2020/11/30/HopeQ7qyCt5wNul.png"></p>
+<p>关于整体框架：backbone采用基于ResNet的FPN，Head是一组Dynamic Instance Interactive Head，上一个head的output features和output boxes作为下一个head的proposal features和proposal boxes。proposal features在与RoI features交互之前做self-attention。整体训练的损失函数是基于二分图匹配的集合预测损失。</p>
+<p><img src="https://i.loli.net/2020/11/30/n7b5JhgqB9PLIjy.png"></p>
+<p>实验结果上看，在COCO数据集达到了SOTA表现。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>R-CNN和Fast R-CNN出现后的一段时期内，目标检测领域的一个重要研究方向是提出更高效的候选框，其中Faster R-CNN开创性提出RPN，产生深远影响。Sparse R-CNN以一组稀疏输入即可获得比肩SOTA的检测性能，为真正的端到端检测开拓了一条路。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -569,8 +592,24 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">EfficientDet解读</span>
+                                <a href="/tags/R-CNN%E7%B3%BB%E5%88%97%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">R-CNN系列解读</span>
+                                </a>
+                            
+                                <a href="/tags/R-CNN%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">R-CNN解读</span>
+                                </a>
+                            
+                                <a href="/tags/Fast-R-CNN%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">Fast R-CNN解读</span>
+                                </a>
+                            
+                                <a href="/tags/Faster-R-CNN%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">Faster R-CNN解读</span>
+                                </a>
+                            
+                                <a href="/tags/Sparse-R-CNN%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">Sparse R-CNN解读</span>
                                 </a>
                             
                         </div>
@@ -741,7 +780,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-11-22T12-27-32',
+        id: '2020-11-30T20-22-40',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -765,9 +804,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/11/30/r-cnns/">
                     <div class="card-image">
@@ -785,9 +825,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -800,6 +840,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -834,24 +875,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/20/cstrack/">
+                <a href="/2020/11/22/efficientdet/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="CSTrack 解读">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg" class="responsive-img" alt="EfficientDet 解读">
                         
-                        <span class="card-title">CSTrack 解读</span>
+                        <span class="card-title">EfficientDet 解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Chal
+                            简介这篇发表于 CVPR2020 的检测论文不同于大火的 anchor-free，还是基于 one-stage 的范式做的设计，是 ICML2019 的 EfficientNet 的拓展，将分类模型引入到了目标检测任务中。近些年目标检测发展
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
                             </span>
                         <span class="publish-author">
                             
@@ -868,8 +909,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">CSTrack解读</span>
+                    <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">EfficientDet解读</span>
                     </a>
                     
                 </div>

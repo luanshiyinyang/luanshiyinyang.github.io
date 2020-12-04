@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="R-CNN系列解读, Chen&#39;s blog">
+    <meta name="keywords" content="TPAGT解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>R-CNN系列解读 | Chen&#39;s blog</title>
+    <title>TPAGT解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">R-CNN系列解读</h1>
+                    <h1 class="description center-align post-title">TPAGT解读</h1>
                 </div>
             </div>
         </div>
@@ -431,24 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/R-CNN%E7%B3%BB%E5%88%97%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">R-CNN系列解读</span>
-                            </a>
-                        
-                            <a href="/tags/R-CNN%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">R-CNN解读</span>
-                            </a>
-                        
-                            <a href="/tags/Fast-R-CNN%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">Fast R-CNN解读</span>
-                            </a>
-                        
-                            <a href="/tags/Faster-R-CNN%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">Faster R-CNN解读</span>
-                            </a>
-                        
-                            <a href="/tags/Sparse-R-CNN%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">Sparse R-CNN解读</span>
+                            <a href="/tags/TPAGT%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">TPAGT解读</span>
                             </a>
                         
                     </div>
@@ -472,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-30
+                    2020-12-04
                 </div>
                 
 
@@ -481,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.9k
+                    3.3k
                 </div>
                 
 
@@ -498,54 +482,55 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近香港大学和加州伯克利开放了一篇新的基于 R-CNN 的工作 Sparse R-CNN，这是一个类似于 DETR 的稀疏端到端目标检测框架，使用少量可学习的 proposal 即可达到 SOTA 性能。这为稀疏端到端目标检测开辟了一条新的路，也将更多研究者的目标吸引了过来。本文从 R-CNN 开始，逐步讲解 R-CNN 系列目标检测算法的发展优化之路。，它们都是沿着 region proposal 这个思路的，只是处理方式大不相同。下面的图是我非常喜欢的目标检测综述《Object detection in 20 years: A survey》中归纳的目标检测里程碑式作品，可以看到，R-CNN 系的三个算法是目标检测发展史上避不开的话题。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>浙江大学和达摩院前不久提出的一个 MOT 新方法，目前在 MOT Challenge 常用的几个数据集上名列前茅。论文标题 Tracklets Predicting Based Adaptive Graph Tracking 其实已经表明本文最大的两个创新点，基于轨迹预测的特征提取以及基于自适应图网络的特征聚合。大多数现存的多目标跟踪方法将当前帧的检测结果链接到历史轨迹段都是采用基于特征余弦距离和目标边界框 IOU 的线性组合作为度量的，这其实有两个问题：<strong>一是两个不同帧（当前帧和上一帧）上同一个目标提取到的特征往往会出现不一致的问题；二是特征提取只考虑外观而不考虑位置关系、轨迹段信息是不合理的。</strong></p>
+<p>因此，论文提出了一种新的高精度端到端多目标跟踪框架 TPAGT（上一个版本叫 FGAGT，感觉 TPAGT 更加贴合论文的工作），该方法解决了上述的两个问题，在多个数据集上实现了新的 SOTA。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1311.2524">R-CNN</a>（CVPR2014）</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1504.08083">Fast R-CNN</a> （ICCV2015）</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497">Faster R-CNN</a>（NIPS2015）</li>
-<li><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2011.12450">Sparse R-CNN</a>（暂未收录）</li>
+<li>论文标题<br><br>Tracklets Predicting Based Adaptive Graph Tracking</li>
+<li>论文地址<br><br><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2010.09015">http://arxiv.org/abs/2010.09015</a></li>
+<li>论文源码<br><br>暂未开源</li>
 </ul>
-<p><img src="https://i.loli.net/2020/11/30/I6oZrcKxTzlfQ8q.png"></p>
-<h2 id="目标检测思路"><a href="#目标检测思路" class="headerlink" title="目标检测思路"></a>目标检测思路</h2><p>在聊具体的算法之前，我们首先要知道目标检测永不过时的核心思路：<strong>目标定位</strong>+<strong>目标分类</strong>，这是任务本身决定的，后来所谓的 two-stage 方法和 one-stage 方法其实都还是这个思路，只是处理的技巧不同罢了。</p>
-<p>我们知道，<strong>目标分类</strong>这个任务已经基本上被 CNN 所解决，所以只要在 pipeline 中引入卷积分类模型就能确保不错的分类精度。留给目标检测的核心问题其实就是<strong>目标定位</strong>。我们当然会想到很直接很粗暴的想法：遍历图片中所有可能的位置，搜索不同大小、宽高比的所有区域，逐个检测其中是否存在某个目标，以概率较大的结果作为输出。这个就是传统的滑窗方法，这个方法显然是一种密集采样的方式，类似后来的 anchor 策略，R-CNN 系列则采用了一种候选框提名的方式减少滑窗的复杂性形成了 Dense-to-Sparse 方法，Sparse R-CNN 则完全采用 Sparse 策略，获得了低维的 proposal 输入。</p>
-<p><img src="https://i.loli.net/2020/11/30/cQYRqUzH1SvgA5I.png"></p>
-<h2 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a><strong>R-CNN</strong></h2><p>R-CNN 是 2014 年出现的一篇目标检测方法，为后来目标检测的研究奠定了基础，R-CNN 结合了传统的滑窗法和边框回归思路，开创性地提出了候选区的概念（Region proposals），先从输入图像中找到一些可能存在对象的候选区，这个过程称为 Selective Search（根据输入图像的特征如颜色等提取出候选区）。在 R-CNN 中这些候选区大概会有 2000 个，对这些区域进行分类和微调即可完成目标检测。候选区的提出大大减少了目标定位的时间，提高了目标检测的效率。然而由于深度学习分类器的存在，非常耗费算力，且 proposal 的生成都是在 CPU 上完成的，因此 R-CNN 处理一张图片大概需要 49 秒，这和实时检测差的还很远。</p>
-<p><img src="https://i.loli.net/2020/11/30/c4A15kyVlfmbi9v.png"></p>
-<p>下面我们来理解一下 R-CNN 的具体训练流程，它的整体思路如上图，具体细节如下。</p>
-<ul>
-<li><strong>Region proposals</strong>：使用 Selective Search 方法生成大约 2000 个候选框（proposals），与 ground truth box（以下简称 GT box）的 IOU（交并比）大于 0.5 则认为这个 proposal 为值得学习的 positive（正例），否则为 negative（负例，即 background）。</li>
-<li><strong>Supervised pre-training and Domain-specific fine-tuning</strong>：在 ImageNet 上预训练 VGG16 这样的视觉深度模型用于提取图像特征，然后在 VOC 数据集上 fine tune 为 21 类（包括背景），这样就得到了一个优质的特征提取器，只要将 proposal 区域 resize 到这个卷积模型的需要尺寸就能提取特征，提取的特征用于目标的分类和边框回归。</li>
-<li><strong>Object category classifiers and Bounding box regression</strong>：分类器使用 SVM 进行分类。分类完成后，边框回归模型用于精调边框的位置，论文对每一类目标使用了简单的线性回归模型。具体训练的细节如优化器等配置这里就不细细展开了。</li>
-</ul>
-<p>测试时（推理时）思路类似，先对图像产生大量的 proposal，然后进行分类和边框回归，然后使用 NMS 算法（非极大值抑制）去除冗余的边框得到最终的检测结果。</p>
-<p><strong>至此，我们理解了 R-CNN 的思路，尽管它不像传统方法那样穷举可能的目标位置，然而 Selective Search 方法提取的候选框多达 2000 个，这 2000 个框都需要 resize 后送入 CNN 和 SVM 中，这就是说，对一幅图像的检测需要对 2000 个图像进行 CNN 特征提取，这在这个算力爆炸的时代都是很费时的，何况在当时，这就导致 R-CNN 平均处理一张图片需要 49 秒。</strong></p>
-<p>那么，有没有办法提高检测的速度呢？其实很容易发现，这 2000 个 proposal 都是图像的一部分，完全可以对图像提取一次特征，然后只需要将 proposal 在原图的位置映射到特征图上，就得到该 proposal 区域的特征了。这样，对一幅图像只需要一次得到卷积特征，然后将每个 proposal 特征送入全连接进行后续任务的端到端学习。</p>
-<h2 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a><strong>Fast R-CNN</strong></h2><p>在上面一节的最后，得到一个优化 R-CNN 的思路，SPPNet 沿着这个思路走了下去，其中最关键的一个问题就是 crop/warp 操作使得 proposal 尺寸固定送入了 CNN 中，这是为了全连接层固定输入的要求，但是导致了图像的失真，因此作者设计了金字塔池化来使得任意输入的图像获得同维的特征。有了这个方法，就能对 R-CNN 进行优化了，只对原图进行一次卷积计算，便得到整张图的卷积特征 feature map，然后找到每个候选框在 feature map 上的映射 patch，将此 patch 作为每个候选框的卷积特征输入到 SPP layer（空间金字塔池化层） 和之后的层，完成特征提取工作。如此，对一幅图，SPPNet 只需要提取一次卷积特征，提速 R-CNN 百倍左右。</p>
-<p>Fast R-CNN 吸取了 SPPNet 的思路，对 R-CNN 进行了改进，获得了进一步的性能提升。它采用了单层空间金字塔池化（文中为 RoI Pooling）代替原来的池化操作使得不同的 proposal 在最后一层 feature map 上映射得到的区域上经过池化后得到同维特征。原本的 proposal 位置经过下采样倍率除法就可以得到其在特征图上的位置从而获得特征，这个不难理解，遇到除不尽的就取整即可。<strong>问题是，RoI Pooling 是如何保证任意尺度的特征图都能得到同维的输出特征呢 2？RoI Pooling 采用了一个简单的策略，那就是网格划分。</strong></p>
-<p>假设我有个$w=7,h=5$的 RoI 特征矩阵，我需要得到$W=2,H=2$的输出特征，那么其实只需要将$7\times 5$的矩阵划分为四个部分，每个部分取最大元素值就行，不过，由于非方阵，，难以等分，所以 RoI Pooling 会先进行取整，这样$w$被划分为 3 和 4，$h$被划分为 2 和 3。这样就完成了 RoI 区域的固定维度特征提取，有意思的是，<strong>上述过程其实发生了两次取整，一次计算 proposal 在 feature map 上的坐标，一次计算 feature map 上的 RoI 区域的网格划分，这个过程是有问题的，所以后来提出了 RoI Align。</strong></p>
-<p><img src="https://i.loli.net/2020/11/30/wVenWRkUbPrCfY3.png"></p>
-<p>上图所示的就是 Fast R-CNN 的 pipeline 设计，现在一次卷积特征提取就能得到 2000 个 proposal 的特征了，后续的任务作者也做了改变。彼时，<strong>多任务学习</strong>已经初有起色，原先在 R-CNN 中是先提 proposal，然后 CNN 提取特征，之后用 SVM 分类器，最后再做 bbox regression 的，在 Fast R-CNN 中则将对 proposal 的分类和边框回归同时通过全连接层完成，利用一个上图所示的多任务学习网络。实验也证明，这两个任务能够共享卷积特征，并相互促进。</p>
-<p>其他方面，和 R-CNN 处理思路类似，其实，除了 proposal 的生成，整个 Fast R-CNN 已经是端到端训练的了，Fast-RCNN 很重要的一个贡献是为 Region Proposal + CNN 这种实时检测框架提供了一丝可能性，这也为后来的 Faster R-CNN 埋下伏笔。</p>
-<p>最后提一下，Fast R-CNN 单图平均处理时间缩短到了 2.3 秒，这是一个巨大的突破，不过，对实时检测而言还是有点慢，而下一节的 Faster R-CNN 则将实时检测的可能性化为了现实。</p>
-<h2 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a><strong>Faster R-CNN</strong></h2><p>在 Fast R-CNN 中留下了一个遗憾，也是制约网络速度和端到端训练的部件，那就是 Selective Search 求得候选框，这个方法其实非常耗时，Faster R-CNN 就设计了一个 Region Proposal Network（RPN，区域推荐网络）代替 Selective Search，同时也引入了 anchor box 应对目标形状的变化问题（anchor 可以理解为位置和大小固定的 bbox，或者说事先设置好的固定的 proposal）。</p>
-<p><img src="https://i.loli.net/2020/11/30/LUgclEvd8bXsipn.png"></p>
-<p>具体而言，就像上图一样，RPN 网络会在最后一层特征图上对大量的预定义的 anchor 进行正例挑选（这是个分类任务）以及边界框回归（这是个回归任务），通过这两个任务会得到较为准确的 proposal，这就完成了 Fast R-CNN 中 Selective Search 得到的 proposal 了。接着，这些 proposal 会被用于和 Fast R-CNN 中一样的目标分类和边框回归来得到精确的检测结果。</p>
-<p><img src="https://i.loli.net/2020/11/30/KWs7YZC2EbJtmFv.png"></p>
-<p>RPN 的引入使得端到端目标检测框架得以实现，这大大提高了目标检测的速度，它单图检测时间只需要 0.2 秒。直到今天，Faster R-CNN 这种基于候选框的二阶段目标检测框架仍然是目标检测的一个重要研究领域，Faster R-CNN 也成为目标检测领域绕不过的里程碑。</p>
-<h2 id="Sparse-R-CNN"><a href="#Sparse-R-CNN" class="headerlink" title="Sparse R-CNN"></a><strong>Sparse R-CNN</strong></h2><p>距离 Faster R-CNN 的出现已经过去了 5 年的时间，这 5 年是目标检测告诉发展的 5 年，在 Faster R-CNN 之后出现了 anchor-based 的单阶段目标跟踪范式，它主张去掉 RPN 直接对 anchor 进行处理，在速度上获得了卓越的表现，如 SSD、RetinaNet 等，它们成为了目标检测的新 SOTA。再后来，受到工业界普遍关注的高效<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/108032597">anchor-free 方法</a>为目标检测开拓了全新的方向，如 FCOS、CenterNet 等。今年，FaceBook 发布了使用 Transformer 构建的 DETR 框架，它只需要少量的低维输入即可获得 SOTA 检测表现，这为稀疏检测带来了一丝契机。</p>
-<p>最近，沿着目标检测中 Dense 和 Dense-to-Sparse 的框架的设计思路，Sparse R-CNN 建立了一种彻底的稀疏框架，它完全脱离了 anchor、RPN 和 NMS 后处理等设计。</p>
-<p>首先，我们来回顾一下目标检测的范式。最著名的为<strong>Dense范式</strong>，密集检测器的思路从深度学习时代之前沿用至今，这种范式最典型的特征是会设置大量的候选（candidates），无论是anchor、参考点还是其他的形式，最后，网络会对这些候选进行过滤以及分类和边框微调。接着，取得过突出成果的<strong>Dense-to-Sparse范式</strong>最典型的代表就是上文所说的R-CNN系列，这种范式的典型特点是对一组较为稀疏的候选进行分类和回归，这组稀疏的候选其实还是来自密集检测中那种。</p>
-<p><img src="https://i.loli.net/2020/11/30/cQYRqUzH1SvgA5I.png"></p>
-<p>很多人认为目标检测已经是个几乎solved problem，然而Dense范式总有一些问题难以忽略：较慢的NMS后处理、多对一的正负样本分类、candidates的设计等。这些问题可以通过Sparse范式解决，DETR提出了一个解决方案：DETR中，candidates是一组sparse的可学习的object queries，正负样本分配是一对一的二分图匹配，而且，不需要NMS就能获得检测结果。然而，DETR使用的Transformer无形之中使得每个object query与全局特征图进行了注意力交互，这还是Dense的交互。</p>
-<p>Sparse R-CNN作者认为，Sparse的检测框架不仅仅是稀疏的候选，也应该是稀疏的特征交互，因此提出了Sparse R-CNN。</p>
-<p><img src="https://i.loli.net/2020/11/30/bRAIPkMeNhSv7L9.png"></p>
-<p>Sparse R-CNN的出发点是通过少量的（如100个）proposal代替RPN产生的动辄上千的proposal。不妨看一下上面的pipeline设计，Sparse R-CNN的proposal是一组可学习参数，就是上面绿色框中的$N*4$向量，其中$N$表示proposal的数目，一般几百个就够了，4代表物体边框的4个属性，为归一化后的中心点坐标$(x,y)$以及宽高（$w$和$h$），这个向量作为可学习参数和其他参数一起被网络优化，这就是整体的设计。</p>
-<p>但是，如果这也就可以了那么前人早就实现了，这个学习到的proposal可以理解为什么呢？其实就是根据图像信息推理得到的可能出现物体的统计值，这种“肤浅”的proposal确定的RoI特征显然不足以用来精确定位和恶分类目标，事实上作者在Faster R-CNN基础上换成这种可学习的proposal后精度下降了20个点。于是，，作者提出了上图蓝色框中的特征层面的proposal，它和proposal box数目一致，是一个高维特征向量（256维左右）。<strong>proposal box和proposal feature一一对应，proposal feature和proposal box提取出来的RoI feature做一对一的交互，使得RoI特征更利于分类和回归。这种交互如下图所示，类似于注意力机制，这种交互模块可以多个拼接以进一步精炼特征，所以该模块为Dynamic Instance Interactive Module，堆叠多个这样的模块构成了该框架的Dynamic Instance Interactive Head。</strong> 由于交互是一对一的，所以特征的交互和proposal一样是稀疏的。</p>
-<p><img src="https://i.loli.net/2020/11/30/HopeQ7qyCt5wNul.png"></p>
-<p>关于整体框架：backbone采用基于ResNet的FPN，Head是一组Dynamic Instance Interactive Head，上一个head的output features和output boxes作为下一个head的proposal features和proposal boxes。proposal features在与RoI features交互之前做self-attention。整体训练的损失函数是基于二分图匹配的集合预测损失。</p>
-<p><img src="https://i.loli.net/2020/11/30/n7b5JhgqB9PLIjy.png"></p>
-<p>实验结果上看，在COCO数据集达到了SOTA表现。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>R-CNN和Fast R-CNN出现后的一段时期内，目标检测领域的一个重要研究方向是提出更高效的候选框，其中Faster R-CNN开创性提出RPN，产生深远影响。Sparse R-CNN以一组稀疏输入即可获得比肩SOTA的检测性能，为真正的端到端检测开拓了一条路。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>首先说明的是，TPAGT 按照一般 MOT 的方法划分是一个<strong>二阶段框架</strong>，也就是先完成检测，再按照检测结果到相应的位置提取目标特征，最后利用关联算法得到结果，关联一般采用匈牙利算法。单阶段方法融合了检测和特征提取，是为了速度做出的精度妥协，所以精度相比二阶段有些低。所以，作为一个二阶段方法，TPAGT 的精度应该有所创新，但是相应的速度比较慢，具体推理速度，论文没有提及，只能等源码开放后测试了。</p>
+<p>先来说一说 MOT 现有方法没解决的几个问题。</p>
+<ol>
+<li>特征不一致问题<br><br>这个问题怎么来的呢，其实是因为轨迹段（tracklet）上目标的特征都是来自于之前帧，而不是当前帧（这很容易理解，当前帧只有当前帧的检测结果确定目标位置来提取特征嘛），但是呢，其实在移动过程中，目标的姿态、光强度、视角都可能发生变化，这导致来自不同图像的同一目标的特征即使检测准确也会不太一致，这种不一致对数据关联来说负面影响比较大。</li>
+<li>特征融合问题<br><br>事实上，从 DeepSORT 开始，特征提取器主要关注的就是外观信息，因为这对忽略了运动建模的一些 MOT 方法至关重要，因此特征提取分支也成为 ReID 分支，主要就是因为重识别模型关注的就是外观信息。但是，目标之间的位置关系、tracklet 的历史信息对 MOT 任务也是很重要的。</li>
+<li>样本不平衡问题<br><br>一个 tracklet 只能匹配一个检测框，那这个 tracklet 就是个连续的正例，没有匹配上的 tracklet 就是连续的负例。显然，正例数量是远远少于负例的，而且由于少量的新目标的产生和旧目标的消失，进一步加剧了不同类型的样本的不均衡问题。</li>
+</ol>
+<p>上述的问题 TPAGT 都逐一解决了，其中最主要的一个问题就是 traklets 中的特征和当前帧是不一致的，那么如何解决呢，到当前帧上<strong>重提取</strong>特征就行，但是显然不能直接把上一帧的 bbox（边界框，包含目标的位置区域等信息）用于当前帧，因为目标在图像上不可能静止，使用上一时刻的位置很不合理，所以需要对上一帧进行运动估计得到目标在当前帧预测的 bbox 位置然后提取特征。然后是特征融合的问题，考虑到目标之间的联系近似一个图表示，作者采用了<strong>GNN</strong>（图神经网络）来进行信息的聚合，为了更好获取全局时空信息，GNN 的边权自适应学习。最后，样本不平衡的问题采用了<strong>Balanced MSE Loss</strong>，这是一个加权 MSE，属于常用思路。</p>
+<h2 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h2><h3 id="Tracklets-predicting-based-feature-re-extracting"><a href="#Tracklets-predicting-based-feature-re-extracting" class="headerlink" title="Tracklets predicting based feature re-extracting"></a><strong>Tracklets predicting based feature re-extracting</strong></h3><p><img src="https://i.loli.net/2020/12/04/tfmMKJpOq5BgcnR.png"></p>
+<p>上面这个图就是整体框架的设计，我先大体介绍一下网络的 pipeline。首先，网络的输入有当前帧图像、当前帧检测结果、历史帧检测结果；接着，图像被送入 backbone 中获得特征图（这里 backbone 最终采用 ResNet101+FPN 效果最好），然后将 bbox（这里当前帧用的是检测的 bbox，上一帧用的光流预测的 bbox）映射到特征图上通过 RoI Align 获得 region 外观特征继而送入全连接（这个操作类似 Faster R-CNN 的 proposal 提取特征，不理解的可以查阅我的<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/110404238">博客</a>），然后结合当前帧的位置信息、历史帧信息，让图网络自适应学习进行特征融合从而计算相似度，有了相似度矩阵匈牙利就能计算匹配结果了。</p>
+<p><strong>上面的叙述有个容易误解的地方，它将过去一帧预测的 bbox 和历史帧的非预测的 bbox 都在当前特征图上提取了特征，事实上，不是的，一来实际上，$t-2$帧的特征在处理$t-1$帧的时候已经重提取过了，在当前帧上用当时的 bbox 提取肯定存在严重的不对齐问题；二来，这样会大大加大网络计算的复杂性，完全没有必要。论文这个图画的稍微有些让人误解，等开源后可以再细细研究。</strong></p>
+<p>我们知道，此前的 MOT 方法对运动的建模主要采用卡尔曼滤波为代表的状态估计方法、光流法和位移预测法，这篇论文使用稀疏光流法预测 bbox 的中心点运动，由于目标的运动有时候是高速的，为了应对这种运动模式，必须采用合适的光流方法，文章采用金字塔光流，该方法鲁棒性很强，具体想了解的可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/gh_home/article/details/51502933">这篇博客</a>，下图是金字塔光流预测的目标当前帧位置（b 图），c 图是 GT 的框，可以看到，预测还是很准的。</p>
+<p><img src="https://i.loli.net/2020/12/04/cg1P6rNB49bGSyH.png"></p>
+<h3 id="Adapted-Graph-Neural-Network"><a href="#Adapted-Graph-Neural-Network" class="headerlink" title="Adapted Graph Neural Network"></a><strong>Adapted Graph Neural Network</strong></h3><p><img src="https://i.loli.net/2020/12/04/NtzZBPnAXgE6l7U.png"></p>
+<p>下面聊一聊这个自适应图神经网络。将 tracklets 和 detections 作为二分图处理不是什么新鲜的事情，但是用来聚合特征 TPAGT 应该是为数不多的工作，<strong>要知道此前我们聚合运动和外观特征只是人工设计的组合，作者这种借助图网络自适应聚合特征是很超前的思路。</strong> 每个检测目标和每个 tracklet 都是节点，如上图所示，detection 之间没有联系，tracklet 之间也没有联系，但是每个 tracklet 和每个 detection 之间都有连接。图网络的学习目的就是每个节点的状态嵌入$\mathbf{h}<em>{v}$，或者说聚合其他信息后的特征向量。最终，这个$\mathbf{h}</em>{v}$包含了邻居节点的信息。</p>
+<p>需要学习的状态嵌入通过下面的公式更新，第一行表示 detections 的节点更新，第二行表示 tracklets 的节点更新，共有$N$个 detection 和$M$个 tracklet。下面讲解第一行的几个符号含义，第二行类似。$f$表示神经网络运算，可以理解为网络拟合函数；$h_{t, c}^{j}$表示第$c$层第$i$个 detection 的状态嵌入。在一开始，$c=0, h_{d, 0}^{i}=f_{d}^{i}, h_{t, 0}^{i}=f_{t}^{j}$，$e_{d, c}^{i, j}$则表示第$i$个检测和第$j$个 tracklet 在第$c$层的图上的边权。本文作者只使用添加自适应的单层 GNN，所以下面具体阐述单层学习的情况。</p>
+<p>$$<br>\begin{aligned}<br>h_{d, c+1}^{i} &amp;=f\left(h_{d, c}^{i},\left{h_{t, c}^{j}, e_{d, c}^{i, j}\right}<em>{j=1}^{N}\right), i=1,2, \cdots, M \<br>h</em>{t, c+1}^{j} &amp;=f\left(h_{t, c}^{j},\left{h_{d, c}^{i}, e_{t, c}^{j, i}\right}_{i=1}^{M}\right) j=1,2, \cdots, N<br>\end{aligned}<br>$$</p>
+<p>首先，边权的初始化不采用随机初始化，而是采用节点的特征和位置先验信息，具体如下，主要是计算每个节点特征向量之间的归一化距离相似度。具体图信息聚合步骤如下。<br></p>
+<ol>
+<li>计算初始相似度<br>$$<br>\begin{array}{c}<br>s_{i, j}=\frac{1}{\left|f_{d}^{i}-f_{t}^{j}\right|<em>{2}+1 \times 10^{-16}} \<br>s</em>{i, j}=\frac{s_{i, j}}{\sqrt{s_{i, 1}^{2}+s_{i, 2}^{2}+\cdots s_{i, j}^{2}+\cdots+s_{i, N}^{2}}}\<br>\mathbf{S}<em>{\mathrm{ft}}=\left[s</em>{i, j}\right]_{M \times N}, i=1, \cdots M, j=1, \cdots N<br>\end{array}<br>$$</li>
+<li>通过 IOU 和上面的初始相似度组成边权（$w$可学习，表示位置和外观信息的相对重要性）</li>
+</ol>
+<p>$$<br>\mathrm{E}=w \times \mathrm{IOU}+(1-w) \times \mathrm{S}_{\mathrm{ft}}<br>$$</p>
+<ol start="3">
+<li>根据上述的自适应权重聚合节点特征（$\odot$表示点积）</li>
+</ol>
+<p>$$<br>\mathbf{F}<em>{\mathrm{t}}^{\mathrm{ag}}=\mathrm{EF}</em>{t}=\mathrm{E}\left[f_{t}^{1}, f_{t}^{2}, \cdots, f_{t}^{N}\right]^{T}<br>$$</p>
+<p>$$<br>\mathbf{H}<em>{\mathrm{d}}=\sigma\left(\mathbf{F}</em>{d} W_{1}+\operatorname{Sigmoid}\left(\mathbf{F}<em>{d} W</em>{a}\right) \odot \mathbf{F}<em>{\mathrm{t}}^{\mathbf{a g}} W</em>{2}\right)<br>$$</p>
+<p>$$<br>\mathbf{H}<em>{\mathrm{t}}=\sigma\left(\mathbf{F}</em>{t} W_{1}+\operatorname{Sigmoid}\left(\mathbf{F}<em>{t} W</em>{a}\right) \odot \mathbf{F}<em>{\mathrm{d}}^{\mathbf{a g}} W</em>{2}\right)<br>$$</p>
+<p>现有的图跟踪方法需要额外的全连接层降维特征向量，然后通过欧式距离计算相似度。TPAGT 的方法只要标准化来自单隐层图网络的特征，然后矩乘它们即可得到相似度决战，如下式。最终得到的相似度矩阵值介于 0 和 1 之间，越大代表两个目标越相似。学习的目的是使得同一个目标的特征向量尽量接近，不同目标的特征向量尽量垂直，这等价于三元组损失，但是更加简单。</p>
+<p>$h_{d}^{i}=\frac{h_{d}^{i}}{\left|h_{d}^{i}\right|<em>{2}}, h</em>{t}^{j}=\frac{h_{t}^{j}}{\left|h_{t}^{j}\right|<em>{2}}, \mathbf{S}</em>{\mathrm{out}=\mathbf{H}<em>{\mathrm{d}} \mathbf{H}</em>{\mathbf{t}}^{\mathrm{T}}}$</p>
+<h3 id="Blanced-MSE-Loss"><a href="#Blanced-MSE-Loss" class="headerlink" title="Blanced MSE Loss"></a><strong>Blanced MSE Loss</strong></h3><p>得到最终的相似度矩阵就可以进行监督训练了，不过 GT 的标签为相同目标为 1，不同的目标为 0，下图是作者做的可视化，每行代表一个 detection，每列代表一个 tracklet，绿行表示 detection 没有匹配上任何 tracklet，所以是新目标；相对的，红列表示消失的目标。1 表示正例，0 表示负例，显然正负例严重不均衡，所以这里对 MSE 按照目标类型进行了加权（超参），如下式。</p>
+<p><img src="https://i.loli.net/2020/12/04/NGSUCpjo8mQa7xl.png"></p>
+<p>$$<br>\begin{aligned}<br>\mathcal{L} &amp;=\alpha E_{c 0}+\beta E_{c 1}+\gamma E_{n e}+\delta E_{d}+\varepsilon E_{w} \<br>&amp;=\sum_{i=1}^{M} \sum_{j=1}^{N}\left[\begin{array}{c}<br>\alpha\left(\hat{S}<em>{i, j}-S</em>{i, j}\right)^{2} \cdot \mathbb{I}<em>{\text {continue }} \cdot \mathbb{I}</em>{S_{i, j}=0}+\beta\left(\hat{S}<em>{i, j}-S</em>{i, j}\right)^{2} \cdot \mathbb{I}<em>{\text {continue }} \cdot \mathbb{I}</em>{S_{i, j}=1} \<br>+\gamma\left(\hat{S}<em>{i, j}-S</em>{i, j}\right)^{2} \cdot \mathbb{I}<em>{n e w}+\delta\left(\hat{S}</em>{i, j}-S_{i, j}\right)^{2} \cdot \mathbb{I}<em>{\text {disap }}+\varepsilon|W|</em>{2}^{2}<br>\end{array}\right]<br>\end{aligned}<br>$$</p>
+<h2 id="推理设计"><a href="#推理设计" class="headerlink" title="推理设计"></a>推理设计</h2><p>推理时，我们会得到相似度矩阵，那么如何利用这个矩阵呢？假设有$N$个 detection 和$M$个 tracklet，矩阵就是$M\times N$的，此时在后面补充一个$M\times M$的增广矩阵，矩阵中每个值都是一个阈值，如下图，匈牙利算法就成了带筛选的匹配方法，下图由于第 3 行和第 8 行没有高于阈值（0.2）的相似度，所以成为了新目标。</p>
+<p><img src="https://i.loli.net/2020/12/04/ZQHhlGDUcg2o9XC.png"></p>
+<h2 id="实验及分析"><a href="#实验及分析" class="headerlink" title="实验及分析"></a>实验及分析</h2><p>检测部分采用 FairMOT 的检测结果，也就是采用 CenterNet 作为检测器。特征提取部分，文章使用 ResNet101-FPN 作为 backbone，在 COCO 上预训练过，然后在 MOT 数据集上 fine tune 30 轮。其他训练细节可以自行查阅论文，我这里就不多说了，在 Public 和 private 两个赛道进行了测试，结果分别如下，超越了之前的 SOTA 方法如 FairMOT 等，精度突破很大，速度比较慢。</p>
+<p><img src="https://i.loli.net/2020/12/04/cE86gYS5t3oKBDj.png"></p>
+<p><img src="https://i.loli.net/2020/12/04/QbR6ngGePwxSYWh.png"></p>
+<p>此外，作者还进行了丰富的消融实验，证明了 TPAGT 的鲁棒性。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>开创性地提出了特征重提取策略，并引入 AGNN 进行特征融合，从而构建了 TPAGT 框架，这是一个端到端的学习框架，可以直接输出相似度矩阵。在 MOT Challenge 两个赛道都获得了 SOTA 表现。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Shan C, Wei C, Deng B, et al. Tracklets Predicting Based Adaptive Graph Tracking[J]. arXiv:2010.09015 [cs], 2020.</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -592,24 +577,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/R-CNN%E7%B3%BB%E5%88%97%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">R-CNN系列解读</span>
-                                </a>
-                            
-                                <a href="/tags/R-CNN%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">R-CNN解读</span>
-                                </a>
-                            
-                                <a href="/tags/Fast-R-CNN%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">Fast R-CNN解读</span>
-                                </a>
-                            
-                                <a href="/tags/Faster-R-CNN%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">Faster R-CNN解读</span>
-                                </a>
-                            
-                                <a href="/tags/Sparse-R-CNN%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">Sparse R-CNN解读</span>
+                                <a href="/tags/TPAGT%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">TPAGT解读</span>
                                 </a>
                             
                         </div>
@@ -780,7 +749,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-11-30T20-22-40',
+        id: '2020-12-04T15-37-55',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -804,9 +773,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/12/04/tpagt/">
                     <div class="card-image">
@@ -824,9 +794,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -839,6 +809,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -857,24 +828,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/22/efficientdet/">
+                <a href="/2020/11/30/r-cnns/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg" class="responsive-img" alt="EfficientDet 解读">
+                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="R-CNN系列解读">
                         
-                        <span class="card-title">EfficientDet 解读</span>
+                        <span class="card-title">R-CNN系列解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介这篇发表于 CVPR2020 的检测论文不同于大火的 anchor-free，还是基于 one-stage 的范式做的设计，是 ICML2019 的 EfficientNet 的拓展，将分类模型引入到了目标检测任务中。近些年目标检测发展
+                            简介最近香港大学和加州伯克利开放了一篇新的基于 R-CNN 的工作 Sparse R-CNN，这是一个类似于 DETR 的稀疏端到端目标检测框架，使用少量可学习的 proposal 即可达到 SOTA 性能。这为稀疏端到端目标检测开辟了一条
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-30
                             </span>
                         <span class="publish-author">
                             
@@ -891,8 +862,24 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">EfficientDet解读</span>
+                    <a href="/tags/R-CNN%E7%B3%BB%E5%88%97%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">R-CNN系列解读</span>
+                    </a>
+                    
+                    <a href="/tags/R-CNN%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">R-CNN解读</span>
+                    </a>
+                    
+                    <a href="/tags/Fast-R-CNN%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">Fast R-CNN解读</span>
+                    </a>
+                    
+                    <a href="/tags/Faster-R-CNN%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">Faster R-CNN解读</span>
+                    </a>
+                    
+                    <a href="/tags/Sparse-R-CNN%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">Sparse R-CNN解读</span>
                     </a>
                     
                 </div>

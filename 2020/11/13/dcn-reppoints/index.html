@@ -510,10 +510,10 @@
 <p>那么可变形卷积是如何实现的呢，其实是通过针对每个卷积采样点的偏移量来实现的。如下图所示，其中淡绿色的表示常规采样点，深蓝色的表示可变卷积的采样点，它其实是在正常的采样坐标的基础上加上了一个偏移量（图中的箭头）。</p>
 <p><img src="https://i.loli.net/2020/11/13/HMiJ4mwNU9fPzjS.png"></p>
 <p>我们先来看普通的卷积的实现。使用常规的网格$\mathcal{R}$在输入特征图$x$上进行采样，采样点的值和权重$w$相乘加和得到输出值。举个例子，一个3x3的卷积核定义的网格$\mathcal{R}$表示如下式，中心点为$(0,0)$，其余为相对位置，共9个点。</p>
-<p>$$<br>\mathcal{R}={(-1,-1),(-1,0), \ldots,(0,1),(1,1)}<br>$$</p>
+<p>$$<br>\mathcal{R}=\{(-1,-1),(-1,0), \ldots,(0,1),(1,1)\}<br>$$</p>
 <p>那么，对输出特征图$y$上的任意一个位置$p_0$都可以以下式进行计算，其中$\mathbf{p}_n$表示就是网格$\mathcal{R}$中的第$n$个点。</p>
 <p>$$<br>\mathbf{y}\left(\mathbf{p}<em>{0}\right)=\sum</em>{\mathbf{p}<em>{n} \in \mathcal{R}} \mathbf{w}\left(\mathbf{p}</em>{n}\right) \cdot \mathbf{x}\left(\mathbf{p}<em>{0}+\mathbf{p}</em>{n}\right)<br>$$</p>
-<p>而可变形卷积干了啥呢，它对原本的卷积操作加了一个偏移量$\left{\Delta \mathbf{p}_{n} \mid n=1, \ldots, N\right}$，也就是这个偏移量使得卷积可以不规则进行，所以上面的计算式变为了下式。不过要注意的是，这个偏移量可以是小数，所以偏移后的位置特征需要通过双线性插值得到，计算式如下面第二个式子。</p>
+<p>而可变形卷积干了啥呢，它对原本的卷积操作加了一个偏移量$\left\{\Delta \mathbf{p}_{n} \mid n=1, \ldots, N\right\}$，也就是这个偏移量使得卷积可以不规则进行，所以上面的计算式变为了下式。不过要注意的是，这个偏移量可以是小数，所以偏移后的位置特征需要通过双线性插值得到，计算式如下面第二个式子。</p>
 <p>$$<br>\mathbf{y}\left(\mathbf{p}<em>{0}\right)=\sum</em>{\mathbf{p}<em>{n} \in \mathcal{R}} \mathbf{w}\left(\mathbf{p}</em>{n}\right) \cdot \mathbf{x}\left(\mathbf{p}<em>{0}+\mathbf{p}</em>{n}+\Delta \mathbf{p}_{n}\right)<br>$$</p>
 <p>$$<br>\mathbf{x}(\mathbf{p})=\sum_{\mathbf{q}} G(\mathbf{q}, \mathbf{p}) \cdot \mathbf{x}(\mathbf{q})<br>$$</p>
 <p>至此，可变卷积的实现基本上理清楚了，现在的问题就是，这个偏移量如何获得？不妨看一下论文中一个3x3可变卷积的解释图（下图），图中可以发现，上面绿色的分支其实学习了一个和输入特征图同尺寸且通道数为$2N$的特征图（$N$为卷积核数目），这就是偏移量，之所以两倍是因为网格上偏移有x和y两个方向。</p>
@@ -554,7 +554,7 @@
 <p><img src="https://i.loli.net/2020/11/13/s5pudHOwIBvNKYL.png"></p>
 <p>首先，RepPoints（representative points，表示点）具体是怎样表示目标的呢，其实就像下图这样。显然，这和传统的bbox表示法（bounding box，边界框）不同。在目标检测任务中，bbox作为描述检测器各阶段的目标位置的标准形式。然而，其虽然容易计算，但它们仅提供目标的粗略定位，并不完全拟合目标的形状和姿态（因为bbox是个矩形，而目标往往不可能如此规则，所以bbox中必然存在冗余信息，这会导致特征的质量下降从而降低了检测器性能）。对此，提出了一种更贴合目标的细粒度目标表示RepPoints，其形式是一组通过学习自适应地置于目标之上的点，这种表示既限制了目标的空间位置又捕获了精确的语义信息。</p>
 <p>RepPoints是一种如下的二维表示（我们一般用2D表示和4D表示来区分anchor-free和anchor-base方法），一个目标由$n$个点确定，在该论文中$n$设置为9。</p>
-<p>$$<br>\mathcal{R}=\left{\left(x_{k}, y_{k}\right)\right}_{k=1}^{n}<br>$$</p>
+<p>$$<br>\mathcal{R}=\left\{\left(x_{k}, y_{k}\right)\right\}_{k=1}^{n}<br>$$</p>
 <p>这种点表示可以通过转换函数$\mathcal{T}$转换为伪框（pseudo box），三种转换函数具体可以参考原论文3.2节。然后就是RepPoints的监督学习了，这里也不难实现，通过pseudo box就可以和GT的bbox进行定位监督了，而分类监督和之前的方法没有太大的区别。</p>
 <p><img src="https://i.loli.net/2020/11/13/d8LgoFJzXxHNGvk.png"></p>
 <p>借此，作者设计了一个anchor-free检测框架RPDet，该框架在检测的各个阶段均使用RepPoints表示。通过下图的Pipeline其实就能理解这个网络架构：首先，通过FPN获得特征图；不同于其他单阶段方法一次分类一次回归得到最终结果，RPDet通过两次回归一次分类得到结果（作者自称1.5阶段），分类和第二次回归均采用可变形卷积，可变形卷积可以很好的和RepPoints结合。因为它是在不规则点上进行的。可形变卷积的偏移量是通过第一次回归得到的，也就意味着偏移量在训练过程中是有监督的，而第一次回归的偏移量通过对角点监督得到。采用这种方式，后续的分类和回归特征均是沿着目标选取的，特征质量更高。</p>
@@ -562,7 +562,7 @@
 <h2 id="Dense-RepPoints"><a href="#Dense-RepPoints" class="headerlink" title="Dense RepPoints"></a>Dense RepPoints</h2><p>Dense RepPoints是RepPoints之后的一个成果，它将RepPoints拓展至实例分割任务，而方法就是采用更加密集的点集表示目标，如下图。</p>
 <p><img src="https://i.loli.net/2020/11/13/GhBfVzujlgDYObw.png"></p>
 <p>Dense RepPoints在RepPoints的基础上进行了如下拓展，使用了更多的点并赋予了点属性。而在表示物体方面，Dense RepPoints采用上图第四个边缘掩码的方式表示目标，它综合了轮廓表示（表示边缘）和网格掩码（前后景区分，利于学习）的优点。</p>
-<p>$$<br>\mathcal{R}=\left{\left(x_{i}+\Delta x_{i}, y_{i}+\Delta y_{i}, \mathbf{a}<em>{i}\right)\right}</em>{i=1}^{n}<br>$$</p>
+<p>$$<br>\mathcal{R}=\left\{\left(x_{i}+\Delta x_{i}, y_{i}+\Delta y_{i}, \mathbf{a}<em>{i}\right)\right\}</em>{i=1}^{n}<br>$$</p>
 <p><img src="https://i.loli.net/2020/11/13/X7esbqK1hxBDYtQ.png"></p>
 <p>最后pipeline和常规的思路很类似，唯一的问题就是采用点集在目标检测中尚可，用于分割会因为点数太多导致计算量大增，所以设计Group pooling;、Shared offset fields;、Shared attribute map来减少计算量，此外还发现点集损失比点损失更加合适等问题，具体可以查阅论文。</p>
 <h2 id="RepPoints-v2"><a href="#RepPoints-v2" class="headerlink" title="RepPoints v2"></a>RepPoints v2</h2><p>最后，我们来看看最新的RepPoints v2，这是对原本RepPoints目标检测任务上的改进。验证（这里指的是分割任务）和回归是神经网络两类通用的任务。验证更容易学习并且准确，回归通常很高效并且能预测连续变化。因此，采用一定的方式将两者组合起来能充分利用它们的优势。RepPoints v2就是在RepPoints的基础上增加了验证模块，提升了检测器性能。</p>

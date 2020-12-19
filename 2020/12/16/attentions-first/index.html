@@ -553,7 +553,7 @@
 <p>上图就是两个注意力模块的具体实现，我们先看通道注意力，它很类似于SENet，先是利用全局池化获得每个通道的位置全局信息，不过这里采用全局平均池化和全局最大池化分别得到$\mathbf{F}<em>{\mathrm{avg}}^{\mathrm{c}}$和$\mathbf{F}</em>{\mathrm{max}}^{\mathrm{c}}$，均得到一个$C\times 1\times 1$维的向量，经过共同的全连接层的降维再升维学习两个通道注意力（降维的维度用一个缩放比例控制），加到一起，获得的注意力图仍然是$\mathbf{M}_{\mathbf{c}}(\mathbf{F}) \in \mathbb{R}^{C\times 1 \times 1}$。</p>
 <p>再来看空间注意力，也是采用全局平均池化和全局最大池化，不过是沿着通道进行的，所以得到两个特征图$\mathbf{F}<em>{\text {avg }}^{\mathbf{s}} \in \mathbb{R}^{1 \times H \times W}$ 和 $\mathbf{F}</em>{\max }^{\mathbf{s}} \in \mathbb{R}^{1 \times H \times W}$，然后将它们concat一起后使用一个7x7的卷积进行处理，得到$\mathbf{M}_{\mathbf{s}}(\mathbf{F}) \in \mathbb{1}^{C\times H \times W}$。</p>
 <p>将上述通道注意力图和空间注意力图按照下面的公式先后作用于输入特征图，就得到混合注意力的结果。<strong>至此，我们理解了CBAM模块的运行过程，其中的激活函数和BN等细节我没有提到，可以查看原论文，这里相比于BAM都采用了两个全局池化混合的方式，这在今天的网络中已经很常见了，属于捕获更加丰富信息的手段。</strong></p>
-<p>$$<br>\begin{aligned}<br>\mathbf{F}^{\prime} &amp;=\mathbf{M}<em>{\mathbf{c}}(\mathbf{F}) \otimes \mathbf{F} \<br>\mathbf{F}^{\prime \prime} &amp;=\mathbf{M}</em>{\mathbf{s}}\left(\mathbf{F}^{\prime}\right) \otimes \mathbf{F}^{\prime}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\mathbf{F}^{\prime} &amp;=\mathbf{M}<em>{\mathbf{c}}(\mathbf{F}) \otimes \mathbf{F} \\<br>\mathbf{F}^{\prime \prime} &amp;=\mathbf{M}</em>{\mathbf{s}}\left(\mathbf{F}^{\prime}\right) \otimes \mathbf{F}^{\prime}<br>\end{aligned}<br>$$</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文简单介绍了计算机视觉中几种比较早期的采用注意力机制的卷积神经网络，它们的一些设计理念今天还被活跃用于各类任务中，是很值得了解的。后面的文章会介绍一些相对比较新的成果，欢迎关注。</p>
 <script>
         document.querySelectorAll('.github-emoji')

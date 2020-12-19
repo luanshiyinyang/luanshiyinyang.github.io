@@ -496,27 +496,27 @@
 <p>下述环境配置需要保证用户已经安装了git和conda，否则配置pytorch和cuda会诸多不便。</p>
 </blockquote>
 <p>首先，通过下面的git命令从Github克隆源码到本地并进入该项目。访问<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1H1Zp8wrTKDk20_DSPAeEkg">链接</a>（提取码uouv）下载训练好的模型，在项目根目录下新建<code>models</code>目录（和已有的<code>assets</code>、<code>src</code>等目录同级），将刚刚下载好的模型文件<code>fairmot_dla34.pth</code>放到这个<code>models</code>目录下。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone git@github.com:ifzhang/FairMOT.git
-cd FairMOT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">git</span> clone git@github.com:ifzhang/FairMOT.git
+<span class="token builtin class-name">cd</span> FairMOT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>下面，通过conda创建适用于该项目的虚拟环境（环境隔离），国内用户速度慢可以参考<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/86086919">我conda的文章</a>配置国内源。创建之后通过<code>activate</code>激活环境（该命令出错将<code>conda</code>换为<code>source</code>）。然后在当前虚拟环境下（<strong>后续关于该项目的操作都需要在该虚拟环境下</strong>）安装pytorch和cuda（这里也建议配置国内源后安装<code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch</code>）。最后，通过pip命令安装所需d的Python包（国内建议<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/106420275">配置清华源</a>），注意先安装cython。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">conda create -n fairmot python=3.6
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">conda create -n fairmot <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.6</span>
 conda activate fairmot
-conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0
-pip install cython
-pip install -r requirements.txt
-pip install -U opencv-python==4.1.1.26<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+conda <span class="token function">install</span> <span class="token assign-left variable">pytorch</span><span class="token operator">==</span><span class="token number">1.2</span>.0 <span class="token assign-left variable">torchvision</span><span class="token operator">==</span><span class="token number">0.4</span>.0 <span class="token assign-left variable">cudatoolkit</span><span class="token operator">=</span><span class="token number">10.0</span>
+pip <span class="token function">install</span> cython
+pip <span class="token function">install</span> -r requirements.txt
+pip <span class="token function">install</span> -U opencv-python<span class="token operator">==</span><span class="token number">4.1</span>.1.26<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>同时，用于项目使用了DCNv2所以需要安装该包，该包只能通过源码安装，依次执行下述命令即可（安装过程报warning是正常情况，不报error就行）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone https://github.com/CharlesShang/DCNv2
-cd DCNv2
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">git</span> clone https://github.com/CharlesShang/DCNv2
+<span class="token builtin class-name">cd</span> DCNv2
 ./make.sh
-cd ../<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>至此，所有的环境配置已经完成，由于这里还需要使用到ffmpeg来生成视频文件，所以系统需要安装ffmpeg（Ubuntu采用apt安装即可），教程很多，不多赘述。</p>
 <p>想要试试项目是否正常工作，可以使用下面的命令在demo视频上进行跟踪测试（初次允许需要下载dla34模型，这个模型国内下载速度还可以，我就直接通过允许代码下载的）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd src
-python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/fairmot_dla34.pth --conf_thres 0.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token builtin class-name">cd</span> src
+python demo.py mot --input-video <span class="token punctuation">..</span>/videos/MOT16-03.mp4 --load_model <span class="token punctuation">..</span>/models/fairmot_dla34.pth --conf_thres <span class="token number">0.4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>默认文件输出在项目根目录的<code>demos</code>文件夹下，包括每一帧的检测结果以及组合成的视频。</p>
 <p><img src="https://i.loli.net/2020/10/24/bxVoM7ZyjTBmhLI.png"></p>
@@ -605,7 +605,7 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
     cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>调整完成后，输入下面的命令运行跟踪脚本（命令行Ctrl+C停止跟踪，跟踪的每一帧存放在指定的<code>output-root</code>目录下的<code>frame</code>目录中）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python camera.py mot --load_model ../models/fairmot_dla34.pth --output-root ../results<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python camera.py mot --load_model <span class="token punctuation">..</span>/models/fairmot_dla34.pth --output-root <span class="token punctuation">..</span>/results<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/10/24/Kp52w4qlb7nyVRQ.png"></p>
 <p>上图是我实际测试得到的运行结果，摄像头分辨率比较低并且我做了一些隐私模糊处理，不过，整个算法的实用性还是非常强的，平均FPS也有18左右（单卡2080Ti）。</p>

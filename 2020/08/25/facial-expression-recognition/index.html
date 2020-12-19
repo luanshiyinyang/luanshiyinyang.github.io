@@ -487,13 +487,13 @@
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>使用卷积神经网络构建整个系统，在尝试了Gabor、LBP等传统人脸特征提取方式基础上，深度模型效果显著。在FER2013、JAFFE和CK+三个表情识别数据集上进行模型评估。</p>
 <h2 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h2><p>基于Python3和Keras2（TensorFlow后端），具体依赖安装如下(推荐使用conda虚拟环境)。</p>
-<pre class=" language-shell"><code class="language-shell">git clone https://github.com/luanshiyinyang/FacialExpressionRecognition.git
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone https://github.com/luanshiyinyang/FacialExpressionRecognition.git
 cd FacialExpressionRecognition
 conda create -n FER python=3.6
 source activate FER
 conda install cudatoolkit=10.1
 conda install cudnn=7.6.5
-pip install -r requirements.txt</code></pre>
+pip install -r requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果你是Linux用户，直接执行根目录下的<code>env.sh</code>即可一键配置环境，执行命令为<code>bash env.sh</code>。</p>
 <h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>数据集和预训练模型均已经上传到百度网盘，<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1LFu52XTMBdsTSQjMIPYWnw">链接</a>给出，提取密码为2pmd。下载后将<code>model .zip</code>移动到根目录下的<code>models</code>文件夹下并解压得到一个<code>*.h5</code>的模型参数文件，将<code>data.zip</code>移动到根目录下的<code>dataset</code>文件夹下并解压得到包含多个数据集压缩文件，均解压即可得到包含图像的数据集（<strong>其中rar后缀的为原始jaffe数据集，这里建议使用我处理好的</strong>）。</p>
 <h2 id="项目说明"><a href="#项目说明" class="headerlink" title="项目说明"></a>项目说明</h2><h3 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a><strong>传统方法</strong></h3><ul>
@@ -528,19 +528,21 @@ pip install -r requirements.txt</code></pre>
 <p><img src="https://i.loli.net/2020/08/25/faKs6yzbLciUvxm.png"></p>
 <h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><p>主要在FER2013、JAFFE、CK+上进行训练，JAFFE给出的是半身图因此做了人脸检测。最后在FER2013上Pub Test和Pri Test均达到67%左右准确率（该数据集爬虫采集存在标签错误、水印、动画图片等问题），JAFFE和CK+5折交叉验证均达到99%左右准确率（这两个数据集为实验室采集，较为准确标准）。</p>
 <p>执行下面的命令将在指定的数据集（fer2013或jaffe或ck+）上按照指定的batch_size训练指定的轮次。训练会生成对应的可视化训练过程，下图为在三个数据集上训练过程的共同绘图。</p>
-<pre class=" language-shell"><code class="language-shell">python src/train.py --dataset fer2013 --epochs 300 --batch_size 32</code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python src/train.py --dataset fer2013 --epochs 300 --batch_size 32<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="https://i.loli.net/2020/08/25/urIbfVFaGiz5EdW.png"></p>
 <h2 id="模型应用"><a href="#模型应用" class="headerlink" title="模型应用"></a>模型应用</h2><p>与传统方法相比，卷积神经网络表现更好，使用该模型构建识别系统，提供<strong>GUI界面和摄像头实时检测</strong>（摄像必须保证补光足够）。预测时对一张图片进行水平翻转、偏转15度、平移等增广得到多个概率分布，将这些概率分布加权求和得到最后的概率分布，此时概率最大的作为标签（也就是使用了推理数据增强）。</p>
 <h3 id="GUI界面"><a href="#GUI界面" class="headerlink" title="GUI界面"></a><strong>GUI界面</strong></h3><p>注意，<strong>GUI界面预测只显示最可能是人脸的那个脸表情，但是对所有检测到的人脸都会框定预测结果并在图片上标记，标记后的图片在output目录下。</strong></p>
 <p>执行下面的命令即可打开GUI程序，该程序依赖PyQT设计，在一个测试图片（来源于网络）上进行测试效果如下图。</p>
-<pre class=" language-shell"><code class="language-shell">python src/gui.py</code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python src/gui.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="https://i.loli.net/2020/08/25/f9VxPwk1dGJ8NKC.png"></p>
 <p>上图的GUI反馈的同时，会对图片上每个人脸进行检测并表情识别，处理后如下图。</p>
 <p><img src="https://i.loli.net/2020/08/25/BmxSpOt1X4RVEUe.png"></p>
 <h3 id="实时检测"><a href="#实时检测" class="headerlink" title="实时检测"></a><strong>实时检测</strong></h3><p>实时检测基于Opencv进行设计，旨在用摄像头对实时视频流进行预测，同时考虑到有些人的反馈，当没有摄像头想通过视频进行测试则修改命令行参数即可。</p>
 <p>使用下面的命令会打开摄像头进行实时检测（ESC键退出），若要指定视频进行进行检测，则使用下面的第二个命令。</p>
-<pre class=" language-shell"><code class="language-shell">python src/recognition_camera.py</code></pre>
-<pre class=" language-shell"><code class="language-shell">python src/recognition_camera.py --source 1 --video_path 视频绝对路径或者相对于该项目的根目录的相对路径</code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python src/recognition_camera.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python src/recognition_camera.py --source 1 --video_path 视频绝对路径或者相对于该项目的根目录的相对路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>下图是动态演示的在Youtube上<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=r5Z741PC9_c">某个视频</a>上的识别结果。</p>
 <p><img src="https://i.loli.net/2020/08/25/sCyxpwNifDJLEd9.gif"></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>具体项目代码、数据集、模型已经开源于<a target="_blank" rel="noopener" href="https://github.com/luanshiyinyang/FacialExpressionRecognition.git">我的Github</a>，欢迎Star或者Fork。</p>

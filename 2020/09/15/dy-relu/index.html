@@ -512,79 +512,81 @@
 <h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>经过对比实验得出 DY-ReLU-B 更适合图像分类，DY-ReLU-C 更适合关键点检测任务，在几个典型网络上改用论文提出的 DY-ReLU，效果如下图，不难发现，在轻量级网络上突破较大。</p>
 <p><img src="https://i.loli.net/2020/09/15/LaHep6XgyjnOFkZ.png"></p>
 <h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>下面是 DY-ReLU-B 的 Pytorch 实现。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> torch
-<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.nn as nn
 
-<span class="token keyword">class</span> <span class="token class-name">DyReLU</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> channels<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        super<span class="token punctuation">(</span>DyReLU<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>channels <span class="token operator">=</span> channels
-        self<span class="token punctuation">.</span>k <span class="token operator">=</span> k
-        self<span class="token punctuation">.</span>conv_type <span class="token operator">=</span> conv_type
-        <span class="token keyword">assert</span> self<span class="token punctuation">.</span>conv_type <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'1d'</span><span class="token punctuation">,</span> <span class="token string">'2d'</span><span class="token punctuation">]</span>
+class DyReLU(nn.Module):
+    def __init__(self, channels, reduction=4, k=2, conv_type='2d'):
+        super(DyReLU, self).__init__()
+        self.channels = channels
+        self.k = k
+        self.conv_type = conv_type
+        assert self.conv_type in ['1d', '2d']
 
-        self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels<span class="token punctuation">,</span> channels <span class="token operator">//</span> reduction<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span>inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels <span class="token operator">//</span> reduction<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>k<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>sigmoid <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self.fc1 = nn.Linear(channels, channels // reduction)
+        self.relu = nn.ReLU(inplace=True)
+        self.fc2 = nn.Linear(channels // reduction, 2*k)
+        self.sigmoid = nn.Sigmoid()
 
-        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'lambdas'</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token operator">*</span>k <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">]</span><span class="token operator">*</span>k<span class="token punctuation">)</span><span class="token punctuation">.</span>float<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'init_v'</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>float<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self.register_buffer('lambdas', torch.Tensor([1.]*k + [0.5]*k).float())
+        self.register_buffer('init_v', torch.Tensor([1.] + [0.]*(2*k - 1)).float())
 
-    <span class="token keyword">def</span> <span class="token function">get_relu_coefs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        theta <span class="token operator">=</span> torch<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'2d'</span><span class="token punctuation">:</span>
-            theta <span class="token operator">=</span> torch<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>theta<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
-        theta <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> theta
+    def get_relu_coefs(self, x):
+        theta = torch.mean(x, axis=-1)
+        if self.conv_type == '2d':
+            theta = torch.mean(theta, axis=-1)
+        theta = self.fc1(theta)
+        theta = self.relu(theta)
+        theta = self.fc2(theta)
+        theta = 2 * self.sigmoid(theta) - 1
+        return theta
 
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">raise</span> NotImplementedError
+    def forward(self, x):
+        raise NotImplementedError
 
 
-<span class="token keyword">class</span> <span class="token class-name">DyReLUB</span><span class="token punctuation">(</span>DyReLU<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> channels<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        super<span class="token punctuation">(</span>DyReLUB<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>channels<span class="token punctuation">,</span> reduction<span class="token punctuation">,</span> k<span class="token punctuation">,</span> conv_type<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels <span class="token operator">//</span> reduction<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>k<span class="token operator">*</span>channels<span class="token punctuation">)</span>
+class DyReLUB(DyReLU):
+    def __init__(self, channels, reduction=4, k=2, conv_type='2d'):
+        super(DyReLUB, self).__init__(channels, reduction, k, conv_type)
+        self.fc2 = nn.Linear(channels // reduction, 2*k*channels)
 
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">assert</span> x<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>channels
-        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>get_relu_coefs<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    def forward(self, x):
+        assert x.shape[1] == self.channels
+        theta = self.get_relu_coefs(x)
 
-        relu_coefs <span class="token operator">=</span> theta<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>channels<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>self<span class="token punctuation">.</span>k<span class="token punctuation">)</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>lambdas <span class="token operator">+</span> self<span class="token punctuation">.</span>init_v
+        relu_coefs = theta.view(-1, self.channels, 2*self.k) * self.lambdas + self.init_v
 
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'1d'</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># BxCxL -> LxBxCx1</span>
-            x_perm <span class="token operator">=</span> x<span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-            output <span class="token operator">=</span> x_perm <span class="token operator">*</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span>self<span class="token punctuation">.</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span>
-            <span class="token comment" spellcheck="true"># LxBxCx2 -> BxCxL</span>
-            result <span class="token operator">=</span> torch<span class="token punctuation">.</span>max<span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        if self.conv_type == '1d':
+            # BxCxL -&gt; LxBxCx1
+            x_perm = x.permute(2, 0, 1).unsqueeze(-1)
+            output = x_perm * relu_coefs[:, :, :self.k] + relu_coefs[:, :, self.k:]
+            # LxBxCx2 -&gt; BxCxL
+            result = torch.max(output, dim=-1)[0].permute(1, 2, 0)
 
-        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'2d'</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># BxCxHxW -> HxWxBxCx1</span>
-            x_perm <span class="token operator">=</span> x<span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-            output <span class="token operator">=</span> x_perm <span class="token operator">*</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span>self<span class="token punctuation">.</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span>
-            <span class="token comment" spellcheck="true"># HxWxBxCx2 -> BxCxHxW</span>
-            result <span class="token operator">=</span> torch<span class="token punctuation">.</span>max<span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        elif self.conv_type == '2d':
+            # BxCxHxW -&gt; HxWxBxCx1
+            x_perm = x.permute(2, 3, 0, 1).unsqueeze(-1)
+            output = x_perm * relu_coefs[:, :, :self.k] + relu_coefs[:, :, self.k:]
+            # HxWxBxCx2 -&gt; BxCxHxW
+            result = torch.max(output, dim=-1)[0].permute(2, 3, 0, 1)
 
-        <span class="token keyword">return</span> result</code></pre>
+        return result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>这个结构和上文我所说的 SE 模块是大体对应的，目前支持一维和二维卷积，要想使用只需要像下面这样替换激活层即可（DY-ReLU 需要指定输入通道数目和卷积类型）。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
-<span class="token keyword">from</span> dyrelu <span class="token keyword">import</span> DyReluB
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch.nn as nn
+from dyrelu import DyReluB
 
-<span class="token keyword">class</span> <span class="token class-name">Model</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        super<span class="token punctuation">(</span>Model<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>conv1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> DyReLUB<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span>
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+        self.conv1 = nn.Conv2d(3, 10, 5)
+        self.relu = DyReLUB(10, conv_type='2d')
 
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        x <span class="token operator">=</span> self<span class="token punctuation">.</span>conv1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        x <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> x</code></pre>
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        return x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>有空的话我会在 MobileNet 和 ResNet 上具体实验，看看实际效果是否如论文所述。</p>
 </blockquote>

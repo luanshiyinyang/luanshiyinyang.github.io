@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -543,25 +545,7 @@
 <h3 id="anchor-free局限性"><a href="#anchor-free局限性" class="headerlink" title="anchor-free局限性"></a>anchor-free局限性</h3><p>当然，anchor-free地目标检测方法也有很大地局限性，这些方法虽然声称精度追上了较好地二阶段方法，但存在一些训练上地细节以及部分不公平地比较。不过，总体来说，速度上地突破还是吸引了很多工业界的关注的。</p>
 <h3 id="GT的设计"><a href="#GT的设计" class="headerlink" title="GT的设计"></a>GT的设计</h3><p>上面的很多方法其实出发点都是bbox这个矩形框冗余信息太多，目标信息少，大部分是背景。它们大多都改变了GT的定义，如CornerNet将其定义为角点，ExtremeNet将其定义为极值点，FCOS虽然还是矩形框但也使用了center-ness进行抑制，FSAF则将GT定义为中心区域。对于GT目标的改进优化促使了目标检测的发展。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><strong>Densebox</strong>: Huang L, Yang Y, Deng Y, et al. Densebox: Unifying landmark localization with end to end object detection[J]. arXiv preprint arXiv:1509.04874, 2015.<br><br><strong>YOLO</strong>: Redmon J, Divvala S, Girshick R, et al. You only look once: Unified, real-time object detection[A]. Proceedings of the IEEE conference on computer vision and pattern recognition[C]. 2016: 779–788.<br><br><strong>FCOS</strong>: Tian Z, Shen C, Chen H, et al. FCOS: Fully Convolutional One-Stage Object Detection[J]. arXiv:1904.01355 [cs], 2019.<br><br><strong>FSAF</strong>: Zhu C, He Y, Savvides M. Feature Selective Anchor-Free Module for Single-Shot Object Detection[J]. arXiv:1903.00621 [cs], 2019.<br><br><strong>CornerNet</strong>: Law H, Deng J. CornerNet: Detecting Objects as Paired Keypoints[J]. arXiv:1808.01244 [cs], 2019.<br><br><strong>ExtremeNet</strong>: Zhou X, Zhuo J, Krähenbühl P. Bottom-up Object Detection by Grouping Extreme and Center Points[J]. arXiv:1901.08043 [cs], 2019.<br><br><strong>CenterNet</strong>: Zhou X, Wang D, Krähenbühl P. Objects as points[A]. arXiv preprint arXiv:1904.07850[C]. 2019.</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
                 
             </div>
             <hr/>

@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -466,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    2.5k
                 </div>
                 
 
@@ -553,7 +555,6 @@
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bndbox</span><span class="token punctuation">&gt;</span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>object</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>annotation</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><strong>也就是说，遇到这种文件格式的数据（主要特点为图像全放在一个文件夹，标注格式如上等），将其作为VOC格式的数据集，将自己的数据集重构为VOC格式以便开源项目的处理。</strong></p>
 <h2 id="自定义训练"><a href="#自定义训练" class="headerlink" title="自定义训练"></a>自定义训练</h2><h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a><strong>下载源码</strong></h3><p>通过<code>git clone git@github.com:ultralytics/yolov5.git</code>将YOLOv5源码下载到本地，本文后面的内容也可以参考<a target="_blank" rel="noopener" href="https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data">官方的自定义数据集训练教程</a>，不同于我的教程，该教程全面包含了VOC格式和COCO格式数据集的处理方法。</p>
 <p>此时创建虚拟环境，并通过<code>pip install -r requirements.txt</code>安装依赖包，我这里测试过，最新的项目是兼容Pytorch 1.6的，1.6之前的Pytorch会有一些问题。</p>
@@ -561,7 +562,6 @@
 <pre class="line-numbers language-none"><code class="language-none">- 根目录
     - images
     - Annotations<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>下面，编写脚本划分数据集，<code>split_train_val.py</code>脚本内容如下（参考Github上的开源脚本），只需要执行<code>python split_train_val.py --xml_path dataset_root/Annotations/ --txt_path dataset_root/anno_txt/</code>就得到了划分结果的文件列表，如训练集对应的<code>train.txt</code>如下图，里面与训练图片所有的文件名。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
 <span class="token keyword">import</span> random
@@ -607,7 +607,6 @@ file_trainval<span class="token punctuation">.</span>close<span class="token pun
 file_train<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 file_val<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 file_test<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/08/20/HY5yUEdALgmVthw.png"></p>
 <p>接下来，我们要做的就是每个xml标注提取bbox信息为txt格式（这个称为yolo_txt格式），每个图像对应一个txt文件，文件每一行为一个目标的信息，包括<code>类别 xmin xmax ymin ymax</code>。使用的脚本<code>voc_label.py</code>内容如下（<strong>注意，类别要替换为当前数据集的类别列表</strong>），<strong>在数据集根目录（此时包含Annotations、anno_txt以及images三个文件夹的目录）下执行该脚本</strong>，如<code>python ../../utils/voc_label.py</code>。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding: utf-8 -*-</span>
@@ -679,17 +678,15 @@ wd <span class="token operator">=</span> getcwd<span class="token punctuation">(
 <p>首先是数据集的配置，在根目录下的data目录下新建一个yaml文件，内容如下，首先是训练集和验证集的划分文件，这个文件在上面一节最后生成得到了，然后是目标的类别数目和具体类别列表，这个列表务必和上一节最后<code>voc_label.py</code>中的一致。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">train</span><span class="token punctuation">:</span> dataset/train/train.txt
 <span class="token key atrule">val</span><span class="token punctuation">:</span> dataset/train/val.txt
-
+ 
 <span class="token comment"># number of classes</span>
 <span class="token key atrule">nc</span><span class="token punctuation">:</span> <span class="token number">3</span>
-
+ 
 <span class="token comment"># class names</span>
 <span class="token key atrule">names</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'window_shielding'</span><span class="token punctuation">,</span> <span class="token string">'multi_signs'</span><span class="token punctuation">,</span> <span class="token string">'non_traffic_sign'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后，编辑模型的配置文件，此时需要先在项目根目录下的weights目录下执行其中的download_weights.sh这个shell脚本来下载四种模型的权重。然后，选择一个模型，编辑项目根目录下models目录中选择的模型的配置文件，将第一个参数nc改为自己的数据集类别数即可，例如我使用yolov5x模型，则修改yolov5x.yaml文件。<strong>这里weights的下载可能因为网络而难以进行，我也将其上传到了百度网盘，<a href="%E9%93%BE%E6%8E%A5%EF%BC%9Ahttps://pan.baidu.com/s/1UQX6URxaJP0ZqALvWpDWkA">地址</a>给出，提取码为vjlx。</strong></p>
 <h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><p>此时，可以使用下面的命令进行模型的训练，训练日志默认保存在<code>./runs/</code>下，包括模型参数、Tensorboard记录等。此时TensorBoard以已经默认打开，浏览器访问效果如下图（由于数据量很小，很快过拟合）。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python train.py --img <span class="token number">640</span> --batch <span class="token number">8</span> --epoch <span class="token number">300</span> --data ./data/ads.yaml --cfg ./models/yolov5x.yaml --weights weights/yolov5x.pt --device <span class="token string">'0'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/08/20/GrLI9OTtZD3fJFH.png"></p>
 <h3 id="模型测试"><a href="#模型测试" class="headerlink" title="模型测试"></a>模型测试</h3><p>接着，就是在有标注的测试集或者验证集上进行模型效果的评估，在目标检测中最常使用的指标为mAP。通过下面的命令进行模型测试，由于这是个比赛，测试集没有标注，这里使用验证集作为测试用数据，下述命令只需要指定数据集配置文件和训练结果模型即可。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python test.py  --data ./data/ads.yaml --weights ./runs/exp0/weights/best.pt --augment<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -698,33 +695,13 @@ wd <span class="token operator">=</span> getcwd<span class="token punctuation">(
 all    400      970    0.376    0.441     0.35       0.235<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-none"><code class="language-none">Class  Images  Targets    P      R      mAP@.5    mAP@.5:.95
 all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <h3 id="模型推理"><a href="#模型推理" class="headerlink" title="模型推理"></a>模型推理</h3><p>最后，模型在没有标注的数据上进行推理，使用下面的命令（该命令中<code>save-txt</code>选项用于生成结果的txt标注文件，不指定则只会生成结果图像）。其中，weights使用最满意的实验即可，source则提供一个包含所有测试图片的文件夹即可。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python detect.py --weights runs/exp0/weights/best.pt --source ./dataset/test/ --device <span class="token number">0</span> --save-txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>这样，对每个测试图片会在默认的<code>inference/output</code>文件夹中生成一个同名的txt文件，按照我的需求修改了<code>detect.py</code>文件后，每个txt会生成一行一个目标的信息，信息包括<code>类别序号 置信度 xcenter ycenter w h</code>，后面四个为bbox位置，均未归一化。如下图。</p>
 <p><img src="https://i.loli.net/2020/08/20/l86zj2dw9xHnTFO.png"></p>
 <p>我这里因为是一个比赛，再将这个txt处理为了json文件。<strong>不论是这里的处理代码还是上面对<code>detect.py</code>修改的代码，都可以在文末给出的Github仓库找到。</strong></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文介绍了如何使用YOLOv5在自己的数据集上进行训练，按部就班地进行了讲解。该项目在YOLOv5地源码基础上修改完成，代码开源于我的Github，欢迎star或者fork。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
                 
             </div>
             <hr/>

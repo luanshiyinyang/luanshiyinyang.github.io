@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -496,7 +498,7 @@
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>使用卷积神经网络构建整个系统，在尝试了Gabor、LBP等传统人脸特征提取方式基础上，深度模型效果显著。在FER2013、JAFFE和CK+三个表情识别数据集上进行模型评估。</p>
 <h2 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h2><p>基于Python3和Keras2（TensorFlow后端），具体依赖安装如下(推荐使用conda虚拟环境)。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone https://github.com/luanshiyinyang/FacialExpressionRecognition.git
+<pre class="line-numbers language-shell" data-language="shell"><div class="caption"><span>script</span></div><code class="language-shell">git clone https://github.com/luanshiyinyang/FacialExpressionRecognition.git
 cd FacialExpressionRecognition
 conda create -n FER python=3.6
 source activate FER
@@ -549,31 +551,11 @@ pip install -r requirements.txt<span aria-hidden="true" class="line-numbers-rows
 <h3 id="实时检测"><a href="#实时检测" class="headerlink" title="实时检测"></a><strong>实时检测</strong></h3><p>实时检测基于Opencv进行设计，旨在用摄像头对实时视频流进行预测，同时考虑到有些人的反馈，当没有摄像头想通过视频进行测试则修改命令行参数即可。</p>
 <p>使用下面的命令会打开摄像头进行实时检测（ESC键退出），若要指定视频进行进行检测，则使用下面的第二个命令。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python src/recognition_camera.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python src/recognition_camera.py --source 1 --video_path 视频绝对路径或者相对于该项目的根目录的相对路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>下图是动态演示的在Youtube上<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=r5Z741PC9_c">某个视频</a>上的识别结果。</p>
 <p><img src="https://i.loli.net/2020/08/25/sCyxpwNifDJLEd9.gif"></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>具体项目代码、数据集、模型已经开源于<a target="_blank" rel="noopener" href="https://github.com/luanshiyinyang/FacialExpressionRecognition.git">我的Github</a>，欢迎Star或者Fork。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
                 
             </div>
             <hr/>

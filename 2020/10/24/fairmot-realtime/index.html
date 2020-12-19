@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -496,28 +498,24 @@
 <p>下述环境配置需要保证用户已经安装了git和conda，否则配置pytorch和cuda会诸多不便。</p>
 </blockquote>
 <p>首先，通过下面的git命令从Github克隆源码到本地并进入该项目。访问<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1H1Zp8wrTKDk20_DSPAeEkg">链接</a>（提取码uouv）下载训练好的模型，在项目根目录下新建<code>models</code>目录（和已有的<code>assets</code>、<code>src</code>等目录同级），将刚刚下载好的模型文件<code>fairmot_dla34.pth</code>放到这个<code>models</code>目录下。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">git</span> clone git@github.com:ifzhang/FairMOT.git
-<span class="token builtin class-name">cd</span> FairMOT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone git@github.com:ifzhang/FairMOT.git
+cd FairMOT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>下面，通过conda创建适用于该项目的虚拟环境（环境隔离），国内用户速度慢可以参考<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/86086919">我conda的文章</a>配置国内源。创建之后通过<code>activate</code>激活环境（该命令出错将<code>conda</code>换为<code>source</code>）。然后在当前虚拟环境下（<strong>后续关于该项目的操作都需要在该虚拟环境下</strong>）安装pytorch和cuda（这里也建议配置国内源后安装<code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch</code>）。最后，通过pip命令安装所需d的Python包（国内建议<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/106420275">配置清华源</a>），注意先安装cython。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">conda create -n fairmot <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.6</span>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">conda create -n fairmot python=3.6
 conda activate fairmot
-conda <span class="token function">install</span> <span class="token assign-left variable">pytorch</span><span class="token operator">==</span><span class="token number">1.2</span>.0 <span class="token assign-left variable">torchvision</span><span class="token operator">==</span><span class="token number">0.4</span>.0 <span class="token assign-left variable">cudatoolkit</span><span class="token operator">=</span><span class="token number">10.0</span>
-pip <span class="token function">install</span> cython
-pip <span class="token function">install</span> -r requirements.txt
-pip <span class="token function">install</span> -U opencv-python<span class="token operator">==</span><span class="token number">4.1</span>.1.26<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0
+pip install cython
+pip install -r requirements.txt
+pip install -U opencv-python==4.1.1.26<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>同时，用于项目使用了DCNv2所以需要安装该包，该包只能通过源码安装，依次执行下述命令即可（安装过程报warning是正常情况，不报error就行）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">git</span> clone https://github.com/CharlesShang/DCNv2
-<span class="token builtin class-name">cd</span> DCNv2
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone https://github.com/CharlesShang/DCNv2
+cd DCNv2
 ./make.sh
-<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+cd ../<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>至此，所有的环境配置已经完成，由于这里还需要使用到ffmpeg来生成视频文件，所以系统需要安装ffmpeg（Ubuntu采用apt安装即可），教程很多，不多赘述。</p>
 <p>想要试试项目是否正常工作，可以使用下面的命令在demo视频上进行跟踪测试（初次允许需要下载dla34模型，这个模型国内下载速度还可以，我就直接通过允许代码下载的）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token builtin class-name">cd</span> src
-python demo.py mot --input-video <span class="token punctuation">..</span>/videos/MOT16-03.mp4 --load_model <span class="token punctuation">..</span>/models/fairmot_dla34.pth --conf_thres <span class="token number">0.4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd src
+python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/fairmot_dla34.pth --conf_thres 0.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>默认文件输出在项目根目录的<code>demos</code>文件夹下，包括每一帧的检测结果以及组合成的视频。</p>
 <p><img src="https://i.loli.net/2020/10/24/bxVoM7ZyjTBmhLI.png"></p>
 <p><img src="https://i.loli.net/2020/10/24/NF7idqKkQ8CyfG9.png"></p>
@@ -548,7 +546,6 @@ python demo.py mot --input-video <span class="token punctuation">..</span>/video
     os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'CUDA_VISIBLE_DEVICES'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'0'</span>
     opt <span class="token operator">=</span> opts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>init<span class="token punctuation">(</span><span class="token punctuation">)</span>
     recogniton<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>接着，原来JDE关于视频加载是针对真正的视频的，对于摄像头这种无限视频流，修改其帧数为无限大（很大很大的整数值即可），也就是将<code>src/lib/datasets/dataset/jde.py</code>中<code>LoadVideo</code>修改如下。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">LoadVideo</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token punctuation">,</span> img_size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1088</span><span class="token punctuation">,</span> <span class="token number">608</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -598,37 +595,16 @@ python demo.py mot --input-video <span class="token punctuation">..</span>/video
 
     <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
         <span class="token keyword">return</span> self<span class="token punctuation">.</span>vn  <span class="token comment"># number of frames</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>至此，读取视频流也通过一个粗暴的方式实现了，然后就是窗口显示了，原来项目中跟踪器只会一帧一帧写入跟踪后的结果图像，然后通过<code>ffmpeg</code>将这些图像组合为视频。不过，原项目已经设计了实时显示跟踪结果窗口的接口了，只需要调用<code>track.py</code>中的<code>eval_seq</code>函数时，参数<code>show_image</code>设置为<code>True</code>即可。不过，也许作者并没有测试过这个模块，这里显示会有些问题，务必将<code>eval_seq</code>中下述代码段进行如下修改。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> show_image<span class="token punctuation">:</span>
     cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'online_im'</span><span class="token punctuation">,</span> online_im<span class="token punctuation">)</span>
     cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>调整完成后，输入下面的命令运行跟踪脚本（命令行Ctrl+C停止跟踪，跟踪的每一帧存放在指定的<code>output-root</code>目录下的<code>frame</code>目录中）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python camera.py mot --load_model <span class="token punctuation">..</span>/models/fairmot_dla34.pth --output-root <span class="token punctuation">..</span>/results<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python camera.py mot --load_model ../models/fairmot_dla34.pth --output-root ../results<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="https://i.loli.net/2020/10/24/Kp52w4qlb7nyVRQ.png"></p>
 <p>上图是我实际测试得到的运行结果，摄像头分辨率比较低并且我做了一些隐私模糊处理，不过，整个算法的实用性还是非常强的，平均FPS也有18左右（单卡2080Ti）。</p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文对FairMOT源码进行了简单粗暴的修改以实现了一个摄像头视频实时跟踪系统，只是研究FairMOT代码闲暇之余的小demo，具体代码可以在<a target="_blank" rel="noopener" href="https://github.com/luanshiyinyang/FairMOT">我的Github</a>找到。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
                 
             </div>
             <hr/>

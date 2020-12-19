@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -466,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    1.7k
                 </div>
                 
 
@@ -502,7 +504,6 @@
 plt<span class="token punctuation">.</span>ioff<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 关闭交互模式</span>
 plt<span class="token punctuation">.</span>clf<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 清除当前的Figure对象</span>
 plt<span class="token punctuation">.</span>pause<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 暂停GUI功能多少秒</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后就是要清楚，所谓的动图或者视频是怎么做到的，其实它们本质上就是很多静态图以较快的速度连续播放从而给人一种动感，利用Matplotlib绘制动图的原理也是一样的，遵循<code>画布绘图</code>-&gt;<code>清理画布</code>-&gt;<code>画布绘图</code>的循环就行了，不过这里注意，由于交互模式下绘图都是一闪而过，因此<strong>通过<code>plt.pause(n)</code>暂停GUI显示n秒才能得到连续有显示的图像</strong>。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 <span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
@@ -539,7 +540,6 @@ plt<span class="token punctuation">.</span>pause<span class="token punctuation">
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
     io_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上述代码演示了三维空间如何动态显示100个随机点的变化，使用录制软件得到的动图如下，其本质就是不停显示不同的图像而已。</p>
 <p><img src="https://i.loli.net/2020/09/21/lyQHWBXOGv6KSZ3.gif"></p>
 <h2 id="动图保存"><a href="#动图保存" class="headerlink" title="动图保存"></a>动图保存</h2><p>很多时候我们的需求并不是在窗口中动态显示图像，还需要保存到本地GIF图像，显然使用录制工具是一个比较低效的用法，Matplotlib的<code>animation</code>模块提供了两个动画绘制接口，分别是<strong>FuncAnimation</strong>和<strong>ArtistAnimation</strong>，它们都是继承自<code>TimedAnimation</code>的类，因而也具有<code>Animation</code>对象的通用方法，如<code>Animation.save()</code>和<code>Animation.to_html5_video()</code>两个方法实例化一个<code>Animation</code>对象后均可调用，前者表示将动画保存为一个图像，后者表示将动画表示为一个HTML视频。</p>
@@ -550,7 +550,6 @@ plt<span class="token punctuation">.</span>pause<span class="token punctuation">
 <p>下面给出上述两个类的构造函数所需参数，它们的主要参数也是类似的，都是一个Figure对象作为画布，然后一个对象作为更新的实现方式（前者需要一个反复绘图的更新函数，后者则为一个图像列表或者绘图对象列表）。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>FuncAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> func<span class="token punctuation">,</span> frames<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> init_func<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> fargs<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> save_count<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">,</span> cache_frame_data<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
 ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>ArtistAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> artists<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>相比较而言，我更喜欢使用<code>FuncAnimation</code>，它的使用要求简洁且定制化程度较高。但是如果想将很多图片合并为一个动图，那么<code>ArtistAnimation</code>是最合适的选择。</p>
 <p>下面的代码演示了如何保存一个动态变化渲染的柱状图，<code>ArtistAnimation</code>传入了一个图像序列，序列中每个元素为绘制的柱状图。然后通过使用<code>Animation</code>的<code>save</code>方法保存了动态图，**需要注意的是，这里有个动画写入器（writer）可以选择，默认不是pillow，我个人觉得pillow安装简单一些。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
@@ -567,7 +566,6 @@ x<span class="token punctuation">,</span> y<span class="token punctuation">,</sp
 
 ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>ArtistAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> tmp<span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span> repeat_delay<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span>
 ani<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"bar.gif"</span><span class="token punctuation">,</span> writer<span class="token operator">=</span><span class="token string">'pillow'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面代码的执行结果如下图。</p>
 <p><img src="https://i.loli.net/2020/09/21/LHoTe14VU2tqlX9.gif"></p>
 <p>接着，演示使用范围更广的<code>FuncAnimation</code>如何使用。下面的代码中，动态展示了梯度下降在三维图上的优化过程，其中最为核心的代码如下。用于构造<code>Animation</code>对象的除了画布就是一个更新函数，在这个更新函数内部多次绘制散点图从而形成动态效果， <code>frames</code>是帧数，如果设置了这个帧数，那么<code>update</code>函数第一个参数必须有一个<code>num</code>占位，这个<code>num</code>由<code>Animation</code>对象维护，每次内部执行<code>update</code>会自动递增，后面的参数列表<code>fargs</code>只需要传入除了<code>num</code>后面的参数即可。</p>
@@ -577,7 +575,6 @@ ani<span class="token punctuation">.</span>save<span class="token punctuation">(
     <span class="token keyword">return</span> ax
 
 ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>FuncAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> update<span class="token punctuation">,</span> frames<span class="token operator">=</span><span class="token number">25</span><span class="token punctuation">,</span> fargs<span class="token operator">=</span><span class="token punctuation">(</span>x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list<span class="token punctuation">,</span> ax3d<span class="token punctuation">)</span><span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> blit<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面的代码演示效果如下图，完整的代码附在文末补充说明中。</p>
 <p><img src="https://i.loli.net/2020/09/21/Kp6qMkuLIt3rFwo.gif"></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文介绍了如何使用Matplotlib绘制动态图，主要通过交互模式和<code>animation</code>模块进行，如果觉得有所帮助，欢迎点赞。</p>
@@ -635,25 +632,6 @@ ani <span class="token operator">=</span> animation<span class="token punctuatio
 
 
 
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
                 
             </div>
             <hr/>

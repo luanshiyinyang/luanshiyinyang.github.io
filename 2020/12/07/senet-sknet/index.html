@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -535,7 +537,6 @@
         y <span class="token operator">=</span> self<span class="token punctuation">.</span>avg_pool<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span>view<span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span>
         y <span class="token operator">=</span> self<span class="token punctuation">.</span>fc<span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">.</span>view<span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
         <span class="token keyword">return</span> x <span class="token operator">*</span> y<span class="token punctuation">.</span>expand_as<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <h2 id="SKNet"><a href="#SKNet" class="headerlink" title="SKNet"></a>SKNet</h2><p>SENet 设计了 SE 模块来提升模型对 channel 特征的敏感性，CVPR2019 的 SKNet 和 SENet 非常相似，它主要是为了提升模型对感受野的自适应能力，这种自适应能力类似 SENet 对各个通道做类似 attention，只不过是对不同尺度的卷积分支做了这种 attention。</p>
 <h3 id="动机和思路-1"><a href="#动机和思路-1" class="headerlink" title="动机和思路"></a><strong>动机和思路</strong></h3><p>我们设计卷积神经网络的时候参考了动物的视觉机制，但是一个重要的思路并没有在设计卷积神经网络时被过多关注，那就是感受野的尺寸是根据刺激自动调节的，SKNet就从这个思路出发，自适应选择更重要的卷积核尺寸（这个实现其实就是对不同尺度的特征图分别加权，这个权重由网络学习得到，这就是我为什么说和SENet很类似的原因）。</p>
 <p>首先，我们考虑如何获得不同尺寸的感受野信息呢，一个非常直接的想法就是使用不同size的卷积核，然后把他们融合起来就行了，这个思路诞生了下图的Inception网络，不过，Inception将所有分支的多尺度信息线性聚合到了一起，这也许是不合适的，因为不同的尺度的信息有着不同的重要程度，网络应该自己学到这种重要程度（看到这是不是觉得和SENet针对的不同通道信息应该有不同重要程度有类似之处）。</p>
@@ -587,27 +588,8 @@
         V<span class="token operator">=</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">,</span>y<span class="token punctuation">:</span>x<span class="token operator">*</span>y<span class="token punctuation">,</span>output<span class="token punctuation">,</span>a_b<span class="token punctuation">)</span><span class="token punctuation">)</span>
         V<span class="token operator">=</span><span class="token builtin">reduce</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">,</span>y<span class="token punctuation">:</span>x<span class="token operator">+</span>y<span class="token punctuation">,</span>V<span class="token punctuation">)</span>
         <span class="token keyword">return</span> V<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>SENet和SKNet分别从通道信息和感受野自适应角度出发，设计了一个新的网络结构，获得了比较有突破的成果，SKNet是SENet基础上的工作，还集成了近几年卷积神经网络的一些主流技巧，可以说集众家之长，也可以说是人工设计卷积神经网络的集大成者了，SKNet后来的很多效果更好的卷积神经网络或多或少带有NAS技术的影子，不过，自动搜索也是不可阻挡的未来趋势。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
                 
             </div>
             <hr/>

@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -515,7 +517,6 @@ y <span class="token operator">=</span> np<span class="token punctuation">.</spa
 fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>t<span class="token punctuation">,</span> y<span class="token operator">=</span>y<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>下面的代码就是简单散点图的绘制，其在Jupyter中的执行结果如下图，不妨来仔细看看这张图，<strong>在绘制的图形右上角有一行菜单栏且这个图形是可交互的</strong>（包括缩放、旋转、裁剪等），右上角的菜单包括图像下载、缩放、裁剪、在dash中编辑等。</p>
 <p><img src="https://i.loli.net/2020/10/09/VrR52bqpQA4yzea.png"></p>
 <p>也可以通过<code>add_trace</code>来逐个添加绘图对象</p>
@@ -537,7 +538,6 @@ fig<span class="token punctuation">.</span>add_trace<span class="token punctuati
 fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y1<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y2<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/10/09/2n6AJes5rNKqtiH.png"></p>
 <p>其他基本图表类似，传入指定格式的数据即可。</p>
 <h3 id="统计图表"><a href="#统计图表" class="headerlink" title="统计图表"></a>统计图表</h3><p>很多统计学图表也预先定义在了Plotly中，主要包括下图所示的箱型图、直方图、热力图、等高线图等。</p>
@@ -558,7 +558,6 @@ fig<span class="token punctuation">.</span>add_trace<span class="token punctuati
 <span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>update_layout<span class="token punctuation">(</span>barmode<span class="token operator">=</span><span class="token string">'group'</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/10/09/rwXYOZnCmokGjaI.png"></p>
 <h3 id="AI图表"><a href="#AI图表" class="headerlink" title="AI图表"></a>AI图表</h3><p>同时，Plotly也支持绘制一些简单的机器学习图表，不过都是依靠上面的基本图表实现的，如下述的线性回归。</p>
 <p><img src="https://i.loli.net/2020/10/09/UIqydzwFvbRK5Q4.png"></p>
@@ -579,7 +578,6 @@ y_range <span class="token operator">=</span> model<span class="token punctuatio
 fig <span class="token operator">=</span> px<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>df<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token string">'tip'</span><span class="token punctuation">,</span> opacity<span class="token operator">=</span><span class="token number">0.65</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>add_traces<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>x_range<span class="token punctuation">,</span> y<span class="token operator">=</span>y_range<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'Regression Fit'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/10/09/Q12kFUBOcmKgqX5.png"></p>
 <h3 id="科学绘图"><a href="#科学绘图" class="headerlink" title="科学绘图"></a>科学绘图</h3><p>下面的这些数据科学领域用的挺多的图也做了封装，例如下面的代码就是绘制heatmap的样例。</p>
 <p><img src="https://i.loli.net/2020/10/09/2tSgERp8NkrxJDi.png"></p>
@@ -591,7 +589,6 @@ fig <span class="token operator">=</span> go<span class="token punctuation">.</s
                    y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Morning'</span><span class="token punctuation">,</span> <span class="token string">'Afternoon'</span><span class="token punctuation">,</span> <span class="token string">'Evening'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
                    hoverongaps <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/10/09/ElyNPz96JOrmnuF.png"></p>
 <h3 id="三维绘图"><a href="#三维绘图" class="headerlink" title="三维绘图"></a>三维绘图</h3><p>Plotly的三维绘图真的很好看，而且其是可交互的，非常方便，例如下面的3D曲面图。</p>
 <p><img src="https://i.loli.net/2020/10/09/aP16hAGqZrT4C8p.png"></p>
@@ -609,28 +606,9 @@ fig<span class="token punctuation">.</span>update_layout<span class="token punct
                   margin<span class="token operator">=</span><span class="token builtin">dict</span><span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> r<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> b<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><img src="https://i.loli.net/2020/10/09/DT2Oz5plMsvkCFJ.png"></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文简单介绍了Plotly的基本绘图方式，其实只要了解了Plotly的生态，使用它并不难，更多的子图、标注等技巧本文没有涉及，还是建议到<a target="_blank" rel="noopener" href="https://plotly.com/python/">官网教程</a>查看，非常易读。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
                 
             </div>
             <hr/>

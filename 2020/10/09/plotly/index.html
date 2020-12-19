@@ -497,7 +497,7 @@
 <h2 id="安装及开发工具"><a href="#安装及开发工具" class="headerlink" title="安装及开发工具"></a>安装及开发工具</h2><p>安装通过 PIP 进行即可。</p>
 <p><code>pip install plotly</code></p>
 <p>Plotly Python 其对应的<a target="_blank" rel="noopener" href="https://plotly.com/python/">官网</a>，上面有一些教程和官方API接口的查询。</p>
-<p><img src="https://i.loli.net/2020/10/09/BHfGe7nIWZ49oVt.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/BHfGe7nIWZ49oVt.png" alt=""></p>
 <p><strong>上面说了 Plotly 是基于 HTML 显示的，所以这里推荐使用 Jupyter lab（Jupyter notebook 也行）作为开发工具，Jupyter lab 的安装本文不多提及，可以自行查找。尤其注意的是，Plotly 主要维护 Jupyter notebook，所以对 Jupyter lab 支持不是很好，绘图无法显示，最新版 Plotly 需要通过命令<code>conda install nodejs</code>和<code>jupyter labextension install jupyterlab-plotly@4.11.0</code>安装支持插件。</strong></p>
 <h2 id="Plotly-生态"><a href="#Plotly-生态" class="headerlink" title="Plotly 生态"></a>Plotly 生态</h2><ul>
 <li>Plotly 是绘图基础库，它可以深度定制调整绘图，但是 API 复杂学习成本较高。</li>
@@ -506,7 +506,7 @@
 </ul>
 <h2 id="绘图教程"><a href="#绘图教程" class="headerlink" title="绘图教程"></a>绘图教程</h2><p>下面涉及到的内容均可以在<a target="_blank" rel="noopener" href="https://plotly.com/python/">官方文档</a>找到参考，下面的内容也只涉及基础的图形绘制（使用Plotly实现），一些比较基础的图形库知识查看<a target="_blank" rel="noopener" href="https://plotly.com/python/plotly-fundamentals/">对应教程</a>。</p>
 <h3 id="基本图表"><a href="#基本图表" class="headerlink" title="基本图表"></a>基本图表</h3><p>在 Plotly 中，预定义了如下的一些基本图表，包括散点图、折线图、柱状图、饼图等，它们的使用方式都是类似的，通过向Figure上添加绘图对象进行绘图，而向绘图对象传递的就是其需要的格式的数据。</p>
-<p><img src="https://i.loli.net/2020/10/09/HDkcCSLxO1Q83eo.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/HDkcCSLxO1Q83eo.png" alt=""></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 <span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
 
@@ -518,7 +518,7 @@ fig <span class="token operator">=</span> go<span class="token punctuation">.</s
 
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面的代码就是简单散点图的绘制，其在Jupyter中的执行结果如下图，不妨来仔细看看这张图，<strong>在绘制的图形右上角有一行菜单栏且这个图形是可交互的</strong>（包括缩放、旋转、裁剪等），右上角的菜单包括图像下载、缩放、裁剪、在dash中编辑等。</p>
-<p><img src="https://i.loli.net/2020/10/09/VrR52bqpQA4yzea.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/VrR52bqpQA4yzea.png" alt=""></p>
 <p>也可以通过<code>add_trace</code>来逐个添加绘图对象</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
@@ -538,10 +538,10 @@ fig<span class="token punctuation">.</span>add_trace<span class="token punctuati
 fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y1<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y2<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://i.loli.net/2020/10/09/2n6AJes5rNKqtiH.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/2n6AJes5rNKqtiH.png" alt=""></p>
 <p>其他基本图表类似，传入指定格式的数据即可。</p>
 <h3 id="统计图表"><a href="#统计图表" class="headerlink" title="统计图表"></a>统计图表</h3><p>很多统计学图表也预先定义在了Plotly中，主要包括下图所示的箱型图、直方图、热力图、等高线图等。</p>
-<p><img src="https://i.loli.net/2020/10/09/GpthdgN5PvaOEyz.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/GpthdgN5PvaOEyz.png" alt=""></p>
 <p>和上面的基本图表类似，绘图方式是固定的，只是绘图对象改变了而已。下面的代码就是直方图绘制</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
@@ -558,9 +558,9 @@ fig<span class="token punctuation">.</span>add_trace<span class="token punctuati
 <span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>update_layout<span class="token punctuation">(</span>barmode<span class="token operator">=</span><span class="token string">'group'</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://i.loli.net/2020/10/09/rwXYOZnCmokGjaI.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/rwXYOZnCmokGjaI.png" alt=""></p>
 <h3 id="AI图表"><a href="#AI图表" class="headerlink" title="AI图表"></a>AI图表</h3><p>同时，Plotly也支持绘制一些简单的机器学习图表，不过都是依靠上面的基本图表实现的，如下述的线性回归。</p>
-<p><img src="https://i.loli.net/2020/10/09/UIqydzwFvbRK5Q4.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/UIqydzwFvbRK5Q4.png" alt=""></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
 <span class="token keyword">import</span> plotly<span class="token punctuation">.</span>express <span class="token keyword">as</span> px
 <span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
@@ -578,9 +578,9 @@ y_range <span class="token operator">=</span> model<span class="token punctuatio
 fig <span class="token operator">=</span> px<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>df<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token string">'tip'</span><span class="token punctuation">,</span> opacity<span class="token operator">=</span><span class="token number">0.65</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>add_traces<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>x_range<span class="token punctuation">,</span> y<span class="token operator">=</span>y_range<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'Regression Fit'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://i.loli.net/2020/10/09/Q12kFUBOcmKgqX5.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/Q12kFUBOcmKgqX5.png" alt=""></p>
 <h3 id="科学绘图"><a href="#科学绘图" class="headerlink" title="科学绘图"></a>科学绘图</h3><p>下面的这些数据科学领域用的挺多的图也做了封装，例如下面的代码就是绘制heatmap的样例。</p>
-<p><img src="https://i.loli.net/2020/10/09/2tSgERp8NkrxJDi.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/2tSgERp8NkrxJDi.png" alt=""></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
 fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span>go<span class="token punctuation">.</span>Heatmap<span class="token punctuation">(</span>
@@ -589,9 +589,9 @@ fig <span class="token operator">=</span> go<span class="token punctuation">.</s
                    y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Morning'</span><span class="token punctuation">,</span> <span class="token string">'Afternoon'</span><span class="token punctuation">,</span> <span class="token string">'Evening'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
                    hoverongaps <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://i.loli.net/2020/10/09/ElyNPz96JOrmnuF.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/ElyNPz96JOrmnuF.png" alt=""></p>
 <h3 id="三维绘图"><a href="#三维绘图" class="headerlink" title="三维绘图"></a>三维绘图</h3><p>Plotly的三维绘图真的很好看，而且其是可交互的，非常方便，例如下面的3D曲面图。</p>
-<p><img src="https://i.loli.net/2020/10/09/aP16hAGqZrT4C8p.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/aP16hAGqZrT4C8p.png" alt=""></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
 <span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
@@ -606,7 +606,7 @@ fig<span class="token punctuation">.</span>update_layout<span class="token punct
                   margin<span class="token operator">=</span><span class="token builtin">dict</span><span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> r<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> b<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://i.loli.net/2020/10/09/DT2Oz5plMsvkCFJ.png"></p>
+<p><img src="https://i.loli.net/2020/10/09/DT2Oz5plMsvkCFJ.png" alt=""></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文简单介绍了Plotly的基本绘图方式，其实只要了解了Plotly的生态，使用它并不难，更多的子图、标注等技巧本文没有涉及，还是建议到<a target="_blank" rel="noopener" href="https://plotly.com/python/">官网教程</a>查看，非常易读。</p>
 
                 

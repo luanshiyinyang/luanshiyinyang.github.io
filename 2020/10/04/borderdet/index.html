@@ -504,26 +504,26 @@
 </ul>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>目前大多数 point-based 的目标检测算法（如 SSD、RetinaNet、FCOS 等方法）都使用特征图上的 single-point 进行目标的回归和分类，但是，single-point 特征没有足够的信息表示一个目标实例，主要是因为缺乏边界信息。此前有很多方法来补充 single-point 的表示能力，但是这些方法往往带来较大计算量的同时并没有引入太多有用的信息，反而带来一些无用的背景信息。这篇文章设计了新的特征提取操作 BorderAlign 来直接利用边界特征优化 single-point 特征，以 BorderAlign 为拓展配合作为 baseline 的 FCOS，提出新的检测框架 BorderDet，实现 SOTA。</p>
 <p>本文的贡献文中列了不少，但在我看来，只有一个核心：<strong>分析密集目标检测器的特征表示，发现边界信息对 single-point 特征的重要性，并设计了一个高效的边界特征提取器 BorderAlign。</strong> 其他的贡献都是顺理成章的附属产物。</p>
-<h2 id="BorderAlign"><a href="#BorderAlign" class="headerlink" title="BorderAlign"></a>BorderAlign</h2><p><img src="https://i.loli.net/2020/10/04/BAv3C6PYKR17f4c.png"></p>
+<h2 id="BorderAlign"><a href="#BorderAlign" class="headerlink" title="BorderAlign"></a>BorderAlign</h2><p><img src="https://i.loli.net/2020/10/04/BAv3C6PYKR17f4c.png" alt=""></p>
 <p>BorderAlign 的提出是基于大量的实验对比的，我这边就按照作者的思路来进行阐述。首先，采用如上图不同的特征增强方式在 FCOS 的基础上评估效果，结果如下表，根据效果最好的二四两行，发现，只使用边界上中心点做增强效果媲美 region-based 的方法。因此，得出结论，<strong>point-based 方法做目标检测确实缺乏完整的目标特征，但从完整的边界框中密集提取特征是没必要且冗余的，高效的边界特征提取策略可以获得更好的特征增强效果。</strong></p>
-<p><img src="https://i.loli.net/2020/10/04/cLVCn1SkRBZXlTK.png"></p>
+<p><img src="https://i.loli.net/2020/10/04/cLVCn1SkRBZXlTK.png" alt=""></p>
 <p>针对上述结论，一种高效显式自适应提取边界特征的方法，BorderAlign 被提出。如下图所示，一个$5C$的 border-sensitive 特征图作为输入，其中$4C$维度对应边界框的四条边，另外$C$维度对应原始 anchor 点的特征。对于一个 anchor 点预测的边界框，对其四个边界在特征图上的特征做池化操作，由于框的位置是小数，所以采用双线性插值取边界特征。</p>
 <p>这里具体的实现如下：假设输入的 5 个通道表示(single point, left border, top border, right border, bottom border)，那么对 anchor 点$(i, j)$对应的 bbox 各边均匀采样$N$个点，$N$默认是 5，如下图所示。采样点的值采用上面所说的双线性插值，然后通过逐通道最大池化得到输出，每个边只会输出值最大的采样点，那么每个 anchor 点最后采用 5 个点的特征作为输出，所以输出也是$5C$维度的。</p>
-<p><img src="https://i.loli.net/2020/10/04/GvkmthPsnaNMyWg.png"></p>
+<p><img src="https://i.loli.net/2020/10/04/GvkmthPsnaNMyWg.png" alt=""></p>
 <p>输出特征图相对输入特征图，各通道计算式如下，$(x_0, y_0, x_!, y_1)$为 anchor 点预测的 bbox。</p>
-<p><img src="https://i.loli.net/2020/10/04/UqBdCvYag6FJi7R.png"></p>
+<p><img src="https://i.loli.net/2020/10/04/UqBdCvYag6FJi7R.png" alt=""></p>
 <p>显然，BorderAlign 是一种自适应的通过边界极限点得到边界特征的方法。文章中对其进行了一些可视化工作，下图所示的边上的小圆圈是边界极限点，大圆圈是不同 channel 上预测的边界极限点。</p>
-<p><img src="https://i.loli.net/2020/10/04/JwlLQHDmBPtZvsE.png"></p>
-<h2 id="BAM-Border-Alignment-Module"><a href="#BAM-Border-Alignment-Module" class="headerlink" title="BAM(Border Alignment Module)"></a>BAM(Border Alignment Module)</h2><p><img src="https://i.loli.net/2020/10/04/d1p4NU2JvhKrEVZ.png"></p>
+<p><img src="https://i.loli.net/2020/10/04/JwlLQHDmBPtZvsE.png" alt=""></p>
+<h2 id="BAM-Border-Alignment-Module"><a href="#BAM-Border-Alignment-Module" class="headerlink" title="BAM(Border Alignment Module)"></a>BAM(Border Alignment Module)</h2><p><img src="https://i.loli.net/2020/10/04/d1p4NU2JvhKrEVZ.png" alt=""></p>
 <p>该模块用于修正粗糙的 detection 结果，因而必须保证输入输出是同维张量，而其中的 BorderAlign 需求的是 5 个通道，所以必然要经历<strong>降维、特征增强、升维</strong>的过程，为了验证 border feature 的效果，BAM 采用 1x1 卷积实现维度变换。</p>
-<h2 id="BorderDet"><a href="#BorderDet" class="headerlink" title="BorderDet"></a>BorderDet</h2><p><img src="https://i.loli.net/2020/10/04/8QERAPL2jxT3zYm.png"></p>
+<h2 id="BorderDet"><a href="#BorderDet" class="headerlink" title="BorderDet"></a>BorderDet</h2><p><img src="https://i.loli.net/2020/10/04/8QERAPL2jxT3zYm.png" alt=""></p>
 <p>上图的框架采用 FCOS 作为 baseline，上面是分类分支，下面是回归分支，coarse cls score 和 coarse box reg 表示 FCOS 的输出。在四个卷积层后引出一个分支做 BorderAlign 操作，也就是进入 BAM 模块，该模块需要 bbox 位置信息，所以看到 coarse box reg 送入两个 BAM 中。最终这两个 BAM 预测得到 border cls score 和 border box reg，和检测器原始输出组合变为最终输出。</p>
 <p>最后补充一点，BorderDet 在推理时对两种分类结果进行直接的相乘输出，而对于 bbox 定位则使用 border 定位预测对初步定位的 bbox 进行原论文中公式(2)的反向转换，对所有的结果进行 NMS 输出（IOU 阈值设置为 0.6）。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>论文进行了非常丰富的消融实验以对比 BorderAlign 的效果。</p>
-<h3 id="各分支效果"><a href="#各分支效果" class="headerlink" title="各分支效果"></a>各分支效果</h3><p>对比两个 BAM 模块有无的实际效果，发现两个分支效果提升差不多，都是 1.1 左右。<br><img src="https://i.loli.net/2020/10/04/bGoiQs1RwuaUyFS.png"></p>
-<h3 id="相比其他特征增强效果"><a href="#相比其他特征增强效果" class="headerlink" title="相比其他特征增强效果"></a>相比其他特征增强效果</h3><p>和其他经典的特征增强手段相比，BorderAlign 在速度（使用 CUDA 实现了 BorderAlign）和精度上都有突破。<br><img src="https://i.loli.net/2020/10/04/PKk3SOw6Np2IoM8.png"></p>
-<h3 id="集成到检测器涨点效果"><a href="#集成到检测器涨点效果" class="headerlink" title="集成到检测器涨点效果"></a>集成到检测器涨点效果</h3><p>有比较明显的改进。<br><img src="https://i.loli.net/2020/10/04/tZvEcdHCjyYMqBw.png"></p>
-<h3 id="和主流检测器对比"><a href="#和主流检测器对比" class="headerlink" title="和主流检测器对比"></a>和主流检测器对比</h3><p>可以看到，即使不使用多尺度策略，BorderDet 和当前 SOTA 相比效果也是不遑多让的。<br><img src="https://i.loli.net/2020/10/04/DmlrKSEqVpw4nhI.png"></p>
+<h3 id="各分支效果"><a href="#各分支效果" class="headerlink" title="各分支效果"></a>各分支效果</h3><p>对比两个 BAM 模块有无的实际效果，发现两个分支效果提升差不多，都是 1.1 左右。<br><img src="https://i.loli.net/2020/10/04/bGoiQs1RwuaUyFS.png" alt=""></p>
+<h3 id="相比其他特征增强效果"><a href="#相比其他特征增强效果" class="headerlink" title="相比其他特征增强效果"></a>相比其他特征增强效果</h3><p>和其他经典的特征增强手段相比，BorderAlign 在速度（使用 CUDA 实现了 BorderAlign）和精度上都有突破。<br><img src="https://i.loli.net/2020/10/04/PKk3SOw6Np2IoM8.png" alt=""></p>
+<h3 id="集成到检测器涨点效果"><a href="#集成到检测器涨点效果" class="headerlink" title="集成到检测器涨点效果"></a>集成到检测器涨点效果</h3><p>有比较明显的改进。<br><img src="https://i.loli.net/2020/10/04/tZvEcdHCjyYMqBw.png" alt=""></p>
+<h3 id="和主流检测器对比"><a href="#和主流检测器对比" class="headerlink" title="和主流检测器对比"></a>和主流检测器对比</h3><p>可以看到，即使不使用多尺度策略，BorderDet 和当前 SOTA 相比效果也是不遑多让的。<br><img src="https://i.loli.net/2020/10/04/DmlrKSEqVpw4nhI.png" alt=""></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>边界信息对于 OD 问题十分重要，BorderDet 的核心思想 BorderAlign 高效地将边界特征融入到目标预测中，而且能够 PnP 融入到各种 point-based 目标检测算法中以带来较大的性能提升。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Qiu H, Ma Y, Li Z, et al. BorderDet: Border Feature for Dense Object Detection[J]. arXiv preprint arXiv:2007.11056, 2020.</p>
 <p>[2]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/163044323">https://zhuanlan.zhihu.com/p/163044323</a></p>

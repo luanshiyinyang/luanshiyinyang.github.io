@@ -541,7 +541,7 @@ plt<span class="token punctuation">.</span>pause<span class="token punctuation">
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
     io_test<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上述代码演示了三维空间如何动态显示100个随机点的变化，使用录制软件得到的动图如下，其本质就是不停显示不同的图像而已。</p>
-<p><img src="https://i.loli.net/2020/09/21/lyQHWBXOGv6KSZ3.gif"></p>
+<p><img src="https://i.loli.net/2020/09/21/lyQHWBXOGv6KSZ3.gif" alt=""></p>
 <h2 id="动图保存"><a href="#动图保存" class="headerlink" title="动图保存"></a>动图保存</h2><p>很多时候我们的需求并不是在窗口中动态显示图像，还需要保存到本地GIF图像，显然使用录制工具是一个比较低效的用法，Matplotlib的<code>animation</code>模块提供了两个动画绘制接口，分别是<strong>FuncAnimation</strong>和<strong>ArtistAnimation</strong>，它们都是继承自<code>TimedAnimation</code>的类，因而也具有<code>Animation</code>对象的通用方法，如<code>Animation.save()</code>和<code>Animation.to_html5_video()</code>两个方法实例化一个<code>Animation</code>对象后均可调用，前者表示将动画保存为一个图像，后者表示将动画表示为一个HTML视频。</p>
 <ul>
 <li>FuncAnimation: 通过反复调用同一更新函数来制作动画。</li>
@@ -567,7 +567,7 @@ x<span class="token punctuation">,</span> y<span class="token punctuation">,</sp
 ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>ArtistAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> tmp<span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span> repeat_delay<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span>
 ani<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"bar.gif"</span><span class="token punctuation">,</span> writer<span class="token operator">=</span><span class="token string">'pillow'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上面代码的执行结果如下图。</p>
-<p><img src="https://i.loli.net/2020/09/21/LHoTe14VU2tqlX9.gif"></p>
+<p><img src="https://i.loli.net/2020/09/21/LHoTe14VU2tqlX9.gif" alt=""></p>
 <p>接着，演示使用范围更广的<code>FuncAnimation</code>如何使用。下面的代码中，动态展示了梯度下降在三维图上的优化过程，其中最为核心的代码如下。用于构造<code>Animation</code>对象的除了画布就是一个更新函数，在这个更新函数内部多次绘制散点图从而形成动态效果， <code>frames</code>是帧数，如果设置了这个帧数，那么<code>update</code>函数第一个参数必须有一个<code>num</code>占位，这个<code>num</code>由<code>Animation</code>对象维护，每次内部执行<code>update</code>会自动递增，后面的参数列表<code>fargs</code>只需要传入除了<code>num</code>后面的参数即可。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> ax<span class="token punctuation">)</span><span class="token punctuation">:</span>
     x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span><span class="token punctuation">,</span> z<span class="token punctuation">[</span><span class="token punctuation">:</span>num<span class="token punctuation">]</span>
@@ -576,7 +576,7 @@ ani<span class="token punctuation">.</span>save<span class="token punctuation">(
 
 ani <span class="token operator">=</span> animation<span class="token punctuation">.</span>FuncAnimation<span class="token punctuation">(</span>fig<span class="token punctuation">,</span> update<span class="token punctuation">,</span> frames<span class="token operator">=</span><span class="token number">25</span><span class="token punctuation">,</span> fargs<span class="token operator">=</span><span class="token punctuation">(</span>x_list<span class="token punctuation">,</span> y_list<span class="token punctuation">,</span> z_list<span class="token punctuation">,</span> ax3d<span class="token punctuation">)</span><span class="token punctuation">,</span> interval<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> blit<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上面的代码演示效果如下图，完整的代码附在文末补充说明中。</p>
-<p><img src="https://i.loli.net/2020/09/21/Kp6qMkuLIt3rFwo.gif"></p>
+<p><img src="https://i.loli.net/2020/09/21/Kp6qMkuLIt3rFwo.gif" alt=""></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文介绍了如何使用Matplotlib绘制动态图，主要通过交互模式和<code>animation</code>模块进行，如果觉得有所帮助，欢迎点赞。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 <span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
@@ -628,9 +628,6 @@ ani <span class="token operator">=</span> animation<span class="token punctuatio
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
     draw_gd<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 
                 
             </div>

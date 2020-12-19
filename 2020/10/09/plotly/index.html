@@ -17,20 +17,22 @@
 
 
     <title>Plotly基础教程 | Chen&#39;s blog</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
+
+
 
 
 <body>
@@ -40,7 +42,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Chen&#39;s blog</span>
                 </a>
@@ -139,7 +141,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">Chen&#39;s blog</div>
         <div class="logo-desc">
@@ -309,7 +311,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -327,7 +329,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -357,8 +359,7 @@
     }
 
     .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
+        padding: 35px 0 15px 17px;
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5rem;
@@ -370,7 +371,7 @@
     }
 
     #toc-content {
-        height: calc(100vh - 250px);
+        padding-bottom: 30px;
         overflow: auto;
     }
 
@@ -480,6 +481,14 @@
             </div>
         </div>
         <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Plotly 是一个非常强大的开源数据可视化框架，它通过构建基于 HTML 的交互式图表来显示信息，可创建各种形式的精美图表。本文所说的 Plotly 指的是 Plotly.js 的 Python 封装，<a target="_blank" rel="noopener" href="https://plotly.com/">plotly</a>本身是个生态非常复杂的绘图工具，它对很多编程语言提供接口。交互式和美观易用应该是 Plotly 最大的优势，而 Matplotlib 的特点则是可定制化程度高，但语法也相对难学，各有优缺点。</p>
@@ -496,110 +505,110 @@
 <h2 id="绘图教程"><a href="#绘图教程" class="headerlink" title="绘图教程"></a>绘图教程</h2><p>下面涉及到的内容均可以在<a target="_blank" rel="noopener" href="https://plotly.com/python/">官方文档</a>找到参考，下面的内容也只涉及基础的图形绘制（使用Plotly实现），一些比较基础的图形库知识查看<a target="_blank" rel="noopener" href="https://plotly.com/python/plotly-fundamentals/">对应教程</a>。</p>
 <h3 id="基本图表"><a href="#基本图表" class="headerlink" title="基本图表"></a>基本图表</h3><p>在 Plotly 中，预定义了如下的一些基本图表，包括散点图、折线图、柱状图、饼图等，它们的使用方式都是类似的，通过向Figure上添加绘图对象进行绘图，而向绘图对象传递的就是其需要的格式的数据。</p>
 <p><img src="https://i.loli.net/2020/10/09/HDkcCSLxO1Q83eo.png"></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import plotly.graph_objects as go
-import numpy as np
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
 
-N = 1000
-t = np.linspace(0, 10, 100)
-y = np.sin(t)
+N <span class="token operator">=</span> <span class="token number">1000</span>
+t <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>t<span class="token punctuation">)</span>
 
-fig = go.Figure(data=go.Scatter(x=t, y=y, mode='markers'))
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>t<span class="token punctuation">,</span> y<span class="token operator">=</span>y<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>下面的代码就是简单散点图的绘制，其在Jupyter中的执行结果如下图，不妨来仔细看看这张图，<strong>在绘制的图形右上角有一行菜单栏且这个图形是可交互的</strong>（包括缩放、旋转、裁剪等），右上角的菜单包括图像下载、缩放、裁剪、在dash中编辑等。</p>
 <p><img src="https://i.loli.net/2020/10/09/VrR52bqpQA4yzea.png"></p>
 <p>也可以通过<code>add_trace</code>来逐个添加绘图对象</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import plotly.graph_objects as go
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
-# Create random data with numpy
-import numpy as np
-np.random.seed(1)
+<span class="token comment"># Create random data with numpy</span>
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
 
-N = 100
-random_x = np.linspace(0, 1, N)
-random_y0 = np.random.randn(N) + 5
-random_y1 = np.random.randn(N)
-random_y2 = np.random.randn(N) - 5
+N <span class="token operator">=</span> <span class="token number">100</span>
+random_x <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span>
+random_y0 <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span>N<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">5</span>
+random_y1 <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span>N<span class="token punctuation">)</span>
+random_y2 <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span>N<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">5</span>
 
-fig = go.Figure()
-# Add traces
-fig.add_trace(go.Scatter(x=random_x, y=random_y0, mode='markers', name='markers'))
-fig.add_trace(go.Scatter(x=random_x, y=random_y1, mode='lines+markers', name='lines+markers'))
-fig.add_trace(go.Scatter(x=random_x, y=random_y2, mode='lines', name='lines'))
-fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># Add traces</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y0<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y1<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines+markers'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>random_x<span class="token punctuation">,</span> y<span class="token operator">=</span>random_y2<span class="token punctuation">,</span> mode<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'lines'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/10/09/2n6AJes5rNKqtiH.png"></p>
 <p>其他基本图表类似，传入指定格式的数据即可。</p>
 <h3 id="统计图表"><a href="#统计图表" class="headerlink" title="统计图表"></a>统计图表</h3><p>很多统计学图表也预先定义在了Plotly中，主要包括下图所示的箱型图、直方图、热力图、等高线图等。</p>
 <p><img src="https://i.loli.net/2020/10/09/GpthdgN5PvaOEyz.png"></p>
 <p>和上面的基本图表类似，绘图方式是固定的，只是绘图对象改变了而已。下面的代码就是直方图绘制</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import plotly.graph_objects as go
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
-fig = go.Figure()
-fig.add_trace(go.Bar(
-    name='Control',
-    x=['Trial 1', 'Trial 2', 'Trial 3'], y=[3, 6, 4],
-    error_y=dict(type='data', array=[1, 0.5, 1.5])
-))
-fig.add_trace(go.Bar(
-    name='Experimental',
-    x=['Trial 1', 'Trial 2', 'Trial 3'], y=[4, 7, 3],
-    error_y=dict(type='data', array=[0.5, 1, 2])
-))
-fig.update_layout(barmode='group')
-fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Bar<span class="token punctuation">(</span>
+    name<span class="token operator">=</span><span class="token string">'Control'</span><span class="token punctuation">,</span>
+    x<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Trial 1'</span><span class="token punctuation">,</span> <span class="token string">'Trial 2'</span><span class="token punctuation">,</span> <span class="token string">'Trial 3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    error_y<span class="token operator">=</span><span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token builtin">type</span><span class="token operator">=</span><span class="token string">'data'</span><span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1.5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_trace<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Bar<span class="token punctuation">(</span>
+    name<span class="token operator">=</span><span class="token string">'Experimental'</span><span class="token punctuation">,</span>
+    x<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Trial 1'</span><span class="token punctuation">,</span> <span class="token string">'Trial 2'</span><span class="token punctuation">,</span> <span class="token string">'Trial 3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    error_y<span class="token operator">=</span><span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token builtin">type</span><span class="token operator">=</span><span class="token string">'data'</span><span class="token punctuation">,</span> array<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>update_layout<span class="token punctuation">(</span>barmode<span class="token operator">=</span><span class="token string">'group'</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/10/09/rwXYOZnCmokGjaI.png"></p>
 <h3 id="AI图表"><a href="#AI图表" class="headerlink" title="AI图表"></a>AI图表</h3><p>同时，Plotly也支持绘制一些简单的机器学习图表，不过都是依靠上面的基本图表实现的，如下述的线性回归。</p>
 <p><img src="https://i.loli.net/2020/10/09/UIqydzwFvbRK5Q4.png"></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
-from sklearn.linear_model import LinearRegression
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> plotly<span class="token punctuation">.</span>express <span class="token keyword">as</span> px
+<span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>linear_model <span class="token keyword">import</span> LinearRegression
 
-df = px.data.tips()
-X = df.total_bill.values.reshape(-1, 1)
+df <span class="token operator">=</span> px<span class="token punctuation">.</span>data<span class="token punctuation">.</span>tips<span class="token punctuation">(</span><span class="token punctuation">)</span>
+X <span class="token operator">=</span> df<span class="token punctuation">.</span>total_bill<span class="token punctuation">.</span>values<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-model = LinearRegression()
-model.fit(X, df.tip)
+model <span class="token operator">=</span> LinearRegression<span class="token punctuation">(</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X<span class="token punctuation">,</span> df<span class="token punctuation">.</span>tip<span class="token punctuation">)</span>
 
-x_range = np.linspace(X.min(), X.max(), 100)
-y_range = model.predict(x_range.reshape(-1, 1))
+x_range <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span>X<span class="token punctuation">.</span><span class="token builtin">min</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> X<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+y_range <span class="token operator">=</span> model<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_range<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-fig = px.scatter(df, x='total_bill', y='tip', opacity=0.65)
-fig.add_traces(go.Scatter(x=x_range, y=y_range, name='Regression Fit'))
-fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig <span class="token operator">=</span> px<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>df<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token string">'tip'</span><span class="token punctuation">,</span> opacity<span class="token operator">=</span><span class="token number">0.65</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>add_traces<span class="token punctuation">(</span>go<span class="token punctuation">.</span>Scatter<span class="token punctuation">(</span>x<span class="token operator">=</span>x_range<span class="token punctuation">,</span> y<span class="token operator">=</span>y_range<span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'Regression Fit'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/10/09/Q12kFUBOcmKgqX5.png"></p>
 <h3 id="科学绘图"><a href="#科学绘图" class="headerlink" title="科学绘图"></a>科学绘图</h3><p>下面的这些数据科学领域用的挺多的图也做了封装，例如下面的代码就是绘制heatmap的样例。</p>
 <p><img src="https://i.loli.net/2020/10/09/2tSgERp8NkrxJDi.png"></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import plotly.graph_objects as go
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
-fig = go.Figure(data=go.Heatmap(
-                   z=[[1, None, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
-                   x=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                   y=['Morning', 'Afternoon', 'Evening'],
-                   hoverongaps = False))
-fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span>go<span class="token punctuation">.</span>Heatmap<span class="token punctuation">(</span>
+                   z<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   x<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Monday'</span><span class="token punctuation">,</span> <span class="token string">'Tuesday'</span><span class="token punctuation">,</span> <span class="token string">'Wednesday'</span><span class="token punctuation">,</span> <span class="token string">'Thursday'</span><span class="token punctuation">,</span> <span class="token string">'Friday'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   y<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'Morning'</span><span class="token punctuation">,</span> <span class="token string">'Afternoon'</span><span class="token punctuation">,</span> <span class="token string">'Evening'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   hoverongaps <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/10/09/ElyNPz96JOrmnuF.png"></p>
 <h3 id="三维绘图"><a href="#三维绘图" class="headerlink" title="三维绘图"></a>三维绘图</h3><p>Plotly的三维绘图真的很好看，而且其是可交互的，非常方便，例如下面的3D曲面图。</p>
 <p><img src="https://i.loli.net/2020/10/09/aP16hAGqZrT4C8p.png"></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import plotly.graph_objects as go
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> plotly<span class="token punctuation">.</span>graph_objects <span class="token keyword">as</span> go
 
-import pandas as pd
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
 
-# Read data from a csv
-z_data = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv')
+<span class="token comment"># Read data from a csv</span>
+z_data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">'https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv'</span><span class="token punctuation">)</span>
 
-fig = go.Figure(data=[go.Surface(z=z_data.values)])
+fig <span class="token operator">=</span> go<span class="token punctuation">.</span>Figure<span class="token punctuation">(</span>data<span class="token operator">=</span><span class="token punctuation">[</span>go<span class="token punctuation">.</span>Surface<span class="token punctuation">(</span>z<span class="token operator">=</span>z_data<span class="token punctuation">.</span>values<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-fig.update_layout(title='test', autosize=False,
-                  width=500, height=500,
-                  margin=dict(l=65, r=50, b=65, t=90))
+fig<span class="token punctuation">.</span>update_layout<span class="token punctuation">(</span>title<span class="token operator">=</span><span class="token string">'test'</span><span class="token punctuation">,</span> autosize<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+                  width<span class="token operator">=</span><span class="token number">500</span><span class="token punctuation">,</span> height<span class="token operator">=</span><span class="token number">500</span><span class="token punctuation">,</span>
+                  margin<span class="token operator">=</span><span class="token builtin">dict</span><span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> r<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> b<span class="token operator">=</span><span class="token number">65</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/10/09/DT2Oz5plMsvkCFJ.png"></p>
 <h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>本文简单介绍了Plotly的基本绘图方式，其实只要了解了Plotly的生态，使用它并不难，更多的子图、标注等技巧本文没有涉及，还是建议到<a target="_blank" rel="noopener" href="https://plotly.com/python/">官网教程</a>查看，非常易读。</p>
@@ -622,6 +631,7 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
             document.body.appendChild(img);
           });
       </script>
+                
             </div>
             <hr/>
 
@@ -657,12 +667,12 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
                     
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/css/share.min.css">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
 <div id="article-share">
 
     
     <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/js/social-share.min.js"></script>
+    <script src="/libs/share/js/social-share.min.js"></script>
     
 
     
@@ -780,10 +790,10 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -802,8 +812,8 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
     </div>
 
     
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my-gitalk.css">
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
 <div class="card gitalk-card" data-aos="fade-up">
     <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
@@ -813,7 +823,7 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
     <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.min.js"></script>
+<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
     let gitalk = new Gitalk({
         clientID: '362322c1eb71f43ce38c',
@@ -842,6 +852,8 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 
     
 
+    
+
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
@@ -853,7 +865,7 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="DLA 论文解读">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="DLA 论文解读">
                         
                         <span class="card-title">DLA 论文解读</span>
                     </div>
@@ -861,7 +873,7 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介沿着卷积神经网络在计算机视觉的发展史，可以发现，丰富的表示（representations）是视觉任务最需要的。随着网络的深度增加，单独一层的信息是远远不够的，只有聚合各层信息才能提高网络对 what（识别）和 where（定位）两个问
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -902,7 +914,7 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/22.jpg" class="responsive-img" alt="BorderDet 论文解读">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="BorderDet 论文解读">
                         
                         <span class="card-title">BorderDet 论文解读</span>
                     </div>
@@ -910,7 +922,7 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介目前密集目标检测器很受欢迎，其速度很快且精度不低，不过这种这种基于点的特征虽然使用方便，但会缺少关键的边界信息。旷视于 ECCV2020 发表的这篇 BorderDet，其中的核心就是设计了 Border Align 操作来从边界极限点
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -986,33 +998,26 @@ fig.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
+        <div class="toc-widget card" style="background-color: white;">
             <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
@@ -1028,7 +1033,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -1123,6 +1128,9 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
+            
+                <span id="year">2016-2020</span>
+            
             <span id="year">2016</span>
             <a href="/about" target="_blank">周先森爱吃素</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1252,10 +1260,95 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -1267,12 +1360,12 @@ $(function () {
 </div>
 
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
     <!-- Baidu Analytics -->
 
@@ -1304,7 +1397,7 @@ $(function () {
 
     
     
-    <script async src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1330,6 +1423,8 @@ $(function () {
     </script>
     
 
+    <!--腾讯兔小巢-->
+    
     
 
     
@@ -1337,7 +1432,7 @@ $(function () {
     
 
     
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
 </body>

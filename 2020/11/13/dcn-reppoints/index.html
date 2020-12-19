@@ -17,20 +17,22 @@
 
 
     <title>DCN &amp; RepPoints解读 | Chen&#39;s blog</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
+
+
 
 
 <body>
@@ -40,7 +42,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Chen&#39;s blog</span>
                 </a>
@@ -139,7 +141,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">Chen&#39;s blog</div>
         <div class="logo-desc">
@@ -309,7 +311,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -327,7 +329,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -357,8 +359,7 @@
     }
 
     .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
+        padding: 35px 0 15px 17px;
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5rem;
@@ -370,7 +371,7 @@
     }
 
     #toc-content {
-        height: calc(100vh - 250px);
+        padding-bottom: 30px;
         overflow: auto;
     }
 
@@ -484,6 +485,14 @@
             </div>
         </div>
         <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>近几年，Anchor-free的目标检测方法受到了很大的关注，究其原因，该类方法不需要像Anchor-base方法那样受限于anchor的配置（anchor的设置要求开发者对数据很了解）就可以获得不错的检测结果，大大减少了数据分析的复杂过程。Anchor-free方法中有一类方法是基于关键点的，它通过检测目标的边界点（如角点）来配对组合成边界框，RepPoints系列就是其代表之作，这包括了RepPoints、Dense RepPoints和RepPoints v2。不过，回顾更久远的历史，从模型的几何形变建模能力的角度来看，RepPoints其实也是对可变形卷积（Deformable Convolutional Networks，DCN）系列的改进，所以本文会从DCN开始讲起，简单回顾这几个工作对几何建模的贡献，其中，DCN系列包括DCN和DCN v2。</p>
@@ -582,6 +591,7 @@
             document.body.appendChild(img);
           });
       </script>
+                
             </div>
             <hr/>
 
@@ -621,12 +631,12 @@
                     
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/css/share.min.css">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
 <div id="article-share">
 
     
     <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/js/social-share.min.js"></script>
+    <script src="/libs/share/js/social-share.min.js"></script>
     
 
     
@@ -744,10 +754,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -766,8 +776,8 @@
     </div>
 
     
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my-gitalk.css">
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
 <div class="card gitalk-card" data-aos="fade-up">
     <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
@@ -777,7 +787,7 @@
     <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.min.js"></script>
+<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
     let gitalk = new Gitalk({
         clientID: '362322c1eb71f43ce38c',
@@ -806,6 +816,8 @@
 
     
 
+    
+
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
@@ -817,7 +829,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="CSTrack 解读">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="CSTrack 解读">
                         
                         <span class="card-title">CSTrack 解读</span>
                     </div>
@@ -825,7 +837,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Chal
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -866,7 +878,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="LambdaNetworks 论文解读">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="LambdaNetworks 论文解读">
                         
                         <span class="card-title">LambdaNetworks 论文解读</span>
                     </div>
@@ -875,7 +887,6 @@
                     <div class="summary block-with-text">
                         
                             
-最近有不少人和我提到 ViT 以及 DETR 以及商汤提出的 Deformable DETR，仿若看到了 Transformer 在计算机视觉中大放异彩的未来，甚至谷歌对其在自注意力机制上进行了调整并提出 Performer。但是，由于 
                         
                     </div>
                     <div class="publish-info">
@@ -951,33 +962,26 @@
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
+        <div class="toc-widget card" style="background-color: white;">
             <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
@@ -993,7 +997,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -1088,6 +1092,9 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
+            
+                <span id="year">2016-2020</span>
+            
             <span id="year">2016</span>
             <a href="/about" target="_blank">周先森爱吃素</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1217,10 +1224,95 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -1232,12 +1324,12 @@ $(function () {
 </div>
 
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
     <!-- Baidu Analytics -->
 
@@ -1269,7 +1361,7 @@ $(function () {
 
     
     
-    <script async src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1295,6 +1387,8 @@ $(function () {
     </script>
     
 
+    <!--腾讯兔小巢-->
+    
     
 
     
@@ -1302,7 +1396,7 @@ $(function () {
     
 
     
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
 </body>

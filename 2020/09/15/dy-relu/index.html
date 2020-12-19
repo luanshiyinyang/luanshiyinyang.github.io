@@ -17,20 +17,22 @@
 
 
     <title>DY-ReLU论文解读 | Chen&#39;s blog</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
+
+
 
 
 <body>
@@ -40,7 +42,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Chen&#39;s blog</span>
                 </a>
@@ -139,7 +141,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">Chen&#39;s blog</div>
         <div class="logo-desc">
@@ -309,7 +311,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -327,7 +329,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -357,8 +359,7 @@
     }
 
     .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
+        padding: 35px 0 15px 17px;
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5rem;
@@ -370,7 +371,7 @@
     }
 
     #toc-content {
-        height: calc(100vh - 250px);
+        padding-bottom: 30px;
         overflow: auto;
     }
 
@@ -480,6 +481,14 @@
             </div>
         </div>
         <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Dynamic-ReLU"><a href="#Dynamic-ReLU" class="headerlink" title="Dynamic ReLU"></a>Dynamic ReLU</h1><blockquote>
@@ -512,80 +521,80 @@
 <h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>经过对比实验得出 DY-ReLU-B 更适合图像分类，DY-ReLU-C 更适合关键点检测任务，在几个典型网络上改用论文提出的 DY-ReLU，效果如下图，不难发现，在轻量级网络上突破较大。</p>
 <p><img src="https://i.loli.net/2020/09/15/LaHep6XgyjnOFkZ.png"></p>
 <h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>下面是 DY-ReLU-B 的 Pytorch 实现。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
-import torch.nn as nn
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
 
-class DyReLU(nn.Module):
-    def __init__(self, channels, reduction=4, k=2, conv_type='2d'):
-        super(DyReLU, self).__init__()
-        self.channels = channels
-        self.k = k
-        self.conv_type = conv_type
-        assert self.conv_type in ['1d', '2d']
+<span class="token keyword">class</span> <span class="token class-name">DyReLU</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> channels<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>DyReLU<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>channels <span class="token operator">=</span> channels
+        self<span class="token punctuation">.</span>k <span class="token operator">=</span> k
+        self<span class="token punctuation">.</span>conv_type <span class="token operator">=</span> conv_type
+        <span class="token keyword">assert</span> self<span class="token punctuation">.</span>conv_type <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'1d'</span><span class="token punctuation">,</span> <span class="token string">'2d'</span><span class="token punctuation">]</span>
 
-        self.fc1 = nn.Linear(channels, channels // reduction)
-        self.relu = nn.ReLU(inplace=True)
-        self.fc2 = nn.Linear(channels // reduction, 2*k)
-        self.sigmoid = nn.Sigmoid()
+        self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels<span class="token punctuation">,</span> channels <span class="token operator">//</span> reduction<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span>inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels <span class="token operator">//</span> reduction<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>k<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>sigmoid <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-        self.register_buffer('lambdas', torch.Tensor([1.]*k + [0.5]*k).float())
-        self.register_buffer('init_v', torch.Tensor([1.] + [0.]*(2*k - 1)).float())
+        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'lambdas'</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token operator">*</span>k <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">]</span><span class="token operator">*</span>k<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'init_v'</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">.</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-    def get_relu_coefs(self, x):
-        theta = torch.mean(x, axis=-1)
-        if self.conv_type == '2d':
-            theta = torch.mean(theta, axis=-1)
-        theta = self.fc1(theta)
-        theta = self.relu(theta)
-        theta = self.fc2(theta)
-        theta = 2 * self.sigmoid(theta) - 1
-        return theta
+    <span class="token keyword">def</span> <span class="token function">get_relu_coefs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        theta <span class="token operator">=</span> torch<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'2d'</span><span class="token punctuation">:</span>
+            theta <span class="token operator">=</span> torch<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>theta<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
+        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
+        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>theta<span class="token punctuation">)</span>
+        theta <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> theta
 
-    def forward(self, x):
-        raise NotImplementedError
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> NotImplementedError
 
 
-class DyReLUB(DyReLU):
-    def __init__(self, channels, reduction=4, k=2, conv_type='2d'):
-        super(DyReLUB, self).__init__(channels, reduction, k, conv_type)
-        self.fc2 = nn.Linear(channels // reduction, 2*k*channels)
+<span class="token keyword">class</span> <span class="token class-name">DyReLUB</span><span class="token punctuation">(</span>DyReLU<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> channels<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>DyReLUB<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>channels<span class="token punctuation">,</span> reduction<span class="token punctuation">,</span> k<span class="token punctuation">,</span> conv_type<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>channels <span class="token operator">//</span> reduction<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>k<span class="token operator">*</span>channels<span class="token punctuation">)</span>
 
-    def forward(self, x):
-        assert x.shape[1] == self.channels
-        theta = self.get_relu_coefs(x)
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">assert</span> x<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>channels
+        theta <span class="token operator">=</span> self<span class="token punctuation">.</span>get_relu_coefs<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
 
-        relu_coefs = theta.view(-1, self.channels, 2*self.k) * self.lambdas + self.init_v
+        relu_coefs <span class="token operator">=</span> theta<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>channels<span class="token punctuation">,</span> <span class="token number">2</span><span class="token operator">*</span>self<span class="token punctuation">.</span>k<span class="token punctuation">)</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>lambdas <span class="token operator">+</span> self<span class="token punctuation">.</span>init_v
 
-        if self.conv_type == '1d':
-            # BxCxL -&gt; LxBxCx1
-            x_perm = x.permute(2, 0, 1).unsqueeze(-1)
-            output = x_perm * relu_coefs[:, :, :self.k] + relu_coefs[:, :, self.k:]
-            # LxBxCx2 -&gt; BxCxL
-            result = torch.max(output, dim=-1)[0].permute(1, 2, 0)
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'1d'</span><span class="token punctuation">:</span>
+            <span class="token comment"># BxCxL -&gt; LxBxCx1</span>
+            x_perm <span class="token operator">=</span> x<span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+            output <span class="token operator">=</span> x_perm <span class="token operator">*</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span>self<span class="token punctuation">.</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span>
+            <span class="token comment"># LxBxCx2 -&gt; BxCxL</span>
+            result <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
 
-        elif self.conv_type == '2d':
-            # BxCxHxW -&gt; HxWxBxCx1
-            x_perm = x.permute(2, 3, 0, 1).unsqueeze(-1)
-            output = x_perm * relu_coefs[:, :, :self.k] + relu_coefs[:, :, self.k:]
-            # HxWxBxCx2 -&gt; BxCxHxW
-            result = torch.max(output, dim=-1)[0].permute(2, 3, 0, 1)
+        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>conv_type <span class="token operator">==</span> <span class="token string">'2d'</span><span class="token punctuation">:</span>
+            <span class="token comment"># BxCxHxW -&gt; HxWxBxCx1</span>
+            x_perm <span class="token operator">=</span> x<span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+            output <span class="token operator">=</span> x_perm <span class="token operator">*</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span>self<span class="token punctuation">.</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> relu_coefs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span>
+            <span class="token comment"># HxWxBxCx2 -&gt; BxCxHxW</span>
+            result <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>permute<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-        return result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这个结构和上文我所说的 SE 模块是大体对应的，目前支持一维和二维卷积，要想使用只需要像下面这样替换激活层即可（DY-ReLU 需要指定输入通道数目和卷积类型）。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch.nn as nn
-from dyrelu import DyReluB
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<span class="token keyword">from</span> dyrelu <span class="token keyword">import</span> DyReluB
 
-class Model(nn.Module):
-    def __init__(self):
-        super(Model, self).__init__()
-        self.conv1 = nn.Conv2d(3, 10, 5)
-        self.relu = DyReLUB(10, conv_type='2d')
+<span class="token keyword">class</span> <span class="token class-name">Model</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Model<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>conv1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Conv2d<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> DyReLUB<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> conv_type<span class="token operator">=</span><span class="token string">'2d'</span><span class="token punctuation">)</span>
 
-    def forward(self, x):
-        x = self.conv1(x)
-        x = self.relu(x)
-        return x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>conv1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>有空的话我会在 MobileNet 和 ResNet 上具体实验，看看实际效果是否如论文所述。</p>
@@ -611,6 +620,7 @@ class Model(nn.Module):
             document.body.appendChild(img);
           });
       </script>
+                
             </div>
             <hr/>
 
@@ -646,12 +656,12 @@ class Model(nn.Module):
                     
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/css/share.min.css">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
 <div id="article-share">
 
     
     <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/js/social-share.min.js"></script>
+    <script src="/libs/share/js/social-share.min.js"></script>
     
 
     
@@ -769,10 +779,10 @@ class Model(nn.Module):
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -791,8 +801,8 @@ class Model(nn.Module):
     </div>
 
     
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my-gitalk.css">
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
 <div class="card gitalk-card" data-aos="fade-up">
     <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
@@ -802,7 +812,7 @@ class Model(nn.Module):
     <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.min.js"></script>
+<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
     let gitalk = new Gitalk({
         clientID: '362322c1eb71f43ce38c',
@@ -831,6 +841,8 @@ class Model(nn.Module):
 
     
 
+    
+
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
@@ -842,7 +854,7 @@ class Model(nn.Module):
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="Matplotlib绘制动图">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Matplotlib绘制动图">
                         
                         <span class="card-title">Matplotlib绘制动图</span>
                     </div>
@@ -850,7 +862,7 @@ class Model(nn.Module):
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介Matplotlib是非常著名的Python绘图库，支持非常复杂的底层定制化操作。本文通过Matplotlib中的动画绘制工具来讲解如何绘制动态图，首先讲解通过交互模式如何显示动态图，继而讲解通过两个动画类来实现动图地保存（GIF格式）
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -891,7 +903,7 @@ class Model(nn.Module):
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="人脸表情识别">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="人脸表情识别">
                         
                         <span class="card-title">人脸表情识别</span>
                     </div>
@@ -899,10 +911,7 @@ class Model(nn.Module):
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            人脸表情识别
-2020.8.22，重构了整个仓库代码，改用Tensorflow2中的keras api实现整个系统。考虑到很多反映jupyter notebook写的train使用起来不太方便，这里改成了py脚本实现。
-
-简介使用卷积神经网
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -978,33 +987,26 @@ class Model(nn.Module):
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
+        <div class="toc-widget card" style="background-color: white;">
             <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
@@ -1020,7 +1022,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -1115,6 +1117,9 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
+            
+                <span id="year">2016-2020</span>
+            
             <span id="year">2016</span>
             <a href="/about" target="_blank">周先森爱吃素</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1244,10 +1249,95 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -1259,12 +1349,12 @@ $(function () {
 </div>
 
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
     <!-- Baidu Analytics -->
 
@@ -1296,7 +1386,7 @@ $(function () {
 
     
     
-    <script async src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1322,6 +1412,8 @@ $(function () {
     </script>
     
 
+    <!--腾讯兔小巢-->
+    
     
 
     
@@ -1329,7 +1421,7 @@ $(function () {
     
 
     
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
 </body>

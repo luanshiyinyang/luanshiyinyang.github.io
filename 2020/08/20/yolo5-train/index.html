@@ -17,20 +17,22 @@
 
 
     <title>YOLOv5自定义训练 | Chen&#39;s blog</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
+
+
 
 
 <body>
@@ -40,7 +42,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Chen&#39;s blog</span>
                 </a>
@@ -139,7 +141,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">Chen&#39;s blog</div>
         <div class="logo-desc">
@@ -309,7 +311,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -327,7 +329,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -357,8 +359,7 @@
     }
 
     .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
+        padding: 35px 0 15px 17px;
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5rem;
@@ -370,7 +371,7 @@
     }
 
     #toc-content {
-        height: calc(100vh - 250px);
+        padding-bottom: 30px;
         overflow: auto;
     }
 
@@ -480,6 +481,14 @@
             </div>
         </div>
         <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="YOLOv5自定义数据集训练"><a href="#YOLOv5自定义数据集训练" class="headerlink" title="YOLOv5自定义数据集训练"></a>YOLOv5自定义数据集训练</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍如何在自己的VOC格式数据集上训练YOLO5目标检测模型。</p>
@@ -554,132 +563,132 @@
     - Annotations<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>下面，编写脚本划分数据集，<code>split_train_val.py</code>脚本内容如下（参考Github上的开源脚本），只需要执行<code>python split_train_val.py --xml_path dataset_root/Annotations/ --txt_path dataset_root/anno_txt/</code>就得到了划分结果的文件列表，如训练集对应的<code>train.txt</code>如下图，里面与训练图片所有的文件名。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import os
-import random
-import argparse
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> random
+<span class="token keyword">import</span> argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--xml_path', type=str, help='input xml label path')
-parser.add_argument('--txt_path', type=str, help='output txt label path')
-opt = parser.parse_args()
+parser <span class="token operator">=</span> argparse<span class="token punctuation">.</span>ArgumentParser<span class="token punctuation">(</span><span class="token punctuation">)</span>
+parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--xml_path'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">str</span><span class="token punctuation">,</span> <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'input xml label path'</span><span class="token punctuation">)</span>
+parser<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--txt_path'</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token builtin">str</span><span class="token punctuation">,</span> <span class="token builtin">help</span><span class="token operator">=</span><span class="token string">'output txt label path'</span><span class="token punctuation">)</span>
+opt <span class="token operator">=</span> parser<span class="token punctuation">.</span>parse_args<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-trainval_percent = 1.0
-train_percent = 0.8
-xmlfilepath = opt.xml_path
-txtsavepath = opt.txt_path
-total_xml = os.listdir(xmlfilepath)
-if not os.path.exists(txtsavepath):
-    os.makedirs(txtsavepath)
+trainval_percent <span class="token operator">=</span> <span class="token number">1.0</span>
+train_percent <span class="token operator">=</span> <span class="token number">0.8</span>
+xmlfilepath <span class="token operator">=</span> opt<span class="token punctuation">.</span>xml_path
+txtsavepath <span class="token operator">=</span> opt<span class="token punctuation">.</span>txt_path
+total_xml <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>xmlfilepath<span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>txtsavepath<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>txtsavepath<span class="token punctuation">)</span>
 
-num = len(total_xml)
-list_index = range(num)
-tv = int(num * trainval_percent)
-tr = int(tv * train_percent)
-trainval = random.sample(list_index, tv)
-train = random.sample(trainval, tr)
+num <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>total_xml<span class="token punctuation">)</span>
+list_index <span class="token operator">=</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span>
+tv <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>num <span class="token operator">*</span> trainval_percent<span class="token punctuation">)</span>
+tr <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>tv <span class="token operator">*</span> train_percent<span class="token punctuation">)</span>
+trainval <span class="token operator">=</span> random<span class="token punctuation">.</span>sample<span class="token punctuation">(</span>list_index<span class="token punctuation">,</span> tv<span class="token punctuation">)</span>
+train <span class="token operator">=</span> random<span class="token punctuation">.</span>sample<span class="token punctuation">(</span>trainval<span class="token punctuation">,</span> tr<span class="token punctuation">)</span>
 
-file_trainval = open(txtsavepath + '/trainval.txt', 'w')
-file_test = open(txtsavepath + '/test.txt', 'w')
-file_train = open(txtsavepath + '/train.txt', 'w')
-file_val = open(txtsavepath + '/val.txt', 'w')
+file_trainval <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath <span class="token operator">+</span> <span class="token string">'/trainval.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+file_test <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath <span class="token operator">+</span> <span class="token string">'/test.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+file_train <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath <span class="token operator">+</span> <span class="token string">'/train.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+file_val <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath <span class="token operator">+</span> <span class="token string">'/val.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
 
-for i in list_index:
-    name = total_xml[i][:-4] + '\n'
-    if i in trainval:
-        file_trainval.write(name)
-        if i in train:
-            file_train.write(name)
-        else:
-            file_val.write(name)
-    else:
-        file_test.write(name)
+<span class="token keyword">for</span> i <span class="token keyword">in</span> list_index<span class="token punctuation">:</span>
+    name <span class="token operator">=</span> total_xml<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">'\n'</span>
+    <span class="token keyword">if</span> i <span class="token keyword">in</span> trainval<span class="token punctuation">:</span>
+        file_trainval<span class="token punctuation">.</span>write<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> i <span class="token keyword">in</span> train<span class="token punctuation">:</span>
+            file_train<span class="token punctuation">.</span>write<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            file_val<span class="token punctuation">.</span>write<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        file_test<span class="token punctuation">.</span>write<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
 
-file_trainval.close()
-file_train.close()
-file_val.close()
-file_test.close()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+file_trainval<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+file_train<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+file_val<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+file_test<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/08/20/HY5yUEdALgmVthw.png"></p>
 <p>接下来，我们要做的就是每个xml标注提取bbox信息为txt格式（这个称为yolo_txt格式），每个图像对应一个txt文件，文件每一行为一个目标的信息，包括<code>类别 xmin xmax ymin ymax</code>。使用的脚本<code>voc_label.py</code>内容如下（<strong>注意，类别要替换为当前数据集的类别列表</strong>），<strong>在数据集根目录（此时包含Annotations、anno_txt以及images三个文件夹的目录）下执行该脚本</strong>，如<code>python ../../utils/voc_label.py</code>。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding: utf-8 -*-</span>
 
-import xml.etree.ElementTree as ET
-import os
-from os import getcwd
+<span class="token keyword">import</span> xml<span class="token punctuation">.</span>etree<span class="token punctuation">.</span>ElementTree <span class="token keyword">as</span> ET
+<span class="token keyword">import</span> os
+<span class="token keyword">from</span> os <span class="token keyword">import</span> getcwd
 
-sets = ['train', 'val', 'test']
-classes = ['window_shielding', 'multi_signs', 'non_traffic_signs']
-abs_path = os.getcwd()
-
-
-def convert(size, box):
-    dw = 1. / (size[0])
-    dh = 1. / (size[1])
-    x = (box[0] + box[1]) / 2.0 - 1
-    y = (box[2] + box[3]) / 2.0 - 1
-    w = box[1] - box[0]
-    h = box[3] - box[2]
-    x = x * dw
-    w = w * dw
-    y = y * dh
-    h = h * dh
-    return x, y, w, h
+sets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'train'</span><span class="token punctuation">,</span> <span class="token string">'val'</span><span class="token punctuation">,</span> <span class="token string">'test'</span><span class="token punctuation">]</span>
+classes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'window_shielding'</span><span class="token punctuation">,</span> <span class="token string">'multi_signs'</span><span class="token punctuation">,</span> <span class="token string">'non_traffic_signs'</span><span class="token punctuation">]</span>
+abs_path <span class="token operator">=</span> os<span class="token punctuation">.</span>getcwd<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
 
-def convert_annotation(image_id):
-    in_file = open('Annotations/%s.xml' % (image_id))
-    out_file = open('labels/%s.txt' % (image_id), 'w')
-    tree = ET.parse(in_file)
-    root = tree.getroot()
-    size = root.find('size')
-    w = int(size.find('width').text)
-    h = int(size.find('height').text)
-    for obj in root.iter('object'):
-        difficult = obj.find('difficult').text
-        cls = obj.find('name').text
-        if cls not in classes or int(difficult) == 1:
-            continue
-        cls_id = classes.index(cls)
-        xmlbox = obj.find('bndbox')
-        b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text),
-             float(xmlbox.find('ymax').text))
-        b1, b2, b3, b4 = b
-        # 标注越界修正
-        if b2 &gt; w:
-            b2 = w
-        if b4 &gt; h:
-            b4 = h
-        b = (b1, b2, b3, b4)
-        bb = convert((w, h), b)
-        out_file.write(str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
+<span class="token keyword">def</span> <span class="token function">convert</span><span class="token punctuation">(</span>size<span class="token punctuation">,</span> box<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dw <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span> <span class="token operator">/</span> <span class="token punctuation">(</span>size<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    dh <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span> <span class="token operator">/</span> <span class="token punctuation">(</span>size<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    x <span class="token operator">=</span> <span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span> <span class="token operator">-</span> <span class="token number">1</span>
+    y <span class="token operator">=</span> <span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">+</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span> <span class="token operator">-</span> <span class="token number">1</span>
+    w <span class="token operator">=</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    h <span class="token operator">=</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">-</span> box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+    x <span class="token operator">=</span> x <span class="token operator">*</span> dw
+    w <span class="token operator">=</span> w <span class="token operator">*</span> dw
+    y <span class="token operator">=</span> y <span class="token operator">*</span> dh
+    h <span class="token operator">=</span> h <span class="token operator">*</span> dh
+    <span class="token keyword">return</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> w<span class="token punctuation">,</span> h
 
 
-wd = getcwd()
-for image_set in sets:
-    if not os.path.exists('labels/'):
-        os.makedirs('labels/')
-    image_ids = open('anno_txt/%s.txt' % (image_set)).read().strip().split()
-    list_file = open('%s.txt' % (image_set), 'w')
-    for image_id in image_ids:
-        list_file.write(abs_path + '/images/%s.jpg\n' % (image_id))
-        convert_annotation(image_id)
-    list_file.close()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">def</span> <span class="token function">convert_annotation</span><span class="token punctuation">(</span>image_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    in_file <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'Annotations/%s.xml'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>image_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    out_file <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'labels/%s.txt'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>image_id<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+    tree <span class="token operator">=</span> ET<span class="token punctuation">.</span>parse<span class="token punctuation">(</span>in_file<span class="token punctuation">)</span>
+    root <span class="token operator">=</span> tree<span class="token punctuation">.</span>getroot<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    size <span class="token operator">=</span> root<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'size'</span><span class="token punctuation">)</span>
+    w <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>size<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'width'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    h <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>size<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'height'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> obj <span class="token keyword">in</span> root<span class="token punctuation">.</span><span class="token builtin">iter</span><span class="token punctuation">(</span><span class="token string">'object'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        difficult <span class="token operator">=</span> obj<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'difficult'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        cls <span class="token operator">=</span> obj<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text
+        <span class="token keyword">if</span> cls <span class="token keyword">not</span> <span class="token keyword">in</span> classes <span class="token keyword">or</span> <span class="token builtin">int</span><span class="token punctuation">(</span>difficult<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        cls_id <span class="token operator">=</span> classes<span class="token punctuation">.</span>index<span class="token punctuation">(</span>cls<span class="token punctuation">)</span>
+        xmlbox <span class="token operator">=</span> obj<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'bndbox'</span><span class="token punctuation">)</span>
+        b <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">float</span><span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'xmin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'xmax'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'ymin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">,</span>
+             <span class="token builtin">float</span><span class="token punctuation">(</span>xmlbox<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'ymax'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        b1<span class="token punctuation">,</span> b2<span class="token punctuation">,</span> b3<span class="token punctuation">,</span> b4 <span class="token operator">=</span> b
+        <span class="token comment"># 标注越界修正</span>
+        <span class="token keyword">if</span> b2 <span class="token operator">&gt;</span> w<span class="token punctuation">:</span>
+            b2 <span class="token operator">=</span> w
+        <span class="token keyword">if</span> b4 <span class="token operator">&gt;</span> h<span class="token punctuation">:</span>
+            b4 <span class="token operator">=</span> h
+        b <span class="token operator">=</span> <span class="token punctuation">(</span>b1<span class="token punctuation">,</span> b2<span class="token punctuation">,</span> b3<span class="token punctuation">,</span> b4<span class="token punctuation">)</span>
+        bb <span class="token operator">=</span> convert<span class="token punctuation">(</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+        out_file<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>cls_id<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token keyword">for</span> a <span class="token keyword">in</span> bb<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">)</span>
+
+
+wd <span class="token operator">=</span> getcwd<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> image_set <span class="token keyword">in</span> sets<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span><span class="token string">'labels/'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span><span class="token string">'labels/'</span><span class="token punctuation">)</span>
+    image_ids <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'anno_txt/%s.txt'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>image_set<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    list_file <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'%s.txt'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>image_set<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> image_id <span class="token keyword">in</span> image_ids<span class="token punctuation">:</span>
+        list_file<span class="token punctuation">.</span>write<span class="token punctuation">(</span>abs_path <span class="token operator">+</span> <span class="token string">'/images/%s.jpg\n'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>image_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        convert_annotation<span class="token punctuation">(</span>image_id<span class="token punctuation">)</span>
+    list_file<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这时候，我们的目标检测数据集就构建完成了，其内容如下，其中labels中为不同图像的标注文件，<code>train.txt</code>等几个根目录下的txt文件为划分后图像所在位置的绝对路径，如<code>train.txt</code>就含有所有训练集图像的绝对路径。</p>
 <p><img src="https://i.loli.net/2020/08/20/NPwkyM3o4T2cn9m.png"></p>
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>下面需要两个配置文件用于模型的训练，一个用于数据集的配置，一个用于模型的配置。</p>
 <p>首先是数据集的配置，在根目录下的data目录下新建一个yaml文件，内容如下，首先是训练集和验证集的划分文件，这个文件在上面一节最后生成得到了，然后是目标的类别数目和具体类别列表，这个列表务必和上一节最后<code>voc_label.py</code>中的一致。</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">train: dataset/train/train.txt
-val: dataset/train/val.txt
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">train</span><span class="token punctuation">:</span> dataset/train/train.txt
+<span class="token key atrule">val</span><span class="token punctuation">:</span> dataset/train/val.txt
 
-# number of classes
-nc: 3
+<span class="token comment"># number of classes</span>
+<span class="token key atrule">nc</span><span class="token punctuation">:</span> <span class="token number">3</span>
 
-# class names
-names: ['window_shielding', 'multi_signs', 'non_traffic_sign']<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment"># class names</span>
+<span class="token key atrule">names</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'window_shielding'</span><span class="token punctuation">,</span> <span class="token string">'multi_signs'</span><span class="token punctuation">,</span> <span class="token string">'non_traffic_sign'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>然后，编辑模型的配置文件，此时需要先在项目根目录下的weights目录下执行其中的download_weights.sh这个shell脚本来下载四种模型的权重。然后，选择一个模型，编辑项目根目录下models目录中选择的模型的配置文件，将第一个参数nc改为自己的数据集类别数即可，例如我使用yolov5x模型，则修改yolov5x.yaml文件。<strong>这里weights的下载可能因为网络而难以进行，我也将其上传到了百度网盘，<a href="%E9%93%BE%E6%8E%A5%EF%BC%9Ahttps://pan.baidu.com/s/1UQX6URxaJP0ZqALvWpDWkA">地址</a>给出，提取码为vjlx。</strong></p>
 <h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><p>此时，可以使用下面的命令进行模型的训练，训练日志默认保存在<code>./runs/</code>下，包括模型参数、Tensorboard记录等。此时TensorBoard以已经默认打开，浏览器访问效果如下图（由于数据量很小，很快过拟合）。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python train.py --img 640 --batch 8 --epoch 300 --data ./data/ads.yaml --cfg ./models/yolov5x.yaml --weights weights/yolov5x.pt --device '0'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python train.py --img <span class="token number">640</span> --batch <span class="token number">8</span> --epoch <span class="token number">300</span> --data ./data/ads.yaml --cfg ./models/yolov5x.yaml --weights weights/yolov5x.pt --device <span class="token string">'0'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2020/08/20/GrLI9OTtZD3fJFH.png"></p>
 <h3 id="模型测试"><a href="#模型测试" class="headerlink" title="模型测试"></a>模型测试</h3><p>接着，就是在有标注的测试集或者验证集上进行模型效果的评估，在目标检测中最常使用的指标为mAP。通过下面的命令进行模型测试，由于这是个比赛，测试集没有标注，这里使用验证集作为测试用数据，下述命令只需要指定数据集配置文件和训练结果模型即可。</p>
@@ -691,7 +700,7 @@ all    400      970    0.376    0.441     0.35       0.235<span aria-hidden="tru
 all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h3 id="模型推理"><a href="#模型推理" class="headerlink" title="模型推理"></a>模型推理</h3><p>最后，模型在没有标注的数据上进行推理，使用下面的命令（该命令中<code>save-txt</code>选项用于生成结果的txt标注文件，不指定则只会生成结果图像）。其中，weights使用最满意的实验即可，source则提供一个包含所有测试图片的文件夹即可。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python detect.py --weights runs/exp0/weights/best.pt --source ./dataset/test/ --device 0 --save-txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python detect.py --weights runs/exp0/weights/best.pt --source ./dataset/test/ --device <span class="token number">0</span> --save-txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>这样，对每个测试图片会在默认的<code>inference/output</code>文件夹中生成一个同名的txt文件，按照我的需求修改了<code>detect.py</code>文件后，每个txt会生成一行一个目标的信息，信息包括<code>类别序号 置信度 xcenter ycenter w h</code>，后面四个为bbox位置，均未归一化。如下图。</p>
 <p><img src="https://i.loli.net/2020/08/20/l86zj2dw9xHnTFO.png"></p>
@@ -716,6 +725,7 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
             document.body.appendChild(img);
           });
       </script>
+                
             </div>
             <hr/>
 
@@ -751,12 +761,12 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
                     
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/css/share.min.css">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
 <div id="article-share">
 
     
     <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/js/social-share.min.js"></script>
+    <script src="/libs/share/js/social-share.min.js"></script>
     
 
     
@@ -874,10 +884,10 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -896,8 +906,8 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
     </div>
 
     
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my-gitalk.css">
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
 <div class="card gitalk-card" data-aos="fade-up">
     <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
@@ -907,7 +917,7 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
     <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.min.js"></script>
+<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
     let gitalk = new Gitalk({
         clientID: '362322c1eb71f43ce38c',
@@ -936,6 +946,8 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
 
     
 
+    
+
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
@@ -947,7 +959,7 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="人脸表情识别">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="人脸表情识别">
                         
                         <span class="card-title">人脸表情识别</span>
                     </div>
@@ -955,10 +967,7 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            人脸表情识别
-2020.8.22，重构了整个仓库代码，改用Tensorflow2中的keras api实现整个系统。考虑到很多反映jupyter notebook写的train使用起来不太方便，这里改成了py脚本实现。
-
-简介使用卷积神经网
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -999,7 +1008,7 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="anchor-free目标检测">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="anchor-free目标检测">
                         
                         <span class="card-title">anchor-free目标检测</span>
                     </div>
@@ -1007,7 +1016,7 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Anchor-free目标检测简介沿着two-step到one-step，anchor-based到anchor-free的发展路线，如今，目标检测（Object Detection，OD）已经进入anchor-free的时代。这些anch
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -1083,33 +1092,26 @@ all     400     970     0.272   0.532   0.366        0.24<span aria-hidden="true
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
+        <div class="toc-widget card" style="background-color: white;">
             <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
@@ -1125,7 +1127,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -1220,6 +1222,9 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
+            
+                <span id="year">2016-2020</span>
+            
             <span id="year">2016</span>
             <a href="/about" target="_blank">周先森爱吃素</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1349,10 +1354,95 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -1364,12 +1454,12 @@ $(function () {
 </div>
 
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
     <!-- Baidu Analytics -->
 
@@ -1401,7 +1491,7 @@ $(function () {
 
     
     
-    <script async src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1427,6 +1517,8 @@ $(function () {
     </script>
     
 
+    <!--腾讯兔小巢-->
+    
     
 
     
@@ -1434,7 +1526,7 @@ $(function () {
     
 
     
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
 </body>

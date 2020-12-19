@@ -17,20 +17,22 @@
 
 
     <title>FairMOT实时多目标跟踪系统 | Chen&#39;s blog</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/favicon.ico">
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 5.0.2"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
+
+
 
 
 <body>
@@ -40,7 +42,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Chen&#39;s blog</span>
                 </a>
@@ -139,7 +141,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">Chen&#39;s blog</div>
         <div class="logo-desc">
@@ -309,7 +311,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -327,7 +329,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -357,8 +359,7 @@
     }
 
     .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
+        padding: 35px 0 15px 17px;
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5rem;
@@ -370,7 +371,7 @@
     }
 
     #toc-content {
-        height: calc(100vh - 250px);
+        padding-bottom: 30px;
         overflow: auto;
     }
 
@@ -480,6 +481,14 @@
             </div>
         </div>
         <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FairMOT是今年很火的一个多目标跟踪算法，前不久也开放了最新版本的论文，并于最近重构了开源代码，我也在实际工程视频上进行了测试，效果是很不错的。不过，官方源码没有提高实时摄像头跟踪的编程接口，我在源码的基础上进行了修改，增加了实时跟踪模块。本文介绍如何进行环境配置和脚本修改，实现摄像头跟踪（<strong>本文均采用Ubuntu16.04进行环境配置，使用Windows在安装DCN等包的时候会有很多问题，不建议使用</strong>）。</p>
@@ -513,87 +522,87 @@ python demo.py mot --input-video ../videos/MOT16-03.mp4 --load_model ../models/f
 <p><img src="https://i.loli.net/2020/10/24/bxVoM7ZyjTBmhLI.png"></p>
 <p><img src="https://i.loli.net/2020/10/24/NF7idqKkQ8CyfG9.png"></p>
 <h2 id="实时跟踪"><a href="#实时跟踪" class="headerlink" title="实时跟踪"></a>实时跟踪</h2><p>实时跟踪主要在两个方面进行修改，一是数据加载器，二是跟踪器。首先，我们在<code>src</code>目录下新建一个类似于<code>demo.py</code>的脚本文件名为<code>camera.py</code>，写入和<code>demo.py</code>类似的内容，不过，我们把视频路径换位摄像机编号（这是考虑到JDE采用opencv进行视频读取，而opencv视频读取和摄像机视频流读取是一个接口）。具体<code>camera.py</code>内容如下。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import os
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
 
-import _init_paths
-from opts import opts
-from tracking_utils.utils import mkdir_if_missing
-import datasets.dataset.jde as datasets
-from track import eval_seq
-
-
-def recogniton():
-    result_root = opt.output_root if opt.output_root != '' else '.'
-    mkdir_if_missing(result_root)
-    print("start tracking")
-    dataloader = datasets.LoadVideo(0, opt.img_size)
-    result_filename = os.path.join(result_root, 'results.txt')
-    frame_rate = dataloader.frame_rate
-
-    frame_dir = None if opt.output_format == 'text' else os.path.join(result_root, 'frame')
-    eval_seq(opt, dataloader, 'mot', result_filename,
-             save_dir=frame_dir, show_image=False, frame_rate=frame_rate)
+<span class="token keyword">import</span> _init_paths
+<span class="token keyword">from</span> opts <span class="token keyword">import</span> opts
+<span class="token keyword">from</span> tracking_utils<span class="token punctuation">.</span>utils <span class="token keyword">import</span> mkdir_if_missing
+<span class="token keyword">import</span> datasets<span class="token punctuation">.</span>dataset<span class="token punctuation">.</span>jde <span class="token keyword">as</span> datasets
+<span class="token keyword">from</span> track <span class="token keyword">import</span> eval_seq
 
 
-if __name__ == '__main__':
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-    opt = opts().init()
-    recogniton()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">def</span> <span class="token function">recogniton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result_root <span class="token operator">=</span> opt<span class="token punctuation">.</span>output_root <span class="token keyword">if</span> opt<span class="token punctuation">.</span>output_root <span class="token operator">!=</span> <span class="token string">''</span> <span class="token keyword">else</span> <span class="token string">'.'</span>
+    mkdir_if_missing<span class="token punctuation">(</span>result_root<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"start tracking"</span><span class="token punctuation">)</span>
+    dataloader <span class="token operator">=</span> datasets<span class="token punctuation">.</span>LoadVideo<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> opt<span class="token punctuation">.</span>img_size<span class="token punctuation">)</span>
+    result_filename <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>result_root<span class="token punctuation">,</span> <span class="token string">'results.txt'</span><span class="token punctuation">)</span>
+    frame_rate <span class="token operator">=</span> dataloader<span class="token punctuation">.</span>frame_rate
+
+    frame_dir <span class="token operator">=</span> <span class="token boolean">None</span> <span class="token keyword">if</span> opt<span class="token punctuation">.</span>output_format <span class="token operator">==</span> <span class="token string">'text'</span> <span class="token keyword">else</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>result_root<span class="token punctuation">,</span> <span class="token string">'frame'</span><span class="token punctuation">)</span>
+    eval_seq<span class="token punctuation">(</span>opt<span class="token punctuation">,</span> dataloader<span class="token punctuation">,</span> <span class="token string">'mot'</span><span class="token punctuation">,</span> result_filename<span class="token punctuation">,</span>
+             save_dir<span class="token operator">=</span>frame_dir<span class="token punctuation">,</span> show_image<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> frame_rate<span class="token operator">=</span>frame_rate<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">'CUDA_VISIBLE_DEVICES'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'0'</span>
+    opt <span class="token operator">=</span> opts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    recogniton<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>接着，原来JDE关于视频加载是针对真正的视频的，对于摄像头这种无限视频流，修改其帧数为无限大（很大很大的整数值即可），也就是将<code>src/lib/datasets/dataset/jde.py</code>中<code>LoadVideo</code>修改如下。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class LoadVideo:
-    def __init__(self, path, img_size=(1088, 608)):
-        self.cap = cv2.VideoCapture(path)
-        self.frame_rate = int(round(self.cap.get(cv2.CAP_PROP_FPS)))
-        self.vw = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        self.vh = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        if type(path) == type(0):
-            self.vn = 2 ** 32
-        else:
-            self.vn = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">LoadVideo</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token punctuation">,</span> img_size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1088</span><span class="token punctuation">,</span> <span class="token number">608</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>cap <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>frame_rate <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">round</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FPS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>vw <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_WIDTH<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>vh <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_HEIGHT<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">type</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>vn <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">**</span> <span class="token number">32</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>vn <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_COUNT<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-        self.width = img_size[0]
-        self.height = img_size[1]
-        self.count = 0
+        self<span class="token punctuation">.</span>width <span class="token operator">=</span> img_size<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>height <span class="token operator">=</span> img_size<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span>
 
-        self.w, self.h = 1920, 1080
-        print('Lenth of the video: {:d} frames'.format(self.vn))
+        self<span class="token punctuation">.</span>w<span class="token punctuation">,</span> self<span class="token punctuation">.</span>h <span class="token operator">=</span> <span class="token number">1920</span><span class="token punctuation">,</span> <span class="token number">1080</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Lenth of the video: {:d} frames'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>vn<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-    def get_size(self, vw, vh, dw, dh):
-        wa, ha = float(dw) / vw, float(dh) / vh
-        a = min(wa, ha)
-        return int(vw * a), int(vh * a)
+    <span class="token keyword">def</span> <span class="token function">get_size</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> vw<span class="token punctuation">,</span> vh<span class="token punctuation">,</span> dw<span class="token punctuation">,</span> dh<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        wa<span class="token punctuation">,</span> ha <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>dw<span class="token punctuation">)</span> <span class="token operator">/</span> vw<span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">(</span>dh<span class="token punctuation">)</span> <span class="token operator">/</span> vh
+        a <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>wa<span class="token punctuation">,</span> ha<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token builtin">int</span><span class="token punctuation">(</span>vw <span class="token operator">*</span> a<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>vh <span class="token operator">*</span> a<span class="token punctuation">)</span>
 
-    def __iter__(self):
-        self.count = -1
-        return self
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        <span class="token keyword">return</span> self
 
-    def __next__(self):
-        self.count += 1
-        if self.count == len(self):
-            raise StopIteration
-        # Read image
-        res, img0 = self.cap.read()  # BGR
-        assert img0 is not None, 'Failed to load frame {:d}'.format(self.count)
-        img0 = cv2.resize(img0, (self.w, self.h))
+    <span class="token keyword">def</span> <span class="token function">__next__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> StopIteration
+        <span class="token comment"># Read image</span>
+        res<span class="token punctuation">,</span> img0 <span class="token operator">=</span> self<span class="token punctuation">.</span>cap<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># BGR</span>
+        <span class="token keyword">assert</span> img0 <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token string">'Failed to load frame {:d}'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+        img0 <span class="token operator">=</span> cv2<span class="token punctuation">.</span>resize<span class="token punctuation">(</span>img0<span class="token punctuation">,</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>w<span class="token punctuation">,</span> self<span class="token punctuation">.</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-        # Padded resize
-        img, _, _, _ = letterbox(img0, height=self.height, width=self.width)
+        <span class="token comment"># Padded resize</span>
+        img<span class="token punctuation">,</span> _<span class="token punctuation">,</span> _<span class="token punctuation">,</span> _ <span class="token operator">=</span> letterbox<span class="token punctuation">(</span>img0<span class="token punctuation">,</span> height<span class="token operator">=</span>self<span class="token punctuation">.</span>height<span class="token punctuation">,</span> width<span class="token operator">=</span>self<span class="token punctuation">.</span>width<span class="token punctuation">)</span>
 
-        # Normalize RGB
-        img = img[:, :, ::-1].transpose(2, 0, 1)
-        img = np.ascontiguousarray(img, dtype=np.float32)
-        img /= 255.0
+        <span class="token comment"># Normalize RGB</span>
+        img <span class="token operator">=</span> img<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>transpose<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        img <span class="token operator">=</span> np<span class="token punctuation">.</span>ascontiguousarray<span class="token punctuation">(</span>img<span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span>
+        img <span class="token operator">/=</span> <span class="token number">255.0</span>
 
-        return self.count, img, img0
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>count<span class="token punctuation">,</span> img<span class="token punctuation">,</span> img0
 
-    def __len__(self):
-        return self.vn  # number of frames<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>vn  <span class="token comment"># number of frames</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>至此，读取视频流也通过一个粗暴的方式实现了，然后就是窗口显示了，原来项目中跟踪器只会一帧一帧写入跟踪后的结果图像，然后通过<code>ffmpeg</code>将这些图像组合为视频。不过，原项目已经设计了实时显示跟踪结果窗口的接口了，只需要调用<code>track.py</code>中的<code>eval_seq</code>函数时，参数<code>show_image</code>设置为<code>True</code>即可。不过，也许作者并没有测试过这个模块，这里显示会有些问题，务必将<code>eval_seq</code>中下述代码段进行如下修改。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">if show_image:
-    cv2.imshow('online_im', online_im)
-    cv2.waitKey(1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> show_image<span class="token punctuation">:</span>
+    cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'online_im'</span><span class="token punctuation">,</span> online_im<span class="token punctuation">)</span>
+    cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>调整完成后，输入下面的命令运行跟踪脚本（命令行Ctrl+C停止跟踪，跟踪的每一帧存放在指定的<code>output-root</code>目录下的<code>frame</code>目录中）。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python camera.py mot --load_model ../models/fairmot_dla34.pth --output-root ../results<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -620,6 +629,7 @@ if __name__ == '__main__':
             document.body.appendChild(img);
           });
       </script>
+                
             </div>
             <hr/>
 
@@ -655,12 +665,12 @@ if __name__ == '__main__':
                     
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/css/share.min.css">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
 <div id="article-share">
 
     
     <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/share/js/social-share.min.js"></script>
+    <script src="/libs/share/js/social-share.min.js"></script>
     
 
     
@@ -778,10 +788,10 @@ if __name__ == '__main__':
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -800,8 +810,8 @@ if __name__ == '__main__':
     </div>
 
     
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/css/my-gitalk.css">
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
 <div class="card gitalk-card" data-aos="fade-up">
     <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
@@ -811,7 +821,7 @@ if __name__ == '__main__':
     <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/gitalk/gitalk.min.js"></script>
+<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
     let gitalk = new Gitalk({
         clientID: '362322c1eb71f43ce38c',
@@ -840,6 +850,8 @@ if __name__ == '__main__':
 
     
 
+    
+
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
@@ -851,7 +863,7 @@ if __name__ == '__main__':
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="LambdaNetworks 论文解读">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="LambdaNetworks 论文解读">
                         
                         <span class="card-title">LambdaNetworks 论文解读</span>
                     </div>
@@ -860,7 +872,6 @@ if __name__ == '__main__':
                     <div class="summary block-with-text">
                         
                             
-最近有不少人和我提到 ViT 以及 DETR 以及商汤提出的 Deformable DETR，仿若看到了 Transformer 在计算机视觉中大放异彩的未来，甚至谷歌对其在自注意力机制上进行了调整并提出 Performer。但是，由于 
                         
                     </div>
                     <div class="publish-info">
@@ -901,7 +912,7 @@ if __name__ == '__main__':
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="DLA 论文解读">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="DLA 论文解读">
                         
                         <span class="card-title">DLA 论文解读</span>
                     </div>
@@ -909,7 +920,7 @@ if __name__ == '__main__':
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介沿着卷积神经网络在计算机视觉的发展史，可以发现，丰富的表示（representations）是视觉任务最需要的。随着网络的深度增加，单独一层的信息是远远不够的，只有聚合各层信息才能提高网络对 what（识别）和 where（定位）两个问
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -985,33 +996,26 @@ if __name__ == '__main__':
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
+        <div class="toc-widget card" style="background-color: white;">
             <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
@@ -1027,7 +1031,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/tocbot/tocbot.min.js"></script>
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -1122,6 +1126,9 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
+            
+                <span id="year">2016-2020</span>
+            
             <span id="year">2016</span>
             <a href="/about" target="_blank">周先森爱吃素</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1251,10 +1258,95 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -1266,12 +1358,12 @@ $(function () {
 </div>
 
 
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/materialize/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/aos/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
     <!-- Baidu Analytics -->
 
@@ -1303,7 +1395,7 @@ $(function () {
 
     
     
-    <script async src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
 
     
@@ -1329,6 +1421,8 @@ $(function () {
     </script>
     
 
+    <!--腾讯兔小巢-->
+    
     
 
     
@@ -1336,7 +1430,7 @@ $(function () {
     
 
     
-    <script src="https://cdn.jsdelivr.net/gh/luanshiyinyang/luanshiyinyang.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
 </body>

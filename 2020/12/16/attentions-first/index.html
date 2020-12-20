@@ -29,9 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -501,10 +501,10 @@
 <p>首先，我们知道，卷积神经网络输出的是维度为$C\times H \times W$的特征图，其中$C$指的是通道数，它等于作用与输入的卷积核数目，每个卷积核代表提取一种特征，所以每个通道代表一种特征构成的矩阵。$H \times W$这两个维度很好理解，这是一个平面，里面的每个值代表一个位置的信息，尽管经过下采样这个位置已经不是原始输入图像的像素位置了，但是依然是一种位置信息。如果，对每个通道的所有位置的值都乘上一个权重值，那么总共需要$C$个值，构成的就是一个$C$维向量，将这个$C$维向量作用于特征图的通道维度，这就叫<strong>通道注意力</strong>。同样的，如果我学习一个$H\times W$的权重矩阵，这个矩阵每一个元素作用于特征图上所有通道的对应位置元素进行乘法，不就相当于对空间位置加权了吗，这就叫做<strong>空间注意力</strong>。</p>
 <p>下面我列举一些常见的使用了注意力机制的卷积神经网络，我在下面一节会详细介绍它们。</p>
 <ol>
-<li>NL(Non-local Neural Networks)</li>
-<li>SENet(Squeeze-and-Excitation Networks)</li>
-<li>BAM(Bottleneck Attention Module)</li>
-<li>CBAM(Convolutional Block Attention Module)</li>
+<li><strong>NL(Non-local Neural Networks)</strong></li>
+<li><strong>SENet(Squeeze-and-Excitation Networks)</strong></li>
+<li><strong>BAM(Bottleneck Attention Module)</strong></li>
+<li><strong>CBAM(Convolutional Block Attention Module)</strong></li>
 <li>$A^2$-Nets(Double Attention Networks)</li>
 <li>GSoP-Net(Global Second-order Pooling Convolutional Networks)</li>
 <li>ECA-Net(Efficient Channel Attention for Deep Convolutional Neural Networks)</li>

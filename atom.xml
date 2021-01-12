@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2020-12-20T12:43:30.227Z</updated>
+  <updated>2021-01-12T02:04:14.054Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TransTrack解读</title>
+    <link href="https://zhouchen1998.cn/2021/01/12/transtrack/"/>
+    <id>https://zhouchen1998.cn/2021/01/12/transtrack/</id>
+    <published>2021-01-12T02:03:14.000Z</published>
+    <updated>2021-01-12T02:04:14.054Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="TransTrack解读" scheme="https://zhouchen1998.cn/tags/TransTrack%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>视觉注意力机制(下)</title>
@@ -502,27 +527,6 @@
     
     
     <category term="anchor-free目标检测" scheme="https://zhouchen1998.cn/tags/anchor-free%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://zhouchen1998.cn/2020/08/19/hello-world/"/>
-    <id>https://zhouchen1998.cn/2020/08/19/hello-world/</id>
-    <published>2020-08-19T11:59:57.911Z</published>
-    <updated>2020-08-19T11:59:57.911Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   

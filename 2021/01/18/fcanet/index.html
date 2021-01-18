@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="TransTrack解读, Chen&#39;s blog">
+    <meta name="keywords" content="FcaNet解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>TransTrack解读 | Chen&#39;s blog</title>
+    <title>FcaNet解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">TransTrack解读</h1>
+                    <h1 class="description center-align post-title">FcaNet解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/TransTrack%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">TransTrack解读</span>
+                            <a href="/tags/FcaNet%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">FcaNet解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-12
+                    2021-01-18
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    2.9k
                 </div>
                 
 
@@ -493,44 +493,72 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Transformer已经在计算机视觉各个任务上获得了不错的效果，当然也不会放过多目标跟踪，香港大学、字节跳动AI实验室等机构在2020年最后一天挂到Arxiv上的这篇文章就是第一个将Transformer用于多目标跟踪的文章，尽管紧随其后就出现了TrackFormer这样类似的作品，不过本人觉得TransTrack效果目前看来好一些，本文就自己的理解谈谈这篇文章。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>注意力机制，特别是通道注意力机制在计算机视觉中取得了巨大的成功，很多工作着重于设计更加高效的通道注意力结构，却忽略了一个重要的问题，那就是为了得到每个通道全局表示所使用的全局平均池化（Global Average Pooling，GAP）真的合适吗？FcaNet这篇文章，作者从频域角度重新思考GAP，为了弥补了现有通道注意力方法中特征信息不足的缺点，将GAP推广到一种更为一般的2维的离散余弦变换（DCT）形式，通过引入更多的频率分量来充分的利用信息。设计的高效Fca模块甚至在现有的通道注意力方法基础上，只需要修改一行代码即可实现。</p>
 <ul>
 <li><p>论文标题</p>
-<p>  TransTrack: Multiple-Object Tracking with Transformer</p>
+<p>  FcaNet: Frequency Channel Attention Networks</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2012.15460">http://arxiv.org/abs/2012.15460</a></p>
-</li>
-<li><p>论文源码</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/PeizeSun/TransTrack">https://github.com/PeizeSun/TransTrack</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2012.11879">http://arxiv.org/abs/2012.11879</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>回顾MOT的核心思路，如下图所示，目前TBD范式的多目标跟踪方法依然受限于复杂的pipeline，这带来了大量的计算代价，如下图(a)所示，一如当年的DeepSORT，检测和跟踪任务分开进行，这会带来一些比较严重的问题：一方面，这种两个任务分开进行会造成它们不能共享有效的信息带来额外的算力消耗；另一方面，连续两帧间的无序目标对和每帧中不完整的检测都为跟踪算法带来了极大的挑战。<strong>因此，JDE范式的产生其实是MOT领域的发展非常重要的一步。</strong> </p>
-<p><img src="https://i.loli.net/2021/01/12/CZYSFnKIE24GprH.png" alt=""></p>
-<p>上图的(b)其实是SOT中常见的孪生网络，这种结构本质上就是Query-Key机制，目标对象是query而各个图像区域是keys。直接将这个思路引入MOT中也是可行的，前一帧的目标特征作为query，当前帧的图像特征作为key，这就是上图(c)的由来。然而，仅仅将Query-Key机制引入MOT中效果非常差，主要是FN指标上的表现（在检测中的直观含义就是漏检），原因也很简单，因为当前帧出现的新目标的特征肯定不存在于query中，因此当然无法获取key，这也就造成了新目标的缺失。</p>
-<p>因此，回到这篇论文的初衷，能否设计一种基于Query-Key机制的MOT框架，它能输出有序目标集也能检测新目标的出现呢？这就诞生了<strong>TransTrack</strong>，一个联合检测和跟踪（JDE范式）的新框架，它利用Query-Key机制来跟踪当前帧中已存在的目标并且检测新目标。</p>
-<p><img src="https://i.loli.net/2021/01/12/hczZfslYqBxeMyK.png" alt=""></p>
-<p>先简单地看一下这个pipeline的设计，它基于Query-Key目前最火热的Transformer架构构建。最中间的key来自骨干网络对当前帧图像提取的特征图，而query按照两个分支的需求分别来自上一帧的目标特征query集和一个可学习的目标query集。<strong>这两个分支都很有意思，我们先看下面这个检测分支，这里这个learned object query思路来自于DETR，是一种可学习的表示，它能逐渐学会从key中查询到目标的位置从而完成检测，想知道得更明白得可以去看看DETR论文。可以很明显地看明白，这个检测分支完成了当前帧上所有目标的检测得到detection boxes。然后我们看上面这个跟踪框分支，这个object feature query其实就是上一帧的检测分支产生的目标的特征向量，这个object feature query从key中查询目标当前帧中位置，用CenterTrack的思路来理解，这可以认为是一个位移预测分支，它最终得到tracking boxes。最后，由于跟踪框和检测框都在当前帧上了，进行简单的IOU匹配就能完成跟踪了，至此，MOT任务完成。</strong></p>
-<p>回顾上面这个TransTrack的设计，其实很清晰地发现其优势，那就是JDE范式下地同时优化两个子网络，速度很快。不过，这个基于检测框和跟踪框匹配的思路，让人有点梦回DeepSORT啊😂。</p>
-<h2 id="TransTrack"><a href="#TransTrack" class="headerlink" title="TransTrack"></a>TransTrack</h2><p>论文里还回顾了一下Query-Key机制在跟踪中的发展以及TBD范式和JDE范式的创新，我这里就不多赘述了，直接来看TransTrack的一些细节。</p>
-<p>首先，作者认为，一个理想的跟踪模型的输出目标集应该是完整且有序的，因此TransTrack使用learned object query和上一帧的object feature query作为输入query。前者经过decoder之后变为当前帧的检测框，后者经过decoder之后变为跟踪框（上一帧目标在当前帧的位置预测）。因此TransTrack在当前帧完成了数据关联步骤，这就允许其才有简单的metric作为关联指标，文中采用IOU。</p>
-<p><img src="https://i.loli.net/2021/01/12/yVX8JuPELAlKQ6s.png" alt=""></p>
-<p>上图是整个网络的结构图，它和TransFormer很像，由一个产生复合特征图的encoder和两个平行的decoder构成。encoder和decoder的具体结构这里不详细讲解了，可以去阅读Transformer论文了解，简单来说它其实由堆叠的多头注意力和全连接层组成。在Transformer的设计中，encoder生成大量的key，而decoder接收指定任务的query对key进行查询得到想要的输出。</p>
-<p>上图所示，encoder将backbone对当前帧提取的特征图和上一帧处理时保留的特征图组合到一起作为输入，这就是keys。然后两个decoder接收这些keys，他俩分别进行目标检测和目标传播任务。首先来看检测这个decoder，它采用DETR的集合预测思路完成检测，可学习的query从全局特征图上查询目标的位置得到检测框。接着，来看看这个目标传播的decoder，它和检测分支的结构类似，不过输入不同，是前帧目标的特征向量，这个向量包含了历史目标的位置和外观信息，所以能够在当前帧上查询到跟踪框。</p>
-<p>最后的Matching模块就很简单了，既然跟踪框和检测框都在当前帧上，那么相同目标只会有很微小的偏移，基于IOU进行匹配即可（这个思路和CTracker类似），匹配算法采用常用的KM算法。未被匹配上的检测框初始化为新目标。</p>
-<h2 id="训练和推理"><a href="#训练和推理" class="headerlink" title="训练和推理"></a>训练和推理</h2><h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>训练数据集采用了CrowdHuman和MOT Challenge数据集，损失方面，可以认为检测框和跟踪框的获得都是在当前帧进行目标检测，因此两个decoder可以采用同一个训练损失，这是一个二分匹配的集合预测损失，公式如下。${L}_{c l s}$表示框间的类别损失，使用focal loss实现；L1和GIOU loss用于监督框的定位准确率，具体的训练就是采用DETR类似的方式训练。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>注意力机制在计算机视觉中受到了广泛的关注，它让网络更加关注于部分重要的信息，按照作用维度的不同，我们将注意力分为空间注意力、通道注意力和自注意力，其中，由于简单高效，下图所示的通道注意力直接对不同的通道加权，成为一种主流的注意力范式。</p>
+<p><img src="https://i.loli.net/2021/01/18/lC34dQHptugA6M7.png" alt=""></p>
+<p>SENet和ECANet致力于设计不同的通道加权函数，如全连接或者一维卷积，然后这些函数的输入都是每个通道一个标量，这个标量默认都是来自于GAP，这是因为GAP相当的简洁高效，但是GAP也有不可忽略的问题，那就是GAP没办法捕获丰富的输入表示，这就导致了经过GAP得到的特征缺乏多样性，这主要是因为GAP对一个通道所有空间元素取其均值，而这个均值其实不足以表达不同通道的信息。</p>
+<p>作者对全局平均池化即GAP进行了理论上的分析，最终得出如下结论：首先，不同的通道有极大概率出现相同的均值，然而它们的语义信息是不同的，换句话说，GAP抑制的通道之间的多样性；其次，从频域角度来看，作者证明了GAP其实是离散余弦变换（DCT）的最低频分量，这其实忽略了很多其他有用的分量；最后，CBAM的成功也佐证了只使用GAP得到的信息是不足够的。</p>
+<p>在这些结论的基础上，作者设计了一种新的高效多谱通道注意力框架。该框架在GAP是DCT的一种特殊形式的基础上，在频域上推广了GAP通道注意力机制，提出使用有限制的多个频率分量代替只有最低频的GAP。通过集成更多频率分量，不同的信息被提取从而形成一个多谱描述。此外，为了更好进行分量选择，作者设计了一种二阶段特征选择准则，在该准则的帮助下，提出的多谱通道注意力框架达到了SOTA效果。</p>
+<h2 id="方法论"><a href="#方法论" class="headerlink" title="方法论"></a>方法论</h2><h3 id="通道注意力"><a href="#通道注意力" class="headerlink" title="通道注意力"></a>通道注意力</h3><p>通道注意力的权重学习如下式所示，它表示输入经过GAP处理后由全连接层学习并经过Sigmoid激活得到加权的mask。</p>
 <script type="math/tex; mode=display">
-\mathcal{L}=\lambda_{c l s} \cdot \mathcal{L}_{c l s}+\lambda_{L 1} \cdot \mathcal{L}_{L 1}+\lambda_{g i o u} \cdot \mathcal{L}_{g i o u}</script><h3 id="推理"><a href="#推理" class="headerlink" title="推理"></a>推理</h3><p>推理第一帧的时候没有历史目标因此拷贝一份特征图即可，后面都是相邻帧之间的处理，需要注意的是，这里引入了Track Rebirth策略以增强针对遮挡和短时间目标消失的鲁棒性，具体是指如果一个跟踪框未被匹配上，它暂时不被移除，只有确定连续K帧都没有匹配上时才真正认为该目标消失，文中取K=32。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者进行了大量的消融实验，首先验证了额外训练数据确实对效果有不小的帮助。</p>
-<p><img src="https://i.loli.net/2021/01/12/NybrvUouR53tEYF.png" alt=""></p>
-<p>接着对比了不同的Transformer架构的效果，原始的Transformer训练非常耗时，Deformble DETR训练快效果好。</p>
-<p><img src="https://i.loli.net/2021/01/12/MVznJ5DpZe6U8js.png" alt=""></p>
-<p>此外，还验证了两个解码层的有效性，两种query都是必须的。</p>
-<p><img src="https://i.loli.net/2021/01/12/zCxha43WJ8NSmY9.png" alt=""></p>
-<p>最后，来看看下面和SOTA方法的比较，在MOTA、MOTP、FN等指标上达到了SOTA效果，这主要归功于检测器的强大，然而在IDS这个关乎跟踪效果的指标上表现并不好。</p>
-<p><img src="https://i.loli.net/2021/01/12/PJolZkEpfRFAjKM.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>TransTrack第一次将Transformer引入到了MOT领域并获得了不错的效果，这里也推荐一篇最新的视觉Transformer综述<a target="_blank" rel="noopener" href="http://arxiv.org/abs/2101.01169">Transformers in Vision: A Survey</a>，其涉及了Transformer在视觉各个任务的应用效果。回到TransTrack上来，这篇文章思路上还是很有创新性的，将一个东西用到一个全新的任务上来要做的远远不是1+1=2这么简单，需要做很多很多的工作，而TransTrack做的都不错，在多个MOT的指标上都达到了SOTA水平，不过在MOT很关键的IDS指标上距离SOTA还有一些距离，期待正式版本的论文效果会更好。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Sun P, Jiang Y, Zhang R, et al. TransTrack: Multiple-Object Tracking with Transformer[J]. arXiv:2012.15460 [cs], 2020.</p>
+a t t=\operatorname{sigmoid}(f c(\operatorname{gap}(X)))</script><p>然后，mask与原始输入经过下式逐通道相乘得到注意力操作后的输出。</p>
+<script type="math/tex; mode=display">
+\tilde{X}_{:, i,:,:}=a t t_{i} X_{:, i,:, :}, \text { s.t. } i \in\{0,1, \cdots, C-1\}</script><h3 id="离散余弦变化"><a href="#离散余弦变化" class="headerlink" title="离散余弦变化"></a>离散余弦变化</h3><p>DCT是和傅里叶变换很相似，它的基本形式如下，$f \in \mathbb{R}^{L}$为DCT的频谱，$x \in \mathbb{R}^{L}$为输入，$L$为输入的长度。</p>
+<script type="math/tex; mode=display">
+f_{k}=\sum_{i=0}^{L-1} x_{i} \cos \left(\frac{\pi k}{L}\left(i+\frac{1}{2}\right)\right), \text { s.t. } k \in\{0,1, \cdots, L-1\}</script><p>进而，我们推广得到二维DCT如下，$f^{2 d} \in \mathbb{R}^{H \times W}$是二维DCT的频谱，$x^{2 d} \in \mathbb{R}^{H \times W}$是输入，$H$和$W$是输入的高和宽。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+f_{h, w}^{2 d}=\sum_{i=0}^{H-1} \sum_{j=0}^{W-1} x_{i, j}^{2 d} \underbrace{\cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right)}_{\text {DCT weights }} \quad  
+\text { s.t. } h \in\{0,1, \cdots, H-1\}, w \in\{0,1, \cdots, W-1\}
+\end{array}</script><p>同样，逆DCT变换的公式就如下了。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x_{i, j}^{2 d}=\sum_{h=0}^{H-1} \sum_{w=0}^{W-1} f_{h, w}^{2 d} \underbrace{\cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right)}_{\text {DCT weights }} \quad
+\text { s.t. } i \in\{0,1, \cdots, H-1\}, j \in\{0,1, \cdots, W-1\} 
+\end{array}</script><p>上面两个式子中，为了简单起见，移除了一些常数标准化约束因子。DCT变换属于信号处理领域的知识，是JPEG图像压缩的核心算法，相当于是对重要信息的聚集。其实从这里可以看出来，DCT变换其实也是一种对输入的加权求和，式子中的余弦部分就是权重。因此，GAP这种均值运算可以认为是输入的最简单频谱，这显然是信息不足的，因此作者引出了下面的多谱通道注意力。</p>
+<h3 id="多谱通道注意力"><a href="#多谱通道注意力" class="headerlink" title="多谱通道注意力"></a>多谱通道注意力</h3><p>这里作者首先按证明了GAP其实是二维DCT的特例，其结果和二维DCT的最低分量成比例。这个证明作者是令$h$和$w$都为0得到的，其中$f_{0,0}^{2 d}$表示二维DCT最低频分量，显然，结果来看它与GAP成正比。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+f_{0,0}^{2 d} &=\sum_{i=0}^{H-1} \sum_{j=0}^{W-1} x_{i, j}^{2 d} \cos \left(\frac{0}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\theta}{W}\left(j+\frac{1}{2}\right)\right) \\
+&=\sum_{i=0}^{H-1} \sum_{j=0}^{W-1} x_{i, j}^{2 d} \\
+&=g a p\left(x^{2 d}\right) H W
+\end{aligned}</script><p>通过上面的结论，自然会想到将其他分量引入通道注意力中，首先，为了叙述方便，将二维DCT的基本函数记为$B_{h, w}^{i, j}=\cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right)$，继而将逆二维DCT变换改写如下，</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x_{i, j}^{2 d}=\sum_{h=0}^{H-1} \sum_{w=0}^{W-1} f_{h, w}^{2 d} \cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right) \\
+\stackrel{简写为B}{=} f_{0,0}^{2 d} B_{0,0}^{i, j}+f_{0,1}^{2 d} B_{0,1}^{i, j}+\cdots+f_{H-1, W-1}^{2 d} B_{H-1, W-1}^{i, j} \\
+\stackrel{GAP特殊形式结论}{=} g a p\left(x^{2 d}\right) H W B_{0,0}^{i, j}+f_{0,1}^{2 d} B_{0,1}^{i, j}+\cdots+f_{H-1, W-1}^{2 d} B_{H-1, W-1}^{i, j} \\
+\text { s.t. } i \in\{0,1, \cdots, H-1\}, j \in\{0,1, \cdots, W-1\}
+\end{array}</script><p>由这个式子其实不难发现，此前的通道注意力只应用了第一项的最低频分量部分，而没有使用下式表示的后面其他部分，这些信息都被忽略了。</p>
+<script type="math/tex; mode=display">
+X=\underbrace{g a p(X) H W B_{0,0}^{i, j}}_{\text {utilized }}+\underbrace{f_{0,1}^{2 d} B_{0,1}^{i, j}+\cdots+f_{H-1, W-1}^{2 d} B_{H-1, W-1}^{i, j}}_{\text {discarded }}</script><p>基于此，作者设计了多谱注意力模块（Multi-Spectral Attention Module，），该模块通过推广GAP采用更多频率分量从而引入更多的信息。</p>
+<p>首先，输入$X$被沿着通道划分为多块，记为$\left[X^{0}, X^{1}, \cdots, X^{n-1}\right]$，其中每个$X^{i} \in \mathbb{R}^{C^{\prime} \times H \times W}, i \in{0,1, \cdots, n-1}, C^{\prime}=\frac{C}{n}$，每个块分配一个二维DCT分量，那么每一块的输出结果如下式。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+F r e q^{i} &=2 \mathrm{DDCT}^{u, v}\left(X^{i}\right) \\
+&=\sum_{h=0}^{H-1} \sum_{w=0}^{W-1} X_{:, h, w}^{i} B_{h, w}^{u, v} \\
+& \text { s.t. } i \in\{0,1, \cdots, n-1\}
+\end{aligned}</script><p>上式中的$[u, v]$表示2DDCT的分量下标，这就对每一块采用不同的频率分量了，因此下式得到最终的输出$Freq \in \mathbb{R}^{C}$就是得到的多谱向量，然后再将这个向量送入通道注意力常用的全连接层中进行学习得到注意力图。</p>
+<script type="math/tex; mode=display">
+\text { Freq }=\operatorname{cat}\left(\left[\text { Fre } q^{0}, \text { Fre } q^{1}, \cdots, \text { Freq }^{n-1}\right]\right)</script><script type="math/tex; mode=display">
+m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是全部的多谱注意力模块的设计了，现在，下图这个FcaNet整体框架中间的一部分就看得明白了，唯一留下的问题就是对分割得到的每个特征图块，如何选择$[u,v]$呢？事实上，对空间尺寸为$H\times W$的特征图，会有$HW$个频率分量，由此频率分量的组合共有$CHW$种，遍历显然是非常费时的，因此，文中设计了一种启发式的两步准则来选择多谱注意力模块的频率分量，其主要思想是先得到每个频率分量的重要性再确定不同数目频率分量的效果。具体而言，先分别计算通道注意力中采用各个频率分量的结果，然后，根据结果少选出topk个性能最好的分量。</p>
+<p><img src="https://i.loli.net/2021/01/18/6rVxBHFSzWh1y2L.png" alt=""></p>
+<p>到这里，整个FcaNet的方法论就说明完了，下面作者还进行了一些讨论，包括计算复杂度和修改难度。复杂度方面，相比于SENet没有引入额外参数，因为2DDCT权重是预先计算好的，相比于SENet增加的计算量几乎可以忽略不记。此外，2DDCT可以认为是对输入的加权求和，因此它可以通过逐元素乘加实现，在原本通道注意力代码基础上前向计算只需要修改一行，其PyTorch实现如下图。</p>
+<p><img src="https://i.loli.net/2021/01/18/Buk6VcWI94Hsvy8.png" alt=""></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者首先经过实验对比了单个频率分量的有效性，具体的实验配置可以查看原论文，不过，实验最终验证当$[u,v]$为[0,0]时效果是最好的，这就是GAP操作，下图同时也验证了深度模型对低频分量更关注的事实。但是，虽然其他分量效果不及GAP，但也是含有大量有效信息的，因此加进去是合理的。</p>
+<p><img src="https://i.loli.net/2021/01/18/pX18sD5VUnTjAP7.png" alt=""><br>接着，在知道了哪些分量更好的前提下，作者对分量的数目进行了实验，结果如下表，Number=1的GAP效果弱于其他各种Number选择的多谱注意力，Number=16时效果最好。</p>
+<p><img src="https://i.loli.net/2021/01/18/GRj4bQWqHakvB6d.png" alt=""></p>
+<p>最后，作者也将本文设计的FcaNet和其他注意力网络进行对比，在分类、检测和分割等benchmark上和其他方法对比，在分类和检测上都有比较明显的提高，下图所示为ImageNet上分类任务结果，其他的我这里就不展示了，可以查看原文。</p>
+<p><img src="https://i.loli.net/2021/01/18/CwsgWMS1rPOKG9b.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文是依据可靠数学进行的理论创新，一改此前通道注意力的结构设计思路，将关注重心放在了GAP是DCT的特例这一推导下，从而设计了多谱通道注意力，取得了相当不错的成果。将思路转到频域还是非常新颖的，虽然一行代码的说法略显牵强，最终的性能也是坐等开源再说，总体来看，FcaNet还是值得了解的注意力文章。</p>
 
                 
             </div>
@@ -560,8 +588,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/TransTrack%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">TransTrack解读</span>
+                                <a href="/tags/FcaNet%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">FcaNet解读</span>
                                 </a>
                             
                         </div>
@@ -732,7 +760,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-01-12T10-03-14',
+        id: '2021-01-18T14-47-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -758,9 +786,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/01/18/fcanet/">
                     <div class="card-image">
@@ -778,9 +807,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -793,6 +822,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -811,13 +841,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/20/attentions-end/">
+                <a href="/2021/01/12/transtrack/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="视觉注意力机制(下)">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="TransTrack解读">
                         
-                        <span class="card-title">视觉注意力机制(下)</span>
+                        <span class="card-title">TransTrack解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -828,7 +858,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
                             </span>
                         <span class="publish-author">
                             
@@ -845,8 +875,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%A7%86%E8%A7%89%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
-                        <span class="chip bg-color">视觉注意力机制</span>
+                    <a href="/tags/TransTrack%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">TransTrack解读</span>
                     </a>
                     
                 </div>

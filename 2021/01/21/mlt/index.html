@@ -29,9 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -493,7 +493,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在很多方法都在检测上做文章的时候，能看到MLT这样一篇在Public赛道做研究并取得相当好的效果的文章是很难得的，就像论文的标题一样，它直面了MOT目前针对二维图像的一个痛点，那就是遮挡问题尤其是密集人群场景下的遮挡问题。论文提出了一种基于图的near-online跟踪方法，该方法设计了一种检测multiplexing（多路复用）技术并设计了一种多标签图（multiplex labeling graph，MLG）模型，<strong>这种一个检测框可以拥有多个ID的复用思路是本文最大的创新点之一</strong>。此外，这篇文章还引入LSTM来对构建的MLG进行优化，实验证明其在多个数据集上达到了SOTA表现，在MOT Challenge公榜（public赛道，不使用私有检测，将研究重点放在跟踪问题上）成为了新的SOTA，最新的MOT17的全榜结果如下图，其实可以看到，在整个榜单上，它MOTA距离第一不算太多，IDF1和Frag这些比较依赖跟踪性能而不是检测性能的指标上相对于其他方法都是当之无愧的SOTA。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在很多方法都在检测上做文章的时候，能看到MLT这样一篇在Public赛道做研究并取得相当好的效果的文章是很难得的，就像论文的标题一样，它直面了MOT目前针对二维图像的一个痛点，那就是遮挡问题尤其是密集人群场景下的遮挡问题。论文提出了一种基于图的near-online跟踪方法，该方法设计了一种检测multiplexing（多路复用）技术并设计了一种多标签图（multiplex labeling graph，MLG）模型，<strong>这种一个检测框可以拥有多个ID的复用思路是本文最大的创新点之一</strong>。恶心哦此外，这篇文章还引入LSTM来对构建的MLG进行优化，实验证明其在多个数据集上达到了SOTA表现，在MOT Challenge公榜（public赛道，不使用私有检测，将研究重点放在跟踪问题上）成为了新的SOTA，最新的MOT17的全榜结果如下图，其实可以看到，在整个榜单上，它MOTA距离第一不算太多，IDF1和Frag这些比较依赖跟踪性能而不是检测性能的指标上相对于其他方法都是当之无愧的SOTA。</p>
 <ul>
 <li><p>论文标题</p>
 <p>  Multiplex Labeling Graph for Near-Online Tracking in Crowded Scenes</p>
@@ -534,7 +534,7 @@ t_{a, i j} &=\left\{\begin{array}{ll}
 0, & \cos \left(a_{i}, a_{j}\right)<\tau_{a} \\
 1, & \cos \left(a_{i}, a_{j}\right) \geq \tau_{a}
 \end{array}\right.
-\end{aligned}</script><h2 id="多标签优化"><a href="#多标签优化" class="headerlink" title="多标签优化"></a>多标签优化</h2><p>在图构建完成之后，MOT任务其实可以视作一个给节点安排标签的图优化问题，不同于其他图方法，论文中的方法不约束每个节点优化过程只拥有一个标签（指的就是人的ID），因此MLG中每个节点同时可以拥有多个标签，这也是MLG名为multiplex labeling graph的由来。对整个视频的跟踪其实通过一个滑动窗口完成，如帧$1$到帧$k$，帧$k$到帧$2k-1$，这里的$k$就是窗口大小，整个跟踪框架如下图所示。</p>
+\end{aligned}</script><h3 id="多标签优化"><a href="#多标签优化" class="headerlink" title="多标签优化"></a>多标签优化</h3><p>在图构建完成之后，MOT任务其实可以视作一个给节点安排标签的图优化问题，不同于其他图方法，论文中的方法不约束每个节点优化过程只拥有一个标签（指的就是人的ID），因此MLG中每个节点同时可以拥有多个标签，这也是MLG名为multiplex labeling graph的由来。对整个视频的跟踪其实通过一个滑动窗口完成，如帧$1$到帧$k$，帧$k$到帧$2k-1$，这里的$k$就是窗口大小，整个跟踪框架如下图所示。</p>
 <p><img src="https://i.loli.net/2021/01/21/6cVks145GDAn2ZX.png" alt=""></p>
 <p>上图描述的是跟踪的大体过程，其中彩色的实心圆表示已经确认的检测框、白色实心圆表示未确认的检测框（确不确认表示是否链接到轨迹上），虚线圆则表示误检。MLG上做跟踪其实就是在滑窗内将未确认的检测框关联到已经存在的轨迹上或者形成新的轨迹。</p>
 <p>因为下面关于图优化的叙述比较复杂，作者这里先引入了几个概念，将节点分为如下四种，在滑窗内其定义如下：</p>

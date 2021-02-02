@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CSTrack 解读, Chen&#39;s blog">
+    <meta name="keywords" content="DetNet解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CSTrack 解读 | Chen&#39;s blog</title>
+    <title>DetNet解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CSTrack 解读</h1>
+                    <h1 class="description center-align post-title">DetNet解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">CSTrack解读</span>
+                            <a href="/tags/DetNet%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">DetNet解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-20
+                    2021-02-02
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2.1k
                 </div>
                 
 
@@ -493,36 +493,48 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Challenge 的榜单。最近，CSTrack 这篇文章则在 JDE 范式的基础上进行了改进，获得了相当不错的跟踪表现（基本上暂时稳定在榜单前 5），本文就简单解读一下这篇短文（目前在 Arxiv 上开放的是一个 4 页短文的版本）。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在目标检测最常见的二阶段和单阶段范式下，一般将目标检测模型分为backbone、neck和head三个部分，其中backbone指的是骨干网络，它用于提取图像的特征。目前最流行的backbone选择是ResNet系列及其变种，这主要归功于ResNet的流行，有着大量的结构优化和预训练模型。</p>
+<p>不过，其实在2018年，旷世就提出了一种名为DetNet的backbone，旨在更好地适应目标检测这个任务。DetNet的设计初衷是什么呢，其实是因为目标检测通常都按照迁移学习的思路直接采用ImageNet上预训练的图像分类模型来作为backbone（如ResNet50），然而，图像分类和目标检测其实还是有不少不同之处的。不少目标检测新方法都采用不同于图像分类任务的额外stage来处理不同尺度的目标，这是因为，目标检测不仅仅需要识别出目标实例的类别，还要在空间上进行定位，较大的下采样倍率获得更大的感受野有利于全图级别的图像分类，但不利于网络对于目标的定位能力。</p>
+<p>针对这些目标检测和图像分类的gap，论文设计了一种全新的backbone—-DetNet，通过对ResNet进行修改，它能够在较深层保持较高的空间分辨率，实验表明，DetNet无论在目标检测还是实例分割任务上都能获得SOTA结果。</p>
 <ul>
 <li><p>论文标题</p>
-<p>Rethinking the competition between detection and ReID in Multi-Object Tracking</p>
+<p>  DetNet: A Backbone network for Object Detection</p>
 </li>
 <li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2010.12138">http://arxiv.org/abs/2010.12138</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1804.06215">http://arxiv.org/abs/1804.06215</a></p>
 </li>
 <li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/JudasDie/SOTS">https://github.com/JudasDie/SOTS</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/guoruoqian/DetNet_pytorch">https://github.com/guoruoqian/DetNet_pytorch</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为了追求速度和精度的平衡，联合训练检测模型和 ReID 模型的 JDE 范式（如下图，具体提出参考 JDE 原论文 Towards Real-Time Multi-Object Tracking）受到了学术界和工业界越来越多的关注。这主要是针对之前的 two-stage 方法先是使用现有的检测器检测出行人然后再根据检测框提取对应行人的外观特征进行关联的思路，这种方法在精度上的表现不错，然而由于检测模型不小且 ReID 模型需要在每个检测框上进行推理，计算量非常之大，所以 JDE 这种 one-shot 的思路的诞生是一种必然。</p>
-<p><img src="https://i.loli.net/2020/11/20/XSvleZbIjwDo1Yd.png" alt=""></p>
-<p>然而，就像之前 FairMOT 分析的那样，检测和 ReID 模型是<strong>存在不公平的过度竞争</strong>的，这种竞争制约了两个任务（检测任务和 ReID 任务 ）的表示学习，导致 了学习的混淆。具体而言，检测任务需要的是同类的不同目标拥有相似的语义信息（类间距离最大），而 ReID 要求的是同类目标有不同的语义信息（类内距离最大）。此外，<strong>目标较大的尺度变化</strong>依然是 MOT 的痛点。在 ReID 中图像被调整到统一的固定尺寸来进行查询 ，而在 MOT 中，提供在 ReID 网络的特征需要拥有尺度感知能力，这是因为沿着帧目标可能会有巨大的 size 变化。</p>
-<p>为了解决上述的过度竞争问题，论文提出了一种新的互相关网络（CCN）来改进单阶段跟踪框架下 detection 和 ReID 任务之间的协作学习。作者首先将 detection 和 ReID 解耦为两个分支，分别学习。然后两个任务的特征通过自注意力方式获得自注意力权重图和互相关性权重图。自注意力图是促进各自任务的学习，互相关图是为了提高两个任务的协同学习。而且，为了解决上述的尺度问题，设计了尺度感知注意力网络（SAAN）用于 ReID 特征的进一步优化，SAAN 使用了空间和通道注意力，该网络能够获得目标 不同尺度的外观信息，最后 不同尺度外观特征融合输出即可。</p>
-<h2 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h2><p>整体的思路还是采用 JDE 的框架，下图的右图是整体 pipeline 的设计，和左侧的 JDE 相比，中间增加了一个 CCN 网络（互相相关网络）用于构建 detection 和 ReID 两个分支不同的特征图（这里解释一下为什么要解耦成两个特征图送入后续的两个任务中，其实原始的 JDE 就是一个特征图送入检测和 ReID 分支中，作者这边认为这会造成后续的混淆，所以在这里分开了，FairMOT 也发现了这个问题，只是用另一种思路解决的而已）。构建的两个特征图分别送入 Detection head 和 SAAN（多尺度+注意力+ReID）中，Detection head 将 JDE 的 YOLO3 换为了更快更准的 YOLO5，其他没什么变动，下文检测这边我就不多提了。检测完成的同时，SAAN 也输出了多尺度融合后的 ReID 特征，至此也就完成了 JDE 联合检测和 ReID 的任务，后续就是关联问题了。</p>
-<p><img src="https://i.loli.net/2020/11/20/KIpS3jV1ezicCk5.png" alt=""></p>
-<p>所以，从整个框架来看，CSTrack 对 JDE 的改动主要集中在上图的 CCN 和 SAAN，而这两部分都是在特征优化上做了文章，且主要是基于注意力手段的特征优化（不知道是好是坏呢）。</p>
-<h2 id="CCN"><a href="#CCN" class="headerlink" title="CCN"></a>CCN</h2><p>CCN（Cross-correlation Network）用于提取更适合 detection 和 ReID 任务的一般特征和特定特征。在特定性学习方面，通过学习反映不同特征通道之间相互关系的自联系，增强了每个任务的特征表示。对于一般性学习，可以通过精心设计的相互关系机制来学习两个任务之间的共享信息。</p>
-<p><img src="https://i.loli.net/2020/11/20/XoOUnxREIqfCy3K.png" alt=""></p>
-<p>CCN 的结构如上图，我们对着这个图来理解 CCN 的思路。从检测器的 backbone 得到的特征图为$\mathbf{F} \in R^{C \times H \times W}$，首先，这个特征经过平均池化降维获得统计信息（更精炼的特征图）$\mathbf{F}^{\prime} \in R^{C \times H^{\prime} \times W^{\prime}}$。然后，两个不同的卷积层作用于$\mathbf{F}^{\prime}$生成两个特征图$\mathbf{T_1}$和$\mathbf{T_2}$，这两个特征图被 reshape 为特征$\left{\mathbf{M}_{\mathbf{1}}, \mathbf{M}_{\mathbf{2}}\right} \in R^{C \times N^{\prime}}$（$N^{\prime}=H^{\prime} \times W^{\prime}$）。下面的上下两个分支操作是一致的，先用矩阵$\mathbf{M_1}$或者$\mathbf{M_2}$和自己的转置矩阵相乘获得各自的自注意力图$\left{\mathbf{W}_{\mathrm{T}_{1}}, \mathbf{W}_{\mathrm{T}_{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$，然后$\mathbf{M_1}$和$\mathbf{M_2}$的转置进行矩阵乘法获得互注意力图$\left{\mathbf{W}_{\mathrm{S}_{1}}, \mathbf{W}_{\mathrm{S}_{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$（这是$\mathbf{M_1}$的，转置之后 softmax 就是$\mathbf{M_2}$的）。然后，对每个分支，自注意力图和互注意力图相加获得通道级别的注意力图，和原始的输入特征图$\mathbf{F}$相乘再和$\mathbf{F}$相加得到输出特征图$\mathrm{F}_{\mathrm{T} 1}$和$\mathrm{F}_{\mathrm{T} 2}$。</p>
-<p>上述学到的$\mathrm{F}_{\mathrm{T} 1}$用于 Detection head 的检测处理，后者则用于下面的 SAAN 中 ReID 特征的处理。</p>
-<p><img src="https://i.loli.net/2020/11/20/KhYU9rfR3g7VnFe.png" alt=""></p>
-<p>上图就是作者设计的 ReID 分支，用于对 ReID 特征进行多尺度融合，这个设计挺简单的，不同分支采用不同的下采样倍率获得不同尺度的特征图（其中通过空间注意力进行特征优化），然后融合产生的特征通过空间注意力加强，最终输出不同目标的 embedding$\mathbf{E} \in R^{512 \times W \times H}$（特征图每个通道对应不同的 anchor 的 embedding）。</p>
-<p><strong>这样，整个 JDE 框架就完成了。</strong></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在 MOT16 和 MOT17 上实验结果如下图，比较的方法都比较新，MOTA 也是刷到了 70 以上，不过速度稍许有点慢了，总的精度还是很不错的。</p>
-<p><img src="https://i.loli.net/2020/11/20/Tcv3j8x1ruYHsQh.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CSTrack 在 JDE 的基础上使用了更强的检测器也对 ReID 特征进行了优化，获得了相当不错的表现。不过，从结果上看这种暴力解耦还是会对整个跟踪的速度有影响的。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Liang C, Zhang Z, Lu Y, et al. Rethinking the competition between detection and ReID in Multi-Object Tracking[J]. arXiv:2010.12138 [cs], 2020.</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>如上一节所述，目标检测任务和图像分类任务是有区别的，这是由它们任务本身决定的，目标检测不仅仅需要识别对象的类别，还需要空间上定位出对象的边界框。</p>
+<p>具体而言，用分类模型作为检测的backbone存在两个问题：第一，FPN等结构会在原来的backbone结构基础上添加额外的stage来完成不同尺度目标的检测，这个额外添加的stage是无法在ImageNet上预训练的。第二，由于这些backbone是来自于分类任务，因此它们一般会采取较大的下采样倍率来获取较大的感受野，更大的感受野保证了更多的语义信息，这是有利于分类任务的，然而这种较小的特征图空间分辨率太小是不利于大目标和小目标的定位的。</p>
+<p>一个好的backbone应该能解决上述的问题，因此作者提出了DetNet。由于目标的尺度变化，因此DetNet也类似FPN那样使用了额外的stage，不过即使在额外的stage中，空间分辨率不会进行下采样从而保持不变。但是，高分辨率特征图的代价就是会带来比较多的计算量，因此作者设计了一个膨胀bottleneck来保证DetNet的高效。</p>
+<h2 id="DetNet"><a href="#DetNet" class="headerlink" title="DetNet"></a>DetNet</h2><h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>分类网络不适用于目标检测，因此诞生了一些新的方法如Feature Pyramid Network（FPN），如下图的A所示。使用FPN以及膨胀卷积是后来目标检测器的常用配置，不过这些检测方法仍然存在一些问题。</p>
+<p><img src="https://i.loli.net/2021/02/02/REr2cKCV3TxkoNe.png" alt=""></p>
+<ol>
+<li><strong>网络的stage数目不同。</strong> 上图的B是经典的分类网络，它由5个stage组成（上图各个网络第一个stage没有画出来），每个stage会下采样2倍，因此最终会下采样$2^5 = 32$倍。但是FPN在此基础上上添加了新的stage即P6，RetinaNet添加了P6和P7来处理大目标，这些stage是无法在ImageNet上预训练的。</li>
+<li><strong>大目标识别能力差。</strong> 较高的下采样倍率会产生更多的语义信息，但也会丢失细节信息因而不利于目标的定位。FPN中，大目标的识别和定位由较深层进行，此时目标的边界细节其实已经严重丢失，因此回归的难度很大。</li>
+<li><strong>小目标识别能力差。</strong> 随着特征图空间分辨率的降低以及上下文信息的整合，小目标信息很容易被削弱（因为其信息本身就不多）。因此，FPN在较浅层进行小目标的预测，然而浅层不具有充分的语义信息，无法满足分类的需要，因此检测器必须使用深层的语义信息包含的上下文信息来加强它，这就是上图A所示的自底向上的路径的由来，深层特征图是通过上采样和上层特征图融合的。但是，当小目标由于不断地下采样，在深层特征图上丢失的时候，其实它也就没有所谓的上下文信息了。</li>
+</ol>
+<p>为了解决这些问题，DetNet其实有几个初衷。一方面，DetNet所有层都是可以在ImageNet上预训练的，另一方面希望得到兼具高分辨率和高语义的特征。</p>
+<h3 id="结构设计"><a href="#结构设计" class="headerlink" title="结构设计"></a>结构设计</h3><p>DetNet以最常用的ResNet50为baseline，并保证1-4的stage和ResNet50一致。要设计一个适用于目标检测的backbone其实主要有两个难点，一方面，保证网络输出的高分辨率是非常消耗算力的；另一方面，减少下采样倍率会导致语义信息不充分，从而有害于分类等任务。DetNet就是精心设计来处理这两个难点的，它的前4个stage和ResNet50一样，区别从第5个stage开始。<strong>需要说明的是，这个网络当然也要适用于分类任务，因为需要在ImageNet上预训练。</strong></p>
+<p>首先，DetNet从stage4开始，下采样倍率维持16不变，并且引入了新的stage即P6来用于后续的目标检测任务，这和FPN是类似的。</p>
+<p>接着，为了保证stage4之后的特征图尺寸不变，每个stage会首先经过一个以1x1卷积（这个1x1卷积其实担负了跨通道的信息融合的作用，非常有效）为核心的膨胀bottleneck中，它的结构如下图B所示，它使用了膨胀卷积来扩大感受野。膨胀卷积也是很消耗算力的，所以stage5和stage6的通道数不会像ResNet那样加倍，而是保持不变，以此减少计算开销。整个网络和FPN类似，最后的几个stage如下图的D和E，在整个数据流动过程中和ResNet是类似的，只是重复B模块和A模块，但是，在自底向上进行特征图融合的时候，经过一个1x1卷积来进行跨stage的信息融合。</p>
+<p><img src="https://i.loli.net/2021/02/02/QLbDGK9qT2lImsf.png" alt=""></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>按照一般的设置预训练backbone并用于检测，和其他方法的对比如下，实验表明，DetNet59其实是在精度上对标ResNet101的，但是算力消耗上其实只比ResNet50多一些。</p>
+<p><img src="https://i.loli.net/2021/02/02/P5fcwh1xdsLzq6R.png" alt=""></p>
+<p>同时，作为一个设计用于目标检测的backbone，它不在ImageNet上预训练的表现如何呢，如下表所示，效果也是比ResNet50好不少的。</p>
+<p><img src="https://i.loli.net/2021/02/02/5IFzDcTYxXp87v3.png" alt=""></p>
+<p>作者也在准确率和召回率方面做了实验，可以看到，DetNet在大物体的准确率上提升其实挺大的，且IOU阈值越大越显著，这也说明其最终特征图还保留不少分辨率信息，对定位很有效。此外，IOU阈值要求不高的时候，小目标召回率很高，这说明它也能很好处理小目标漏检问题。</p>
+<p><img src="https://i.loli.net/2021/02/02/bj8ZpAJxVeigGs5.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/02/02/9bM8F7uJCliApBK.png" alt=""></p>
+<p>当然，作者也做了实验证明了我之前所说的那个1x1卷积的巨大效果，还有膨胀卷积的实验我这里就不贴了。</p>
+<p><img src="https://i.loli.net/2021/02/02/sQKg3qr1TAuoRft.png" alt=""></p>
+<p>最后附上一张在检测赛道上和SOTA的对比，提升还是蛮显著的，这篇文章的实验也非常丰富。</p>
+<p><img src="https://i.loli.net/2021/02/02/DpqN2LRXde1ztZf.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来说，DetNet针对图像分类模型不适用于目标检测任务进行了改进，在backbone上做文章还取得了很不错的效果，实现简单，计算量小，也不需要太多的trick，还是很值得了解的。</p>
+<p><img src="https://i.loli.net/2021/02/02/HnCQwRhbdqya3O6.png" alt=""></p>
 
                 
             </div>
@@ -552,8 +564,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">CSTrack解读</span>
+                                <a href="/tags/DetNet%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">DetNet解读</span>
                                 </a>
                             
                         </div>
@@ -724,7 +736,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-11-20T09-01-47',
+        id: '2021-02-02T15-03-55',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -750,17 +762,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/22/efficientdet/">
+                <a href="/2021/02/02/detnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="EfficientDet 解读">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="DetNet解读">
                         
-                        <span class="card-title">EfficientDet 解读</span>
+                        <span class="card-title">DetNet解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -770,9 +783,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -785,11 +798,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">EfficientDet解读</span>
+                    <a href="/tags/DetNet%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">DetNet解读</span>
                     </a>
                     
                 </div>
@@ -803,13 +817,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/13/dcn-reppoints/">
+                <a href="/2021/01/21/mlt/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="DCN &amp; RepPoints解读">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="MLT解读">
                         
-                        <span class="card-title">DCN &amp; RepPoints解读</span>
+                        <span class="card-title">MLT解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -820,7 +834,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
                             </span>
                         <span class="publish-author">
                             
@@ -837,12 +851,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DCN%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">DCN解读</span>
-                    </a>
-                    
-                    <a href="/tags/RepPoints%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">RepPoints解读</span>
+                    <a href="/tags/MLT%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">MLT解读</span>
                     </a>
                     
                 </div>

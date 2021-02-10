@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="FcaNet解读, Chen&#39;s blog">
+    <meta name="keywords" content="DEFT解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>FcaNet解读 | Chen&#39;s blog</title>
+    <title>DEFT解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -318,7 +318,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">FcaNet解读</h1>
+                    <h1 class="description center-align post-title">DEFT解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/FcaNet%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">FcaNet解读</span>
+                            <a href="/tags/DEFT%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">DEFT解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-18
+                    2021-02-10
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    3.8k
                 </div>
                 
 
@@ -493,75 +493,59 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>注意力机制，特别是通道注意力机制在计算机视觉中取得了巨大的成功，很多工作着重于设计更加高效的通道注意力结构，却忽略了一个重要的问题，那就是为了得到每个通道全局表示所使用的全局平均池化（Global Average Pooling，GAP）真的合适吗？FcaNet这篇文章，作者从频域角度重新思考GAP，为了弥补了现有通道注意力方法中特征信息不足的缺点，将GAP推广到一种更为一般的2维的离散余弦变换（DCT）形式，通过引入更多的频率分量来充分的利用信息。设计的高效Fca模块甚至在现有的通道注意力方法基础上，只需要修改一行代码即可实现。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近不少2D多目标跟踪（Multiple Object Tracking，MOT）的成果表明，使用SOTA检测器加上简单的基于空间运动的帧间关联就可以获得相当不错的跟踪表现，它们的效果优于一些使用外观特征进行重识别丢失轨迹的方法。Uber等最近提出的DEFT（Detection Embeddings for Tracking）是一种联合检测和跟踪的模型，它是一个以检测器为底层在上层构建基于外观的匹配网络的框架设计。在二维跟踪上，它能达到SOTA效果并具有更强的鲁棒性，在三维跟踪上它达到了目前SOTA方法的两倍性能。</p>
 <ul>
 <li><p>论文标题</p>
-<p>  FcaNet: Frequency Channel Attention Networks</p>
+<p>  DEFT: Detection Embeddings for Tracking</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2012.11879">http://arxiv.org/abs/2012.11879</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2102.02267">http://arxiv.org/abs/2102.02267</a></p>
 </li>
 <li><p>论文源码</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/dcdcvgroup/Fcanet">https://github.com/dcdcvgroup/Fcanet</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/MedChaabane/DEFT">https://github.com/MedChaabane/DEFT</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>注意力机制在计算机视觉中受到了广泛的关注，它让网络更加关注于部分重要的信息，按照作用维度的不同，我们将注意力分为空间注意力、通道注意力和自注意力，其中，由于简单高效，下图所示的通道注意力直接对不同的通道加权，成为一种主流的注意力范式。</p>
-<p><img src="https://i.loli.net/2021/01/18/lC34dQHptugA6M7.png" alt=""></p>
-<p>SENet和ECANet致力于设计不同的通道加权函数，如全连接或者一维卷积，然后这些函数的输入都是每个通道一个标量，这个标量默认都是来自于GAP，这是因为GAP相当的简洁高效，但是GAP也有不可忽略的问题，那就是GAP没办法捕获丰富的输入表示，这就导致了经过GAP得到的特征缺乏多样性，这主要是因为GAP对一个通道所有空间元素取其均值，而这个均值其实不足以表达不同通道的信息。</p>
-<p>作者对全局平均池化即GAP进行了理论上的分析，最终得出如下结论：首先，不同的通道有极大概率出现相同的均值，然而它们的语义信息是不同的，换句话说，GAP抑制的通道之间的多样性；其次，从频域角度来看，作者证明了GAP其实是离散余弦变换（DCT）的最低频分量，这其实忽略了很多其他有用的分量；最后，CBAM的成功也佐证了只使用GAP得到的信息是不足够的。</p>
-<p>在这些结论的基础上，作者设计了一种新的高效多谱通道注意力框架。该框架在GAP是DCT的一种特殊形式的基础上，在频域上推广了GAP通道注意力机制，提出使用有限制的多个频率分量代替只有最低频的GAP。通过集成更多频率分量，不同的信息被提取从而形成一个多谱描述。此外，为了更好进行分量选择，作者设计了一种二阶段特征选择准则，在该准则的帮助下，提出的多谱通道注意力框架达到了SOTA效果。</p>
-<h2 id="方法论"><a href="#方法论" class="headerlink" title="方法论"></a>方法论</h2><h3 id="通道注意力"><a href="#通道注意力" class="headerlink" title="通道注意力"></a>通道注意力</h3><p>通道注意力的权重学习如下式所示，它表示输入经过GAP处理后由全连接层学习并经过Sigmoid激活得到加权的mask。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>卷积神经网络的发展推动了目标检测领域的进步，TBD范式（Tracking by Detection）的MOT也取得巨大的突破，最近的研究表明，在SOTA跟踪器上添加简单的跟踪机制就可以比依赖旧检测架构的复杂跟踪器效果更好。TBD范式的跟踪框架通常有两步：<strong>检测</strong>：在当前帧检测出所有目标；<strong>关联</strong>：将当前帧上的目标和之前帧上的目标进行链接。跨帧关联的方法有很多，但是那些特征可学习关联方法通常更有趣一些，因为它们有望解决建模和启发式方法失败的情况。</p>
+<p>即使有了可学习关联，二阶段方法也可能产生准确性和效率方面的次优结果。因此最近的一个趋势就是在一个网络中联合学习检测和跟踪任务，这会带来性能上的提升。可以假设，一个可学习的目标匹配模块可以添加到主流的CNN检测器中，从而产生高性能的多目标跟踪器，进而通过联合训练检测和跟踪（关联）模块，两个模块彼此适应实现更好的性能。相比于那种将检测作为黑盒模型输入到关联模块中，这种让目标检测和帧间关联共享backbone的思路会有更好的速度和精度。</p>
+<p>所以这篇论文的作者提出了DEFT这个新的方法，在该方法中每个目标的embedding（我这里翻译为嵌入）通过多尺度检测backbone获得，并且这个embedding作为后续的object-to-track关联子网络的外观特征。DEFT可以灵活用于多个常见的目标检测backbone上，并且由于检测和跟踪共享特征的特性，这种使用外观和运动信息的方法在速度上相比于那些使用更简单的关联策略的方法在速度上页不遑多让。</p>
+<h2 id="DEFT"><a href="#DEFT" class="headerlink" title="DEFT"></a>DEFT</h2><p>下面来看整个DEFT的网络设计，总体来说，它是非常类似JDE和FairMOT的一个工作。基于TBD范式，DEFT提出应该使用目标检测器（本文将目标检测器作为backbone）的中间特征图来提取目标的embedding从而用于目标匹配子网络。如下图所示，单看上半部分其实就是整个网络的结构，图像进入上面的Detector分支，同时检测器的不同stage的特征图用于下面的Embedding Extractor模块的外观特征学习，不同帧间的检测目标的外观特征送入Matching Head中获得关联相似度得分矩阵。</p>
+<p>在DEFT中检测器和目标匹配网络是联合训练的，训练时，目标匹配网络的损失会反传给检测backbone从而优化外观特征的提取和检测任务的表现。此外，DEFT还在使用了一个低维的LSTM模块来为目标匹配网络提供几何约束，以避免基于外观的但在空间变化上不可能发生的帧间关联。虽说可以基于多个检测器，DEFT在CenterNet上做了主要的工作，获得了SOTA并且比其他类似方法要快，这种速度上的快时来自于在DEFT中，目标关联只是额外的一个小模块，相比于整个检测任务只会有很小的延时。</p>
+<p><img src="https://i.loli.net/2021/02/10/5XGa7qQdn9f34HI.png" alt=""></p>
+<p>在介绍各个模块之前，我先讲述一下整个DEFT推理时的pipeline，这和上面的训练其实有所不同。如下图所示，Embedding Extractor使用检测backbone多个阶段的特征图和检测框作为输入来获得获得每个目标的外观嵌入。Matching Head使用这些嵌入来计算当前帧目标和历史帧目标（也就是当前轨迹）来计算相似度。之后，一个使用LSTM的运动预测模块会对相似度矩阵进行限制，从而保证那些物理上不可能产生的轨迹的链接。最后，匈牙利算法会基于相似度矩阵计算最终的在线匹配结果，将检测结果链接到轨迹上。</p>
+<p><img src="https://i.loli.net/2021/02/10/PHdiypFRKQO6qkh.png" alt=""></p>
+<p>下面我们按照论文第三章的叙述思路来详细理解这个网络，下面的叙述还是基于下图，不过我会忽略一些细节上的数学表示。</p>
+<p><img src="https://i.loli.net/2021/02/10/5XGa7qQdn9f34HI.png" alt=""></p>
+<h3 id="Object-Embeddings"><a href="#Object-Embeddings" class="headerlink" title="Object Embeddings"></a>Object Embeddings</h3><p>在图中对应的为Embedding Extractor，该模块从检测backbone的中间特征图提取具有表示意义的embedding，在跟踪的过程中帮助关联（或者叫re-identify）。从图中可以看到，这个模块的输入是检测器的多个stage的特征图（每个特征图有不同的尺度，即有不同的感受野），这种策略会提高单感受野策略的鲁棒性。DEFT网络的输入是视频中的一帧图像，检测head会输出包含多个目标的检测结果的bbox集$\mathrm{B}_{t}=\left{b_{1}^{t}, b_{2}^{t}, \ldots, b_{N_{t}}^{t}\right}$，不妨用$N_{t}=\left|\mathrm{B}_{t}\right|$来表示这一帧检测框的数目。</p>
+<p>对每个检测到的目标，依据其2D检测框中心点来提取object embedding，对于3D检测框，则将其中心点投影到二维空间。那么如何将这个中心点在各stage的特征图上找到特征呢，其实这里就是做了一个简单的比例映射。对于在size为$W\times H$的图像上第$i$个目标的中心点坐标为$(x, y)$，对当前图像又存在$M$个选择的stage的特征图，该目标在第$m$个size为$W_{m} \times H_{m} \times C_{m}$的特征图上映射的中心点坐标为$\left(\frac{y}{H} H_{m}, \frac{x}{W} W_{m}\right)$，在这个第$m$个特征图上包含一个$C_m$维度的特征向量，这就是这个stage特征图上目标的object embedding，记为$f_i^m$，然后将$M$个stage通过这种方式得到的特征图级联（concatenate）到一起，得到该目标的object embedding，记为$f_{i}=f_{i}^{1} \cdot f_{i}^{2} \ldots f_{i}^{M}$，它是一个$e$维向量。<strong>不过，由于不同stage特征图上通道数是不同的，一般是浅层channel少，高层channel多，所以对第$m$个特征图处理之前，作者使用1x1卷积对浅层特征图进行升维对高层特征图进行降维，使得不同stage含有的特征量在最终的object embedding中分布合理。</strong></p>
+<h3 id="Matching-Head"><a href="#Matching-Head" class="headerlink" title="Matching Head"></a>Matching Head</h3><p>关于最后这个Matching Head，作者思路采用的是DAN（Deep Affinity Network，是端到端数据关联的一个著名成果）的思路，使用object embedding作为输入来估计两帧之间两两相似度得分。首先，对每一帧设定最大目标个数的限制$N_{max}$，那么就可以构建张量$E_{t, t-n} \in \mathbb{R}^{N_{\max } \times N_{\max } \times 2 e}$，它通过将$t$帧中的每个object embedding和$t-n$帧的每个object embedding沿着深度维度级联。为了保证$E_{t, t-n}$维度固定，会进行补零操作。这个汇总得到的$E_{t, t-n}$会被输入Matching Head，这个匹配模块由几层1x1卷积构成，该Head的输出就是相似度矩阵$A_{t, t-n} \in \mathbb{R}^{N_{\max } \times N_{\max }}$。</p>
+<p>尽管我们学习到了嵌入之间的相似性，然而不能保证沿着帧前向和后向的相似度得分是对称的，即$t$和$t-n$之间的相似度与$t-n$和$t$之间的相似度是不同的。因此对两个方向分别计算相似度矩阵，用下标’fwd’和’bwd’表示前向和后向。同时为了考虑有些目标不参与关联（新目标或者离开场景的目标），在相似度矩阵$A_{t,t-n}$添加一列填充常数值$c$，对$A_{t,t-n}$每一行应用softmax可以得到矩阵$\hat{A}^{b w d}$，它表示包括非匹配分数在内的最终相似度。$c$的选择并不是特别敏感的，网络会学会为大于$c$的进行真实匹配。</p>
+<p>每个$\hat{A}^{b w d}[i, j]$表示两个目标框$b_i^t$和$b_j^{t-n}$的估计关联概率，$\hat{A}^{b w d}\left[i, N_{\max }+1\right]$则表示$b_i^t$是一个不在$t-n$帧中出现的目标的概率。类似的，前向相似度矩阵$\hat{A}^{f w d}$通过对原始相似度矩阵的转置$A_{t, t-n}^{T}$添加列并逐行softmax得到。在推理过程中，目标框$b_i^t$和$b_j^{t-n}$之间的相似度为$\hat{A}^{b w d}[i, j]$和$\hat{A}^{f w d}[j, i]$的平均值。</p>
+<h3 id="Online-Data-Association"><a href="#Online-Data-Association" class="headerlink" title="Online Data Association"></a>Online Data Association</h3><p>在DEFT中，保留了最近$\delta$帧中存在的轨迹的每个目标的object embedding，这些组成了memory。一个新bbox和已有轨迹的关联需要计算这个bbox对象和memory中所有轨迹目标的相似度。为了应对遮挡和漏检，track memory会维持几秒，以便新检测和之前的目标高度相关时，进行轨迹恢复。如果一个轨迹$N_{age}$帧都没有匹配上，那么它会被删除。</p>
+<p>对于轨迹$T$的定义是一个相关联的检测框集合，来自于$t-n$帧到$t-1$帧，注意，不是每一帧该轨迹都有检测框，可能某一帧没有对应的检测结果。轨迹的长度显然为$T$，它表示检测框数目或者object embedding数目。那么，可以定义当前的第$t$帧上的第$i$个检测框$b_i^t$与第$j$个轨迹$T_j$之间的距离为下面的式子。</p>
 <script type="math/tex; mode=display">
-a t t=\operatorname{sigmoid}(f c(\operatorname{gap}(X)))</script><p>然后，mask与原始输入经过下式逐通道相乘得到注意力操作后的输出。</p>
-<script type="math/tex; mode=display">
-\tilde{X}_{:, i,:,:}=a t t_{i} X_{:, i,:, :}, \text { s.t. } i \in\{0,1, \cdots, C-1\}</script><h3 id="离散余弦变化"><a href="#离散余弦变化" class="headerlink" title="离散余弦变化"></a>离散余弦变化</h3><p>DCT是和傅里叶变换很相似，它的基本形式如下，$f \in \mathbb{R}^{L}$为DCT的频谱，$x \in \mathbb{R}^{L}$为输入，$L$为输入的长度。</p>
-<script type="math/tex; mode=display">
-f_{k}=\sum_{i=0}^{L-1} x_{i} \cos \left(\frac{\pi k}{L}\left(i+\frac{1}{2}\right)\right), \text { s.t. } k \in\{0,1, \cdots, L-1\}</script><p>进而，我们推广得到二维DCT如下，$f^{2 d} \in \mathbb{R}^{H \times W}$是二维DCT的频谱，$x^{2 d} \in \mathbb{R}^{H \times W}$是输入，$H$和$W$是输入的高和宽。</p>
-<script type="math/tex; mode=display">
-\begin{array}{l}
-f_{h, w}^{2 d}=\sum_{i=0}^{H-1} \sum_{j=0}^{W-1} x_{i, j}^{2 d} \underbrace{\cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right)}_{\text {DCT weights }} \quad  
-\text { s.t. } h \in\{0,1, \cdots, H-1\}, w \in\{0,1, \cdots, W-1\}
-\end{array}</script><p>同样，逆DCT变换的公式就如下了。</p>
-<script type="math/tex; mode=display">
-\begin{array}{l}
-x_{i, j}^{2 d}=\sum_{h=0}^{H-1} \sum_{w=0}^{W-1} f_{h, w}^{2 d} \underbrace{\cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right)}_{\text {DCT weights }} \quad
-\text { s.t. } i \in\{0,1, \cdots, H-1\}, j \in\{0,1, \cdots, W-1\} 
-\end{array}</script><p>上面两个式子中，为了简单起见，移除了一些常数标准化约束因子。DCT变换属于信号处理领域的知识，是JPEG图像压缩的核心算法，相当于是对重要信息的聚集。其实从这里可以看出来，DCT变换其实也是一种对输入的加权求和，式子中的余弦部分就是权重。因此，GAP这种均值运算可以认为是输入的最简单频谱，这显然是信息不足的，因此作者引出了下面的多谱通道注意力。</p>
-<h3 id="多谱通道注意力"><a href="#多谱通道注意力" class="headerlink" title="多谱通道注意力"></a>多谱通道注意力</h3><p>这里作者首先按证明了GAP其实是二维DCT的特例，其结果和二维DCT的最低分量成比例。这个证明作者是令$h$和$w$都为0得到的，其中$f_{0,0}^{2 d}$表示二维DCT最低频分量，显然，结果来看它与GAP成正比。</p>
+d\left(b_{i}^{t}, \mathrm{~T}_{j}\right)=\frac{1}{\left|\mathrm{~T}_{j}\right|} \sum_{b_{k}^{t-n} \in \mathrm{T}_{j}} \frac{\hat{A}_{t, t-n}^{f w d}[k, i]+\hat{A}_{t, t-n}^{b w d}[i, k]}{2}</script><p>检测框和轨迹T_j的匹配满足互斥对应原则，是一个二分图匹配问题，记$K = {T_j}$为当前轨迹集，构建检测集到轨迹集的相似度矩阵$D \in \mathbb{R}^{|K| \times\left(N_{t}+|K|\right)}$，它来自于所有检测和轨迹的size为$|K| \times N_t$逐对距离矩阵追加一个size为$K \times K$的矩阵$X$，这个$X$表示当一个轨迹不和任何当前帧的检测关联的情况。$X$对角线上的元素为轨迹中所有检测的平均不匹配得分，非对角线元素设置为$-\infty$，具体而言，$D$按照下式构建。</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-f_{0,0}^{2 d} &=\sum_{i=0}^{H-1} \sum_{j=0}^{W-1} x_{i, j}^{2 d} \cos \left(\frac{0}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\theta}{W}\left(j+\frac{1}{2}\right)\right) \\
-&=\sum_{i=0}^{H-1} \sum_{j=0}^{W-1} x_{i, j}^{2 d} \\
-&=g a p\left(x^{2 d}\right) H W
-\end{aligned}</script><p>通过上面的结论，自然会想到将其他分量引入通道注意力中，首先，为了叙述方便，将二维DCT的基本函数记为$B_{h, w}^{i, j}=\cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right)$，继而将逆二维DCT变换改写如下，</p>
-<script type="math/tex; mode=display">
-\begin{array}{l}
-x_{i, j}^{2 d}=\sum_{h=0}^{H-1} \sum_{w=0}^{W-1} f_{h, w}^{2 d} \cos \left(\frac{\pi h}{H}\left(i+\frac{1}{2}\right)\right) \cos \left(\frac{\pi w}{W}\left(j+\frac{1}{2}\right)\right) \\
-\stackrel{简写为B}{=} f_{0,0}^{2 d} B_{0,0}^{i, j}+f_{0,1}^{2 d} B_{0,1}^{i, j}+\cdots+f_{H-1, W-1}^{2 d} B_{H-1, W-1}^{i, j} \\
-\stackrel{GAP特殊形式结论}{=} g a p\left(x^{2 d}\right) H W B_{0,0}^{i, j}+f_{0,1}^{2 d} B_{0,1}^{i, j}+\cdots+f_{H-1, W-1}^{2 d} B_{H-1, W-1}^{i, j} \\
-\text { s.t. } i \in\{0,1, \cdots, H-1\}, j \in\{0,1, \cdots, W-1\}
-\end{array}</script><p>由这个式子其实不难发现，此前的通道注意力只应用了第一项的最低频分量部分，而没有使用下式表示的后面其他部分，这些信息都被忽略了。</p>
-<script type="math/tex; mode=display">
-X=\underbrace{g a p(X) H W B_{0,0}^{i, j}}_{\text {utilized }}+\underbrace{f_{0,1}^{2 d} B_{0,1}^{i, j}+\cdots+f_{H-1, W-1}^{2 d} B_{H-1, W-1}^{i, j}}_{\text {discarded }}</script><p>基于此，作者设计了多谱注意力模块（Multi-Spectral Attention Module，），该模块通过推广GAP采用更多频率分量从而引入更多的信息。</p>
-<p>首先，输入$X$被沿着通道划分为多块，记为$\left[X^{0}, X^{1}, \cdots, X^{n-1}\right]$，其中每个$X^{i} \in \mathbb{R}^{C^{\prime} \times H \times W}, i \in{0,1, \cdots, n-1}, C^{\prime}=\frac{C}{n}$，每个块分配一个二维DCT分量，那么每一块的输出结果如下式。</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-F r e q^{i} &=2 \mathrm{DDCT}^{u, v}\left(X^{i}\right) \\
-&=\sum_{h=0}^{H-1} \sum_{w=0}^{W-1} X_{:, h, w}^{i} B_{h, w}^{u, v} \\
-& \text { s.t. } i \in\{0,1, \cdots, n-1\}
-\end{aligned}</script><p>上式中的$[u, v]$表示2DDCT的分量下标，这就对每一块采用不同的频率分量了，因此下式得到最终的输出$Freq \in \mathbb{R}^{C}$就是得到的多谱向量，然后再将这个向量送入通道注意力常用的全连接层中进行学习得到注意力图。</p>
-<script type="math/tex; mode=display">
-\text { Freq }=\operatorname{cat}\left(\left[\text { Fre } q^{0}, \text { Fre } q^{1}, \cdots, \text { Freq }^{n-1}\right]\right)</script><script type="math/tex; mode=display">
-m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是全部的多谱注意力模块的设计了，现在，下图这个FcaNet整体框架中间的一部分就看得明白了，唯一留下的问题就是对分割得到的每个特征图块，如何选择$[u,v]$呢？事实上，对空间尺寸为$H\times W$的特征图，会有$HW$个频率分量，由此频率分量的组合共有$CHW$种，遍历显然是非常费时的，因此，文中设计了一种启发式的两步准则来选择多谱注意力模块的频率分量，其主要思想是先得到每个频率分量的重要性再确定不同数目频率分量的效果。具体而言，先分别计算通道注意力中采用各个频率分量的结果，然后，根据结果少选出topk个性能最好的分量。</p>
-<p><img src="https://i.loli.net/2021/01/18/6rVxBHFSzWh1y2L.png" alt=""></p>
-<p>到这里，整个FcaNet的方法论就说明完了，下面作者还进行了一些讨论，包括计算复杂度和修改难度。复杂度方面，相比于SENet没有引入额外参数，因为2DDCT权重是预先计算好的，相比于SENet增加的计算量几乎可以忽略不记。此外，2DDCT可以认为是对输入的加权求和，因此它可以通过逐元素乘加实现，在原本通道注意力代码基础上前向计算只需要修改一行，其PyTorch实现如下图。</p>
-<p><img src="https://i.loli.net/2021/01/18/Buk6VcWI94Hsvy8.png" alt=""></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者首先经过实验对比了单个频率分量的有效性，具体的实验配置可以查看原论文，不过，实验最终验证当$[u,v]$为[0,0]时效果是最好的，这就是GAP操作，下图同时也验证了深度模型对低频分量更关注的事实。但是，虽然其他分量效果不及GAP，但也是含有大量有效信息的，因此加进去是合理的。</p>
-<p><img src="https://i.loli.net/2021/01/18/pX18sD5VUnTjAP7.png" alt=""><br>接着，在知道了哪些分量更好的前提下，作者对分量的数目进行了实验，结果如下表，Number=1的GAP效果弱于其他各种Number选择的多谱注意力，Number=16时效果最好。</p>
-<p><img src="https://i.loli.net/2021/01/18/GRj4bQWqHakvB6d.png" alt=""></p>
-<p>最后，作者也将本文设计的FcaNet和其他注意力网络进行对比，在分类、检测和分割等benchmark上和其他方法对比，在分类和检测上都有比较明显的提高，下图所示为ImageNet上分类任务结果，其他的我这里就不展示了，可以查看原文。</p>
-<p><img src="https://i.loli.net/2021/01/18/CwsgWMS1rPOKG9b.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文是依据可靠数学进行的理论创新，一改此前通道注意力的结构设计思路，将关注重心放在了GAP是DCT的特例这一推导下，从而设计了多谱通道注意力，取得了相当不错的成果。将思路转到频域还是非常新颖的，虽然一行代码的说法略显牵强，最终的性能也是坐等开源再说，总体来看，FcaNet还是值得了解的注意力文章。</p>
+D &=[S \mid X] \\
+S[j, i] &=d\left(b_{i}^{t}, \mathrm{~T}_{j}\right) \\
+X[j, k] &=\left\{\begin{array}{ll}
+\frac{1}{\left|\mathrm{~T}_{j}\right|} \sum_{b_{k}^{t-n} \in \mathrm{T}_{j}} \hat{A}_{t, t-n}^{f w d}\left[k, N_{\max }+1\right] & j=k \\
+-\infty, & j \neq k
+\end{array}\right.
+\end{aligned}</script><p>接着，只要将$D$送入匈牙利算法中进行求解即可。只有亲和度大于阈值$\gamma_1$会被关联，为被匹配的检测会作为新的轨迹，连续$N_age$帧没被匹配到的轨迹会被认为离开场景，从而删除。</p>
+<h3 id="Motion-Forecasting"><a href="#Motion-Forecasting" class="headerlink" title="Motion Forecasting"></a>Motion Forecasting</h3><p>如果仅仅使用学习到的外观嵌入进行帧间匹配，那么很可能出现两个目标其实真的外观空间上很相似，从而造成匹配上的问题。常见的手段是添加一个几何或者时间约束来限制匹配，常用的是卡尔曼滤波或者LSTM。论文采用的是LSTM设计运动预测模块，该模块会依据过去$\Delta T_{\text {past}}$帧预测未来$\Delta T_{\text {pred }}$帧轨迹所在的位置。这个运动预测模块用来约束那些物理上不可能存在的关联，它将距离轨迹预测位置太远的检测框的相似度距离置为$-\infty$。这个模块的具体设计细节可以查看原论文的补充材料。</p>
+<h3 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h3><p><img src="https://i.loli.net/2021/02/10/5XGa7qQdn9f34HI.png" alt=""></p>
+<p>如上图所示，为了训练网络的匹配模块，训练时将间隔$n$帧的一个两帧组成的帧对（pair）输入网络。图像对被$1≤n≤n_{gap}$的随机数帧分开，以鼓励网络学习对临时遮挡或漏检具有鲁棒性。对每个输入帧对，会有两个ground truth的匹配矩阵$M^{fwd}$和$M^{bwd}$分别表示前向和后向关联，这个矩阵每个元素$[i, j] \in{0,1}$并且维度为$N_{\max } \times\left(N_{\max }+1\right)$来允许未被关联的目标。矩阵中为$1$的位置表示一个关联或者未被关联的目标，其他情况为$0$。</p>
+<p>匹配损失由前向匹配损失$\mathcal{L}_{\text {matcl }}^{b w d}$和后向匹配损失$\mathcal{L}_{\text {matcl }}^{b w d}$平均组成，前者表示$t$帧和$t-n$帧的匹配误差，后者相反。具体定义如下。</p>
+<script type="math/tex; mode=display">\begin{aligned} \mathcal{L}_{\text {match }}^{*} &=\sum_{i=1}^{N_{\max }} \sum_{j=1}^{N_{\max }+1} M^{*}[i, j] \log \left(\hat{A}^{*}[i, j]\right), \\ \mathcal{L}_{\text {match }} &=\frac{\mathcal{L}_{\text {match }}^{f w d}+\mathcal{L}_{\text {match }}^{b w d}}{2\left(N_{t}+N_{t-n}\right)} \end{aligned}</script><p>整个网络的训练损失由匹配损失和检测器损失构成，它俩的相对权重网络自动学习得到。</p>
+<script type="math/tex; mode=display">\mathcal{L}_{\text {joint }}=\frac{1}{e^{\lambda_{1}}}\left(\frac{\mathcal{L}_{\text {detect }}^{t}+\mathcal{L}_{\text {detect }}^{t-n}}{2}\right)+\frac{1}{e^{\lambda_{2}}} \mathcal{L}_{\text {match }}+\lambda_{1}+\lambda_{2}</script><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>数据集使用的是MOT16、MOT17和KITTI作为2D评估，nuScenes作为3D评估标准数据集。</p>
+<p>首先是对比多个backbone检测器，效果如下图，发现CenterNet效果最好，所以后面都采用CenterNet作为backbone。</p>
+<p><img src="https://i.loli.net/2021/02/10/eg8FmGyZpckjEqB.png" alt=""></p>
+<p>在MOT17、KITTI和nuScenes上的与其他方法对比如下，均达到了SOTA表现，作者还进行了效果分析和消融实验，感兴趣的可以查看原论文（包括补充材料）。</p>
+<p><img src="https://i.loli.net/2021/02/10/Qljqs2OTNoFvbht.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/02/10/N6pkR2BD3tdZYFE.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/02/10/zUVAYCOmIXDdoj3.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>论文提出了一种新的联合检测和跟踪的MOT方法，在多个基准上达到SOTA表现，可以在主流的目标检测器的基础上构建，非常灵活高效，是值得关注的MOT新方法。</p>
 
                 
             </div>
@@ -591,8 +575,8 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/FcaNet%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">FcaNet解读</span>
+                                <a href="/tags/DEFT%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">DEFT解读</span>
                                 </a>
                             
                         </div>
@@ -763,7 +747,7 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-01-18T14-47-00',
+        id: '2021-02-10T15-20-07',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -789,17 +773,18 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/01/21/mlt/">
+                <a href="/2021/02/10/deft/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="MLT解读">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="DEFT解读">
                         
-                        <span class="card-title">MLT解读</span>
+                        <span class="card-title">DEFT解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -809,9 +794,9 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -824,11 +809,12 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MLT%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">MLT解读</span>
+                    <a href="/tags/DEFT%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">DEFT解读</span>
                     </a>
                     
                 </div>
@@ -842,13 +828,13 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/12/transtrack/">
+                <a href="/2021/02/02/detnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="TransTrack解读">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="DetNet解读">
                         
-                        <span class="card-title">TransTrack解读</span>
+                        <span class="card-title">DetNet解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -859,7 +845,7 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-02
                             </span>
                         <span class="publish-author">
                             
@@ -876,8 +862,8 @@ m s_{-} a t t=\operatorname{sigmoid}(f c(\text { Freq }))</script><p>这就是�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/TransTrack%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">TransTrack解读</span>
+                    <a href="/tags/DetNet%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">DetNet解读</span>
                     </a>
                     
                 </div>

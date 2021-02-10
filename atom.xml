@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-02-02T07:04:24.668Z</updated>
+  <updated>2021-02-10T07:21:28.018Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DEFT解读</title>
+    <link href="https://zhouchen1998.cn/2021/02/10/deft/"/>
+    <id>https://zhouchen1998.cn/2021/02/10/deft/</id>
+    <published>2021-02-10T07:20:07.000Z</published>
+    <updated>2021-02-10T07:21:28.018Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;最近不少2D多目标跟踪（Multiple Object</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="DEFT解读" scheme="https://zhouchen1998.cn/tags/DEFT%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>DetNet解读</title>
@@ -501,31 +526,6 @@
     
     
     <category term="Matplotlib动态图" scheme="https://zhouchen1998.cn/tags/Matplotlib%E5%8A%A8%E6%80%81%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DY-ReLU论文解读</title>
-    <link href="https://zhouchen1998.cn/2020/09/15/dy-relu/"/>
-    <id>https://zhouchen1998.cn/2020/09/15/dy-relu/</id>
-    <published>2020-09-15T07:23:16.000Z</published>
-    <updated>2020-09-15T07:27:33.788Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Dynamic-ReLU&quot;&gt;&lt;a href=&quot;#Dynamic-ReLU&quot; class=&quot;headerlink&quot; title=&quot;Dynamic ReLU&quot;&gt;&lt;/a&gt;Dynamic</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="Dynamic ReLU" scheme="https://zhouchen1998.cn/tags/Dynamic-ReLU/"/>
     
   </entry>
   

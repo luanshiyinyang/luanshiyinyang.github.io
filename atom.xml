@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-03-08T01:04:13.040Z</updated>
+  <updated>2021-03-08T11:52:04.359Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SA-Net解读</title>
+    <link href="https://zhouchen1998.cn/2021/03/08/sa-net/"/>
+    <id>https://zhouchen1998.cn/2021/03/08/sa-net/</id>
+    <published>2021-03-08T11:51:32.000Z</published>
+    <updated>2021-03-08T11:52:04.359Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;这篇文章是南京大学Yu-Bin</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="SA-Net解读" scheme="https://zhouchen1998.cn/tags/SA-Net%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>CoordAttention解读</title>
@@ -505,31 +530,6 @@
     
     
     <category term="LambdaNetworks" scheme="https://zhouchen1998.cn/tags/LambdaNetworks/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>FairMOT实时多目标跟踪系统</title>
-    <link href="https://zhouchen1998.cn/2020/10/24/fairmot-realtime/"/>
-    <id>https://zhouchen1998.cn/2020/10/24/fairmot-realtime/</id>
-    <published>2020-10-24T02:00:00.000Z</published>
-    <updated>2020-10-24T00:53:03.637Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="多目标跟踪" scheme="https://zhouchen1998.cn/categories/%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/"/>
-    
-    
-    <category term="FairMOT摄像头实时多目标跟踪" scheme="https://zhouchen1998.cn/tags/FairMOT%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/"/>
     
   </entry>
   

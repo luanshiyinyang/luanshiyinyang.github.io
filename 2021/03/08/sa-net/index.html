@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CoordAttention解读, Chen&#39;s blog">
+    <meta name="keywords" content="SA-Net解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CoordAttention解读 | Chen&#39;s blog</title>
+    <title>SA-Net解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CoordAttention解读</h1>
+                    <h1 class="description center-align post-title">SA-Net解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CoordAttention%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">CoordAttention解读</span>
+                            <a href="/tags/SA-Net%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">SA-Net解读</span>
                             </a>
                         
                     </div>
@@ -493,73 +493,49 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在轻量级网络上的研究表明，通道注意力会给模型带来比较显著的性能提升，但是通道注意力通常会忽略对生成空间选择性注意力图非常重要的位置信息。因此，新加坡国立大学的Qibin Hou等人提出了一种为轻量级网络设计的新的注意力机制，该机制将位置信息嵌入到了通道注意力中，称为coordinate attention（简称CoordAttention，下文也称CA），该论文已被CVPR2021收录。不同于通道注意力将输入通过2D全局池化转化为单个特征向量，CoordAttention将通道注意力分解为两个沿着不同方向聚合特征的1D特征编码过程。这样的好处是可以沿着一个空间方向捕获长程依赖，沿着另一个空间方向保留精确的位置信息。然后，将生成的特征图分别编码，形成一对方向感知和位置敏感的特征图，它们可以互补地应用到输入特征图来增强感兴趣的目标的表示。</p>
-<p><img src="https://i.loli.net/2021/03/08/j5ytfTsdqpRFkh9.png" alt=""></p>
-<p>CoordAttention简单灵活且高效，可以插入经典的轻量级网络（如MobileNetV2）在几乎不带来额外计算开销的前提下，提升网络的精度。实验表明，CoordAttention不仅仅对于分类任务有不错的提高，对目标检测、实例分割这类密集预测的任务，效果提升更加明显。</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这篇文章是南京大学Yu-Bin Yang等人于2021年初开放的一篇文章，已经被收录于ICASSP2021，文章提出了一种新的视觉注意力机制，称为Shuffle Attention（置换注意力），它通过置换单元组合空间注意力和通道注意力，相比此前的混合注意力更加高效，是一种非常轻量的注意力结构。实验表明，在ImageNet、COCO等benchmark上，超越了当前的SOTA注意力模型如SE、SGE等，且拥有更低的计算复杂度和参数量。</p>
 <ul>
 <li><p>论文标题</p>
-<p>  Coordinate Attention for Efficient Mobile Network Design</p>
+<p>  SA-Net: Shuffle Attention for Deep Convolutional Neural Networks</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2103.02907">http://arxiv.org/abs/2103.02907</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2102.00240">http://arxiv.org/abs/2102.00240</a></p>
 </li>
 <li><p>论文源码</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/Andrew-Qibin/CoordAttention">https://github.com/Andrew-Qibin/CoordAttention</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/wofmanaf/SA-Net">https://github.com/wofmanaf/SA-Net</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/111302952">注意力机制</a>常用来告诉模型需要更关注哪些内容和哪些位置，已经被广泛使用在深度神经网络中来加强模型的性能。然而，在模型容量被严格限制的轻量级网络中，注意力的应用是非常滞后的，这主要是因为大多数注意力机制的计算开销是轻量级网络负担不起的。</p>
-<p><img src="https://i.loli.net/2021/03/08/97YAhCH2wjGNiVR.png" alt=""></p>
-<p>考虑到轻量级网络有限的计算能力，目前最流行的注意力机制仍然是SENet提出的SE Attention。如上图所示，它通过2D全局池化来计算通道注意力，在相当低的计算成本下提供了显著的性能提升。遗憾的是，SE模块只考虑了通道间信息的编码而忽视了位置信息的重要性，而位置信息其实对于很多需要捕获目标结构的视觉任务至关重要。因此，后来CBAM等方法通过减少通道数继而使用大尺寸卷积来利用位置信息，如下图所示。然而，卷积仅仅能够捕获局部相关性，建模对视觉任务非常重要的长程依赖则显得有些有心无力。</p>
-<p><img src="https://i.loli.net/2021/03/08/pEU62YbflIPk7KD.png" alt=""></p>
-<p>因此，这篇论文的作者提出了一种新的高效注意力机制，通过将位置信息嵌入到通道注意力中，使得轻量级网络能够在更大的区域上进行注意力，同时避免了产生大量的计算开销。为了缓解2D全局池化造成的位置信息丢失，论文作者将通道注意力分解为两个并行的1D特征编码过程，有效地将空间坐标信息整合到生成的注意图中。更具体来说，作者利用两个一维全局池化操作分别将垂直和水平方向的输入特征聚合为两个独立的方向感知特征图。然后，这两个嵌入特定方向信息的特征图分别被编码为两个注意力图，每个注意力图都捕获了输入特征图沿着一个空间方向的长程依赖。因此，位置信息就被保存在生成的注意力图里了，两个注意力图接着被乘到输入特征图上来增强特征图的表示能力。由于这种注意力操作能够区分空间方向（即坐标）并且生成坐标感知的特征图，因此将提出的方法称为坐标注意力（coordinate attention）。</p>
-<h2 id="Coordinate-Attention"><a href="#Coordinate-Attention" class="headerlink" title="Coordinate Attention"></a>Coordinate Attention</h2><p>相比此前的轻量级网络上的注意力方法，coordinate attention存在以下优势。首先，它不仅仅能捕获跨通道的信息，还能捕获方向感知和位置感知的信息，这能帮助模型更加精准地定位和识别感兴趣的目标；其次，coordinate attention灵活且轻量，可以被容易地插入经典模块，如MobileNetV2提出的inverted residual block和MobileNeXt提出的 sandglass block，来通过强化信息表示的方法增强特征；最后，作为一个预训练模型，coordinate attention可以在轻量级网络的基础上给下游任务带来巨大的增益，特别是那些存在密集预测的任务（如语义分割）。 </p>
-<p><img src="https://i.loli.net/2021/03/08/5azgNKbvPdkZtBL.png" alt=""></p>
-<p>一个coordinate attention模块可以看作一个用来增强特征表示能力的计算单元。它可以将任何中间张量$\mathbf{X}=\left[\mathbf{x}_{1}, \mathbf{x}_{2}, \ldots, \mathbf{x}_{C}\right] \in \mathbb{R}^{C \times H \times W}$作为输入并输出一个有着增强的表示能力的同样尺寸的输出$\mathbf{Y}=\left[\mathbf{y}_{1}, \mathbf{y}_{2}, \ldots, \mathbf{y}_{C}\right]$。</p>
-<h3 id="SE模块"><a href="#SE模块" class="headerlink" title="SE模块"></a>SE模块</h3><p>由于CA（coordinate attention）是基于SENet的思考，所以首先来回顾一下SE Attention（详细关于SENet的解读可以参考<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/110826497">我的博文</a>）。标准的卷积操作是很难建立通道之间的关系的，但是显式建模通道之间的关系可以增强模型对信息通道的敏感性，从而对最终的决策产生更多的影响。因此，SE模块对通道关系进行显式建模，取得了突破性的进展。</p>
-<p><img src="https://i.loli.net/2021/03/08/97YAhCH2wjGNiVR.png" alt=""></p>
-<p>从上图的结构上来看，SE模块可以分为两步：<strong>压缩（squeeze）</strong>和<strong>激励（excitation）</strong>，分别用于全局信息的嵌入和自适应通道关系的加权。给定输入$X$，第$c$个通道的squeeze操作可以表述如下式，$z_c$就是第$c$个通道的输出。输入$X$来自固定核大小的卷积层，因此可以被看作一堆局部描述的集合。squeeze操作使得模型能够收集全局的信息。</p>
+<p><img src="https://i.loli.net/2021/03/08/BU2gOqlutNsfJvH.png" alt=""></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>注意力机制如今已经被广泛用于卷积神经网络中，大大提升了很多任务上的性能表现。目前视觉中的注意力机制主要有两种，如下图所示，分别是<strong>通道注意力</strong>和<strong>空间注意力</strong>（我在<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/111302952">之前的文章</a>介绍了视觉中一些比较有名的注意力方法，可以访问查看）。</p>
+<p><img src="https://i.loli.net/2021/03/08/qZLEOnafbC4Nxk9.png" alt=""></p>
+<p>通道注意力着重于捕获通道间的依赖而空间注意力则关于像素间的关系捕获，不过它们都是通过不同的聚合策略、转换方法和强化函数来从所有位置聚合相同的特征来强化原始特征。CBAM和GCNet同时处理空间和通道信息，获得了较好的精度提升，然而它们通常存在收敛困难、计算负担大等问题。也有一些工作关于简化注意力结构，如ECA-Net将SE模块中通道权重的计算改用了1D卷积来简化。SGE沿着通道维度对输入进行分组形成表示不同语义的子特征，在每个子特征上进行空间注意力。遗憾的是，这些方法都没用很好地利用空间注意力和通道注意力之间的相关性，所以效率偏低，所以自然而然引出这篇文章的出发点：能否以一个高效轻量的方式融合不同的注意力模块？</p>
+<p>不妨先回顾一下轻量级网络的代表之一的ShuffleNetv2，它构建了一个可并行的多分支结构，如下图所示，在每个单元的入口，含有$c$个通道的输入被分割为$c-c’$和$c’$两个分支，接着几个卷积层用来提取关于输入更高级的信息，然后结果concat到一起保证和输入通道数相同，最后channel shuffle操作用来进行两个分支之间的信息通讯。类似的，SGE将输入沿着通道分组，所有子特征并行增强。</p>
+<p><img src="https://i.loli.net/2021/03/08/Bvy21fpmVnxuReO.png" alt=""></p>
+<p>基于这些前人的工作，论文作者提出了一种更加轻量但是更加高效的Shuffle Attention（SA）模块，它也是将输入按照通道进行分组，对每组子特征，使用Shuffle Unit来同时构建通道注意力和空间注意力。对每个注意力模块，论文还设计了针对每个位置的注意力掩码来抑制噪声加强有效的语义信息。论文主要的贡献为设计了一个轻量但是有效的注意力模块，SA，它将输入特征图按照通道分组并对每个分组用Shuffle Unit实现空间和通道注意力.</p>
+<h2 id="Shuffle-Attention"><a href="#Shuffle-Attention" class="headerlink" title="Shuffle Attention"></a>Shuffle Attention</h2><p><img src="https://i.loli.net/2021/03/08/U2Pxr5bm1tO7kGe.png" alt=""></p>
+<p>所谓一图胜千言，这篇文章其实忽略掉一些细节上图就已经展示了Shuffle Attention模块（SA模块）的设计了，不过我这里还是按照论文的思路来逐步理解作者的设计，整个SA模块其实分为三个步骤，分别为<strong>特征分组</strong>、<strong>混合注意力</strong>、<strong>特征聚合</strong>。</p>
+<h3 id="Feature-Grouping"><a href="#Feature-Grouping" class="headerlink" title="Feature Grouping"></a>Feature Grouping</h3><p>首先来看特征分组这个操作，它将输入特征图分为多组，每组为一个子特征（sub-feature）。具体来看，输入特征图$X \in \mathbb{R}^{C \times H \times W}$被沿着通道维度分为$G$组，表示为$X=\left[X_{1}, \cdots, X_{G}\right], X_{k} \in \mathbb{R}^{C / G \times H \times W}$，其中每个子特征$X_k$随着训练会逐渐捕获一种特定的语义信息。这部分对应上图最左边的<strong>Group</strong>标注的部分。</p>
+<h3 id="Channel-Attention-and-Spatial-Attention"><a href="#Channel-Attention-and-Spatial-Attention" class="headerlink" title="Channel Attention and Spatial Attention"></a>Channel Attention and Spatial Attention</h3><p>接着，$X_k$会被分为两个分支，依然是沿着通道维度划分，两个子特征表示为$X_{k 1}, X_{k 2} \in \mathbb{R}^{C / 2 G \times H \times W}$，如上图中间<strong>Split</strong>标注后的部分，两个分支分别是绿色和蓝色表示，上面的绿色分支实现通道注意力开采通道间的依赖，下面的蓝色分支则捕获特征之间的空间依赖生成空间注意力图，这样，模型同时完成了语义和位置信息的注意。</p>
+<p>具体来看通道注意力这个分支，这里可以作者没用采用SE模块的设计，主要是考虑到轻量化设计的需求（SE的参数还是比较多的），也没有使用ECA-Net的设计采用一维卷积（ECA-Net要想精度高，对卷积核尺寸要求比较大），而是采用最简单的GAP+Scale+Sigmoid的单层变换，公式如下。</p>
 <script type="math/tex; mode=display">
-z_{c}=\frac{1}{H \times W} \sum_{i=1}^{H} \sum_{j=1}^{W} x_{c}(i, j)</script><p>SE模块的第二步是excitation操作，旨在完全捕获通道之间的依赖，可以表述如下式，这里的$\cdot$表示逐通道乘法，$\sigma$表示Sigmoid函数，$\hat{\mathbf{z}}$是通过变换函数生成的，变换函数为$\hat{\mathbf{z}}=T_{2}\left(\operatorname{ReLU}\left(T_{1}(\mathbf{z})\right)\right)$，其中$T_1$和$T_2$表示两个可学习的线性变换，用来捕获每个通道的重要性（对应上图的两个Fully Connected及其中间的部分）。</p>
+s=\mathcal{F}_{g p}\left(X_{k 1}\right)=\frac{1}{H \times W} \sum_{i=1}^{H} \sum_{j=1}^{W} X_{k 1}(i, j)</script><script type="math/tex; mode=display">
+X_{k 1}^{\prime}=\sigma\left(\mathcal{F}_{c}(s)\right) \cdot X_{k 1}=\sigma\left(W_{1} s+b_{1}\right) \cdot X_{k 1}</script><p>上面的式子只有两个变换参数，即$W_{1} \in \mathbb{R}^{C / 2 G \times 1 \times 1}$和$b_{1} \in \mathbb{R}^{C / 2 G \times 1 \times 1}$。</p>
+<p>下面来看空注意力这个分支，思路也很简单，先是对输入特征图进行Group Norm，然后也是通过一个变换$\mathcal{F}_{c}(\cdot)$来增强输入的表示，具体公式如下。这里的参数也只有$W_2$和$b_2$，它们的尺寸都是$\mathbb{R}^{C / 2 G \times 1 \times 1}$。</p>
 <script type="math/tex; mode=display">
-\hat{\mathbf{X}}=\mathbf{X} \cdot \sigma(\hat{\mathbf{z}})</script><p>近些年来，SE模块被广泛使用在轻量级网络中，并且成为获得SOTA表现的关键组件。然而，它仅仅考虑了建模通道间的关系来对每个通道加权，忽略了位置信息，而位置信息对生成空间选择性特征图是分外重要的。因此，论文作者设计了一种新的同时考虑通道关系和位置信息的注意力模块，coordinate attention block（CA模块）。</p>
-<h3 id="CA模块"><a href="#CA模块" class="headerlink" title="CA模块"></a>CA模块</h3><p>CA模块通过精确的位置信息对通道关系和长程依赖进行编码，类似SE模块，也分为两个步骤：坐标信息嵌入（coordinate information embedding）和坐标注意力生成（coordinate attention generation），它的具体结构如下图。</p>
-<p><img src="https://i.loli.net/2021/03/08/5azgNKbvPdkZtBL.png" alt=""></p>
-<p>首先，我们来看坐标信息嵌入这部分。全局池化常用于通道注意力中来全局编码空间信息为通道描述符，因此难以保存位置信息。为了促进注意力模块能够捕获具有精确位置信息的空间长程依赖，作者将全局池化分解为一对一维特征编码操作。具体而言，对输入$X$，先使用尺寸$(H,1)$和$(1,W)$的池化核沿着水平坐标方向和竖直坐标方向对每个通道进行编码，因此，高度为$h$的第$c$个通道的输出表述如下。</p>
-<script type="math/tex; mode=display">
-z_{c}^{h}(h)=\frac{1}{W} \sum_{0 \leq i<W} x_{c}(h, i)</script><p>类似，宽度为$w$的第$c$个通道的输出表述如下。</p>
-<script type="math/tex; mode=display">
-z_{c}^{w}(w)=\frac{1}{H} \sum_{0 \leq j<H} x_{c}(j, w)</script><p>上面这两个变换沿着两个空间方向进行特征聚合，返回一对方向感知注意力图。这和SE模块产生一个特征向量的方法截然不同，这两种变换也允许注意力模块捕捉到沿着一个空间方向的长程依赖，并保存沿着另一个空间方向的精确位置信息，这有助于网络更准确地定位感兴趣的目标。这个coordinate information embedding操作对应上图的X Avg Pool和Y Avg Pool这个部分。</p>
-<p>接着，为了更好地利用上面coordinate information embedding模块产生的具有全局感受野并拥有精确位置信息的表示，设计了coordinate attention generation操作，它生成注意力图，遵循如下三个标准。</p>
-<ul>
-<li>首先，对于移动环境中的应用来说，这种转换应该尽可能简单高效；</li>
-<li>其次，它可以充分利用捕获到的位置信息，精确定位感兴趣区域；</li>
-<li>最后，它还应该能够有效地捕捉通道之间的关系，这是根本。</li>
-</ul>
-<p>作者设计的coordinate attention generation操作具体来看，首先级联之前模块生成的两个特征图，然后使用一个共享的1x1卷积进行变换$F_1$，表述如下式，生成的$\mathbf{f} \in \mathbb{R}^{C / r \times(H+W)}$是对空间信息在水平方向和竖直方向的中间特征图，这里的$r$表示下采样比例，和SE模块一样用来控制模块的大小。</p>
-<script type="math/tex; mode=display">
-\mathbf{f}=\delta\left(F_{1}\left(\left[\mathbf{z}^{h}, \mathbf{z}^{w}\right]\right)\right)</script><p>接着，沿着空间维度将$\mathbf{f}$切分为两个单独的张量$\mathbf{f}^{h} \in \mathbb{R}^{C / r \times H}$和$\mathbf{f}^{w} \in \mathbb{R}^{C / r \times W}$，再利用两个1x1卷积$F_{h}$和$F_{w}$将特征图$\mathbf{f}^{h}$ and $\mathbf{f}^{w}$变换到和输入$X$同样的通道数，得到下式的结果。</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\mathbf{g}^{h} &=\sigma\left(F_{h}\left(\mathbf{f}^{h}\right)\right) \\
-\mathbf{g}^{w} &=\sigma\left(F_{w}\left(\mathbf{f}^{w}\right)\right)
-\end{aligned}</script><p>然后对$g_h$和$g^w$进行拓展，作为注意力权重，CA模块的最终输出可以表述如下式。</p>
-<script type="math/tex; mode=display">
-y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这部分coordinate attention generation对应上图剩余的部分，至此CA模块同时完成了水平方向和竖直方向的注意力，同时它也是一种通道注意力。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者采用下图所示的结构进行实验，验证设计的注意力机制的效果，分别是MobileNetV和MobileNeXt设计的两种残差模块。</p>
-<p><img src="https://i.loli.net/2021/03/08/x2P3WGH8TVKUFIb.png" alt=""></p>
-<p>作者首先对两个方向的必必要性进行验证，结果如下图，显然，两个方向都是必要的，CA模块可以在保证参数量的前提下，提高精度。</p>
-<p><img src="https://i.loli.net/2021/03/08/aY7UefAJSsZGVg1.png" alt=""></p>
-<p>接着，进行权重因子的消融实验，下图先后是MobileNetV2和MobileNeXt基础上的结果，CA模块均取得了最好的效果，无论以哪个模型为baseline或者选择怎样的权重因子，CA模块均靠设计上的优越性取得了最好效果。</p>
-<p><img src="https://i.loli.net/2021/03/08/O8EsLI7RbKvcoiY.png" alt=""></p>
-<p><img src="https://i.loli.net/2021/03/08/8YCHhWIB3KqvS5a.png" alt=""></p>
-<p>关于下采样比例也做了实验，CA模块随着r的下调精度上升但是模型变大，依旧表现最佳，鲁棒性很强。</p>
-<p><img src="https://i.loli.net/2021/03/08/fgxWbSXw9raqBvp.png" alt=""></p>
-<p>之后，还对SE、CBAM和CA模块注意力结果可视化，大致能看出来CA更能精确关注感兴趣目标。</p>
-<p><img src="https://i.loli.net/2021/03/08/AxY3uVqmnzileOb.png" alt=""></p>
-<p>为了检验所提CA模块的性能，采用EfficientNet-b0作为baseline，作者简单地用CA模块代替SE模块。并和其他同样强大的网络对比，CA模块依旧有着强大的表现。</p>
-<p><img src="https://i.loli.net/2021/03/08/Sc4GqBudWCsnrgF.png" alt=""></p>
-<p>此外，作者还做了目标检测和语义分割任务上的实验，性能提升更大，由于位置信息的加入，这种依赖位置信息的密集预测效果明显更好，我这里就不贴了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为了将空间信息加入通道注意力，论文作者设计了Coordinate Attention，在轻量级网络上取得了比较大的成功，它既能捕获通道之间的依赖也能很好地建模位置信息和长程依赖，实验表明其在图像识别、目标检测和语义分割任务上都有不错的改进。</p>
+X_{k 2}^{\prime}=\sigma\left(W_{2} \cdot G N\left(X_{k 2}\right)+b_{2}\right) \cdot X_{k 2}</script><p>最后，两种注意力的结果被concat到一起$X_{k}^{\prime}=\left[X_{k 1}^{\prime}, X_{k 2}^{\prime}\right] \in \mathbb{R}^{C / G \times H \times W}$，此时它已经和该组的输入尺寸一致了。</p>
+<h3 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h3><p>最后一步的聚合也很简单，通过ShuffleNetv2采用的channel shuffle操作来保证各组子特征之间的交互，最后得到和输入$X$同维的注意力图。这是上图中最右边的部分。</p>
+<p>至此，SA模块的构建已经完成，其实$W_1$、$b_1$、$W_2$和$b_2$就是整个SA模块所有的参数，它可以通过PyTorch轻易的实现。SA模块可以取代SE模块，因此替换SENet的网络称为SA-Net。</p>
+<p><img src="https://i.loli.net/2021/03/08/trHARNiDCfo6kZK.png" alt=""></p>
+<p>为了验证SA模块对语义信息的提取能力，作者在ImageNet上训练了没用channel-shuffle的SA-Net50B和有channel-shuffle的SA-Net50，给出精度对比如下图。一方面在SA采用之后，top1精度表示出了提升，这也就意味着特征分组可以显著提升特征的语义表达能力；另一方面，不同类别的分布在前面的层中非常相似，这也就意味着在前期特征分组的重要性被不同类别共享，而随着深度加深，不同的特征激活表现出了类别相关性。</p>
+<p><img src="https://i.loli.net/2021/03/08/GaLpREQmSoKOrBX.png" alt=""></p>
+<p>为了验证SA有效性，基于GradCAM进行可视化，得到下图的结果，可以发现，SA模块使得分类模型关注于目标信息更相关的区域，进而有效的提升分类精度。</p>
+<p><img src="https://i.loli.net/2021/03/08/wkSidlBmEcJ4TYj.png" alt=""></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>为了验证性能，作者也在ImageNet、COCO上进行了分类、检测和分割任务的实验，分别如下。</p>
+<p><img src="https://i.loli.net/2021/03/08/jwUe8ErmDzhgqCo.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/03/08/8MAJWjps96YPZRn.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/03/08/jO6mX9BhzsnDIkH.png" alt=""></p>
+<p>实验表明，SA模块相比SE等注意力方法在参数量更少的情况下，达到了更高的精度，是非常高效的轻量级注意力机制。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从ShuffleNet得到启发，作者设计了轻量级网络上适用的高效注意力机制Shuffle Attention，推动了注意力在轻量级网络上的发展，在多个任务上达到SOTA表现。</p>
 
                 
             </div>
@@ -589,8 +565,8 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CoordAttention%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">CoordAttention解读</span>
+                                <a href="/tags/SA-Net%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">SA-Net解读</span>
                                 </a>
                             
                         </div>
@@ -761,7 +737,7 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-03-08T09-03-20',
+        id: '2021-03-08T19-51-32',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -787,9 +763,10 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/03/08/sa-net/">
                     <div class="card-image">
@@ -807,9 +784,9 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -822,6 +799,7 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -840,13 +818,13 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/28/atss/">
+                <a href="/2021/03/08/coordattention/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="ATSS解读">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="CoordAttention解读">
                         
-                        <span class="card-title">ATSS解读</span>
+                        <span class="card-title">CoordAttention解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -857,7 +835,7 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-08
                             </span>
                         <span class="publish-author">
                             
@@ -874,8 +852,8 @@ y_{c}(i, j)=x_{c}(i, j) \times g_{c}^{h}(i) \times g_{c}^{w}(j)</script><p>这�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ATSS%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">ATSS解读</span>
+                    <a href="/tags/CoordAttention%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">CoordAttention解读</span>
                     </a>
                     
                 </div>

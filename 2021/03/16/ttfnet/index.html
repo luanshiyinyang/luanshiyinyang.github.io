@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CSTrack 解读, Chen&#39;s blog">
+    <meta name="keywords" content="TTFNet解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CSTrack 解读 | Chen&#39;s blog</title>
+    <title>TTFNet解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CSTrack 解读</h1>
+                    <h1 class="description center-align post-title">TTFNet解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">CSTrack解读</span>
+                            <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">TTFNet解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-20
+                    2021-03-16
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    5k
                 </div>
                 
 
@@ -493,36 +493,80 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Challenge 的榜单。最近，CSTrack 这篇文章则在 JDE 范式的基础上进行了改进，获得了相当不错的跟踪表现（基本上暂时稳定在榜单前 5），本文就简单解读一下这篇短文（目前在 Arxiv 上开放的是一个 4 页短文的版本）。</p>
+                <blockquote>
+<p>正巧最近CenterNet的作者发布了CenterNet2，趁此机会也读一读这篇之前针对CenterNet训练时间改进的TTFNet。</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>针对当前目标检测算法的痛点：其实大多数检测器都无法同时做到<strong>短的训练时间</strong>、<strong>快的推理速度</strong>和<strong>高的模型精度</strong>。为了追求这三者的平衡，TTFNet（Training-Time-Friendly Network，训练时间友好网络）被提了出来，在这个工作中，作者的起点是轻量的head（light-head）、单阶段（single-stage）和anchor-free的设计，这类方法可以保证推理速度较快，继而开始思考如何加快训练时间。回顾前人的方法，可以发现使用更多的训练样本等效于增大batch siz，有助于增大学习率加快训练过程。文中反复出现的encode more training samples的意思其实是采用更多的训练样本点，CenterNet只使用中心点进行目标回归，FCOS则采用GT中所有点进行目标回归，本文则采用高斯核控制参与回归的样本数量，从而引入更多回归样本加速收敛，又避免了FCOS那样的NMS后处理。实验表明，TTFNet获得了很好的训练时间、推理速度和精度的平衡，在获得SOTA精度的同时减少7倍的训练时间，超快版本的TTFNet-18和TTFNet-53超越SSD300和YOLOv3的同时，只需要它们十分之一的训练时间。</p>
 <ul>
 <li><p>论文标题</p>
-<p>Rethinking the competition between detection and ReID in Multi-Object Tracking</p>
+<p>  Training-Time-Friendly Network for Real-Time Object Detection</p>
 </li>
 <li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2010.12138">http://arxiv.org/abs/2010.12138</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1909.00700">http://arxiv.org/abs/1909.00700</a></p>
 </li>
 <li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/JudasDie/SOTS">https://github.com/JudasDie/SOTS</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/ZJULearning/ttfnet">https://github.com/ZJULearning/ttfnet</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为了追求速度和精度的平衡，联合训练检测模型和 ReID 模型的 JDE 范式（如下图，具体提出参考 JDE 原论文 Towards Real-Time Multi-Object Tracking）受到了学术界和工业界越来越多的关注。这主要是针对之前的 two-stage 方法先是使用现有的检测器检测出行人然后再根据检测框提取对应行人的外观特征进行关联的思路，这种方法在精度上的表现不错，然而由于检测模型不小且 ReID 模型需要在每个检测框上进行推理，计算量非常之大，所以 JDE 这种 one-shot 的思路的诞生是一种必然。</p>
-<p><img src="https://i.loli.net/2020/11/20/XSvleZbIjwDo1Yd.png" alt=""></p>
-<p>然而，就像之前 FairMOT 分析的那样，检测和 ReID 模型是<strong>存在不公平的过度竞争</strong>的，这种竞争制约了两个任务（检测任务和 ReID 任务 ）的表示学习，导致 了学习的混淆。具体而言，检测任务需要的是同类的不同目标拥有相似的语义信息（类间距离最大），而 ReID 要求的是同类目标有不同的语义信息（类内距离最大）。此外，<strong>目标较大的尺度变化</strong>依然是 MOT 的痛点。在 ReID 中图像被调整到统一的固定尺寸来进行查询 ，而在 MOT 中，提供在 ReID 网络的特征需要拥有尺度感知能力，这是因为沿着帧目标可能会有巨大的 size 变化。</p>
-<p>为了解决上述的过度竞争问题，论文提出了一种新的互相关网络（CCN）来改进单阶段跟踪框架下 detection 和 ReID 任务之间的协作学习。作者首先将 detection 和 ReID 解耦为两个分支，分别学习。然后两个任务的特征通过自注意力方式获得自注意力权重图和互相关性权重图。自注意力图是促进各自任务的学习，互相关图是为了提高两个任务的协同学习。而且，为了解决上述的尺度问题，设计了尺度感知注意力网络（SAAN）用于 ReID 特征的进一步优化，SAAN 使用了空间和通道注意力，该网络能够获得目标 不同尺度的外观信息，最后 不同尺度外观特征融合输出即可。</p>
-<h2 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h2><p>整体的思路还是采用 JDE 的框架，下图的右图是整体 pipeline 的设计，和左侧的 JDE 相比，中间增加了一个 CCN 网络（互相相关网络）用于构建 detection 和 ReID 两个分支不同的特征图（这里解释一下为什么要解耦成两个特征图送入后续的两个任务中，其实原始的 JDE 就是一个特征图送入检测和 ReID 分支中，作者这边认为这会造成后续的混淆，所以在这里分开了，FairMOT 也发现了这个问题，只是用另一种思路解决的而已）。构建的两个特征图分别送入 Detection head 和 SAAN（多尺度+注意力+ReID）中，Detection head 将 JDE 的 YOLO3 换为了更快更准的 YOLO5，其他没什么变动，下文检测这边我就不多提了。检测完成的同时，SAAN 也输出了多尺度融合后的 ReID 特征，至此也就完成了 JDE 联合检测和 ReID 的任务，后续就是关联问题了。</p>
-<p><img src="https://i.loli.net/2020/11/20/KIpS3jV1ezicCk5.png" alt=""></p>
-<p>所以，从整个框架来看，CSTrack 对 JDE 的改动主要集中在上图的 CCN 和 SAAN，而这两部分都是在特征优化上做了文章，且主要是基于注意力手段的特征优化（不知道是好是坏呢）。</p>
-<h2 id="CCN"><a href="#CCN" class="headerlink" title="CCN"></a>CCN</h2><p>CCN（Cross-correlation Network）用于提取更适合 detection 和 ReID 任务的一般特征和特定特征。在特定性学习方面，通过学习反映不同特征通道之间相互关系的自联系，增强了每个任务的特征表示。对于一般性学习，可以通过精心设计的相互关系机制来学习两个任务之间的共享信息。</p>
-<p><img src="https://i.loli.net/2020/11/20/XoOUnxREIqfCy3K.png" alt=""></p>
-<p>CCN 的结构如上图，我们对着这个图来理解 CCN 的思路。从检测器的 backbone 得到的特征图为$\mathbf{F} \in R^{C \times H \times W}$，首先，这个特征经过平均池化降维获得统计信息（更精炼的特征图）$\mathbf{F}^{\prime} \in R^{C \times H^{\prime} \times W^{\prime}}$。然后，两个不同的卷积层作用于$\mathbf{F}^{\prime}$生成两个特征图$\mathbf{T_1}$和$\mathbf{T_2}$，这两个特征图被 reshape 为特征$\left{\mathbf{M}_{\mathbf{1}}, \mathbf{M}_{\mathbf{2}}\right} \in R^{C \times N^{\prime}}$（$N^{\prime}=H^{\prime} \times W^{\prime}$）。下面的上下两个分支操作是一致的，先用矩阵$\mathbf{M_1}$或者$\mathbf{M_2}$和自己的转置矩阵相乘获得各自的自注意力图$\left{\mathbf{W}_{\mathrm{T}_{1}}, \mathbf{W}_{\mathrm{T}_{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$，然后$\mathbf{M_1}$和$\mathbf{M_2}$的转置进行矩阵乘法获得互注意力图$\left{\mathbf{W}_{\mathrm{S}_{1}}, \mathbf{W}_{\mathrm{S}_{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$（这是$\mathbf{M_1}$的，转置之后 softmax 就是$\mathbf{M_2}$的）。然后，对每个分支，自注意力图和互注意力图相加获得通道级别的注意力图，和原始的输入特征图$\mathbf{F}$相乘再和$\mathbf{F}$相加得到输出特征图$\mathrm{F}_{\mathrm{T} 1}$和$\mathrm{F}_{\mathrm{T} 2}$。</p>
-<p>上述学到的$\mathrm{F}_{\mathrm{T} 1}$用于 Detection head 的检测处理，后者则用于下面的 SAAN 中 ReID 特征的处理。</p>
-<p><img src="https://i.loli.net/2020/11/20/KhYU9rfR3g7VnFe.png" alt=""></p>
-<p>上图就是作者设计的 ReID 分支，用于对 ReID 特征进行多尺度融合，这个设计挺简单的，不同分支采用不同的下采样倍率获得不同尺度的特征图（其中通过空间注意力进行特征优化），然后融合产生的特征通过空间注意力加强，最终输出不同目标的 embedding$\mathbf{E} \in R^{512 \times W \times H}$（特征图每个通道对应不同的 anchor 的 embedding）。</p>
-<p><strong>这样，整个 JDE 框架就完成了。</strong></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在 MOT16 和 MOT17 上实验结果如下图，比较的方法都比较新，MOTA 也是刷到了 70 以上，不过速度稍许有点慢了，总的精度还是很不错的。</p>
-<p><img src="https://i.loli.net/2020/11/20/Tcv3j8x1ruYHsQh.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CSTrack 在 JDE 的基础上使用了更强的检测器也对 ReID 特征进行了优化，获得了相当不错的表现。不过，从结果上看这种暴力解耦还是会对整个跟踪的速度有影响的。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Liang C, Zhang Z, Lu Y, et al. Rethinking the competition between detection and ReID in Multi-Object Tracking[J]. arXiv:2010.12138 [cs], 2020.</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>训练时间、推理速度和模型精度是目标检测领域目前研究的主要方向，但是，很少有工作在这三者间追求一个平衡。直观上看，推理速度快的检测器就应该有更短的训练时间，然而事实往往不是这样，大多数实时检测器比起非实时的检测器需要更长的训练时间。精度往往是我们最关心的，精度高的前提下将检测器分为两种：<strong>推理速度慢</strong>的和<strong>训练时间久</strong>的。前者往往有着庞大的head和复杂的后处理，这种设计虽然精度更高收敛更快但是不可避免为推理带来了压力，降低了推理速度，并不适用于实时应用。因此，后者这种简化head和后处理设计同时保持精度的检测器应运而生，CenterNet就是代表方法之一，其推理时间几乎和backbone网络相当。然而，这类推理速度快的网络都不可避免地需要漫长的训练，这也很容易理解，这类模型相对比较简单因而难以训练，需要大量的数据增强和训练调度。举例而言，CenterNet在COCO上需要140轮的训练，而那种推理速度较慢的网络只需要12轮。</p>
+<p>因此，TTFNet这篇文章主要关注如何将CenterNet这类网络的训练时间缩短同时保证精度和实时推理的速度。此前的研究表明，batch size越大可以采用更大的学习率，而且大多数情况下两者符合线性关系。而作者注意到，从标注框中编码更多的训练样本的效果是类似于增大batch size的。相比于特征提取的时间，编码特征和损失计算的时间是几乎可以忽略不计的，所以基本上可以在不增加额外开销的情况下安全地获得更快的收敛速度。遗憾的是，CenterNet仅仅使用目标的中心来进行尺寸回归，没有利用目标中心附近的信息，TTFNet作者通过实验证明，就是这个设计导致CenterNet收敛很慢。</p>
+<p>为了缩短训练时间，论文提出了一种新的使用高斯核来编码更多训练样本的方法来进行目标的定位和回归，这种策略使得网络可以更好地利用标注框产生更多的监督信号，这给快速收敛提供了保证。具体而言，通过高斯核函数在目标中心周围构造一个子区域，然后从该区域提取密集的采样点作为训练样本点。此外，将高斯概率作为回归样本的权重，来对靠近目标中心的目标赋予更高的权重。之后，作者还提出适当的规范化来利用大框的更多信息且保持小框的信息。论文提出的方法可以减少混淆核低质量样本而不需要任何的其他组件（如FPN），它也不需要位移预测来辅助定位，因此TTFNet是高效的、统一的、直观的。</p>
+<p><img src="https://i.loli.net/2021/03/16/JmfaY9b1ihkDyXI.png" alt=""></p>
+<p>整体来看，论文第一次提出了一个训练时间、推理速度和精度平衡良好的检测器，相比CenterNet和其他实时检测器减少了至少7倍的训练时间，并且效果上保证了sota水平。最快版本的TTFNet-18和TTFNet-53可以获得25.9的AP及112的FPS（8卡1080Ti需要1.8小时训练）和32.9的AP及55的FPS（8卡1080Ti需3.1小时训练），这是就作者所知，目前COCO上达到这一精度的最短训练时间。它们training from scratch分别需要19小时和32小时，获得的效果和任何SOTA<br>相比都不遑多让。</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>编码更多的训练样本和使用更大的batch size都可以为每一步的更新提供更多的监督信号，加快模型的训练。这里的训练样本指的是依据标注框编码的特征。回顾前人的工作，线性缩放规则于2017年被首次提出，它指的是，一般情况下batch size变为k倍，学习率也需要调整为k倍。而事实上，作者经过公式推导发现，对目标检测而言，训练样本量增加和batch size增加是几乎等效的。</p>
+<p>CenterNet作为一种新的anchor-free检测器，推理速度几倍于当前检测器，但是需要长时间的训练，这是因为模型相对简单从而需要大量的数据增强，这些数据增强虽然保证了模型性能的稳步上升但也减缓了模型的收敛速度。作者这里去掉了数据增强并且提高了学习率，得到如下图所示的结果，较大的学习率并不能加快模型的收敛，移除数据增强也导致了性能的急剧下降。发生的原因就是CenterNet只采用一个回归样本点，导致大量信息的丢失，从而需要复杂的数据增强和长时间训练，导致该网络训练上很不友好。</p>
+<p><img src="https://i.loli.net/2021/03/16/VNkFlJhHz9qDT18.png" alt=""></p>
+<p>为了消除CenterNet的这个弊端，作者推断采用一个更好的编码回归样本的策略是必要的。以此为出发点，TTFNet诞生了。</p>
+<h2 id="TTFNet"><a href="#TTFNet" class="headerlink" title="TTFNet"></a>TTFNet</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>首先回顾一下CenterNet这个方法，它将目标检测视为两部分：<strong>中心定位</strong>和<strong>尺寸回归</strong>。对于定位问题，它采用和CornerNet一样的高斯核来产生热力图，这种方式可以保证网络在目标的中心附近产生更强力的激活值。对于回归问题，它定义处于目标中心的像素作为训练样本并且直接预测目标的宽高，同时也预测一个偏移（offset）来恢复由于下采样造成的离散化误差。由于网络推理时可以在目标中心点附近产生更强的激活值，因此NMS不是必须的，后处理步骤的计算开销可以忽略不计。</p>
+<p>为了消除NMS的需求，因此TTFNet这篇文章的<strong>中心定位</strong>和CenterNet是类似的，只不过进一步考虑了高斯核中边框的宽高比，这是CenterNet没有考虑的，因此CenterNet的策略是次优的。</p>
+<p>而对于<strong>尺寸回归</strong>，主流的方法是及那个整个标注框内的像素点或者标注框内子框区域内的像素点作为训练样本。作者则认为，应当将整个高斯区域内的所有像素点作为训练样本。此外，基于目标尺寸和高斯概率计算的权重被应用到这些样本上以便于更好的特征提取，整个框架如下图所示，并不需要其他的预测分支来辅助纠错，因此是简单且有效的检测框架。</p>
+<p><img src="https://i.loli.net/2021/03/16/JmfaY9b1ihkDyXI.png" alt=""></p>
+<h3 id="训练用高斯核"><a href="#训练用高斯核" class="headerlink" title="训练用高斯核"></a>训练用高斯核</h3><p>类似CenterNet，TTFNet对于输入图像会得到两个预测特征$\hat{H} \in R^{N \times C \times \frac{H}{r} \times \frac{W}{r}}$和$\hat{S} \in R^{N \times 4 \times \frac{H}{r} \times \frac{W}{r}}$，前者用于表明目标中心的位置后者则用来获取关于目标尺寸的信息。其中的$N$、$C$、$H$、$W$和$r$分别表示batch size、类别数目、输入图像的宽和高以及输出缩放比例（下采样率）。实验中设置$C=80$且$r=4$，为了方便叙述后面都不再提及$N$这个维度，在论文的方法中高斯核既用于定位也用于回归，定义了两个标量$\alpha$和$\beta$分别来控制核的尺寸。</p>
+<h3 id="目标定位"><a href="#目标定位" class="headerlink" title="目标定位"></a>目标定位</h3><p>假定属于第$c_m$类的第$m$个标注框，首先它会被线性映射到特征图的尺度上。然后，2D高斯核$\mathbf{K}_{m}(x, y)= \exp \left(-\frac{\left(x-x_{0}\right)^{2}}{2 \sigma_{x}^{2}}-\frac{\left(y-y_{0}\right)^{2}}{2 \sigma_{y}^{2}}\right)$会被用来生成$H_{m} \in R^{1 \times \frac{H}{r} \times \frac{W}{r}}$，这里的$\sigma_{x}=\frac{\alpha w}{6}, \sigma_{y}=\frac{\alpha h}{6}$。最后，通过用$H_m$进行逐元素最大值求解来更新$H$上第$c_m$个通道。可以看到，其实$H_m$的获得依赖于参数$\alpha$、中心位置$(x_0,y_0)_m$和边框尺寸$(h,w)_m$。使用取整操作$\left(\left\lfloor\frac{x}{r}\right\rfloor,\left\lfloor\frac{y}{r}\right\rfloor\right)$来限制中心像素的位置必然是整数，这和CenterNet一致，这里$\alpha$被设置为0.54，这并非精心设计的值。</p>
+<p>高斯分布的峰值即边框中心的像素，被视为正样本，其他的均为负样本，这里损失采用modified focal loss，它在预测的$\hat{H}$和定位目标$H$之间计算，计算式如下，其中的$\alpha_f$和$\beta_f$为focal loss和modified focal loss的超参数，$M$代表标注框的数目，论文设置$\alpha_f = 2$而$\beta_f = 4$。</p>
+<script type="math/tex; mode=display">
+L_{l o c}=\frac{1}{M} \sum_{x y c}\left\{\begin{array}{l}
+\left(1-\hat{H}_{i j c}\right)^{\alpha_{f}} \log \left(\hat{H}_{i j c}\right) \quad \text { if } H_{i j c}=1 \\
+\left(1-H_{i j c}\right)^{\beta_{f}} \hat{H}_{i j c}^{\alpha_{f}} \log \left(1-\hat{H}_{i j c}\right) \quad \text { else }
+\end{array}\right.</script><h3 id="尺寸回归"><a href="#尺寸回归" class="headerlink" title="尺寸回归"></a>尺寸回归</h3><p>考虑已经被映射到特征图尺度上的第$m$个标注框，另一个高斯核被用来产生$S_{m} \in R^{1 \times \frac{H}{r} \times \frac{W}{r}}$，这个高斯核的参数由$\beta$控制，若$\alpha$和$\beta$相等，可以使用同一个高斯核。在$S_m$中的非零部分定义为高斯区域$A_m$，如下图所示，蓝色框代表标注框，下图黑色区域代表样本点，下图是几种选择样本的方式。由于$A_m$始终在第$m$个标注框内部，因此下文均简称为子区域。</p>
+<p><img src="https://i.loli.net/2021/03/16/TWyLmBPZUS9g7jK.png" alt=""></p>
+<p>每个子区域内的像素均被视作回归样本，考虑$A_m$中的一个像素$(i,j)$以及下采样率$r$，回归的目标就是从$(ir,jr)$到第$m$个标注框的四个边的距离，用一个四维向量表示为$\left(w_{l}, h_{t}, w_{r}, h_{b}\right)_{i j}^{m}$。在$(i,j)$处的预测框则表示如下。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\hat{x}_{1}=i r-\hat{w}_{l} s, \hat{y}_{1}=j r-\hat{h}_{t} s \\
+\hat{x}_{2}=i r+\hat{w}_{r} s, \quad \hat{y}_{2}=j r+\hat{h}_{b} s
+\end{array}</script><p>上式中的$s$是一个固定的标量用于增大预测结果以便于优化，在论文中设置$s=16$，而且这里的$\left(\hat{x}_{1}, \hat{y}_{1}, \hat{x}_{2}, \hat{y}_{2}\right)$是在图像尺度上而不是特征图尺度上的。若一个像素不在任何子区域中，那么训练时他将被忽略。如果一个像素存在于多个子区域里，那么这是一个有歧义的样本，它的GT为具有最小面积的目标。</p>
+<p>考虑预测$\hat{S}$和回归目标$S$，从$S$中收集训练目标$S^{\prime} \in R^{N_{r e g} \times 4}$和相应的预测结果$\hat{S}^{\prime} \in R^{N_{r e g} \times 4}$（来自$\hat{S}$），这里的$N_{reg}$表示回归样本的数目。对这些所有的样本，利用上面的式子解码出预测的边框和相应的标注框，通过GIOU计算损失，因此回归分支的损失如下。</p>
+<script type="math/tex; mode=display">
+L_{r e g}=\frac{1}{N_{r e g}} \sum_{(i, j) \in A_{m}} \operatorname{GIoU}\left(\hat{B}_{i j}, B_{m}\right) \times W_{i j}</script><p>上式中的$\hat{B_{ij}}$表示预测框$\left(\hat{x}_{1}, \hat{y}_{1}, \hat{x}_{2}, \hat{y}_{2}\right)_{i j}$，而$B_{m}=\left(x_{1}, y_{1}, x_{2}, y_{2}\right)_{m}$表示真实的图像尺度上的第$m$个标注框。$W_{ij}$表示采样权重，用来平衡每个样本对损失的贡献。</p>
+<p>继续考虑到目标的尺度变化可能是很大的，大目标也许会产生数千的样本而小目标仅仅会产生非常少量的样本，再依照样本贡献度标准化损失之后，小样本带来的损失是可以忽略不计的，这对检测器在小目标上的性能损害是很大的。因此上述的采样权重$W_{ij}$在损失平衡方面尤其重要。假定$(i,j)$在第$m$个标注的子区域$A_m$中，$W_{ij}$的计算式如下。</p>
+<script type="math/tex; mode=display">
+W_{i j}=\left\{\begin{array}{ll}
+\log \left(a_{m}\right) \times \frac{\mathrm{G}_{m}(i, j)}{\sum_{(x, y) \in A_{m}} \mathrm{G}_{m}(x, y)} & (i, j) \in A_{m} \\
+0 & (i, j) \notin A
+\end{array}\right.</script><p>这个式子里的$\mathrm{G}_{m}(i, j)$表示$(i,j)$位置处的高斯概率，$a_m$是第$m$个标注框的面积。该方案可以很好地利用大目标中包含的更多注释信息，同时保留小目标中的注释信息。它还可以强调目标中心附近的这些样本，减少模糊和低质量样本的影响。</p>
+<h3 id="总体损失"><a href="#总体损失" class="headerlink" title="总体损失"></a>总体损失</h3><p>讲完最关键的size regression之后，最终的损失如下式所述，它是定位损失和回归损失的加权求和结果，两个收工设计的权重$w_{loc}$和$w_{reg}$分别是1.0和5.0。</p>
+<script type="math/tex; mode=display">
+L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>整个TTFNet的结构与如下图所示，论文中backbone采用ResNet和DarkNet，特征图通过MDCN和上采样层调整到原图的1/4分辨率。这个特征图随后分别进入两个head中，定位head（下图上面分支）用来产生目标中心附近激活值更强的热度图，回归head（下图下面分支）直接预测定位目标中心到边框四个边的距离。由于目标中心是热度图上的局部最大值，因此不需要nms只需要使用最大池化即可定位目标。通过这个方法找到的局部最大值用来产生回归结果，进而完成目标检测。</p>
+<p><img src="https://i.loli.net/2021/03/16/JmfaY9b1ihkDyXI.png" alt=""></p>
+<p>TTFNet这种设计高效利用了大尺寸和中等尺寸目标的标注信息，但是受限于小目标信息的确过少，所以作者又通过短路连接将高分辨率低语义信息的特征图传到最后，这些特征图来自stage2、stage3和stage4。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>这篇论文进行了大量的消融实验论证论文提出的方法，采用的模型为TTFNet-53。首先验证了回归权重$W_{ij}$的重要性，每个标注框产生的样本量是不同的，这点上面已经阐述了，主要是大目标训练样本很多而小目标训练样本很少。不进行任何平衡处理的结果如下表的第一列，结果很差。有个直接的策略就是对标注框的损失按照样本量进行标准化，如第$m$个标注框有$n_m$个样本，那么损失就乘以权重$\frac{1}{n_{m}}$，这个结果也不是最优的，因为模型丧失了利用大目标更多信息的机会。这个结果是下表的第二列。下标的Sqrt和Log则表示对边框区域面积sqrt和log的结果作为采样权重。最后，采用文中提出的高斯概率配合面积log值作为采样权重获得了最好的效果，如下表最后一列，它能解决上述的其他方法的问题。</p>
+<p><img src="https://i.loli.net/2021/03/16/ITFhYgUdLe6bpDE.png" alt=""></p>
+<p>这种高斯核的设计引入回归权重中会优雅且高效地处理低质量或有歧义的样本，这个有歧义的样本指的是定位在重叠区域的样本，而低质量样本指的是远离目标中心的样本。此前已经有不少方法解决这两种问题样本，如centerness分支，高斯核加权的引入可以毫无边缘效应地处理这两种样本，它会在标注框内部产生一个子区域，这个子区域的大小仅受到超参数$\beta$的控制，$\beta$越大则可以利用更多的信息也会引入更多的上述两种样本。关于$\beta$的选择，如下表所示。</p>
+<p><img src="https://i.loli.net/2021/03/16/4nBPD853xptHj92.png" alt=""></p>
+<p>实验表明，模型性能差的主要原因是低质量样本，引入高斯核可以有效选择训练样本，因为高斯核区域的样本都是目标高相关的。不同于CenterNet，作者还考虑了高斯核中的box的长宽比。如下图所示，显然，考虑长宽比会带来不小的收益。</p>
+<p><img src="https://i.loli.net/2021/03/16/kPhMeIyqt7O3D6K.png" alt=""></p>
+<p>之后，作者研究了短路连接给模型带来的收益（针对小目标），显然，是有效果的，结果如下图所示。</p>
+<p><img src="https://i.loli.net/2021/03/16/9b387NzA6rBdVKp.png" alt=""></p>
+<p>样本量对学习率的影响，如下表所示，可以发现$\beta$越大引入样本越多，可以采用更大的学习率，这和使用更大的batch size效果类似。</p>
+<p><img src="https://i.loli.net/2021/03/16/ieDJtnmRH5yPjpQ.png" alt=""></p>
+<p>下图是traing from scratch的结果，需要更长的训练时间。</p>
+<p><img src="https://i.loli.net/2021/03/16/mlT9PgEdwNWqLKr.png" alt=""></p>
+<p>下图则是喜闻乐见的和SOTA的对比，与一些比较新的推理很快的方法对比，精度更高训练耗时更短。</p>
+<p><img src="https://i.loli.net/2021/03/16/mAbJnxL57sDeq6r.png" alt=""></p>
+<p>最后，还和对标的CenterNet进行了对比，如下。</p>
+<p><img src="https://i.loli.net/2021/03/16/XLhregVy72jqKwR.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>TTFNet针对CenterNet训练样本不足的问题使用高斯核进行样本选择，是平衡训练时间、推理速度和准确性的优雅而高效的解决方案。理论分析和实验都很详实，是不可多得的好文章。设计的TTFNet大大减少了训练速度，对设备不太充足的研究者是很友好的，也适用于NAS等技术。本文只是做了一些基本的解读，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -552,8 +596,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">CSTrack解读</span>
+                                <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">TTFNet解读</span>
                                 </a>
                             
                         </div>
@@ -724,7 +768,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-11-20T09-01-47',
+        id: '2021-03-16T20-19-37',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -750,17 +794,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/22/efficientdet/">
+                <a href="/2021/03/16/ttfnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="EfficientDet 解读">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="TTFNet解读">
                         
-                        <span class="card-title">EfficientDet 解读</span>
+                        <span class="card-title">TTFNet解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -770,9 +815,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -785,11 +830,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">EfficientDet解读</span>
+                    <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">TTFNet解读</span>
                     </a>
                     
                 </div>
@@ -803,13 +849,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/13/dcn-reppoints/">
+                <a href="/2021/03/14/trackformer/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="DCN &amp; RepPoints解读">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="TrackFormer解读">
                         
-                        <span class="card-title">DCN &amp; RepPoints解读</span>
+                        <span class="card-title">TrackFormer解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -820,7 +866,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-14
                             </span>
                         <span class="publish-author">
                             
@@ -837,12 +883,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DCN%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">DCN解读</span>
-                    </a>
-                    
-                    <a href="/tags/RepPoints%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">RepPoints解读</span>
+                    <a href="/tags/TrackFormer%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">TrackFormer解读</span>
                     </a>
                     
                 </div>

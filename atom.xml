@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-03-14T02:39:06.064Z</updated>
+  <updated>2021-03-16T12:20:12.585Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TTFNet解读</title>
+    <link href="https://zhouchen1998.cn/2021/03/16/ttfnet/"/>
+    <id>https://zhouchen1998.cn/2021/03/16/ttfnet/</id>
+    <published>2021-03-16T12:19:37.000Z</published>
+    <updated>2021-03-16T12:20:12.585Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;正巧最近CenterNet的作者发布了CenterNet2，趁此机会也读一读这篇之前针对CenterNet训练时间改进的TTFNet。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="TTFNet解读" scheme="https://zhouchen1998.cn/tags/TTFNet%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>TrackFormer解读</title>
@@ -503,33 +531,6 @@
     
     
     <category term="CSTrack解读" scheme="https://zhouchen1998.cn/tags/CSTrack%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DCN &amp; RepPoints解读</title>
-    <link href="https://zhouchen1998.cn/2020/11/13/dcn-reppoints/"/>
-    <id>https://zhouchen1998.cn/2020/11/13/dcn-reppoints/</id>
-    <published>2020-11-13T03:31:14.000Z</published>
-    <updated>2020-11-13T03:32:42.421Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="DCN解读" scheme="https://zhouchen1998.cn/tags/DCN%E8%A7%A3%E8%AF%BB/"/>
-    
-    <category term="RepPoints解读" scheme="https://zhouchen1998.cn/tags/RepPoints%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

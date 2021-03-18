@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="TTFNet解读, Chen&#39;s blog">
+    <meta name="keywords" content="GFocal解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>TTFNet解读 | Chen&#39;s blog</title>
+    <title>GFocal解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">TTFNet解读</h1>
+                    <h1 class="description center-align post-title">GFocal解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">TTFNet解读</span>
+                            <a href="/tags/GFocal%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">GFocal解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-16
+                    2021-03-18
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5k
+                    3.8k
                 </div>
                 
 
@@ -494,79 +494,75 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>正巧最近CenterNet的作者发布了CenterNet2，趁此机会也读一读这篇之前针对CenterNet训练时间改进的TTFNet。</p>
+<p>总的来说，GFocal这篇文章的数学性还是很高的，如果对此不感兴趣，可以阅读原作者的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147691786">《大白话 Generalized Focal Loss》</a>。</p>
 </blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>针对当前目标检测算法的痛点：其实大多数检测器都无法同时做到<strong>短的训练时间</strong>、<strong>快的推理速度</strong>和<strong>高的模型精度</strong>。为了追求这三者的平衡，TTFNet（Training-Time-Friendly Network，训练时间友好网络）被提了出来，在这个工作中，作者的起点是轻量的head（light-head）、单阶段（single-stage）和anchor-free的设计，这类方法可以保证推理速度较快，继而开始思考如何加快训练时间。回顾前人的方法，可以发现使用更多的训练样本等效于增大batch siz，有助于增大学习率加快训练过程。文中反复出现的encode more training samples的意思其实是采用更多的训练样本点，CenterNet只使用中心点进行目标回归，FCOS则采用GT中所有点进行目标回归，本文则采用高斯核控制参与回归的样本数量，从而引入更多回归样本加速收敛，又避免了FCOS那样的NMS后处理。实验表明，TTFNet获得了很好的训练时间、推理速度和精度的平衡，在获得SOTA精度的同时减少7倍的训练时间，超快版本的TTFNet-18和TTFNet-53超越SSD300和YOLOv3的同时，只需要它们十分之一的训练时间。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>众所周知，单阶段检测器的发展是目标检测领域的重要研究方向，而单阶段方法往往将目标检测视为密集分类和定位任务（其中定位任务值得就是边框回归）。分类任务通常通过Focal Loss进行优化，而边框定位通常按照Dirac delta分布来学习。最近单阶段检测器的研究趋势为引入一个单独的分支来估计定位的质量（centerness或者iou），这个质量预测有助于分类任务的进行从而整体上提高检测的性能。GFocal这篇文章就是针对上述的三个表示（representation）进行的工作，分别是分类表示、定位表示和检测框的质量估计，这里的表示指的是检测器最终的输出也就是head的输出。这三种表示一般关系如下图所示。</p>
+<p><img src="https://i.loli.net/2021/03/18/lmiICjUSWXuOvbL.png" alt=""></p>
+<p>作者发现目前的表示学习有两个问题，第一，质量估计和分类训练和推理时时不一致的（两个分支单独训练，但是推理时乘在一起，如上图所示）；第二，Dirac delta分布的定位表示不够灵活，无法建模复杂场景下的歧义和不确定性。</p>
+<p>为了解决这两个问题，论文作者设计了新的表示方式，将质量评估合并到分类预测向量中形成一个联合进行定位质量评估和分类的表示，此外也使用一个向量来表示任意的概率分布，这个概率分布用来建模边框位置信息（也就是说，边框回归的输出从定值变为了一个概率分布）。这两个方案可以有效解决上述的问题，特别是提出的联合表示可以有效消除不一致问题，但是因此标签也变为了连续值，因此作者提出对离散值的focal loss的扩展，即论文的Generalized Focal Loss （GFL），成功推广到了连续域上。在COCO数据集上，同等backbone和训练设置下，GFocal获得了0.45的AP，超越了SAPD和ATSS，而GFocal有着更快的速度。这文章最终收录在NeurIPS2020。</p>
 <ul>
 <li><p>论文标题</p>
-<p>  Training-Time-Friendly Network for Real-Time Object Detection</p>
+<p>  Generalized Focal Loss: Learning Qualified and Distributed Bounding Boxes for Dense Object Detection</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1909.00700">http://arxiv.org/abs/1909.00700</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2006.04388">http://arxiv.org/abs/2006.04388</a></p>
 </li>
 <li><p>论文源码</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/ZJULearning/ttfnet">https://github.com/ZJULearning/ttfnet</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/implus/GFocal">https://github.com/implus/GFocal</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>训练时间、推理速度和模型精度是目标检测领域目前研究的主要方向，但是，很少有工作在这三者间追求一个平衡。直观上看，推理速度快的检测器就应该有更短的训练时间，然而事实往往不是这样，大多数实时检测器比起非实时的检测器需要更长的训练时间。精度往往是我们最关心的，精度高的前提下将检测器分为两种：<strong>推理速度慢</strong>的和<strong>训练时间久</strong>的。前者往往有着庞大的head和复杂的后处理，这种设计虽然精度更高收敛更快但是不可避免为推理带来了压力，降低了推理速度，并不适用于实时应用。因此，后者这种简化head和后处理设计同时保持精度的检测器应运而生，CenterNet就是代表方法之一，其推理时间几乎和backbone网络相当。然而，这类推理速度快的网络都不可避免地需要漫长的训练，这也很容易理解，这类模型相对比较简单因而难以训练，需要大量的数据增强和训练调度。举例而言，CenterNet在COCO上需要140轮的训练，而那种推理速度较慢的网络只需要12轮。</p>
-<p>因此，TTFNet这篇文章主要关注如何将CenterNet这类网络的训练时间缩短同时保证精度和实时推理的速度。此前的研究表明，batch size越大可以采用更大的学习率，而且大多数情况下两者符合线性关系。而作者注意到，从标注框中编码更多的训练样本的效果是类似于增大batch size的。相比于特征提取的时间，编码特征和损失计算的时间是几乎可以忽略不计的，所以基本上可以在不增加额外开销的情况下安全地获得更快的收敛速度。遗憾的是，CenterNet仅仅使用目标的中心来进行尺寸回归，没有利用目标中心附近的信息，TTFNet作者通过实验证明，就是这个设计导致CenterNet收敛很慢。</p>
-<p>为了缩短训练时间，论文提出了一种新的使用高斯核来编码更多训练样本的方法来进行目标的定位和回归，这种策略使得网络可以更好地利用标注框产生更多的监督信号，这给快速收敛提供了保证。具体而言，通过高斯核函数在目标中心周围构造一个子区域，然后从该区域提取密集的采样点作为训练样本点。此外，将高斯概率作为回归样本的权重，来对靠近目标中心的目标赋予更高的权重。之后，作者还提出适当的规范化来利用大框的更多信息且保持小框的信息。论文提出的方法可以减少混淆核低质量样本而不需要任何的其他组件（如FPN），它也不需要位移预测来辅助定位，因此TTFNet是高效的、统一的、直观的。</p>
-<p><img src="https://i.loli.net/2021/03/16/JmfaY9b1ihkDyXI.png" alt=""></p>
-<p>整体来看，论文第一次提出了一个训练时间、推理速度和精度平衡良好的检测器，相比CenterNet和其他实时检测器减少了至少7倍的训练时间，并且效果上保证了sota水平。最快版本的TTFNet-18和TTFNet-53可以获得25.9的AP及112的FPS（8卡1080Ti需要1.8小时训练）和32.9的AP及55的FPS（8卡1080Ti需3.1小时训练），这是就作者所知，目前COCO上达到这一精度的最短训练时间。它们training from scratch分别需要19小时和32小时，获得的效果和任何SOTA<br>相比都不遑多让。</p>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>编码更多的训练样本和使用更大的batch size都可以为每一步的更新提供更多的监督信号，加快模型的训练。这里的训练样本指的是依据标注框编码的特征。回顾前人的工作，线性缩放规则于2017年被首次提出，它指的是，一般情况下batch size变为k倍，学习率也需要调整为k倍。而事实上，作者经过公式推导发现，对目标检测而言，训练样本量增加和batch size增加是几乎等效的。</p>
-<p>CenterNet作为一种新的anchor-free检测器，推理速度几倍于当前检测器，但是需要长时间的训练，这是因为模型相对简单从而需要大量的数据增强，这些数据增强虽然保证了模型性能的稳步上升但也减缓了模型的收敛速度。作者这里去掉了数据增强并且提高了学习率，得到如下图所示的结果，较大的学习率并不能加快模型的收敛，移除数据增强也导致了性能的急剧下降。发生的原因就是CenterNet只采用一个回归样本点，导致大量信息的丢失，从而需要复杂的数据增强和长时间训练，导致该网络训练上很不友好。</p>
-<p><img src="https://i.loli.net/2021/03/16/VNkFlJhHz9qDT18.png" alt=""></p>
-<p>为了消除CenterNet的这个弊端，作者推断采用一个更好的编码回归样本的策略是必要的。以此为出发点，TTFNet诞生了。</p>
-<h2 id="TTFNet"><a href="#TTFNet" class="headerlink" title="TTFNet"></a>TTFNet</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>首先回顾一下CenterNet这个方法，它将目标检测视为两部分：<strong>中心定位</strong>和<strong>尺寸回归</strong>。对于定位问题，它采用和CornerNet一样的高斯核来产生热力图，这种方式可以保证网络在目标的中心附近产生更强力的激活值。对于回归问题，它定义处于目标中心的像素作为训练样本并且直接预测目标的宽高，同时也预测一个偏移（offset）来恢复由于下采样造成的离散化误差。由于网络推理时可以在目标中心点附近产生更强的激活值，因此NMS不是必须的，后处理步骤的计算开销可以忽略不计。</p>
-<p>为了消除NMS的需求，因此TTFNet这篇文章的<strong>中心定位</strong>和CenterNet是类似的，只不过进一步考虑了高斯核中边框的宽高比，这是CenterNet没有考虑的，因此CenterNet的策略是次优的。</p>
-<p>而对于<strong>尺寸回归</strong>，主流的方法是及那个整个标注框内的像素点或者标注框内子框区域内的像素点作为训练样本。作者则认为，应当将整个高斯区域内的所有像素点作为训练样本。此外，基于目标尺寸和高斯概率计算的权重被应用到这些样本上以便于更好的特征提取，整个框架如下图所示，并不需要其他的预测分支来辅助纠错，因此是简单且有效的检测框架。</p>
-<p><img src="https://i.loli.net/2021/03/16/JmfaY9b1ihkDyXI.png" alt=""></p>
-<h3 id="训练用高斯核"><a href="#训练用高斯核" class="headerlink" title="训练用高斯核"></a>训练用高斯核</h3><p>类似CenterNet，TTFNet对于输入图像会得到两个预测特征$\hat{H} \in R^{N \times C \times \frac{H}{r} \times \frac{W}{r}}$和$\hat{S} \in R^{N \times 4 \times \frac{H}{r} \times \frac{W}{r}}$，前者用于表明目标中心的位置后者则用来获取关于目标尺寸的信息。其中的$N$、$C$、$H$、$W$和$r$分别表示batch size、类别数目、输入图像的宽和高以及输出缩放比例（下采样率）。实验中设置$C=80$且$r=4$，为了方便叙述后面都不再提及$N$这个维度，在论文的方法中高斯核既用于定位也用于回归，定义了两个标量$\alpha$和$\beta$分别来控制核的尺寸。</p>
-<h3 id="目标定位"><a href="#目标定位" class="headerlink" title="目标定位"></a>目标定位</h3><p>假定属于第$c_m$类的第$m$个标注框，首先它会被线性映射到特征图的尺度上。然后，2D高斯核$\mathbf{K}_{m}(x, y)= \exp \left(-\frac{\left(x-x_{0}\right)^{2}}{2 \sigma_{x}^{2}}-\frac{\left(y-y_{0}\right)^{2}}{2 \sigma_{y}^{2}}\right)$会被用来生成$H_{m} \in R^{1 \times \frac{H}{r} \times \frac{W}{r}}$，这里的$\sigma_{x}=\frac{\alpha w}{6}, \sigma_{y}=\frac{\alpha h}{6}$。最后，通过用$H_m$进行逐元素最大值求解来更新$H$上第$c_m$个通道。可以看到，其实$H_m$的获得依赖于参数$\alpha$、中心位置$(x_0,y_0)_m$和边框尺寸$(h,w)_m$。使用取整操作$\left(\left\lfloor\frac{x}{r}\right\rfloor,\left\lfloor\frac{y}{r}\right\rfloor\right)$来限制中心像素的位置必然是整数，这和CenterNet一致，这里$\alpha$被设置为0.54，这并非精心设计的值。</p>
-<p>高斯分布的峰值即边框中心的像素，被视为正样本，其他的均为负样本，这里损失采用modified focal loss，它在预测的$\hat{H}$和定位目标$H$之间计算，计算式如下，其中的$\alpha_f$和$\beta_f$为focal loss和modified focal loss的超参数，$M$代表标注框的数目，论文设置$\alpha_f = 2$而$\beta_f = 4$。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>近年来，密集检测器逐渐引领了目标检测的发展趋势，而对于边框表示和定位质量估计的研究也有了不错的进展。在过去数年中，边框表示被建模为简单的Dirac delta分布。FCOS中提出了一个额外的定位质量估计分支（使用center ness得分或者iou得分），这为检测的准确性带来了不小的提高，但是，在推理时质量估计和分类分支是组合到一起（通过乘法）作为NMS排序的置信度的。尽管有了很大的成功，但是论文作者发现了现有方法存在的一些问题。</p>
+<ol>
+<li><strong>质量估计和分类得分在训练和推理时的使用不一致</strong></li>
+</ol>
+<p><img src="https://i.loli.net/2021/03/18/uvFAmYjZHkWyJlD.png" alt=""></p>
+<p>如上图(a)所示，在密集预测检测器中，定位质量评估和分类得分时分别训练的，但是推理时却是组合使用的。还有就是，定位质量评估的监督只对正样本进行，这是不可靠的，因为有些负样本也可能获得较高的质量得分（因为它们时没有监督的，所以负样本的质量预测时模型不了解的未定义行为），而这个不合理的高质量评估得分和很低的分类得分乘起来后用于NMS排序，可能使得这些负样本排到正样本前面，这当然是很不合理的（示例如下图(a)所示）。</p>
+<p><img src="https://i.loli.net/2021/03/18/Jbp9QrTgoFuq4zd.png" alt=""></p>
+<ol>
+<li><strong>边界框表示不灵活</strong></li>
+</ol>
+<p>常用的边界框表示的方法可以认为是狄拉克分布，但是实际场景中目标的标注框往往具有歧义和不确定性，比如下图所示的不清晰的边界（被水模糊的滑板和严重遮挡的大象），狄拉克这种简单分布式难以建模的。后来诞生了一些方法采用高斯分布来建模边框，但是高斯分布还没有复杂到足以捕获目标框的位置分布，因为真实的分布可能是任意且灵活的，不需要高斯分布那样对称。</p>
+<p><img src="https://i.loli.net/2021/03/18/i2vnPT7VxlqwYBH.png" alt=""></p>
+<p>为了解决上述的两个问题，GFocal设计了新的边界框表示方法和新的定位质量估计表示。对于定位质量的表示，作者提出将其和分类得分进行合并得到一个统一的表示，而对于边界框的表示，作者则将其建模为连续空间上的概率分布（论文称为General distribution），下文详细。理解这两个思路。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><p>上文说到，作者为了解决定位质量表示和分类得分表示不一致的问题，作者将定位质量融入到了分类得分中形成一个统一的表示向量，该向量GT类别下标处对应的置信度不再是分类置信度而是质量预测的得分（这个得分一般采用预测框和真实框的IoU来表示）。将这个统一的表示记为classification-IoU joint representation，它可以被端到端优化且在推理时直接使用，如下图所示。这种方法可以有效消除训练和测试的不一致并且建模了分类和质量评估之间的强相关性。进一步看，由于在分类分支中，因此负样本也会被监督（质量得分为0），使得质量评估更加可靠。</p>
+<p><img src="https://i.loli.net/2021/03/18/kw2JYVRijM7PA9g.png" alt=""></p>
+<p>对于边框的表示，作者提出用任意分布来建模边界框并在连续空间上直接学习概率分布，不引入如高斯分布那样较强的先验知识。这里其实简单理解就是，原本FCOS等方法预测中心点到边界的距离是一个值（狄拉克分布），而论文预测的时中心点到边界的概率分布向量。这种方法可以有效进行边框回归，同时感知边框的潜在分布。</p>
+<h3 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h3><p>方案出来了，接下来就是要面对的问题了，首先看第一个方案，此时其实预测的标签已经从离散的{0,1}变为了连续的0-1的，而Focal Loss是不支持离散标签的，它的公式可以简单表述如下（忽略原始论文的$\alpha_t$）。</p>
 <script type="math/tex; mode=display">
-L_{l o c}=\frac{1}{M} \sum_{x y c}\left\{\begin{array}{l}
-\left(1-\hat{H}_{i j c}\right)^{\alpha_{f}} \log \left(\hat{H}_{i j c}\right) \quad \text { if } H_{i j c}=1 \\
-\left(1-H_{i j c}\right)^{\beta_{f}} \hat{H}_{i j c}^{\alpha_{f}} \log \left(1-\hat{H}_{i j c}\right) \quad \text { else }
-\end{array}\right.</script><h3 id="尺寸回归"><a href="#尺寸回归" class="headerlink" title="尺寸回归"></a>尺寸回归</h3><p>考虑已经被映射到特征图尺度上的第$m$个标注框，另一个高斯核被用来产生$S_{m} \in R^{1 \times \frac{H}{r} \times \frac{W}{r}}$，这个高斯核的参数由$\beta$控制，若$\alpha$和$\beta$相等，可以使用同一个高斯核。在$S_m$中的非零部分定义为高斯区域$A_m$，如下图所示，蓝色框代表标注框，下图黑色区域代表样本点，下图是几种选择样本的方式。由于$A_m$始终在第$m$个标注框内部，因此下文均简称为子区域。</p>
-<p><img src="https://i.loli.net/2021/03/16/TWyLmBPZUS9g7jK.png" alt=""></p>
-<p>每个子区域内的像素均被视作回归样本，考虑$A_m$中的一个像素$(i,j)$以及下采样率$r$，回归的目标就是从$(ir,jr)$到第$m$个标注框的四个边的距离，用一个四维向量表示为$\left(w_{l}, h_{t}, w_{r}, h_{b}\right)_{i j}^{m}$。在$(i,j)$处的预测框则表示如下。</p>
+\mathbf{F L}(p)=-\left(1-p_{t}\right)^{\gamma} \log \left(p_{t}\right), p_{t}=\left\{\begin{aligned}
+p, & \text { when } y=1 \\
+1-p, & \text { when } y=0
+\end{aligned}\right.</script><p>这个公式中的$y \in {1,0}$表示真实类别，而$p \in[0,1]$表示估计的标签为$y=1$的概率，$\gamma$是可以调整的聚焦参数。具体来看，Focal loss由一个标准交叉熵的部分$-\log \left(p_{t}\right)$和动态缩放因子部分$\left(1-p_{t}\right)^{\gamma}$组成，这个缩放因子可以在训练时对容易样本降权而使得模型快速聚焦难样本的学习。</p>
+<p>然而，对于分类质量的联合表示，标签已经变为了0-1的连续值，具体说，此时$y=0$表示质量得分为0的负样本，而$0&lt;y \leq 1$代表目标IoU标签为$y$的正样本，为了解决这个问题，作者对Focal Loss的两个部分分别进行了扩展以保证可以在联合表示下使用。首先，原来的交叉熵部分$-\log \left(p_{t}\right)$被修改为完整的形式$-((1-y) \log (1-\sigma)+y \log (\sigma))$；接着，缩放因子部分$\left(1-p_{t}\right)^{\gamma}$被推广到预测的sigmoid结果和连续标签$y$的绝对距离，即$|y-\sigma|^{\beta}(\beta \geq 0)$，两侧的绝对值确保非负。将这两个拓展部分组合到一起，形成完整的Quality Focal Loss（QFL），公式如下。</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-\hat{x}_{1}=i r-\hat{w}_{l} s, \hat{y}_{1}=j r-\hat{h}_{t} s \\
-\hat{x}_{2}=i r+\hat{w}_{r} s, \quad \hat{y}_{2}=j r+\hat{h}_{b} s
-\end{array}</script><p>上式中的$s$是一个固定的标量用于增大预测结果以便于优化，在论文中设置$s=16$，而且这里的$\left(\hat{x}_{1}, \hat{y}_{1}, \hat{x}_{2}, \hat{y}_{2}\right)$是在图像尺度上而不是特征图尺度上的。若一个像素不在任何子区域中，那么训练时他将被忽略。如果一个像素存在于多个子区域里，那么这是一个有歧义的样本，它的GT为具有最小面积的目标。</p>
-<p>考虑预测$\hat{S}$和回归目标$S$，从$S$中收集训练目标$S^{\prime} \in R^{N_{r e g} \times 4}$和相应的预测结果$\hat{S}^{\prime} \in R^{N_{r e g} \times 4}$（来自$\hat{S}$），这里的$N_{reg}$表示回归样本的数目。对这些所有的样本，利用上面的式子解码出预测的边框和相应的标注框，通过GIOU计算损失，因此回归分支的损失如下。</p>
+\mathbf{Q F L}(\sigma)=-|y-\sigma|^{\beta}((1-y) \log (1-\sigma)+y \log (\sigma))</script><p>和Focal Loss类似，魔改后的调制因子也有关注难样本的功能，当预测的质量估计值与真实标签相差很多的时候，$|y-\sigma|^{\beta}$的值便较大，模型就能更关注于这些难分类的样本；而当预测值与真实标签很接近的时候，损失便也接近0，所以简单样本的损失权重便被降低了。</p>
+<p><img src="https://i.loli.net/2021/03/18/iX93pYZe4O2TScr.png" alt=""></p>
+<p>上如右侧的上半部分就是上面提到的QFL，下半部分就是我们后面要讲的DFL。</p>
+<p>我们接着看，作者如何解决第二个方案遇到的问题，这篇文章采用的边框回归的目标是中心点到四个边的相对偏移，如上图所示的回归分支（采用哪种回归目标其实大同小异）。如上图左侧的回归分支所示，传统的边框回归是将标签$y$建模为狄拉克分布，也就是只有一个值概率为一，说的更通俗易懂就是只会产生一个输出值（比如到左边框的偏移是$x$），通常通过全连接层实现。作者认为应该不引入先验直接建模一个通用分布$P(x)$，也就是预测值是一个概率分布，可以理解为中心点到边的概率（因而由四个概率向量）。</p>
+<p>假定标签$y$的最小值为$y_0$最大值为$y_n$（$y_{0} \leq y \leq y_{n}, n \in \mathbb{N}^{+}$），而模型预测的$\hat{y}$则可以通过预测的概率分布得到（这里$\hat{y}$同样满足$y_{0} \leq \hat{y} \leq y_{n}$），计算式如下。需要补充的是，实际上代码实现是，作者是将$y_0$设置为0，$y_n$设置为16的。</p>
 <script type="math/tex; mode=display">
-L_{r e g}=\frac{1}{N_{r e g}} \sum_{(i, j) \in A_{m}} \operatorname{GIoU}\left(\hat{B}_{i j}, B_{m}\right) \times W_{i j}</script><p>上式中的$\hat{B_{ij}}$表示预测框$\left(\hat{x}_{1}, \hat{y}_{1}, \hat{x}_{2}, \hat{y}_{2}\right)_{i j}$，而$B_{m}=\left(x_{1}, y_{1}, x_{2}, y_{2}\right)_{m}$表示真实的图像尺度上的第$m$个标注框。$W_{ij}$表示采样权重，用来平衡每个样本对损失的贡献。</p>
-<p>继续考虑到目标的尺度变化可能是很大的，大目标也许会产生数千的样本而小目标仅仅会产生非常少量的样本，再依照样本贡献度标准化损失之后，小样本带来的损失是可以忽略不计的，这对检测器在小目标上的性能损害是很大的。因此上述的采样权重$W_{ij}$在损失平衡方面尤其重要。假定$(i,j)$在第$m$个标注的子区域$A_m$中，$W_{ij}$的计算式如下。</p>
+\hat{y}=\int_{-\infty}^{+\infty} P(x) x \mathrm{~d} x=\int_{y_{0}}^{y_{n}} P(x) x \mathrm{~d} x</script><p>为了适配卷积神经网络，作者将连续域上的积分转换为离散表示，具体是将区间$\left[y_{0}, y_{n}\right]$离散化为集合$\left{y_{0}, y_{1}, \ldots, y_{i}, y_{i+1}, \ldots, y_{n-1}, y_{n}\right}$，集合每个元素间隔为了简单取1。此时有$\sum_{i=0}^{n} P\left(y_{i}\right)=1$，因而估计的回归值变为下式。$P(x)$可以通过Softmax函数实现，因此$P(y_i)$可以记作$S_i$。</p>
 <script type="math/tex; mode=display">
-W_{i j}=\left\{\begin{array}{ll}
-\log \left(a_{m}\right) \times \frac{\mathrm{G}_{m}(i, j)}{\sum_{(x, y) \in A_{m}} \mathrm{G}_{m}(x, y)} & (i, j) \in A_{m} \\
-0 & (i, j) \notin A
-\end{array}\right.</script><p>这个式子里的$\mathrm{G}_{m}(i, j)$表示$(i,j)$位置处的高斯概率，$a_m$是第$m$个标注框的面积。该方案可以很好地利用大目标中包含的更多注释信息，同时保留小目标中的注释信息。它还可以强调目标中心附近的这些样本，减少模糊和低质量样本的影响。</p>
-<h3 id="总体损失"><a href="#总体损失" class="headerlink" title="总体损失"></a>总体损失</h3><p>讲完最关键的size regression之后，最终的损失如下式所述，它是定位损失和回归损失的加权求和结果，两个收工设计的权重$w_{loc}$和$w_{reg}$分别是1.0和5.0。</p>
+\hat{y}=\sum_{i=0}^{n} P\left(y_{i}\right) y_{i}</script><p>注意，因为已经得到了$\hat{y}$，因此它可以使用L1损失、IoU损失或者GIoU损失来训练，但是作者分析了一下发现一个积分目标可能对于无数种积分模式（如下图的面积相同的三种分布，显然第三种最合适，因为最合适的位置如果存在那么与标签不会相差太远），这有损学习效率。考虑到真实的分布通常不会距离标注的位置太远，所以作者又额外加了个loss，希望网络能够快速地聚焦到标注位置附近的数值，使得他们概率尽可能大。</p>
+<p><img src="https://i.loli.net/2021/03/18/U6T2Kp8mkCchV39.png" alt=""></p>
+<p>基于此，作者将这个损失取名Distribution Focal Loss (DFL) ，它显式增大最接近标签$y$的两侧的$y_i$和$y_{i+1}$的概率。此外，由于边框回归只考虑正样本没有不平衡问题的风险，简单将QFL的完整交叉熵部分应用过来就行，形成的DFL公式如下。公式中关于$S_i$和$S_{i+1}$如何能够接近目标，作者在论文补充材料进行了证明，这里不多赘述。</p>
 <script type="math/tex; mode=display">
-L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>整个TTFNet的结构与如下图所示，论文中backbone采用ResNet和DarkNet，特征图通过MDCN和上采样层调整到原图的1/4分辨率。这个特征图随后分别进入两个head中，定位head（下图上面分支）用来产生目标中心附近激活值更强的热度图，回归head（下图下面分支）直接预测定位目标中心到边框四个边的距离。由于目标中心是热度图上的局部最大值，因此不需要nms只需要使用最大池化即可定位目标。通过这个方法找到的局部最大值用来产生回归结果，进而完成目标检测。</p>
-<p><img src="https://i.loli.net/2021/03/16/JmfaY9b1ihkDyXI.png" alt=""></p>
-<p>TTFNet这种设计高效利用了大尺寸和中等尺寸目标的标注信息，但是受限于小目标信息的确过少，所以作者又通过短路连接将高分辨率低语义信息的特征图传到最后，这些特征图来自stage2、stage3和stage4。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>这篇论文进行了大量的消融实验论证论文提出的方法，采用的模型为TTFNet-53。首先验证了回归权重$W_{ij}$的重要性，每个标注框产生的样本量是不同的，这点上面已经阐述了，主要是大目标训练样本很多而小目标训练样本很少。不进行任何平衡处理的结果如下表的第一列，结果很差。有个直接的策略就是对标注框的损失按照样本量进行标准化，如第$m$个标注框有$n_m$个样本，那么损失就乘以权重$\frac{1}{n_{m}}$，这个结果也不是最优的，因为模型丧失了利用大目标更多信息的机会。这个结果是下表的第二列。下标的Sqrt和Log则表示对边框区域面积sqrt和log的结果作为采样权重。最后，采用文中提出的高斯概率配合面积log值作为采样权重获得了最好的效果，如下表最后一列，它能解决上述的其他方法的问题。</p>
-<p><img src="https://i.loli.net/2021/03/16/ITFhYgUdLe6bpDE.png" alt=""></p>
-<p>这种高斯核的设计引入回归权重中会优雅且高效地处理低质量或有歧义的样本，这个有歧义的样本指的是定位在重叠区域的样本，而低质量样本指的是远离目标中心的样本。此前已经有不少方法解决这两种问题样本，如centerness分支，高斯核加权的引入可以毫无边缘效应地处理这两种样本，它会在标注框内部产生一个子区域，这个子区域的大小仅受到超参数$\beta$的控制，$\beta$越大则可以利用更多的信息也会引入更多的上述两种样本。关于$\beta$的选择，如下表所示。</p>
-<p><img src="https://i.loli.net/2021/03/16/4nBPD853xptHj92.png" alt=""></p>
-<p>实验表明，模型性能差的主要原因是低质量样本，引入高斯核可以有效选择训练样本，因为高斯核区域的样本都是目标高相关的。不同于CenterNet，作者还考虑了高斯核中的box的长宽比。如下图所示，显然，考虑长宽比会带来不小的收益。</p>
-<p><img src="https://i.loli.net/2021/03/16/kPhMeIyqt7O3D6K.png" alt=""></p>
-<p>之后，作者研究了短路连接给模型带来的收益（针对小目标），显然，是有效果的，结果如下图所示。</p>
-<p><img src="https://i.loli.net/2021/03/16/9b387NzA6rBdVKp.png" alt=""></p>
-<p>样本量对学习率的影响，如下表所示，可以发现$\beta$越大引入样本越多，可以采用更大的学习率，这和使用更大的batch size效果类似。</p>
-<p><img src="https://i.loli.net/2021/03/16/ieDJtnmRH5yPjpQ.png" alt=""></p>
-<p>下图是traing from scratch的结果，需要更长的训练时间。</p>
-<p><img src="https://i.loli.net/2021/03/16/mlT9PgEdwNWqLKr.png" alt=""></p>
-<p>下图则是喜闻乐见的和SOTA的对比，与一些比较新的推理很快的方法对比，精度更高训练耗时更短。</p>
-<p><img src="https://i.loli.net/2021/03/16/mAbJnxL57sDeq6r.png" alt=""></p>
-<p>最后，还和对标的CenterNet进行了对比，如下。</p>
-<p><img src="https://i.loli.net/2021/03/16/XLhregVy72jqKwR.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>TTFNet针对CenterNet训练样本不足的问题使用高斯核进行样本选择，是平衡训练时间、推理速度和准确性的优雅而高效的解决方案。理论分析和实验都很详实，是不可多得的好文章。设计的TTFNet大大减少了训练速度，对设备不太充足的研究者是很友好的，也适用于NAS等技术。本文只是做了一些基本的解读，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
+\mathbf{D F L}\left(\mathcal{S}_{i}, \mathcal{S}_{i+1}\right)=-\left(\left(y_{i+1}-y\right) \log \left(\mathcal{S}_{i}\right)+\left(y-y_{i}\right) \log \left(\mathcal{S}_{i+1}\right)\right)</script><p>最后，其实归纳可以发现，QFL和DFL可以表示为一个通用的形式，也就是本文的标题由来Generalized Focal Loss (GFL)，我这里就简单给出这个公式，诸多细节可以阅读原论文。</p>
+<script type="math/tex; mode=display">
+\mathbf{G F L}\left(p_{y_{l}}, p_{y_{r}}\right)=-\left|y-\left(y_{l} p_{y_{l}}+y_{r} p_{y_{r}}\right)\right|^{\beta}\left(\left(y_{r}-y\right) \log \left(p_{y_{l}}\right)+\left(y-y_{l}\right) \log \left(p_{y_{r}}\right)\right)</script><h3 id="训练损失"><a href="#训练损失" class="headerlink" title="训练损失"></a>训练损失</h3><p>最终的训练损失如下式，其中$\mathcal{L}_{\mathcal{Q}}$表示QFL而$\mathcal{L}_{\mathcal{D}}$表示DFL，而$\mathcal{L}_{\mathcal{B}}$指的是GIoU Loss，$N_{pos}$表示正样本数目，$\lambda_{0}$和$\lambda_1$是$\mathcal{L}_{\mathcal{Q}}$和$\mathcal{L}_{\mathcal{D}}$的平衡权重。在金字塔特征图的所有位置计算求和。这里的$\mathbf{1}_{\left{c_{z}^{<em>}&gt;0\right}}$为指示函数，当$c_{z}^{</em>}&gt;0$时为1，否则为0。</p>
+<script type="math/tex; mode=display">
+\mathcal{L}=\frac{1}{N_{\text {pos }}} \sum_{z} \mathcal{L}_{\mathcal{Q}}+\frac{1}{N_{\text {pos }}} \sum_{z} \mathbf{1}_{\left\{c_{z}^{*}>0\right\}}\left(\lambda_{0} \mathcal{L}_{\mathcal{B}}+\lambda_{1} \mathcal{L}_{\mathcal{D}}\right)</script><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者进行了一些消融实验，这里就不细说了，这里直接说明两个结论。</p>
+<ol>
+<li>QFL和DFL两个损失的作用是正交的，他们的增益互不影响，所以结合使用会有更好的效果。</li>
+<li>GFocal与各大模型相比，取得了较为不错的speed-accuracy trade-off，基本上属于无痛涨点的利器。</li>
+</ol>
+<p>下图是单模型单尺度的结果对比，可以看到，GFocal取得了相当亮眼的表现。</p>
+<p><img src="https://i.loli.net/2021/03/18/UDpNoYtPE4rXAZL.png" alt=""></p>
+<p>此外，也附上和SOTA对比的实验结果图。</p>
+<p><img src="https://i.loli.net/2021/03/18/mlHK1fx2nQUZtvL.png" alt=""></p>
+<p><strong>文章的补充材料也有不少干货，关于centerness和IoU的对比我就不赘述了，此外作者也进行了分布式边框表示的可视化，以下图为例，可视化四个边的预测分布，可以发现一个有趣的现象，当伞不算伞柄也就是白色GT框可以定位伞，但是算上伞兵绿色预测框又可以定位伞，概率分布也得确是一个双峰分布，这其实表达标注和模型对某个物体的两种理解，这个双峰分布很有趣，给后来的研究留下了无数遐想。</strong></p>
+<p><img src="https://i.loli.net/2021/03/18/bkFAfqJMmGwsV7I.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章从表示（representation）这一模型学习的关键出发提出了GFocal，将边框建模为概率表示极具开创性。论文基于mmdetection实现，也很便于源码的阅读和使用，是相当亮眼的工作，值得一读。最后，本文我只是做了一些基本的解读，更详细的请参考原论文，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -596,8 +592,8 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">TTFNet解读</span>
+                                <a href="/tags/GFocal%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">GFocal解读</span>
                                 </a>
                             
                         </div>
@@ -768,7 +764,7 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-03-16T20-19-37',
+        id: '2021-03-18T12-28-22',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -794,9 +790,10 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/03/18/gfocal/">
                     <div class="card-image">
@@ -814,9 +811,9 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -829,6 +826,7 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -847,13 +845,13 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/14/trackformer/">
+                <a href="/2021/03/16/ttfnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="TrackFormer解读">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="TTFNet解读">
                         
-                        <span class="card-title">TrackFormer解读</span>
+                        <span class="card-title">TTFNet解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -864,7 +862,7 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-16
                             </span>
                         <span class="publish-author">
                             
@@ -881,8 +879,8 @@ L=w_{\text {loc }} L_{\text {loc }}+w_{\text {reg }} L_{r e g}</script><h3 id="�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/TrackFormer%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">TrackFormer解读</span>
+                    <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">TTFNet解读</span>
                     </a>
                     
                 </div>

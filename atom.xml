@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-03-16T12:20:12.585Z</updated>
+  <updated>2021-03-18T04:28:49.650Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GFocal解读</title>
+    <link href="https://zhouchen1998.cn/2021/03/18/gfocal/"/>
+    <id>https://zhouchen1998.cn/2021/03/18/gfocal/</id>
+    <published>2021-03-18T04:28:22.000Z</published>
+    <updated>2021-03-18T04:28:49.650Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;总的来说，GFocal这篇文章的数学性还是很高的，如果对此不感兴趣，可以阅读原作者的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/147691786&quot;&gt;《大白话 Generalized Focal</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="GFocal解读" scheme="https://zhouchen1998.cn/tags/GFocal%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>TTFNet解读</title>
@@ -506,31 +532,6 @@
     
     
     <category term="EfficientDet解读" scheme="https://zhouchen1998.cn/tags/EfficientDet%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CSTrack 解读</title>
-    <link href="https://zhouchen1998.cn/2020/11/20/cstrack/"/>
-    <id>https://zhouchen1998.cn/2020/11/20/cstrack/</id>
-    <published>2020-11-20T01:01:47.000Z</published>
-    <updated>2020-11-20T10:07:36.586Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="CSTrack解读" scheme="https://zhouchen1998.cn/tags/CSTrack%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

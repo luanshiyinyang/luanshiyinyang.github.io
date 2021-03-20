@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GFocal解读, Chen&#39;s blog">
+    <meta name="keywords" content="GFocalV2解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>GFocal解读 | Chen&#39;s blog</title>
+    <title>GFocalV2解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GFocal解读</h1>
+                    <h1 class="description center-align post-title">GFocalV2解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GFocal%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">GFocal解读</span>
+                            <a href="/tags/GFocalV2%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">GFocalV2解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-18
+                    2021-03-20
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.8k
+                    2.1k
                 </div>
                 
 
@@ -494,75 +494,49 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>总的来说，GFocal这篇文章的数学性还是很高的，如果对此不感兴趣，可以阅读原作者的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147691786">《大白话 Generalized Focal Loss》</a>。</p>
+<p>本文对作者基于GFocalV1的工作的扩展，取得了不错的效果，想要更加直白理解这篇文章的话可以参考作者的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/313684358">《大白话 Generalized Focal Loss V2》</a>。</p>
 </blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>众所周知，单阶段检测器的发展是目标检测领域的重要研究方向，而单阶段方法往往将目标检测视为密集分类和定位任务（其中定位任务值得就是边框回归）。分类任务通常通过Focal Loss进行优化，而边框定位通常按照Dirac delta分布来学习。最近单阶段检测器的研究趋势为引入一个单独的分支来估计定位的质量（centerness或者iou），这个质量预测有助于分类任务的进行从而整体上提高检测的性能。GFocal这篇文章就是针对上述的三个表示（representation）进行的工作，分别是分类表示、定位表示和检测框的质量估计，这里的表示指的是检测器最终的输出也就是head的输出。这三种表示一般关系如下图所示。</p>
-<p><img src="https://i.loli.net/2021/03/18/lmiICjUSWXuOvbL.png" alt=""></p>
-<p>作者发现目前的表示学习有两个问题，第一，质量估计和分类训练和推理时时不一致的（两个分支单独训练，但是推理时乘在一起，如上图所示）；第二，Dirac delta分布的定位表示不够灵活，无法建模复杂场景下的歧义和不确定性。</p>
-<p>为了解决这两个问题，论文作者设计了新的表示方式，将质量评估合并到分类预测向量中形成一个联合进行定位质量评估和分类的表示，此外也使用一个向量来表示任意的概率分布，这个概率分布用来建模边框位置信息（也就是说，边框回归的输出从定值变为了一个概率分布）。这两个方案可以有效解决上述的问题，特别是提出的联合表示可以有效消除不一致问题，但是因此标签也变为了连续值，因此作者提出对离散值的focal loss的扩展，即论文的Generalized Focal Loss （GFL），成功推广到了连续域上。在COCO数据集上，同等backbone和训练设置下，GFocal获得了0.45的AP，超越了SAPD和ATSS，而GFocal有着更快的速度。这文章最终收录在NeurIPS2020。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/114972223">之前的文章</a>介绍了GFocalV1这个开创性的工作，它将边界框建模为通用分布表示，这个分布式的表示其实在GFocalV1中对整个模型的贡献并不是非常大（相比于分类-质量联合表示），因此如何充分利用成为GFocalV2的出发点，事实上，既然分布的形状和真实的定位质量高度相关，那么这个边框的分布表示其实可以算出统计量指导定位质量估计，这就是GFocalV2的核心创新点。</p>
+<p><img src="https://i.loli.net/2021/03/20/WSYk3tfLroGKMIw.png" alt=""></p>
 <ul>
 <li><p>论文标题</p>
-<p>  Generalized Focal Loss: Learning Qualified and Distributed Bounding Boxes for Dense Object Detection</p>
+<p>  Generalized Focal Loss V2: Learning Reliable Localization Quality Estimation for Dense Object Detection</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2006.04388">http://arxiv.org/abs/2006.04388</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2011.12885">http://arxiv.org/abs/2011.12885</a></p>
 </li>
 <li><p>论文源码</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/implus/GFocal">https://github.com/implus/GFocal</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/implus/GFocalV2">https://github.com/implus/GFocalV2</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>近年来，密集检测器逐渐引领了目标检测的发展趋势，而对于边框表示和定位质量估计的研究也有了不错的进展。在过去数年中，边框表示被建模为简单的Dirac delta分布。FCOS中提出了一个额外的定位质量估计分支（使用center ness得分或者iou得分），这为检测的准确性带来了不小的提高，但是，在推理时质量估计和分类分支是组合到一起（通过乘法）作为NMS排序的置信度的。尽管有了很大的成功，但是论文作者发现了现有方法存在的一些问题。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>当前的密集检测器由于其优雅且高效，成为业界比较关注的研究热点之一。这类框架的一个重要组件就是Localization Quality Estimation（LQE，定位质量评估模块），通过LQE，高质量检测框相比于低质量检测框有着更高的得分从而降低被NMS消除的风险。LQE的实现形式多变，早有基于IoU的Objectness，近有基于偏中心距离的Centerness，不过它们都有共同的特点，那就是它们都基于原始的卷积特征进行质量估计，如基于点、边界框或者区域的特征。</p>
+<p>不同于之前的工作，GFocalV2从一个新的角度实现LQE，它利用了边界框分布的统计学特征而不使用原始的卷积特征。这里的边界框通用分布源于GFocalV1，它通过学习每个要预测的边的概率分布来描述边界框回归的不确定性，如下图的(a)所示。有趣的是，这个通用分布其实和真实的定位质量高度相关，作者将预测框分布的top1值和真实的IoU定位质量做了一个散点图，如下图的(b)所示，可以发现整个散点图其实是有y=x这一趋势的，这就是说，统计意义上来看，分布的形状其实与定位质量高相关。</p>
+<p><img src="https://i.loli.net/2021/03/20/ORMhGf3wctZexYX.png" alt=""></p>
+<p>更具体一点，从上图的(c)和(d)可以发现，边界框分布的尖锐程度可以清晰描述预测框的定位质量，对于那些模型很确信的预测它的分布是很尖锐的（在一个位置非常突出），而对于模型比较容易混淆的（上图的伞柄）预测框，分布是比较平缓甚至呈现双峰分布的。因此，分布的形状可以指导模型获得更好的LQE，那么如何刻画分布的形状呢？其实论文这里采用了一个非常简单的方法，就是topk数值来进行描述，这点后文会详细讲解。</p>
+<p>总之，论文作者设计了一个非常轻量的子网络基于这些分布的统计量产生更加可靠的LQE得分，取得了可观的性能提升，文章将这个子网络称为Distribution-Guided Quality Predictor (DGQP)。引入这个DGQP之后的GFocalV1就成为了GFocalV2，这是一个新的密集检测器，在ATSS上获得了2.6AP的收益。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>在之前的文章中，我已经介绍了GFocalV1了，那篇文章的核心创新点是<strong>将分类得分和IoU定位质量估计联合到了一起</strong>和<strong>将边界框表示建模为通用分布</strong>，这里就不多做回顾了。</p>
+<h3 id="分解分类和IoU的表示"><a href="#分解分类和IoU的表示" class="headerlink" title="分解分类和IoU的表示"></a>分解分类和IoU的表示</h3><p>在尽管在GFocalV1中分类和质量估计的联合表示解决了训练和推理时的不一致问题，然而只是使用分类分支来产生联合表示还是有所局限，所以这篇论文中作者将其显式分解为利用分类（$C$）和回归（$I$）两个分支的结构，联合表示的$J=C\times I$。其中$\mathbf{C}=\left[C_{1}, C_{2}, \ldots, C_{m}\right], C_{i} \in[0,1]$是$m$个类别的分类表示，而$I \in[0,1]$是表示IoU表示的标量。尽管这里将$J$分解为了两部分，但是依然同时在训练和推理阶段使用$J$，所以依然保持了GFocalV1追求的一致性。</p>
+<p>那么这个$C$是如何得到的呢，其实是通过设计的DGQP模块从$C$和$I$计算而来，J的监督依然由QFL损失进行，关于这个DGQP模块，下文会讲解。</p>
+<h3 id="DGQP模块"><a href="#DGQP模块" class="headerlink" title="DGQP模块"></a>DGQP模块</h3><p>Distribution-Guided Quality Predictor（DGQP）模块是GFocalV2最核心的模块，它如下图中的红色框所示，将预测的边框分布$P$输入到一个非常简单的全连接子网络中，得到一个IoU质量标量$I$，它和分类得分相乘作为最终的联合表示$J$。和GFocalV1类似，它将相对四个边的偏移量作为回归目标，用通用分布表示，将四个边表示为${l,r,t,b}$，定义$w$边的概率分布为$\mathbf{P}^{w}=\left[P^{w}\left(y_{0}\right), P^{w}\left(y_{1}\right), \ldots, P^{w}\left(y_{n}\right)\right]$，其中$w \in{l, r, t, b}$。</p>
+<p><img src="https://i.loli.net/2021/03/20/KsZ23TFoQ4MlWNH.png" alt=""></p>
+<p>关于如何选择分布的统计量，作者这里采用的是分布向量$P^w$的Top-k个值和整个向量的均值作为统计特征，因此四条边概率向量的基础统计特征$\mathbf{F} \in \mathbb{R}^{4(k+1)}$通过下式计算得到，其中的Topkm表示求topk值加上均值计算，concat表示串联。</p>
+<script type="math/tex; mode=display">
+\mathbf{F}=\operatorname{Concat}\left(\left\{\operatorname{Topkm}\left(\mathbf{P}^{w}\right) \mid w \in\{l, r, t, b\}\right\}\right)</script><p>之所以选择topk和均值，有以下两个好处。</p>
 <ol>
-<li><strong>质量估计和分类得分在训练和推理时的使用不一致</strong></li>
+<li>由于是概率分布，因此概率分布的和是固定为1的，因此topk和均值就能基本反映分布的平坦程度，越大越尖锐，越小越平坦。</li>
+<li>topk和均值可以尽量和对象的尺度无关，也就是如下图所示的，不管是左边的小尺度目标还是右边的大尺度目标，它们的分布都是尖锐的（形状类似），因而统计值也应该差不多。这种表示方法更有鲁棒性。</li>
 </ol>
-<p><img src="https://i.loli.net/2021/03/18/uvFAmYjZHkWyJlD.png" alt=""></p>
-<p>如上图(a)所示，在密集预测检测器中，定位质量评估和分类得分时分别训练的，但是推理时却是组合使用的。还有就是，定位质量评估的监督只对正样本进行，这是不可靠的，因为有些负样本也可能获得较高的质量得分（因为它们时没有监督的，所以负样本的质量预测时模型不了解的未定义行为），而这个不合理的高质量评估得分和很低的分类得分乘起来后用于NMS排序，可能使得这些负样本排到正样本前面，这当然是很不合理的（示例如下图(a)所示）。</p>
-<p><img src="https://i.loli.net/2021/03/18/Jbp9QrTgoFuq4zd.png" alt=""></p>
-<ol>
-<li><strong>边界框表示不灵活</strong></li>
-</ol>
-<p>常用的边界框表示的方法可以认为是狄拉克分布，但是实际场景中目标的标注框往往具有歧义和不确定性，比如下图所示的不清晰的边界（被水模糊的滑板和严重遮挡的大象），狄拉克这种简单分布式难以建模的。后来诞生了一些方法采用高斯分布来建模边框，但是高斯分布还没有复杂到足以捕获目标框的位置分布，因为真实的分布可能是任意且灵活的，不需要高斯分布那样对称。</p>
-<p><img src="https://i.loli.net/2021/03/18/i2vnPT7VxlqwYBH.png" alt=""></p>
-<p>为了解决上述的两个问题，GFocal设计了新的边界框表示方法和新的定位质量估计表示。对于定位质量的表示，作者提出将其和分类得分进行合并得到一个统一的表示，而对于边界框的表示，作者则将其建模为连续空间上的概率分布（论文称为General distribution），下文详细。理解这两个思路。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><p>上文说到，作者为了解决定位质量表示和分类得分表示不一致的问题，作者将定位质量融入到了分类得分中形成一个统一的表示向量，该向量GT类别下标处对应的置信度不再是分类置信度而是质量预测的得分（这个得分一般采用预测框和真实框的IoU来表示）。将这个统一的表示记为classification-IoU joint representation，它可以被端到端优化且在推理时直接使用，如下图所示。这种方法可以有效消除训练和测试的不一致并且建模了分类和质量评估之间的强相关性。进一步看，由于在分类分支中，因此负样本也会被监督（质量得分为0），使得质量评估更加可靠。</p>
-<p><img src="https://i.loli.net/2021/03/18/kw2JYVRijM7PA9g.png" alt=""></p>
-<p>对于边框的表示，作者提出用任意分布来建模边界框并在连续空间上直接学习概率分布，不引入如高斯分布那样较强的先验知识。这里其实简单理解就是，原本FCOS等方法预测中心点到边界的距离是一个值（狄拉克分布），而论文预测的时中心点到边界的概率分布向量。这种方法可以有效进行边框回归，同时感知边框的潜在分布。</p>
-<h3 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h3><p>方案出来了，接下来就是要面对的问题了，首先看第一个方案，此时其实预测的标签已经从离散的{0,1}变为了连续的0-1的，而Focal Loss是不支持离散标签的，它的公式可以简单表述如下（忽略原始论文的$\alpha_t$）。</p>
+<p><img src="https://i.loli.net/2021/03/20/AoeFYGd3DvHuXwQ.png" alt=""></p>
+<p>下面来具体看一下DGQP模块的结构实现，如下图所示，上面的统计特征$F$输入DGQP模块（记为$\mathcal{F}$）中，这个模块只有两个全连接层（配合以激活函数），因而最终IoU预测标量如下式。</p>
+<p><img src="https://i.loli.net/2021/03/20/rkWa9GvENXsHT7o.png" alt=""></p>
 <script type="math/tex; mode=display">
-\mathbf{F L}(p)=-\left(1-p_{t}\right)^{\gamma} \log \left(p_{t}\right), p_{t}=\left\{\begin{aligned}
-p, & \text { when } y=1 \\
-1-p, & \text { when } y=0
-\end{aligned}\right.</script><p>这个公式中的$y \in {1,0}$表示真实类别，而$p \in[0,1]$表示估计的标签为$y=1$的概率，$\gamma$是可以调整的聚焦参数。具体来看，Focal loss由一个标准交叉熵的部分$-\log \left(p_{t}\right)$和动态缩放因子部分$\left(1-p_{t}\right)^{\gamma}$组成，这个缩放因子可以在训练时对容易样本降权而使得模型快速聚焦难样本的学习。</p>
-<p>然而，对于分类质量的联合表示，标签已经变为了0-1的连续值，具体说，此时$y=0$表示质量得分为0的负样本，而$0&lt;y \leq 1$代表目标IoU标签为$y$的正样本，为了解决这个问题，作者对Focal Loss的两个部分分别进行了扩展以保证可以在联合表示下使用。首先，原来的交叉熵部分$-\log \left(p_{t}\right)$被修改为完整的形式$-((1-y) \log (1-\sigma)+y \log (\sigma))$；接着，缩放因子部分$\left(1-p_{t}\right)^{\gamma}$被推广到预测的sigmoid结果和连续标签$y$的绝对距离，即$|y-\sigma|^{\beta}(\beta \geq 0)$，两侧的绝对值确保非负。将这两个拓展部分组合到一起，形成完整的Quality Focal Loss（QFL），公式如下。</p>
-<script type="math/tex; mode=display">
-\mathbf{Q F L}(\sigma)=-|y-\sigma|^{\beta}((1-y) \log (1-\sigma)+y \log (\sigma))</script><p>和Focal Loss类似，魔改后的调制因子也有关注难样本的功能，当预测的质量估计值与真实标签相差很多的时候，$|y-\sigma|^{\beta}$的值便较大，模型就能更关注于这些难分类的样本；而当预测值与真实标签很接近的时候，损失便也接近0，所以简单样本的损失权重便被降低了。</p>
-<p><img src="https://i.loli.net/2021/03/18/iX93pYZe4O2TScr.png" alt=""></p>
-<p>上如右侧的上半部分就是上面提到的QFL，下半部分就是我们后面要讲的DFL。</p>
-<p>我们接着看，作者如何解决第二个方案遇到的问题，这篇文章采用的边框回归的目标是中心点到四个边的相对偏移，如上图所示的回归分支（采用哪种回归目标其实大同小异）。如上图左侧的回归分支所示，传统的边框回归是将标签$y$建模为狄拉克分布，也就是只有一个值概率为一，说的更通俗易懂就是只会产生一个输出值（比如到左边框的偏移是$x$），通常通过全连接层实现。作者认为应该不引入先验直接建模一个通用分布$P(x)$，也就是预测值是一个概率分布，可以理解为中心点到边的概率（因而由四个概率向量）。</p>
-<p>假定标签$y$的最小值为$y_0$最大值为$y_n$（$y_{0} \leq y \leq y_{n}, n \in \mathbb{N}^{+}$），而模型预测的$\hat{y}$则可以通过预测的概率分布得到（这里$\hat{y}$同样满足$y_{0} \leq \hat{y} \leq y_{n}$），计算式如下。需要补充的是，实际上代码实现是，作者是将$y_0$设置为0，$y_n$设置为16的。</p>
-<script type="math/tex; mode=display">
-\hat{y}=\int_{-\infty}^{+\infty} P(x) x \mathrm{~d} x=\int_{y_{0}}^{y_{n}} P(x) x \mathrm{~d} x</script><p>为了适配卷积神经网络，作者将连续域上的积分转换为离散表示，具体是将区间$\left[y_{0}, y_{n}\right]$离散化为集合$\left{y_{0}, y_{1}, \ldots, y_{i}, y_{i+1}, \ldots, y_{n-1}, y_{n}\right}$，集合每个元素间隔为了简单取1。此时有$\sum_{i=0}^{n} P\left(y_{i}\right)=1$，因而估计的回归值变为下式。$P(x)$可以通过Softmax函数实现，因此$P(y_i)$可以记作$S_i$。</p>
-<script type="math/tex; mode=display">
-\hat{y}=\sum_{i=0}^{n} P\left(y_{i}\right) y_{i}</script><p>注意，因为已经得到了$\hat{y}$，因此它可以使用L1损失、IoU损失或者GIoU损失来训练，但是作者分析了一下发现一个积分目标可能对于无数种积分模式（如下图的面积相同的三种分布，显然第三种最合适，因为最合适的位置如果存在那么与标签不会相差太远），这有损学习效率。考虑到真实的分布通常不会距离标注的位置太远，所以作者又额外加了个loss，希望网络能够快速地聚焦到标注位置附近的数值，使得他们概率尽可能大。</p>
-<p><img src="https://i.loli.net/2021/03/18/U6T2Kp8mkCchV39.png" alt=""></p>
-<p>基于此，作者将这个损失取名Distribution Focal Loss (DFL) ，它显式增大最接近标签$y$的两侧的$y_i$和$y_{i+1}$的概率。此外，由于边框回归只考虑正样本没有不平衡问题的风险，简单将QFL的完整交叉熵部分应用过来就行，形成的DFL公式如下。公式中关于$S_i$和$S_{i+1}$如何能够接近目标，作者在论文补充材料进行了证明，这里不多赘述。</p>
-<script type="math/tex; mode=display">
-\mathbf{D F L}\left(\mathcal{S}_{i}, \mathcal{S}_{i+1}\right)=-\left(\left(y_{i+1}-y\right) \log \left(\mathcal{S}_{i}\right)+\left(y-y_{i}\right) \log \left(\mathcal{S}_{i+1}\right)\right)</script><p>最后，其实归纳可以发现，QFL和DFL可以表示为一个通用的形式，也就是本文的标题由来Generalized Focal Loss (GFL)，我这里就简单给出这个公式，诸多细节可以阅读原论文。</p>
-<script type="math/tex; mode=display">
-\mathbf{G F L}\left(p_{y_{l}}, p_{y_{r}}\right)=-\left|y-\left(y_{l} p_{y_{l}}+y_{r} p_{y_{r}}\right)\right|^{\beta}\left(\left(y_{r}-y\right) \log \left(p_{y_{l}}\right)+\left(y-y_{l}\right) \log \left(p_{y_{r}}\right)\right)</script><h3 id="训练损失"><a href="#训练损失" class="headerlink" title="训练损失"></a>训练损失</h3><p>最终的训练损失如下式，其中$\mathcal{L}_{\mathcal{Q}}$表示QFL而$\mathcal{L}_{\mathcal{D}}$表示DFL，而$\mathcal{L}_{\mathcal{B}}$指的是GIoU Loss，$N_{pos}$表示正样本数目，$\lambda_{0}$和$\lambda_1$是$\mathcal{L}_{\mathcal{Q}}$和$\mathcal{L}_{\mathcal{D}}$的平衡权重。在金字塔特征图的所有位置计算求和。这里的$\mathbf{1}_{\left{c_{z}^{<em>}&gt;0\right}}$为指示函数，当$c_{z}^{</em>}&gt;0$时为1，否则为0。</p>
-<script type="math/tex; mode=display">
-\mathcal{L}=\frac{1}{N_{\text {pos }}} \sum_{z} \mathcal{L}_{\mathcal{Q}}+\frac{1}{N_{\text {pos }}} \sum_{z} \mathbf{1}_{\left\{c_{z}^{*}>0\right\}}\left(\lambda_{0} \mathcal{L}_{\mathcal{B}}+\lambda_{1} \mathcal{L}_{\mathcal{D}}\right)</script><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者进行了一些消融实验，这里就不细说了，这里直接说明两个结论。</p>
-<ol>
-<li>QFL和DFL两个损失的作用是正交的，他们的增益互不影响，所以结合使用会有更好的效果。</li>
-<li>GFocal与各大模型相比，取得了较为不错的speed-accuracy trade-off，基本上属于无痛涨点的利器。</li>
-</ol>
-<p>下图是单模型单尺度的结果对比，可以看到，GFocal取得了相当亮眼的表现。</p>
-<p><img src="https://i.loli.net/2021/03/18/UDpNoYtPE4rXAZL.png" alt=""></p>
-<p>此外，也附上和SOTA对比的实验结果图。</p>
-<p><img src="https://i.loli.net/2021/03/18/mlHK1fx2nQUZtvL.png" alt=""></p>
-<p><strong>文章的补充材料也有不少干货，关于centerness和IoU的对比我就不赘述了，此外作者也进行了分布式边框表示的可视化，以下图为例，可视化四个边的预测分布，可以发现一个有趣的现象，当伞不算伞柄也就是白色GT框可以定位伞，但是算上伞兵绿色预测框又可以定位伞，概率分布也得确是一个双峰分布，这其实表达标注和模型对某个物体的两种理解，这个双峰分布很有趣，给后来的研究留下了无数遐想。</strong></p>
-<p><img src="https://i.loli.net/2021/03/18/bkFAfqJMmGwsV7I.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章从表示（representation）这一模型学习的关键出发提出了GFocal，将边框建模为概率表示极具开创性。论文基于mmdetection实现，也很便于源码的阅读和使用，是相当亮眼的工作，值得一读。最后，本文我只是做了一些基本的解读，更详细的请参考原论文，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
+I=\mathcal{F}(\mathbf{F})=\sigma\left(\mathbf{W}_{2} \delta\left(\mathbf{W}_{1} \mathbf{F}\right)\right)</script><p>其中参数$\mathbf{W}_{1} \in \mathbb{R}^{p \times 4(k+1)}$和$\mathbf{W}_{2} \in \mathbb{R}^{1 \times p}$，$k$就是topk的取值，$p$是隐藏层的神经元数目（论文中$k=4$且$p=64$），最终输出的$I$和分类得分$C$相乘得到联合表示。</p>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>需要注意的是，DGQP是非常轻量的，它引入的参数是可以忽略不急的。它也几乎不会带来计算开销。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验部分作者设计了不少消融实验，如统计量的选择、DGQP结构复杂度、统计特征指导和各种类型卷积特征的对比、联合表示的分解形式、和主流检测器的兼容性，这里我就不贴太多表格了。</p>
+<p><img src="https://i.loli.net/2021/03/20/fD1LgoujM6q5xvE.png" alt=""></p>
+<p>上图是GFocalV2和主流SOTA的对比，性能改善是蛮大的。此外，作者还进行下图的可视化，可以看到其他算法准确的框score往往都在第三第四而GFocalV2质量较高的框得分也较高，这进一步说明GFocalV2可以利用好更好的定位质量估计来保障更精准的结果。</p>
+<p><img src="https://i.loli.net/2021/03/20/UpdRihj4WZMA1zN.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章作者从一个新的角度地思考质量估计，从而提出边框的分布表示的统计特征指导质量估计，这是一个全新的工作，应该算是检测历史上第一个用学习到的分布的统计学特征指导质量估计的，本文也只是对这篇文章进行了比较粗糙的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -592,8 +566,8 @@ p, & \text { when } y=1 \\
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/GFocal%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">GFocal解读</span>
+                                <a href="/tags/GFocalV2%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">GFocalV2解读</span>
                                 </a>
                             
                         </div>
@@ -764,7 +738,7 @@ p, & \text { when } y=1 \\
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-03-18T12-28-22',
+        id: '2021-03-20T14-36-29',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -790,9 +764,10 @@ p, & \text { when } y=1 \\
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/03/20/gfocalv2/">
                     <div class="card-image">
@@ -810,9 +785,9 @@ p, & \text { when } y=1 \\
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -825,6 +800,7 @@ p, & \text { when } y=1 \\
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -843,13 +819,13 @@ p, & \text { when } y=1 \\
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/16/ttfnet/">
+                <a href="/2021/03/18/gfocal/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="TTFNet解读">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="GFocal解读">
                         
-                        <span class="card-title">TTFNet解读</span>
+                        <span class="card-title">GFocal解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -860,7 +836,7 @@ p, & \text { when } y=1 \\
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-18
                             </span>
                         <span class="publish-author">
                             
@@ -877,8 +853,8 @@ p, & \text { when } y=1 \\
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/TTFNet%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">TTFNet解读</span>
+                    <a href="/tags/GFocal%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">GFocal解读</span>
                     </a>
                     
                 </div>

@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-03-18T04:28:49.650Z</updated>
+  <updated>2021-03-20T06:36:58.316Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GFocalV2解读</title>
+    <link href="https://zhouchen1998.cn/2021/03/20/gfocalv2/"/>
+    <id>https://zhouchen1998.cn/2021/03/20/gfocalv2/</id>
+    <published>2021-03-20T06:36:29.000Z</published>
+    <updated>2021-03-20T06:36:58.316Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文对作者基于GFocalV1的工作的扩展，取得了不错的效果，想要更加直白理解这篇文章的话可以参考作者的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/313684358&quot;&gt;《大白话 Generalized Focal</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="GFocalV2解读" scheme="https://zhouchen1998.cn/tags/GFocalV2%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>GFocal解读</title>
@@ -507,31 +533,6 @@
     <category term="Faster R-CNN解读" scheme="https://zhouchen1998.cn/tags/Faster-R-CNN%E8%A7%A3%E8%AF%BB/"/>
     
     <category term="Sparse R-CNN解读" scheme="https://zhouchen1998.cn/tags/Sparse-R-CNN%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>EfficientDet 解读</title>
-    <link href="https://zhouchen1998.cn/2020/11/22/efficientdet/"/>
-    <id>https://zhouchen1998.cn/2020/11/22/efficientdet/</id>
-    <published>2020-11-22T04:27:32.000Z</published>
-    <updated>2020-11-22T04:28:21.016Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;这篇发表于 CVPR2020 的检测论文不同于大火的 anchor-free，还是基于 one-stage 的范式做的设计，是</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="EfficientDet解读" scheme="https://zhouchen1998.cn/tags/EfficientDet%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

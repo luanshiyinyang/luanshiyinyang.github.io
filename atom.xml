@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-03-22T07:51:40.231Z</updated>
+  <updated>2021-03-24T03:00:40.123Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>YOLOF解读</title>
+    <link href="https://zhouchen1998.cn/2021/03/24/yolof/"/>
+    <id>https://zhouchen1998.cn/2021/03/24/yolof/</id>
+    <published>2021-03-24T03:00:08.000Z</published>
+    <updated>2021-03-24T03:00:40.123Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;这是收录于CVPR2021的一篇目标检测的文章，标题也很有意思You Only Look One-level</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="YOLOF解读" scheme="https://zhouchen1998.cn/tags/YOLOF%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>TraDeS解读</title>
@@ -503,31 +529,6 @@
     <category term="SENet" scheme="https://zhouchen1998.cn/tags/SENet/"/>
     
     <category term="SKNet" scheme="https://zhouchen1998.cn/tags/SKNet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TPAGT解读</title>
-    <link href="https://zhouchen1998.cn/2020/12/04/tpagt/"/>
-    <id>https://zhouchen1998.cn/2020/12/04/tpagt/</id>
-    <published>2020-12-04T07:37:55.000Z</published>
-    <updated>2020-12-04T07:38:41.113Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;浙江大学和达摩院前不久提出的一个 MOT 新方法，目前在 MOT Challenge 常用的几个数据集上名列前茅。论文标题</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="TPAGT解读" scheme="https://zhouchen1998.cn/tags/TPAGT%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

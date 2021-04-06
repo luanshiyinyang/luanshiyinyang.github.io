@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-03-31T07:06:02.105Z</updated>
+  <updated>2021-04-06T05:00:01.426Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TransCenter解读</title>
+    <link href="https://zhouchen1998.cn/2021/04/06/transcenter/"/>
+    <id>https://zhouchen1998.cn/2021/04/06/transcenter/</id>
+    <published>2021-04-06T04:59:21.000Z</published>
+    <updated>2021-04-06T05:00:01.426Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文介绍这篇出自MIT的多目标跟踪方向的新论文，其将transformer和基于Center的目标检测与跟踪联合到一起，设计了一个全新的多目标跟踪框架，超越了此前的TransTrack和TrackFormer，一举冲到了SOTA方法精度的最前列，不</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="TransCenter解读" scheme="https://zhouchen1998.cn/tags/TransCenter%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>CDIoU解读</title>
@@ -493,31 +519,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="视觉注意力机制" scheme="https://zhouchen1998.cn/tags/%E8%A7%86%E8%A7%89%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>视觉注意力机制(上)</title>
-    <link href="https://zhouchen1998.cn/2020/12/16/attentions-first/"/>
-    <id>https://zhouchen1998.cn/2020/12/16/attentions-first/</id>
-    <published>2020-12-16T13:11:58.000Z</published>
-    <updated>2021-01-17T04:08:43.296Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;注意力机制（Attention</summary>
         
       
     

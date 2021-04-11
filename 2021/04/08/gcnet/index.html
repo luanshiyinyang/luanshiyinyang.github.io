@@ -29,9 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -494,7 +494,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>收录于ICCV2021的一篇多目标跟踪的工作，提出了一个比较简洁的范式，虽然由于侧重点在自动驾驶上因此没有在MOT Challenge赛道上比拼，不过在其他基准数据集上的效果还是很不错的。和另一篇新的SOTA方法TransCenter类似，它们都是基于CenterNet的新SOTA，这也一定程度上验证了以点为目标的检测确实比以框为目标的检测更适合于遮挡场景下的多目标跟踪。</p>
+<p>投稿于ICCV2021的一篇多目标跟踪的工作（暂未收录），提出了一个比较简洁的范式，虽然由于侧重点在自动驾驶上因此没有在MOT Challenge赛道上比拼，不过在其他基准数据集上的效果还是很不错的。和另一篇新的SOTA方法TransCenter类似，它们都是基于CenterNet的新SOTA，这也一定程度上验证了以点为目标的检测确实比以框为目标的检测更适合于遮挡场景下的多目标跟踪。</p>
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>此前的多目标跟踪（MOT）方法多遵循TBD（Tracking by Detection）范式，将检测和跟踪分为两个组件。早期的TBD方法针对检测任务和跟踪任务需要分别进行特征提取，典型的如DeepSORT方法。近段时间，不少方法将两个任务的特征提取融入一个网络中形成了JDT（Joint Detection and Tracking）范式，典型的是JDE方法。不过，JDE方法的跟踪部分依然依赖于数据关联并且需要复杂的后处理来进行轨迹的生命周期管理，因此它们并没有将检测和跟踪组合得很好。因此，GCNet（Global Correlation Network，全局相关网络）被提了出来，它以端到端得方式实现了联合多目标检测和跟踪。与大多数目标检测方法不同的是，GCNet引入了全局相关层来回归目标的绝对大小和边框坐标，而不是偏移量预测。GCNet的pipeline概念上是非常简洁的，它不需要非极大值抑制、数据关联以及其他复杂的跟踪策略。在UA-DETRAC这个车辆跟踪数据集上进行评估，GCNet达到了SOTA的检测和跟踪表现。</p>
 <ul>

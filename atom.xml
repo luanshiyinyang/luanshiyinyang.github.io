@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-04-11T02:44:25.256Z</updated>
+  <updated>2021-04-12T11:45:34.462Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CorrTracker解读</title>
+    <link href="https://zhouchen1998.cn/2021/04/12/corrtracker/"/>
+    <id>https://zhouchen1998.cn/2021/04/12/corrtracker/</id>
+    <published>2021-04-12T11:45:01.000Z</published>
+    <updated>2021-04-12T11:45:34.462Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;其实这篇文章早就在MOT Challenge的Leaderboard上名列前茅了，不过方法名那时候叫TLR。最近论文开放了出来，是Alibaba</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="CorrTracker解读" scheme="https://zhouchen1998.cn/tags/CorrTracker%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>GCNet解读</title>
@@ -504,31 +530,6 @@
     
     
     <category term="TransTrack解读" scheme="https://zhouchen1998.cn/tags/TransTrack%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>视觉注意力机制(下)</title>
-    <link href="https://zhouchen1998.cn/2020/12/20/attentions-end/"/>
-    <id>https://zhouchen1998.cn/2020/12/20/attentions-end/</id>
-    <published>2020-12-20T07:17:25.000Z</published>
-    <updated>2021-01-17T04:09:37.411Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="视觉注意力机制" scheme="https://zhouchen1998.cn/tags/%E8%A7%86%E8%A7%89%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/"/>
     
   </entry>
   

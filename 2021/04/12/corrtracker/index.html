@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CSTrack 解读, Chen&#39;s blog">
+    <meta name="keywords" content="CorrTracker解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CSTrack 解读 | Chen&#39;s blog</title>
+    <title>CorrTracker解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CSTrack 解读</h1>
+                    <h1 class="description center-align post-title">CorrTracker解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">CSTrack解读</span>
+                            <a href="/tags/CorrTracker%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">CorrTracker解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-20
+                    2021-04-12
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    4.3k
                 </div>
                 
 
@@ -493,36 +493,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自从 FairMOT 的公开以来，MOT 似乎进入了一个高速发展阶段，先是 CenterTrack 紧随其后发布并开源 ，然后是后来的 RetinaTrack、MAT、FGAGT 等 SOTA 方法出现，它们不断刷新着 MOT Challenge 的榜单。最近，CSTrack 这篇文章则在 JDE 范式的基础上进行了改进，获得了相当不错的跟踪表现（基本上暂时稳定在榜单前 5），本文就简单解读一下这篇短文（目前在 Arxiv 上开放的是一个 4 页短文的版本）。</p>
+                <blockquote>
+<p>其实这篇文章早就在MOT Challenge的Leaderboard上名列前茅了，不过方法名那时候叫TLR。最近论文开放了出来，是Alibaba Group的工作，被收录于CVPR2021，在精度很高的前提下速度还不低，是名副其实的一个MOT新SOTA方法。</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>近段时间MOT领域的工作表明，卷积神经网络通过同时学习检测和外观特征可以带来较大的性能收益，然而，由于卷积神经网络结构上的局部感知特性，不能有效获得空间和时间上的长程依赖。因此，CorrTracker这篇文章中，为了整合空间布局，作者提出利用局部相关模块（correlation module）对目标及其周围环境之间的拓扑关系进行建模，以增强模型在拥挤场景中的判别能力。具体来说，该方法建立每个空间位置及其上下文的密集对应关系，并通过自监督学习显式地约束correlation volumes（相关性空间）。为了利用时间上下文信息，现有的方法通常利用两个或多个相邻帧来构建更强的特征表示，但是卷积神经网络很难刻画动态运动场景。针对此，论文作者提出了一种可学习的相关性算子来在不同层的卷积特征图上建立帧与帧的匹配，从而对齐并传播时间上下文信息。以这些设计为基础构建的CorrTracker在多个基准数据集上达到了SOTA表现，在MOT17上以76.5的MOTA和73.6的IDF1得分成为新的SOTA，这也是目前MOT17榜单上所有有论文的方法中的第一名。</p>
 <ul>
 <li><p>论文标题</p>
-<p>Rethinking the competition between detection and ReID in Multi-Object Tracking</p>
+<p>  Multiple Object Tracking with Correlation Learning</p>
 </li>
 <li><p>论文地址</p>
-<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2010.12138">http://arxiv.org/abs/2010.12138</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2104.03541">http://arxiv.org/abs/2104.03541</a></p>
 </li>
 <li><p>论文源码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/JudasDie/SOTS">https://github.com/JudasDie/SOTS</a></p>
+<p>  暂未开源</p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为了追求速度和精度的平衡，联合训练检测模型和 ReID 模型的 JDE 范式（如下图，具体提出参考 JDE 原论文 Towards Real-Time Multi-Object Tracking）受到了学术界和工业界越来越多的关注。这主要是针对之前的 two-stage 方法先是使用现有的检测器检测出行人然后再根据检测框提取对应行人的外观特征进行关联的思路，这种方法在精度上的表现不错，然而由于检测模型不小且 ReID 模型需要在每个检测框上进行推理，计算量非常之大，所以 JDE 这种 one-shot 的思路的诞生是一种必然。</p>
-<p><img src="https://i.loli.net/2020/11/20/XSvleZbIjwDo1Yd.png" alt=""></p>
-<p>然而，就像之前 FairMOT 分析的那样，检测和 ReID 模型是<strong>存在不公平的过度竞争</strong>的，这种竞争制约了两个任务（检测任务和 ReID 任务 ）的表示学习，导致 了学习的混淆。具体而言，检测任务需要的是同类的不同目标拥有相似的语义信息（类间距离最大），而 ReID 要求的是同类目标有不同的语义信息（类内距离最大）。此外，<strong>目标较大的尺度变化</strong>依然是 MOT 的痛点。在 ReID 中图像被调整到统一的固定尺寸来进行查询 ，而在 MOT 中，提供在 ReID 网络的特征需要拥有尺度感知能力，这是因为沿着帧目标可能会有巨大的 size 变化。</p>
-<p>为了解决上述的过度竞争问题，论文提出了一种新的互相关网络（CCN）来改进单阶段跟踪框架下 detection 和 ReID 任务之间的协作学习。作者首先将 detection 和 ReID 解耦为两个分支，分别学习。然后两个任务的特征通过自注意力方式获得自注意力权重图和互相关性权重图。自注意力图是促进各自任务的学习，互相关图是为了提高两个任务的协同学习。而且，为了解决上述的尺度问题，设计了尺度感知注意力网络（SAAN）用于 ReID 特征的进一步优化，SAAN 使用了空间和通道注意力，该网络能够获得目标 不同尺度的外观信息，最后 不同尺度外观特征融合输出即可。</p>
-<h2 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h2><p>整体的思路还是采用 JDE 的框架，下图的右图是整体 pipeline 的设计，和左侧的 JDE 相比，中间增加了一个 CCN 网络（互相相关网络）用于构建 detection 和 ReID 两个分支不同的特征图（这里解释一下为什么要解耦成两个特征图送入后续的两个任务中，其实原始的 JDE 就是一个特征图送入检测和 ReID 分支中，作者这边认为这会造成后续的混淆，所以在这里分开了，FairMOT 也发现了这个问题，只是用另一种思路解决的而已）。构建的两个特征图分别送入 Detection head 和 SAAN（多尺度+注意力+ReID）中，Detection head 将 JDE 的 YOLO3 换为了更快更准的 YOLO5，其他没什么变动，下文检测这边我就不多提了。检测完成的同时，SAAN 也输出了多尺度融合后的 ReID 特征，至此也就完成了 JDE 联合检测和 ReID 的任务，后续就是关联问题了。</p>
-<p><img src="https://i.loli.net/2020/11/20/KIpS3jV1ezicCk5.png" alt=""></p>
-<p>所以，从整个框架来看，CSTrack 对 JDE 的改动主要集中在上图的 CCN 和 SAAN，而这两部分都是在特征优化上做了文章，且主要是基于注意力手段的特征优化（不知道是好是坏呢）。</p>
-<h2 id="CCN"><a href="#CCN" class="headerlink" title="CCN"></a>CCN</h2><p>CCN（Cross-correlation Network）用于提取更适合 detection 和 ReID 任务的一般特征和特定特征。在特定性学习方面，通过学习反映不同特征通道之间相互关系的自联系，增强了每个任务的特征表示。对于一般性学习，可以通过精心设计的相互关系机制来学习两个任务之间的共享信息。</p>
-<p><img src="https://i.loli.net/2020/11/20/XoOUnxREIqfCy3K.png" alt=""></p>
-<p>CCN 的结构如上图，我们对着这个图来理解 CCN 的思路。从检测器的 backbone 得到的特征图为$\mathbf{F} \in R^{C \times H \times W}$，首先，这个特征经过平均池化降维获得统计信息（更精炼的特征图）$\mathbf{F}^{\prime} \in R^{C \times H^{\prime} \times W^{\prime}}$。然后，两个不同的卷积层作用于$\mathbf{F}^{\prime}$生成两个特征图$\mathbf{T_1}$和$\mathbf{T_2}$，这两个特征图被 reshape 为特征$\left{\mathbf{M}_{\mathbf{1}}, \mathbf{M}_{\mathbf{2}}\right} \in R^{C \times N^{\prime}}$（$N^{\prime}=H^{\prime} \times W^{\prime}$）。下面的上下两个分支操作是一致的，先用矩阵$\mathbf{M_1}$或者$\mathbf{M_2}$和自己的转置矩阵相乘获得各自的自注意力图$\left{\mathbf{W}_{\mathrm{T}_{1}}, \mathbf{W}_{\mathrm{T}_{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$，然后$\mathbf{M_1}$和$\mathbf{M_2}$的转置进行矩阵乘法获得互注意力图$\left{\mathbf{W}_{\mathrm{S}_{1}}, \mathbf{W}_{\mathrm{S}_{2}}\right} \in R^{\mathrm{C} \times \mathrm{C}}$（这是$\mathbf{M_1}$的，转置之后 softmax 就是$\mathbf{M_2}$的）。然后，对每个分支，自注意力图和互注意力图相加获得通道级别的注意力图，和原始的输入特征图$\mathbf{F}$相乘再和$\mathbf{F}$相加得到输出特征图$\mathrm{F}_{\mathrm{T} 1}$和$\mathrm{F}_{\mathrm{T} 2}$。</p>
-<p>上述学到的$\mathrm{F}_{\mathrm{T} 1}$用于 Detection head 的检测处理，后者则用于下面的 SAAN 中 ReID 特征的处理。</p>
-<p><img src="https://i.loli.net/2020/11/20/KhYU9rfR3g7VnFe.png" alt=""></p>
-<p>上图就是作者设计的 ReID 分支，用于对 ReID 特征进行多尺度融合，这个设计挺简单的，不同分支采用不同的下采样倍率获得不同尺度的特征图（其中通过空间注意力进行特征优化），然后融合产生的特征通过空间注意力加强，最终输出不同目标的 embedding$\mathbf{E} \in R^{512 \times W \times H}$（特征图每个通道对应不同的 anchor 的 embedding）。</p>
-<p><strong>这样，整个 JDE 框架就完成了。</strong></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在 MOT16 和 MOT17 上实验结果如下图，比较的方法都比较新，MOTA 也是刷到了 70 以上，不过速度稍许有点慢了，总的精度还是很不错的。</p>
-<p><img src="https://i.loli.net/2020/11/20/Tcv3j8x1ruYHsQh.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CSTrack 在 JDE 的基础上使用了更强的检测器也对 ReID 特征进行了优化，获得了相当不错的表现。不过，从结果上看这种暴力解耦还是会对整个跟踪的速度有影响的。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Liang C, Zhang Z, Lu Y, et al. Rethinking the competition between detection and ReID in Multi-Object Tracking[J]. arXiv:2010.12138 [cs], 2020.</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>多目标跟踪（Multiple Object Tracking，MOT）作为计算机视觉的一个重要任务，可以使用在监控视频分析、自动驾驶等领域，它的任务目标是在视频的多帧中确定多个目标的轨迹。</p>
+<p>传统的MOT方法多遵循Tracking-by-Detection范式（TBD），该范式将MOT任务自然地分为了目标检测和数据关联两个步骤进行。这些方法根据检测框来在patch内提取外观特征并且记录目标的位置信息以进行后续的数据关联。这种范式使得研究者主要去关注优化检测、特征表示以及数据关联，随着目标检测算法的巨大进展，MOT也取得了极大的突破，但是在处理确定性的干扰和频繁遮挡<br>仍然存在巨大的挑战，尤其在复杂的交互场景下。此外，这种级联结构其实效率低下，也阻碍了各阶段之间的联合优化。</p>
+<p>如何联合优化多个阶段呢，一个可行的方法就是扩展端到端的检测框架来联合学习检测和外观特征，这个思路就是JDT范式，该思路极大地推动了MOT的发展。然而，就像下图所示，当出现外观很类似的遮挡物的情况下，外观特征会产生模糊不定的匹配置信度（这里白叉表示匹配目标，高亮区域表示匹配置信度高，显然图(a)的结果很糟糕），这会严重干扰关联的表现。这些方法受限于局部描述符的特性，很难区分相似目标。但是基于图(c)的相关性表示所查询得到的目标位置具有唯一的较高值（如图(b)所示），这证明相关性学习有助于区分不同的目标。</p>
+<p><img src="https://i.loli.net/2021/04/12/6DkcFjPvWgO4qlU.png" alt=""></p>
+<p>基于此，论文作者提出了一种相关性网络来学习目标和上下文的拓扑信息。具体而言，通过一个空间相关性层来记录目标和相对空间位置的关系。虽然为所有位置类似non-local那样构建完全相关性在计算上无法实现实时MOT，但是这篇论文通过构建局部相关性空间（correlation volume）来限制每层特征金字塔上的搜索范围。此外，论文这种相关性学习不限于感兴趣类别的目标，车辆这些背景信息也被建模用于辅助目标的识别和关系推理。最终建立每个空间位置及其上下文的密集对应关系，并通过自监督学习显式约束相关量。</p>
+<p>而且，目前MOT中的检测器通常使用单帧图像输入，因此并没有充分利用时序信息（<strong>MOT里如何在不损失速度的情况下利用好时间信息其实非常重要</strong>），这就造成了密集场景下的漏检严重，增加了后续数据关联的难度。最近的一些方法开始采用相邻两帧甚至三帧来增强时序一致性，它们在遮挡场景下获得了一定程度的性能改善，但还是受限于帧数。CenterTrack使用更多的数据增强来增强目标对齐的能力，但是卷积神经网络本身受到局部感受野的限制，为了解决这个问题，作者将空间相关性模块拓展到时间维度并结合历史信息以减少目标检测中的歧义。</p>
+<p>综上所述，这篇论文的贡献可以总结如下。</p>
+<ul>
+<li>提出了CorrTracker，这是一个统一的相关性跟踪器，可以对目标之间的关联关系密集建模并通过关联传输信息。</li>
+<li>提出了一个局部结构感知网络并以自监督学习的方式增强相似性目标的判别能力。同时，将局部关系网络进行拓展，从而有效建模时序信息。</li>
+<li>通过在MOT基准数据集上测试，CorrTracker在当前SOTA结果得基础上有了进一步改善。</li>
+</ul>
+<h2 id="CorrTracker方法"><a href="#CorrTracker方法" class="headerlink" title="CorrTracker方法"></a>CorrTracker方法</h2><p>整个CorrTracker的pipeline如下图所示，它可以被精简为三个阶段：(1)通用特征提取；(2)从时空依赖中同时学习相关性并进行检测预测；(3)将检测结果关联到最接近的轨迹上。其中阶段(1)和阶段(2)是可微的，并组成了一个端到端的可训练结构。关联方面，作者采用了一个比较精简的关联策略，与DeepSORT中控制轨迹的初始化和终止的策略类似。因此，CorrTracker的主要贡献是对特征图上的密集位置和其上下文之间的相关性进行高效建模，这有助于抑制复杂场景中的干扰因素。</p>
+<p><img src="https://i.loli.net/2021/04/12/9aDi3CbpxZfUMIv.png" alt=""></p>
+<p><strong>下面的叙述按照论文结构进行，首先是方法提出的动机，然后是作者为了提取时空相关性信息而设计的几个模块以及自监督的判别性特征学习方式，最后再阐述这些组件构建的整个跟踪框架。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>对每个输入的视频帧$\mathbf{I}_{t} \in \mathbb{R}^{H \times W \times 3}$，目标检测器对其检测得到当前帧所有的候选检测框$\mathcal{D}_{t}= \left{\mathbf{d}_{t}^{i}\right}_{i=1}^{N}, \mathbf{d}_{t}^{i}=\left(x_{t}^{i}, y_{t}^{i}, w_{t}^{i}, h_{t}^{i}\right)$。现在已有轨迹集$\mathcal{T}_{t-1}=\left{\mathbf{T}_{t-1}^{j}\right}_{j=1}^{M}, \mathbf{T}_{t-1}^{j}= \left{\mathbf{d}_{1}^{j}, \ldots, \mathbf{d}_{t-2}^{j}, \mathbf{d}_{t-1}^{j}\right}$，它表示到上一帧为止的轨迹集合。现在有$M$个轨迹和$N$个检测框，因此可以计算出相似度矩阵$\mathbf{A} \in \mathbb{R}^{N \times M}$，其中检测框使用依据检测框裁剪的图像块提取的外观特征。这个相似度矩阵同时考虑了外观特征$\mathbf{f}(\cdot) \in \mathbb{R}^{d}$和几何表示，计算式如下。</p>
+<script type="math/tex; mode=display">
+\mathbf{A}_{i j}=\operatorname{dist}\left(\mathbf{f}\left(\mathbf{d}_{t}^{i}\right), \hat{\mathbf{f}}\left(\mathbf{T}_{t-1}^{j}\right)\right)+\alpha \operatorname{IoU}\left(\mathbf{d}_{t}^{i}, \hat{\mathbf{d}}_{t}^{j}\right)</script><p>上面式子中的$\hat{\mathbf{f}}\left(\mathbf{T}_{t-1}^{j}\right)$表示一个轨迹的判别性特征，它通常随着轨迹的更新采用一个常数加权的策略进行更新。外观特征的每个置信度值都是通过距离度量获得的，如内积空间。但是，仅依靠人与人之间的特征比较通常不足以消除图像中多个相似区域的歧义。这也是基于外观特征进行匹配的核心局限所在，因为共同出现的相似目标在MOT里几乎无处不在。</p>
+<p>基于图像块的特征提取在MOT里非常流行，因为它很直观，检测框框出哪部分就对那部分的像素区域进行高级语义特征的提取。但是，各个目标区域之间的相关性信息就直接丢失了，空间关系也只保留在$\mathbf{d_t^i}$中了。尽管随后的数据关联将得到全局优化，但不考虑上下文而直接使用ReID特征往往会引入更多的ID交换，从而使跟踪的鲁棒性下降。为了解决这个问题，作者对目标的局部结构进行建模从而从干扰因素中区分它。</p>
+<p>在FlowNet中，correlation volume中的一个置信度值建模了每个目标的几何结构信息。受此启发，作者设计了一个新的密集相关性模块来探索MOT中上下文信息的有效性。此外，相对位置也被编码在correlation volume中，这可以用作辅助判别信息。</p>
+<h3 id="空间局部相关性层"><a href="#空间局部相关性层" class="headerlink" title="空间局部相关性层"></a>空间局部相关性层</h3><p>在这篇论文中，作者采用<strong>Spatial Local Correlation Layers</strong>来建模将目标和其邻居关联的关系结构。在这个局部相关性层中，仅在目标和其坐标周围邻居之间进行特征相似度评估。令$l$表示特征金字塔的层级，$\mathbf{C}^l$表示query特征$\mathbf{F}_{q}^{l} \in \mathbb{R}^{H_{l} \times W_{l} \times d_{l}}$和参考特征$\mathbf{F}_{r}^{l} \in \mathbb{R}^{H_{l} \times W_{l} \times d_{l}}$之间的correlation volume，那么$\mathbf{C}^l$的计算式如下所示。</p>
+<script type="math/tex; mode=display">
+\mathbf{C}^{l}\left(\mathbf{F}_{q}, \mathbf{F}_{r}, \mathbf{x}, \mathbf{d}\right)=\mathbf{F}_{q}^{l}(\mathbf{x})^{T} \mathbf{F}_{r}^{l}(\mathbf{x}+\mathbf{d}),\|\mathbf{d}\|_{\infty} \leq R</script><p>在这个式子中，$\mathbf{x} \in \mathbb{Z}^{2}$是query特征图上的一个坐标，$\mathbf{d} \in \mathbb{Z}^{2}$则表示从当前位置的位移。这个位移受到约束为$|\mathbf{d}|_{\infty} \leq R$，即在任何方向的最大运动就是$R$。虽然直观上，这里使用四维张量更合适一些，但是在CNN中为了简化处理一般两个位移维度会被量化为一个。因此，产生的3Dcorrelation volume $\mathbf{C}^l$因此尺寸为$H^{l} \times W^{l} \times(2 R+1)^{2}$。同时，作者这里也采用了膨胀残差网络的技巧来无伤增大感受野。使用逐元素加法将correlation feature合并到统一的外观表示中，为了实现这个操作，需要对context correlation feature编码以匹配外观特征$\mathbf{F}_{t}^{l}$的通道数$d_l$，编码结构采用MLP。合并后的特征如下表示。</p>
+<script type="math/tex; mode=display">
+\mathbf{F}_{\mathbf{C}}^{l}=\mathbf{F}_{t}^{l}+\mathbf{M L P}^{l}\left(\mathbf{C}^{l}\left(\mathbf{F}_{t}^{l}, \mathbf{F}_{t}^{l}\right)\right)</script><p>和作者提出的相关性结构类似，non-local模块旨在显式地建模特征图$\mathbf{F}_{t}^{l} \in \mathbb{R}^{H^{l} \times W^{l} \times d^{l}}$上每个元素之间的逐对交互，它会生成一个四维的correlation volume $N L\left(\mathbf{F}_{t}^{l}\right) \in \mathbb{R}^{H^{l} \times W^{l} \times H^{l} \times W^{l}}$。它在单个尺度上建立了全连接的volume，这在计算上开销巨大并且非常消耗内存。相比之下，这篇论文的方法表明构建一个局部的correlation volume既有效又高效，该结构对模型的延时影响不大。</p>
+<h3 id="多层金字塔相关性"><a href="#多层金字塔相关性" class="headerlink" title="多层金字塔相关性"></a>多层金字塔相关性</h3><p>为了尽可能捕获长程依赖，作者提出在特征金字塔上进行correlation的学习，其示意图如下所示。一方面，作者希望correlation module能够捕获尽可能远距离的依赖，但是随着局部区域尺寸$R$的增大，计算量和内存占用也会极具增加，这有损于模型的实时推理。另一方面，多目标跟踪天然需要处理多尺度目标。二阶段检测通过RoI pooling来估计目标尺度的不同，但是这种方法处理较慢。</p>
+<p><img src="https://i.loli.net/2021/04/12/AOLrcIuyBSNJYgQ.png" alt=""></p>
+<p>为了解决上述问题，作者使用卷积神经网络中通用的金字塔结构并且在特征金字塔上进行相关性学习。这里的多尺度金字塔相关性也可以看作多粒度特征的比较，其覆盖的空间上下文范围达到了$\left[0, R \times D \times 2^{l}\right]$，这里的$D$表示膨胀率。接着，将这个相关性结果自顶向下传递，传递方式如下。</p>
+<script type="math/tex; mode=display">
+\hat{\mathbf{F}}_{\mathbf{C}}^{l-1}=\mathbf{C o n v}\left(\mathbf{U p s a m p l e}\left(\mathbf{F}_{\mathbf{C}}^{l}\right)\right)+\mathbf{F}_{\mathbf{C}}^{l-1}</script><p>这样，可以在保持紧凑性和效率的同时，获得目标与整个全局上下文之间的近似相关性。pyramid correlation利用了视频中自然的时空连贯性。MOT可以分解为多个独立的SOT。论文的方法可以等效于特征金字塔上的密集孪生网络跟踪。另一方面，从集合匹配的角度来看，需要考虑全局特征。多尺度关联考虑了信息传输的两个方面。</p>
+<h3 id="时序相关性学习"><a href="#时序相关性学习" class="headerlink" title="时序相关性学习"></a>时序相关性学习</h3><p>在MOT领域，不同帧之间的相关性常常被忽略，跟踪器一般通过数据关联来克服遮挡问题。单帧检测器很难确保良好的时间一致性，这使得算法在遮挡、运动模糊和小目标场景下的性能显著下降，这也成为MOT的瓶颈。作者拓展了上文设计的空间局部相关性到时间维度上，建立了不同帧上目标的相关性。两个帧之间的相关性可以看作是运动信息的学习。作者使用这种相关性来增强特征表示，从而可以提高检测精度。</p>
+<p>具体来看，作者在不同的帧之间建立多尺度相关性并且使用参考图像作为memory来增强图像特征，这个方法帮助跟踪器克服目标遮挡和运动模糊等问题，并且增强了检测和识别特征的一致性。</p>
+<p><img src="https://i.loli.net/2021/04/12/WJZTl9PcgoMxbu5.png" alt=""><br><img src="https://i.loli.net/2021/04/12/tdiEqDe9bQA1gro.png" alt=""></p>
+<p>上面的式子是时间correlation volume的计算方式，类似多头注意力，这里采用嵌入特征和点积相似度。标准化因子设置为$(2 R+1)^{2}$并且局部进行特征聚合。这种缩小区域的设计也源于MOT场景下的运动先验。为了最小化内存消耗和最快的运行时间，作者只能将以前的特征$\mathbf{F}_{t-1}$保存在内存中。 为了获得最大的准确性，长程模型默认情况下会保存最新的5帧图像特征。</p>
+<h3 id="自监督特征学习"><a href="#自监督特征学习" class="headerlink" title="自监督特征学习"></a>自监督特征学习</h3><p>在上面的几节中，介绍了如何在空间和时间维度上建模相关性。correlation module可以作为一个插件模块，在不需要显式引入约束的前提下嵌入网络中，类似non-local模块。作者研究了一种多任务学习方法，该方法实施了一种来自视觉目标跟踪的语义监督和来自correspondence flow的基于correlation的自监督训练。这里的correlation module是可解释的，它评估不同目标之间的相似性。实际上，论文的方法会密集进行$M \times N$次孪生跟踪操作以增加判别度。从这个角度来看，可以显式施加跟踪监督。具体来看，GT标签设置如下，其中的$\mathbf{y}$是特征图中相应位置的ID标签。忽略没有目标的位置即$\mathbf{y}_{q}(\mathbf{x})&lt;0$并且使用类平衡交叉熵损失进行训练。</p>
+<script type="math/tex; mode=display">
+\tilde{C}^{l}\left(\mathbf{F}_{q}, \mathbf{F}_{r}, \mathbf{x}, \mathbf{d}\right)=\left\{\begin{array}{c}
+1 \text { if } \mathbf{y}_{q}(\mathbf{x})=\mathbf{y}_{r}(\mathbf{x}+\mathbf{d}) \\
+0 \text { if } \mathbf{y}_{q}(\mathbf{x}) !=\mathbf{y}_{r}(\mathbf{x}+\mathbf{d}) \\
+-1 \text { if } \mathbf{y}_{q}(\mathbf{x})<0
+\end{array}\right.</script><p>受到最近的自监督跟踪的启发，作者使用着色作为代理任务来训练局部相关性模块，在将颜色空间量化为离散类别之后，使用交叉熵分类损失。从reference图像到query图像的的变换如下。</p>
+<p><img src="https://i.loli.net/2021/04/12/tdiEqDe9bQA1gro.png" alt=""></p>
+<h3 id="跟踪框架"><a href="#跟踪框架" class="headerlink" title="跟踪框架"></a>跟踪框架</h3><p>最后，介绍了这么多模块、这么多训练方法，再来回顾一下整个pipeline，这里的backbone作者采用和FairMOT类似的设计，只是在IDA模块前加了个correlation模块。保持原有的检测和ReID分支的前提下，增加了一个correlation loss来进行多任务学习。使用匈牙利算法基于相似度矩阵对当前帧检测和历史轨迹进行匹配。未匹配的检测用来初始化新的轨迹，为了减少假阳性，将这些新轨迹标记为”inactive”知道下一帧依然匹配上才确认为”active”。未匹配的轨迹设置为”lost”状态，当连续lost时间$t_{loss}$达到阈值$\tau_{loss}$时，将其移入移出集中。如果在移入前重新匹配上，则恢复这个轨迹。使用卡尔曼滤波来建模运动，这和FairMOT类似。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者设计了不少实验，具体的实验配置详见原文，基本上保持和FairMOT一直，不过在特征图上采样之前使用了3x3的可变形卷积进行变换，这是最近特征图融合的一个常见技巧。</p>
+<p>作者先是进行了一些消融实验，验证空间相关性模块、时间相关性模块、长程依赖、自监督训练以及局部区域尺寸的影响，实验结果如下图。</p>
+<p><img src="https://i.loli.net/2021/04/12/y6kS4ljIFVMe7tw.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/04/12/2itDm4xwCWMS3Oc.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/04/12/vMI3ahRAjqSKFu8.png" alt=""></p>
+<p>当然，也要和sota比一比，对比结果如下图，多个精度指标上都显示SOTA表现，速度上也不算很慢。</p>
+<p><img src="https://i.loli.net/2021/04/12/AtYqIHnfSZ6k3UK.png" alt=""></p>
+<p>做了一些相应的可视化，对比几个方法的轨迹如下，其他方法的都会出现IDS，CorrTracker依赖强大的关系建模不会出现严重的IDS。</p>
+<p><img src="https://i.loli.net/2021/04/12/MmC2DUsNIdXqvKl.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇论文中，作者提出了新的相关性跟踪框架CorrTracker，设计的correlation模块对每个位置及其局部上下文之间密集匹配构建correlation volume并从中学习判别性的embedding，并将该模块从空间维度拓展到时间维度上。此外，作者还采用了自监督方法对correlation volume施加判别性约束预测实例流。总的来说，这篇文章的干货还是非常多的，本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -552,8 +590,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CSTrack%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">CSTrack解读</span>
+                                <a href="/tags/CorrTracker%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">CorrTracker解读</span>
                                 </a>
                             
                         </div>
@@ -724,7 +762,7 @@
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2020-11-20T09-01-47',
+        id: '2021-04-12T19-45-01',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -750,17 +788,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/22/efficientdet/">
+                <a href="/2021/04/12/corrtracker/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="EfficientDet 解读">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="CorrTracker解读">
                         
-                        <span class="card-title">EfficientDet 解读</span>
+                        <span class="card-title">CorrTracker解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -770,9 +809,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -785,11 +824,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/EfficientDet%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">EfficientDet解读</span>
+                    <a href="/tags/CorrTracker%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">CorrTracker解读</span>
                     </a>
                     
                 </div>
@@ -803,13 +843,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/13/dcn-reppoints/">
+                <a href="/2021/04/08/gcnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="DCN &amp; RepPoints解读">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="GCNet解读">
                         
-                        <span class="card-title">DCN &amp; RepPoints解读</span>
+                        <span class="card-title">GCNet解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -820,7 +860,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-08
                             </span>
                         <span class="publish-author">
                             
@@ -837,12 +877,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DCN%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">DCN解读</span>
-                    </a>
-                    
-                    <a href="/tags/RepPoints%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">RepPoints解读</span>
+                    <a href="/tags/GCNet%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">GCNet解读</span>
                     </a>
                     
                 </div>

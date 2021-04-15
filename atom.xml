@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-04-12T11:45:34.462Z</updated>
+  <updated>2021-04-15T04:58:37.924Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GHM解读</title>
+    <link href="https://zhouchen1998.cn/2021/04/15/ghm/"/>
+    <id>https://zhouchen1998.cn/2021/04/15/ghm/</id>
+    <published>2021-04-15T04:58:04.000Z</published>
+    <updated>2021-04-15T04:58:37.924Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;收录于AAAI2019 oral的一篇文章，主要是解决目标检测中的&lt;strong&gt;样本不平衡问题&lt;/strong&gt;，包括正负样本不平衡、难易样本不平衡，和著名的Focal Loss类似，也是基于交叉熵做的改进。此外，本文成文过程参考了&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="GHM解读" scheme="https://zhouchen1998.cn/tags/GHM%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>CorrTracker解读</title>
@@ -505,31 +531,6 @@
     
     
     <category term="FcaNet解读" scheme="https://zhouchen1998.cn/tags/FcaNet%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TransTrack解读</title>
-    <link href="https://zhouchen1998.cn/2021/01/12/transtrack/"/>
-    <id>https://zhouchen1998.cn/2021/01/12/transtrack/</id>
-    <published>2021-01-12T02:03:14.000Z</published>
-    <updated>2021-01-12T02:04:14.054Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="TransTrack解读" scheme="https://zhouchen1998.cn/tags/TransTrack%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

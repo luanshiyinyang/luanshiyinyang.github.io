@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GHM解读, Chen&#39;s blog">
+    <meta name="keywords" content="SiamMOT解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>GHM解读 | Chen&#39;s blog</title>
+    <title>SiamMOT解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GHM解读</h1>
+                    <h1 class="description center-align post-title">SiamMOT解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GHM%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">GHM解读</span>
+                            <a href="/tags/SiamMOT%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">SiamMOT解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-15
+                    2021-04-22
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    5.1k
                 </div>
                 
 
@@ -494,160 +494,81 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>收录于AAAI2019 oral的一篇文章，主要是解决目标检测中的<strong>样本不平衡问题</strong>，包括正负样本不平衡、难易样本不平衡，和著名的Focal Loss类似，也是基于交叉熵做的改进。此外，本文成文过程参考了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/80594704">知乎上一个精简的分析</a>，欢迎访问。</p>
+<p>这篇文章是CSTrack原团队的一个新工作，核心出发点是引入时间信息来修正检测器结果以保证轨迹的连续，通过利用前后帧相关性来进行运动建模完善单帧检测的结果，从而使得跟踪更加合理。该方法从实验数据上来看效果是非常猛的，作者后续也会开放源代码。</p>
 </blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>单阶段跟踪以一个更优雅的方式对待目标检测问题，然而它也存在困扰已久的问题，那就是样本的不均衡从而导致模型训练效果不好，这包括正负样本的不平衡和难易样本的不平衡。这两种不平衡本质上都可以从梯度的层面解释，因此作者提出了GHM（梯度调和机制， gradient harmonizing mechanism）来处理这一现象，以此为基础构建的GHM分类损失（GHM-C）和GHM回归损失（GHM-R）可以轻松嵌入到如交叉熵的分类损失和如Smooth L1的回归损失中，这两种损失分别用于anchor的分类和边界框的修正，实验表明，在不经过费力挑战超参数的前提下，GHM-C和GHM-R可以为单阶段检测器带来实质性的改进，并且超过了使用Focal Loss和Smooth L1的SOTA方法。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>单阶段多目标跟踪方法联合检测和重识别任务，近年来取得了比较大的突破，诞生了非常有影响力的方法如JDE等。然而，当前单阶段跟踪器仅仅使用单帧输入来获得边界框预测，当遇到比较严重的视觉障碍如遮挡模糊等时，边界框可能是不可靠的。一旦一个目标框被检测器误分为背景类别，其对应轨迹段的时序一致性就将难以保持。这篇论文中，作者通过提出一个重检查网络来恢复错误分类的边界框，即虚假背景。重检查网络通过使用改进的互相关层探索跨帧时间线索与当前候选框之间的关系，从而将先前的轨迹段传播到当前帧。这种前后帧信息的传播有助于恢复虚假背景框并且最终修复被破坏的轨迹段。通过将设计的重检查网络插入到CSTrack模型中，在MOT16和MOT17上MOTA分别从70.7和70.6涨到了76.7和76.3，涨点是非常恐怖的。</p>
 <ul>
 <li><p>论文标题</p>
-<p>  Gradient Harmonized Single-stage Detector</p>
+<p>  One More Check: Making “Fake Background” Be Tracked Again</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1811.05181">https://arxiv.org/abs/1811.05181</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2104.09441">http://arxiv.org/abs/2104.09441</a></p>
 </li>
 <li><p>论文源码</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/libuyu/GHM_Detection">https://github.com/libuyu/GHM_Detection</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/JudasDie/SOTS">https://github.com/JudasDie/SOTS</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单阶段检测的出现为目标检测带来了一种更加高效且优雅的范式，但是单阶段方法和二阶段方法的精度还是存在不小的差距的。造成这种差距的主要原因之一就是单阶段检测器的训练存在正负样本和难易样本的不平衡问题，<strong>这里需要注意的是，正负样本和难易样本是两回事，因此存在正易、正难、负易和负难四种样本。</strong> 大量的简单样本和背景样本使得模型的训练不堪重负，但是二阶段检测则不存在这个问题，因为其是基于proposal筛选的。</p>
-<p>针对这个问题，OHEM是一个基于难样本挖掘的方法被广泛使用，但是这种方法直接放弃了大多数样本并且使得训练的效率不高。后来，Focal Loss横空出世，它通过修改经典的交叉熵损失为一个精心设计的形式来解决这个问题。但是，Focal Loss采用了两个超参数，这两个参数需要花费大量的精力对其进行调整，并且Focal Loss是一种静态损失，它不能自适应于数据分布的变化，即随训练过程而改变。</p>
-<p>这篇论文中，作者指出类别不平衡最终可以归为梯度范数分布的不平衡。如果一个正样本被很好地分类，那么它是一个简单样本，模型从中受益不多，换句话说，该样本产生的梯度很小。而错误分类的样本无论属于哪个类都应该受到模型足够的关注。因此，从全局来看，大量的负样本是容易分类的并且难样本往往是正样本。因此这两种不平衡可以粗略概括为属性不平衡。</p>
-<p><img src="https://i.loli.net/2021/04/15/au86Syt7CHQBdlA.png" alt=""></p>
-<p>作者认为梯度范数的分布可以隐式表达不同属性的样本的不平衡。相对于梯度范数的样本密度（下文简称梯度密度），梯度密度如上图的最左侧所示，变化幅度是很大的。首先看图像的最左侧，这里的样本的梯度范数比较小但是密度很大，这表示大量的负易样本。再看图像最右侧，这里梯度范数大，数量相对于左侧的容易样本少得多，这表示困难样本。尽管一个容易样本相对于困难样本对整体损失的贡献少，但是架不住数量大啊，大量的容易样本的贡献可能超越了少数困难样本的贡献，导致训练效率不高。而且，难样本的密度比中性样本的密度稍高。这些非常难的样本可以视作离群点，因为即使模型收敛，它们依然稳定存在。离群点可能会影响模型的稳定性，因为它们的梯度可能与其他一般样本有很大差异。</p>
-<p>经过上面的梯度范数分布的分析，作者提出了梯度调和机制（GHM）来高效训练单阶段目标检测器，该策略关注于不同样本梯度分布的平衡。GHM首先对具有相似属性但没有梯度密度的样本进行统计，然后依据密度将调和参数附加（以乘法的形式）到每个样本的梯度上。上图最右侧即为平衡后的结果，可以看到，GHM可以大大降权简单样本累积的大量梯度同时也可以相对降权离群点梯度，这使得各类样本的贡献度平衡且训练更加稳定高效。</p>
-<h2 id="GHM"><a href="#GHM" class="headerlink" title="GHM"></a>GHM</h2><h3 id="前人工作"><a href="#前人工作" class="headerlink" title="前人工作"></a>前人工作</h3><p>首先，来回顾一下单阶段检测的一个关键问题，样本类型的极度不平衡。对一个候选框而言，$p \in[0,1]$表示模型预测的概率分布，$p^{*} \in{0,1}$为一个确定的类真实标签，那么考虑二分交叉熵的标准形式如下，它通常用于分类任务。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>当前多目标跟踪（Multiple Object Tracking，MOT）方法大体可以分为两大类，即<strong>二阶段（two-step）方法</strong>和<strong>单阶段（one-shot）方法</strong>。二阶段方法遵循TBD范式（即先检测再跟踪），将多目标跟踪任务解耦成了候选框预测和轨迹段关联两个任务。尽管二阶段方法在精度上取得了惊人的表现，然而它却需要巨大的计算资源，这主要是因为它通过一个额外的ReID网络来对每个候选框提取特征。近两年，单阶段方法受到了更多的关注，其通过集成检测和ReID特征提取到一个网络中，取得了较好的速度和精度的权衡。通过特征共享和多任务学习，它们可以接近实时运行。作者观察到，大多数现有的单阶段跟踪器都将高质量的检测作为一个默认假设，也就是说，<strong>每帧中的每个目标都能被检测器正确定位</strong>。然而，真实世界的各种情况可能使得这个假设并不成立，导致跟踪的效果较差。</p>
+<p>下图所示即为单阶段跟踪器的典型失败案例，蓝色箭头代表帧连续的方向，图中红色框表示由于较小的前景概率而被当作背景的目标，从整个帧序列上看，由于这几个漏检目标，导致了轨迹段的时间一致性被破坏。作者经过思考发现这种虚假背景的根本原因其实是过于依赖基于图像的检测结果了。换句话说，检测器从背景中区分目标仅仅基于单帧的视觉线索。然而，实际跟踪的场景都是极具挑战的，比如遮挡、小目标、背景杂乱等，这些都会造成视觉特征的有效性下降，最终可能误导检测器将目标分类为背景。因此，仅仅依靠检测器得到目标的位置在跟踪中是不太可靠的。但是反观人类视觉的动态机制，它不仅仅考虑当前的视觉线索，而且能够连续感知移动目标的时间一致性。这启发了作者，可以通过探索时间线索在检测过程中仔细检查目标周围环境，来恢复由检测器引起的误分类目标。</p>
+<p><img src="https://i.loli.net/2021/04/22/gWAaIUBZQdrve75.png" alt=""></p>
+<p>在这篇文章中，作者超越传统的单帧检测，通过设计二次检查检测机制来再次跟踪虚假背景目标。作者方法的本质是使用跨帧时序线索来作为单帧视觉线索的补充，来完成目标检测任务。和此前的工作直接使用时序特征来增强当前帧的视觉表示不同，作者提出了re-check网络通过学习转换之前的轨迹段来恢复误分类的目标。具体来说，考虑上一帧目标的位置，转换结果重新检查当前帧中的周围环境并预测一个候选框，这个框表示一个误分类的目标并且如果检测器没有检测出来它的话它会被重新加载。</p>
+<p>作者这个re-check网络的灵感源于SOT领域的孪生网络，在这类方法中，互相关层（cross-correlation layer）被用来建模时序信息并且预测目标位置。但是，论文的方法中，作者修改了cross-correlation layer使其适配多轨迹段转换。具体来看，在re-check网络中，目标的时序信息依据其之前帧的ID embedding表示，即为一个$1 \times 1 \times C$的张量。随着目标在序列上移动，通过使用cross-correlation操作来评估ID embedding的相似性来进行目标位置的传递。最终，跟踪器能够感知目标在当前帧上的状态，因此可以重新检查检测器在当前帧上的预测框，以查看目标是否被错误丢弃。</p>
+<p>作者将设计的re-check network应用到CSTrack上，得到一个新的跟踪器，SiamMOT。在MOT16、MOT17和MOT20上进行验证，该框架实现了新的SOTA。</p>
+<h2 id="SiamMOT"><a href="#SiamMOT" class="headerlink" title="SiamMOT"></a>SiamMOT</h2><p>这一节将解读整个SiamMOT框架，在详细理解re-check之前，先简要了解整个跟踪框架。</p>
+<h3 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h3><p>基于CSTrack构建了一个新的JDE方法，首先来回顾一下JDE和CSTrack。下图所示即为JDE的核心思路，它通过共享模型完成目标检测和ReID特征提取来构建一个实时的单阶段多目标跟踪框架。</p>
+<p><img src="https://i.loli.net/2021/04/22/WOCYU5gZySPkjxE.png" alt=""></p>
+<p>整体的pipeline可以参考下图。给定一帧输入$\mathbf{x}$，首先是特征提取器$\Psi$（即backbone和neck）对其进行处理，得到特征图$\mathbf{F_t}$（$\boldsymbol{F}_{t}=\Psi(\boldsymbol{x})$）。接着，$\mathbf{F_t}$被送入head网络$\Phi$中同时预测检测结果和ID embedding，表示如下式。</p>
 <script type="math/tex; mode=display">
-L_{C E}\left(p, p^{*}\right)=\left\{\begin{array}{ll}
--\log (p) & \text { if } p^{*}=1 \\
--\log (1-p) & \text { if } p^{*}=0
-\end{array}\right.</script><p>但是，这个形式的交叉熵用于正负样本分类是不合理的，因为单阶段检测器通常会产生高达100k的目标，能和GT框匹配的正样本少之又少，因此出现了正负样本不平衡的问题，为了解决这个问题，下面的加权交叉熵被提出。</p>
+\left[\boldsymbol{R}_{t}^{\mathrm{de}}, \boldsymbol{F}_{t}^{i d}\right]=\Phi\left(\boldsymbol{F}_{t}\right)</script><p><img src="https://i.loli.net/2021/04/22/qEIHWXPCd2ZwUvy.png" alt=""></p>
+<p>如上式和上图所示，这里的$\boldsymbol{R}_{t}^{\mathrm{de}}$表示检测结果，它包含一个前景概率图$\boldsymbol{P}_{t}^{d e} \in \mathbb{R}^{H \times W \times 1}$（通道数为1表示只有行人这一类）和边框预测图$\boldsymbol{B}_{t}^{d e} \in \mathbb{R}^{H \times W \times 4}$，而$\boldsymbol{F}_{t}^{i d} \in \mathbb{R}^{H \times W \times C}$（$C=512$）表示ID embedding。最后，检测结果$\boldsymbol{R}_{t}^{\mathrm{de}}$经过greedy-NMS处理后得到基本检测结果$\boldsymbol{D}_{\text {base }}$。$\boldsymbol{D}_{\text {base }}$中的每个box都对应$\boldsymbol{F}_{t}^{i d}$中的一个$1 \times 1 \times C$的embedding。不妨记所有的$\boldsymbol{D}_{\text {base }}$中的box对应的embedding为一个集合$\boldsymbol{E}_{t}^{i d}$。最后，$\boldsymbol{D}_{\text {base }}$和$\boldsymbol{E}_{t}^{i d}$用于和之前的轨迹段关联，关联采用贪婪二分图匹配算法。</p>
+<p>而在最近，CSTrack通过引入互注意力来缓解detection任务和ReID任务之间的竞争，从而以很少的开销大大改善了JDE，CSTrack就是这篇论文工作的baseline（毕竟是作者本人的工作），关于CSTrack想要了解更多的可以参考<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/109838203">我之前的解读博客</a>。</p>
+<p>作者在CSTrack的基础上，提出了一个re-check network来修复检测器得出的虚假背景。如上图所示，再次使用上一帧ID embedding $\boldsymbol{E}_{t-1}^{i d}$作为一个目标的时序线索，re-check network $\Pi$通过评估 $\boldsymbol{E}_{t-1}^{i d}$和$\boldsymbol{F}_{t}^{i d}$之间的相似度来转换之前的轨迹。具体而言，作者修改了孪生网络中的cross-correlation layer使之能够单次前向就跟踪多个目标。此外，作者通过实验发现，如果一个目标在当前帧出现，那么它倾向于在相似度图中引入一个假阳性响应。为了缓解这个问题，作者将视觉特征图$\boldsymbol{F}_{t}$和相似度图进行了融合，然后将它们精炼为更精细的guidance map（指导图）。为了简化描述，re-check network可以表述如下。</p>
 <script type="math/tex; mode=display">
-L_{C E}\left(p, p^{*}\right)=\left\{\begin{aligned}
--\alpha \log (p), & \text { if } p^{*}=1 \\
--(1-\alpha) \log (1-p), & \text { if } p^{*}=0
-\end{aligned}\right.</script><p>虽然加权交叉熵平衡了正负样本，但是就像上文所说的，样本还有难易之分，目标检测的候选框其实大量是易分样本，加权交叉熵对难易样本的平衡并没有太大作用。易分样本虽然损失很低，但是数量极多，梯度的累积造成其主导了优化的方向，显然这是不合理的。因此，Focal Loss作者认为，易分样本（置信度高的样本）对模型效果的提升影响非常小，模型应该主要关注那些难分样本。这个假设其实是有一些问题的，GHM就是针对次做了探索，下文再细说。</p>
-<p>那么，Focal Loss如何平衡难易样本呢，其实很简单，<strong>把高置信度的简单样本的损失再降低不就行了</strong>，于是有了下面这个中间结果，通过$\gamma$的设置可以有效衰减高置信度样本的损失值。</p>
+\boldsymbol{M}_{p}=\Pi\left(\boldsymbol{F}_{t}^{i d}, \boldsymbol{E}_{t-1}^{i d}, \boldsymbol{F}_{t}\right)</script><p>这个式子中的$\boldsymbol{M}_{p}$是网络最终的预测结果，它是之前轨迹段到当前帧的转换结果。将$\boldsymbol{M}_{p}$视为前景概率图，并将它和原始的边界框$\boldsymbol{B}_{t}^{d e}$一起送入greedy-NMS。NMS输出的结果，称为转换检测（transductive detections），记为$\boldsymbol{D}_{\text {trans }}$，和原本的检测器的检测框$\boldsymbol{D}_{\text {base }}$组合到一起送入作者提出的IOU投票机制来产生最终的候选边界框$\boldsymbol{D}_{\text {final}}$。此时，<strong>才算真正完成了目标检测</strong>，$\boldsymbol{D}_{\text {final}}$和其在ID特征图$\boldsymbol{F}_{t}^{i d}$上对应的ID embedding则用于后续的数据关联。当基本检测结果误分类目标为背景时，transductive detections能够重新检查虚假背景并恢复漏检的目标框。</p>
+<p><em>上面这个过程，简要叙述了整个SiamMOT的pipeline，略过了诸多细节，下面将详细分析其中几个关键的模块。</em></p>
+<h3 id="重检查网络"><a href="#重检查网络" class="headerlink" title="重检查网络"></a>重检查网络</h3><p>为了改善由于虚假背景产生的时序一致性破坏，作者提出了一个轻量的re-check network来恢复检测器漏检的目标。更具体而言，re-check network包含两个模块，即下图所示的用于轨迹传播的transductive detection module（检测转换模块）和用于假阳性过滤的refinement module（精炼模块）。</p>
+<p><img src="https://i.loli.net/2021/04/22/hY4VIPQfEG8qdOm.png" alt=""></p>
+<p><strong>Transductive Detection Module</strong></p>
+<p>首先来看这个转换检测模块，它用于将之前的轨迹段传播到当前帧，换句话说，其实就是预测历史轨迹在当前帧的位置。具体来看，通过评估之前轨迹的embeddings $\boldsymbol{E}_{t-1}^{i d}=\left{\boldsymbol{e}_{t-1}^{1}, \cdots, \boldsymbol{e}_{t-1}^{n}\right}$和当前帧检测结果的embeddings特征图$\boldsymbol{F}_t^{id}$之间的相似度来预测目标的位置，这里的$n$表示历史轨迹的数目。对每个目标都通过cross-correlation算子$*$来获得一个位置响应图$m_i$，其计算式如下所示，可以看到，这其实就是一个普通的矩阵乘法，每个$\boldsymbol{m}_{i}$的维度就是上图所示的$H \times W \times 1$。</p>
 <script type="math/tex; mode=display">
-F L=\left\{\begin{aligned}
--(1-p)^{\gamma} \log (p), & \text { if } p^{*}=1 \\
--p^{\gamma} \log (1-p), & \text { if } p^{*}=0
-\end{aligned}\right.</script><p>这个公式再结合上加权交叉熵，不就同时解决了正负样本不平衡和难易样本不平衡两个问题嘛，于是就有了下面这个Focal Loss的常见形式。实验表明，$\gamma=2$且$\alpha=0.25$时效果最佳。</p>
+\boldsymbol{m}_{i}=\left.\left(\boldsymbol{e}_{t-1}^{i} * \boldsymbol{F}_{t}^{i d}\right)\right|_{i=1} ^{n}</script><p>在每个$\boldsymbol{m}_i$中，最大值的位置就是之前轨迹的预测状态，这样的$n$个$\boldsymbol{m}_i$组合到一起就形成了一个相似度图$\boldsymbol{M}=\left{\boldsymbol{m}_{1}, \cdots, \boldsymbol{m}_{n}\right}$，其中的每个元素表示之前轨迹的转换检测结果。需要注意的是，改进的cross-correlation操作可以很方便地通过矩阵乘法实现，通过主流的深度学习框架可以方便实现。这部分对应上图Transductive Detection Module部分的下面一部分，即$n$个响应图。</p>
+<p>接着，通过缩小高响应的范围，将$\boldsymbol{m}_i$离散化为一个二值掩膜图$\hat{\boldsymbol{m}}_{i}$。进行这步操作的根本原因在于拥有相似外观的目标可能会带来较高的响应值，缩小高响应范围可以减少这种混淆的预测。形式上，这个二值掩膜的生成方式如下，这里的$\hat{\boldsymbol{m}}_{i}^{x y}$表示$\hat{\boldsymbol{m}}_{i}$上$(x, y)$处的值，$c_x$和$c_y$表示$\boldsymbol{m}_i$上最大值的位置，$r$表示缩放半径，在缩放半径构成的正方形内置为1否则置为0。接着，这个二值掩膜图和原始响应图相乘消除模糊的响应结果，这里就是普通的点乘。</p>
 <script type="math/tex; mode=display">
-F L=\left\{\begin{array}{ccc}
--\alpha(1-p)^{\gamma} \log (p), & \text { if } & p^{*}=1 \\
--(1-\alpha) p^{\gamma} \log (1-p), & \text { if } & p^{*}=0
-\end{array}\right.</script><p>下面是mmdet实现的pytorch版本的focal loss，这个代码也比较容易理解，主要对focal loss公式进行了拆分实现。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">py_sigmoid_focal_loss</span><span class="token punctuation">(</span>pred<span class="token punctuation">,</span>
-                          target<span class="token punctuation">,</span>
-                          weight<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>
-                          gamma<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">,</span>
-                          alpha<span class="token operator">=</span><span class="token number">0.25</span><span class="token punctuation">,</span>
-                          reduction<span class="token operator">=</span><span class="token string">'mean'</span><span class="token punctuation">,</span>
-                          avg_factor<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    pred_sigmoid <span class="token operator">=</span> pred<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    target <span class="token operator">=</span> target<span class="token punctuation">.</span>type_as<span class="token punctuation">(</span>pred<span class="token punctuation">)</span>
-    pt <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> pred_sigmoid<span class="token punctuation">)</span> <span class="token operator">*</span> target <span class="token operator">+</span> pred_sigmoid <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> target<span class="token punctuation">)</span>
-    focal_weight <span class="token operator">=</span> <span class="token punctuation">(</span>alpha <span class="token operator">*</span> target <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> alpha<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> target<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> pt<span class="token punctuation">.</span><span class="token builtin">pow</span><span class="token punctuation">(</span>gamma<span class="token punctuation">)</span>
-    loss <span class="token operator">=</span> F<span class="token punctuation">.</span>binary_cross_entropy_with_logits<span class="token punctuation">(</span>pred<span class="token punctuation">,</span> target<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token string">'none'</span><span class="token punctuation">)</span> <span class="token operator">*</span> focal_weight
-    <span class="token keyword">if</span> weight <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> weight<span class="token punctuation">.</span>shape <span class="token operator">!=</span> loss<span class="token punctuation">.</span>shape<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> weight<span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">==</span> loss<span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                weight <span class="token operator">=</span> weight<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token keyword">assert</span> weight<span class="token punctuation">.</span>numel<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> loss<span class="token punctuation">.</span>numel<span class="token punctuation">(</span><span class="token punctuation">)</span>
-                weight <span class="token operator">=</span> weight<span class="token punctuation">.</span>view<span class="token punctuation">(</span>loss<span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">assert</span> weight<span class="token punctuation">.</span>ndim <span class="token operator">==</span> loss<span class="token punctuation">.</span>ndim
-    loss <span class="token operator">=</span> weight_reduce_loss<span class="token punctuation">(</span>loss<span class="token punctuation">,</span> weight<span class="token punctuation">,</span> reduction<span class="token punctuation">,</span> avg_factor<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="GHM损失"><a href="#GHM损失" class="headerlink" title="GHM损失"></a>GHM损失</h3><p>然而，Focal Loss虽然极大的推动了单阶段检测和anchor-free检测的发展，但是它也是存在问题的。首先，就是最核心的一个问题：让模型过分关注特别难分的样本肯定是不合适的，因为样本中存在离群点，模型可能已经收敛，但是这些离群点的存在模型仍旧判断失误难以正常训练，即使拟合了这样的样本模型也是不合理的。其次，Focal Loss的两个超参数需要人为设计，且需要联合调参，因为它俩会互相影响。为了解决这两个问题，GHM被提了出来，不同于Focal Loss关注于置信度来衰减损失，GHM从一定置信度的样本量的角度出发衰减损失。</p>
-<p>那么GHM是如何做的呢？首先，假定$x$是模型输出且通过sigmoid激活，那么可以可以得到关于$x$的交叉熵梯度如下，这其实可以视为损失的梯度即为预测和真值的差距。</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\frac{\partial L_{C E}}{\partial x} &=\left\{\begin{array}{ll}
-p-1 & \text { if } p^{*}=1 \\
-p & \text { if } p^{*}=0
-\end{array}\right.\\
-&=p-p^{*}
-\end{aligned}</script><p>利用上式，可以定义梯度的模$g$如下，这个$g$等于相对于$x$的梯度范数，它的值表示样本的难易属性（越大样本越难），同时也隐含了样本对全局梯度的影响。这里梯度范数的定义数学上并不严格，只是作者为了方便的说法。</p>
-<script type="math/tex; mode=display">
-g= \left|\frac{\partial L_{C E}}{\partial x}\right| = \left|p-p^{*}\right|=\left\{\begin{array}{ll}
-1-p & \text { if } p^{*}=1 \\
-p & \text { if } p^{*}=0
-\end{array}\right.</script><p>下图所示即为一个收敛的单阶段模型的$g$分布情况，横轴表示梯度的模，纵轴表示样本量比例。很直观地可以看到，$g$很小的样本数量非常多，这部分为大量的容易样本，随着$g$增加，样本量迅速减少，但是在$g$接近1的时候，样本量也不少，这部分属于困难样本。<strong>需要注意的是，这是一个收敛的模型，也就是说即使模型收敛，这些样本还是难易区分，它们属于离群点，如果模型强行拟合这类样本会导致其他正常样本分类精度降低。</strong></p>
-<p><img src="https://i.loli.net/2021/04/15/NVjnOT98UuzRS7e.png" alt=""></p>
-<p>依此，GHM提出了自己的核心观点，的确不应该关注那些数量很多的容易样本，但是非常困难的样本也是不正常的，也不应该过分关注，而且容易样本和困难样本的数量相比于中性样本都比较多。那么如何同时衰减这两类样本呢，其实只要从它们数量多这个角度出发就行，<strong>就衰减那些数量多的样本</strong>。那么如何衰减数量多的呢，那就需要定义一个变量，来衡量某个梯度或者某个梯度范围内的样本数量，这个概念其实很类似于“密度”这个概念，因此将其称为梯度密度，这就有了下面这个这篇文章最核心的公式，梯度密度$GD(g)$的定义。</p>
-<script type="math/tex; mode=display">
-G D(g)=\frac{1}{l_{\epsilon}(g)} \sum_{k=1}^{N} \delta_{\epsilon}\left(g_{k}, g\right)</script><p>这个式子需要做一些说明。$g_k$表示第$k$个样本的梯度的模，$\delta_{\epsilon}(x, y)$和$l_{\epsilon}(g)$的定义式如下，<strong>前者</strong>表示$x$是否在$y$的一个邻域内，在的话则为1否则为0，上式中求和后的含义就是$g_k$在$g$的范围内的样本数目，<strong>后者</strong>则表示计算样本量的这个邻域的区间长度，它作为标准化因子。<strong>因此，梯度密度$GD$的含义可以理解为单位模长在$g$附近的样本数目。</strong></p>
-<script type="math/tex; mode=display">
-\delta_{\epsilon}(x, y)=\left\{\begin{array}{rr}
-1 & \text { if } y-\frac{\epsilon}{2} <= x < y+\frac{\epsilon}{2} \\
+\hat{\boldsymbol{m}}_{i}^{x y}=\left\{\begin{array}{ll}
+1 & \text { if }\left\|x-c_{x}\right\| \leq r,\left\|y-c_{y}\right\| \leq r \\
 0 & \text { otherwise }
-\end{array}\right.</script><script type="math/tex; mode=display">
-l_{\epsilon}(g)=\min \left(g+\frac{\epsilon}{2}, 1\right)-\max \left(g-\frac{\epsilon}{2}, 0\right)</script><p>有了梯度密度，下面定义最终用在损失调和上的梯度密度调和参数，这里的$N$表示样本总量，为了方便理解，其可以改写为$\beta_{i}=\frac{1}{G D\left(g_{i}\right) / N}$，分母$G D\left(g_{i}\right) / N$表示第i个样本具有邻域梯度的所有样本分数的归一化器。如果样本关于梯度均匀分布，对任何的$g_i$的$GD(g_i) = N$并且每个样本的$\beta_i = 1$。相反，具有较大密度的样本则会被归一化器降权表示。</p>
+\end{array}\right.</script><p>接着，将$n$个响应图沿着通道逐元素相加得到最终的相似度图$\boldsymbol{M}_{s}$，这个相似度图表示当前帧每个位置包含之前帧中目标的概率，如果一个位置有一个高置信度的响应得分，那么这里就有一个和之前轨迹相关的潜在边界框。</p>
 <script type="math/tex; mode=display">
-\beta_{i}=\frac{N}{G D\left(g_{i}\right)}</script><p>利用$\beta_i$可以集成到分类损失和回归损失中从而构建新的损失GHM-C Loss，这里的$\beta_i$则作为第$i$个样本的损失加权，最终梯度密度调和后的分类损失如下式。其实从最后的结果来看，就是原本的交叉熵乘以该样本梯度密度的倒数。</p>
+\boldsymbol{M}_{s}=\sum_{i=1}^{n}\left(\hat{\boldsymbol{m}}_{i} \cdot \boldsymbol{m}_{i}\right)</script><p><em>这一部分对应上图的Transductive Detection Module部分。</em></p>
+<p><strong>Refinement Module</strong></p>
+<p>但是上面这种轨迹预测也会带来一些问题，作者发现没有出现在当前帧的那些目标在tracklet transduction的过程中会带来一些假阳性样本。为了缓解这个问题，作者设计了一个Refinement Module来引入当前帧原始的视觉特征$\boldsymbol{F}_{t} \in \mathbb{R}^{H \times W \times C}(\mathrm{C}=256)$来提供语义信息以进行更精细的定位。作者首先将上面的$\boldsymbol{M_s}$通过inverted bottleneck模块进行编码，这是一个通过两个3x3卷积先升维再降维的过程，得到精炼的相似度图$\boldsymbol{M}_{s}^{\prime} \in \mathbb{R}^{H \times W \times 1}$和$\boldsymbol{F}_t$进行逐元素相乘得到增强的特征$\hat{\boldsymbol{F}} \in \mathbb{R}^{H \times W \times C}(\mathrm{C}=256)$，这个计算过程如下式。</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-L_{G H M-C} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} L_{C E}\left(p_{i}, p_{i}^{*}\right) \\
-&=\sum_{i=1}^{N} \frac{L_{C E}\left(p_{i}, p_{i}^{*}\right)}{G D\left(g_{i}\right)}
-\end{aligned}</script><p>使用GHM-C和交叉熵以及Focal Loss的梯度范数调整效果如下图，显然，GHM-C的抑制更加明显合理。</p>
-<p><img src="https://i.loli.net/2021/04/15/tCTpU8Swhu9lAke.png" alt=""></p>
-<p>这里作者还提到了EMA处理的技巧，此外魔改smooth l1可以得到下面的GHM-R损失函数，这里就不展开了。</p>
+\hat{\boldsymbol{F}}=\boldsymbol{F}_{t} \cdot \boldsymbol{M}_{s}^{\prime}</script><p>接着，这个增强的特征$\hat{\boldsymbol{F}}$经过几个卷积层得到最终的预测$\boldsymbol{M}_{p}$，这是一个精炼后的响应图，和输入Refinement Module之前的响应图shape相同。</p>
+<p><strong>Optimization</strong></p>
+<p>上面通过两个模块的分析介绍了re-check network，但是这个模块引入CSTrack这样的模型中是需要额外的监督的，因此作者设计了一个新的损失。相似度图$\boldsymbol{M}_p$的GT通过多个高斯分布的组合来定义，具体而言，对每个目标，它的监督信号是一个高斯掩膜如下所示，这里的$c_{i}=\left(c_{i}^{x}, c_{i}^{y}\right)$表示一个目标的中心位置而$\sigma_{i}$是目标尺寸自适应的标准差。</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \\
-&=\sum_{i=1}^{N} \frac{A S L_{1}\left(d_{i}\right)}{G D\left(g r_{i}\right)}
-\end{aligned}</script><p>最后，补充一个mmdet关于GHM Loss的实现，它是先将梯度模长划分为bins个范围，然后计算每个区域的便捷edges，接着就很容易判断梯度模长落在哪个区间里了，然后按照公式计算权重乘以原来的交叉熵损失即可（实现思路和上面的Focal Loss差不多，都是对原本的交叉熵加权）。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">GHMC</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> bins<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> momentum<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> use_sigmoid<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> loss_weight<span class="token operator">=</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token builtin">super</span><span class="token punctuation">(</span>GHMC<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>bins <span class="token operator">=</span> bins
-        self<span class="token punctuation">.</span>momentum <span class="token operator">=</span> momentum
-        edges <span class="token operator">=</span> torch<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>bins <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> bins
-        self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'edges'</span><span class="token punctuation">,</span> edges<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>edges<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1e</span><span class="token operator">-</span><span class="token number">6</span>
-        <span class="token keyword">if</span> momentum <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            acc_sum <span class="token operator">=</span> torch<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>bins<span class="token punctuation">)</span>
-            self<span class="token punctuation">.</span>register_buffer<span class="token punctuation">(</span><span class="token string">'acc_sum'</span><span class="token punctuation">,</span> acc_sum<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>use_sigmoid <span class="token operator">=</span> use_sigmoid
-        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>use_sigmoid<span class="token punctuation">:</span>
-            <span class="token keyword">raise</span> NotImplementedError
-        self<span class="token punctuation">.</span>loss_weight <span class="token operator">=</span> loss_weight
-
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> pred<span class="token punctuation">,</span> target<span class="token punctuation">,</span> label_weight<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment"># the target should be binary class label</span>
-        <span class="token keyword">if</span> pred<span class="token punctuation">.</span>dim<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> target<span class="token punctuation">.</span>dim<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            target<span class="token punctuation">,</span> label_weight <span class="token operator">=</span> _expand_onehot_labels<span class="token punctuation">(</span>target<span class="token punctuation">,</span> label_weight<span class="token punctuation">,</span> pred<span class="token punctuation">.</span>size<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        target<span class="token punctuation">,</span> label_weight <span class="token operator">=</span> target<span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> label_weight<span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        edges <span class="token operator">=</span> self<span class="token punctuation">.</span>edges
-        mmt <span class="token operator">=</span> self<span class="token punctuation">.</span>momentum
-        weights <span class="token operator">=</span> torch<span class="token punctuation">.</span>zeros_like<span class="token punctuation">(</span>pred<span class="token punctuation">)</span>
-
-        <span class="token comment"># gradient length</span>
-        g <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">abs</span><span class="token punctuation">(</span>pred<span class="token punctuation">.</span>sigmoid<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>detach<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> target<span class="token punctuation">)</span>
-
-        valid <span class="token operator">=</span> label_weight <span class="token operator">&gt;</span> <span class="token number">0</span>
-        tot <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>valid<span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span>
-        n <span class="token operator">=</span> <span class="token number">0</span>  <span class="token comment"># n valid bins</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>bins<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            inds <span class="token operator">=</span> <span class="token punctuation">(</span>g <span class="token operator">&gt;=</span> edges<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token punctuation">(</span>g <span class="token operator">&lt;</span> edges<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> valid
-            num_in_bin <span class="token operator">=</span> inds<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> num_in_bin <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> mmt <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                    self<span class="token punctuation">.</span>acc_sum<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> mmt <span class="token operator">*</span> self<span class="token punctuation">.</span>acc_sum<span class="token punctuation">[</span>i<span class="token punctuation">]</span> \
-                        <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> mmt<span class="token punctuation">)</span> <span class="token operator">*</span> num_in_bin
-                    weights<span class="token punctuation">[</span>inds<span class="token punctuation">]</span> <span class="token operator">=</span> tot <span class="token operator">/</span> self<span class="token punctuation">.</span>acc_sum<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-                <span class="token keyword">else</span><span class="token punctuation">:</span>
-                    weights<span class="token punctuation">[</span>inds<span class="token punctuation">]</span> <span class="token operator">=</span> tot <span class="token operator">/</span> num_in_bin
-                n <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">if</span> n <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            weights <span class="token operator">=</span> weights <span class="token operator">/</span> n
-
-        loss <span class="token operator">=</span> F<span class="token punctuation">.</span>binary_cross_entropy_with_logits<span class="token punctuation">(</span>
-            pred<span class="token punctuation">,</span> target<span class="token punctuation">,</span> weights<span class="token punctuation">,</span> reduction<span class="token operator">=</span><span class="token string">'sum'</span><span class="token punctuation">)</span> <span class="token operator">/</span> tot
-        <span class="token keyword">return</span> loss <span class="token operator">*</span> self<span class="token punctuation">.</span>loss_weight<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验配置等细节查看原文即可，我这里就给出SOTA方法的涨点结果图，可以看到，相比于Focal Loss，涨点效果还是挺明显的。</p>
-<p><img src="https://i.loli.net/2021/04/15/QtcKMDPSOC4pzNf.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇论文针对单阶段目标检测的样本不均衡问题从梯度出发，提出了GHM这一策略，从损失的角度有效改善了此前的Focal Loss。本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
+\boldsymbol{t}_{i}=\exp \left(-\frac{\left(x-c_{i}^{x}\right)^{2}+\left(y-c_{i}^{y}\right)^{2}}{2 \sigma_{i}^{2}}\right)</script><p>上面的式子生成一系列的GT mask $\boldsymbol{t}=\left{\boldsymbol{t}_{1}, \ldots, \boldsymbol{t}_{n}\right}$，然后沿着通道维度求和就得到了$\boldsymbol{M}_p$的监督信号$\boldsymbol{T}$。为了减少两个高斯分布之间的重叠，为$\sigma_{i}$设置一个值为1的上界。使用Logistic-MSE损失来训练re-check网络，损失公式如下式，$\boldsymbol{M}^{x y}$和$\boldsymbol{T}^{x y}$分别表示$\boldsymbol{M}_p$和$\boldsymbol{T}$上$(x,y)$位置的值。</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{g}=-\frac{1}{n} \sum_{x v}\left\{\begin{array}{l}
+\left(1-\boldsymbol{M}_{p}^{x y}\right) \log \left(\boldsymbol{M}_{p}^{x y}\right), \quad \text { if } \boldsymbol{T}^{x y}=1 \\
+\left(1-\boldsymbol{T}^{x y}\right) \boldsymbol{M}_{p}^{x y} \log \left(1-\boldsymbol{M}_{p}^{x y}\right), \text { else }
+\end{array}\right.</script><h3 id="检测框融合"><a href="#检测框融合" class="headerlink" title="检测框融合"></a>检测框融合</h3><p>通过re-check网络，得到了历史轨迹在当前帧上的预测框$\boldsymbol{D}_{trans}$和检测器在当前帧上的检测框$\boldsymbol{D}_{base}$，但是如何将这两个融合到一起用于最终的数据关联呢？首先，为$\boldsymbol{D}_{trans}$中的每一个边界框$\boldsymbol{b}_i$计算目标度得分（targetness score），得分的计算基于其与检测框的最大IOU，式子如下。</p>
+<script type="math/tex; mode=display">
+s=1-\max \left(\operatorname{IOU}\left(\boldsymbol{b}_{i}, \boldsymbol{D}_{\text {base }}\right)\right)</script><p>$s$值越大表明框$\boldsymbol{b}_i$并没有出现在检测器的检测结果中，因此它就可能是一个漏检框。若这个框的$s$值高于阈值$\epsilon$，那么这个框就作为检测框的补充加进去，作者设置的$\epsilon$为0.5。通过这个融合，可以将检测器漏掉的检测框找回来，保证轨迹的连续性。具体的算法如下图，比较清晰明了。</p>
+<p><img src="https://i.loli.net/2021/04/22/sQGMrN6wovFSgCb.png" alt=""></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>我们知道在JDE和CSTrack中，anchor和GT之间的偏移是通过sigmoid函数约束在0到1之间的，这里记anchor的中心为$a=\left(a_{x}, a_{y}\right)$，GT的中心为$b=\left(b_{x}, b_{y}\right)$，两者的偏移通过下式计算，这里的$r$就是回归分支的输出。</p>
+<script type="math/tex; mode=display">
+\boldsymbol{\Delta}=\boldsymbol{b}-\boldsymbol{a}=\operatorname{Sigmoid}(\boldsymbol{r})</script><p>但是，作者发现，其实在图像的边界上，偏移量经常是大于1的。如下图所示，GT框的中心（绿色表示）已经超出了图像的边界，然而由于sigmoid函数的约束。预测框（红色表示）很难覆盖整个目标。当一个目标只出现部分身体，不完整的边界框预测将被视为假阳性样本，这是因为其与GT框的距离很远并且不完整，这使得跟踪的性能最终下降。为了缓解这个问题，作者将回归机制修改为边界感知回归（boundary-aware regression，BAR），它允许跟踪器通过可见身体推理出目标的全身区域。</p>
+<p><img src="https://i.loli.net/2021/04/22/cgukCn3SWUaKfdi.png" alt=""></p>
+<p>具体来看，将上面那个式子修改如下，这里的$h$是一个可学习的尺度参数，这个尺度参数允许网络预测大于1的偏移。如上图的(c)所示，BAR能够通过可见部分预测出目标的不可见部分。</p>
+<script type="math/tex; mode=display">
+\boldsymbol{\Delta}=\boldsymbol{b}-\boldsymbol{a}=(\operatorname{Sigmoid}(\boldsymbol{r})-0.5) \times h</script><p>至于实验的设置和评估指标的配置之类的，就和CSTrack一样了，这里就不展开叙述了。下面来看一下SiamMOT在几个benchmark上的SOTA表现，可以看到，其精度是非常卓越的，虽然速度相比原来的CSTrack有所下降。</p>
+<p><img src="https://i.loli.net/2021/04/22/kUS9FYX6HI2Gzep.png" alt=""></p>
+<p>此外，作者也进行了消融实验对比提出的re-check network（RCNet）和BAR的收益，如下表所示。可以看到，RCNet的效果是非常明显的，这也进一步说明，MOT这个任务其实是非常依赖显式的时序信息的。</p>
+<p><img src="https://i.loli.net/2021/04/22/hENalVgZSoIdmYO.png" alt=""></p>
+<p>其他的组件的消融实验我这里不多说了，感兴趣的可以查看原文。可视化方面作者也做了不少，下面这个图第一列是原始图像，第二列是Transductive Detection Module输出，第三列则是Refinement Module输出的。从图上第二列可以看出来，之前轨迹的状态被有效转移到了当前帧，第三列则表示精炼模块确实有效过滤了假阳性。SiamMOT在遮挡严重的情况下依然可以保证跟踪的鲁棒性切处理较小的目标。</p>
+<p><img src="https://i.loli.net/2021/04/22/Fw7PJNMavfSc63o.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇论文将重点放在了MOT的检测质量方面，设计了一个非常优雅的运动模型将历史轨迹的信息转换到当前帧上来补充检测器没能准确检测的目标，使得整个轨迹更加平滑连续，在CSTrack的基础上有了比较大的突破，是很值得关注的一个方法。本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -677,8 +598,8 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/GHM%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">GHM解读</span>
+                                <a href="/tags/SiamMOT%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">SiamMOT解读</span>
                                 </a>
                             
                         </div>
@@ -849,7 +770,7 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-04-15T12-58-04',
+        id: '2021-04-22T22-14-45',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -875,9 +796,10 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/04/22/siammot/">
                     <div class="card-image">
@@ -895,9 +817,9 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -910,6 +832,7 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -928,13 +851,13 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/12/corrtracker/">
+                <a href="/2021/04/15/ghm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="CorrTracker解读">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="GHM解读">
                         
-                        <span class="card-title">CorrTracker解读</span>
+                        <span class="card-title">GHM解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -945,7 +868,7 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-15
                             </span>
                         <span class="publish-author">
                             
@@ -962,8 +885,8 @@ L_{G H M-R} &=\frac{1}{N} \sum_{i=1}^{N} \beta_{i} A S L_{1}\left(d_{i}\right) \
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CorrTracker%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">CorrTracker解读</span>
+                    <a href="/tags/GHM%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">GHM解读</span>
                     </a>
                     
                 </div>

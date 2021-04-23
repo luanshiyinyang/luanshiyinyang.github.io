@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-04-22T14:15:35.132Z</updated>
+  <updated>2021-04-23T04:30:20.679Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>SiamMOT解读</title>
+    <title>CSTrackV2解读</title>
     <link href="https://zhouchen1998.cn/2021/04/22/siammot/"/>
     <id>https://zhouchen1998.cn/2021/04/22/siammot/</id>
     <published>2021-04-22T14:14:45.000Z</published>
-    <updated>2021-04-22T14:15:35.132Z</updated>
+    <updated>2021-04-23T04:30:20.679Z</updated>
     
     
       
@@ -38,7 +38,7 @@
     <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
     
     
-    <category term="SiamMOT解读" scheme="https://zhouchen1998.cn/tags/SiamMOT%E8%A7%A3%E8%AF%BB/"/>
+    <category term="CSTrackV2解读" scheme="https://zhouchen1998.cn/tags/CSTrackV2%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

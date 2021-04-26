@@ -29,9 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
 </head>
 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.1k
+                    5.2k
                 </div>
                 
 
@@ -545,7 +545,7 @@
 <script type="math/tex; mode=display">
 \hat{\boldsymbol{F}}=\boldsymbol{F}_{t} \cdot \boldsymbol{M}_{s}^{\prime}</script><p>接着，这个增强的特征$\hat{\boldsymbol{F}}$经过几个卷积层得到最终的预测$\boldsymbol{M}_{p}$，这是一个精炼后的响应图，和输入Refinement Module之前的响应图shape相同。</p>
 <p><strong>Optimization</strong></p>
-<p>上面通过两个模块的分析介绍了re-check network，但是这个模块引入CSTrack这样的模型中是需要额外的监督的，因此作者设计了一个新的损失。相似度图$\boldsymbol{M}_p$的GT通过多个高斯分布的组合来定义，具体而言，对每个目标，它的监督信号是一个高斯掩膜如下所示，这里的$c_{i}=\left(c_{i}^{x}, c_{i}^{y}\right)$表示一个目标的中心位置而$\sigma_{i}$是目标尺寸自适应的标准差。</p>
+<p>上面通过两个模块的分析介绍了re-check network，但是这个模块引入CSTrack这样的模型中是需要额外的监督的，因此作者设计了一个新的损失。相似度图$\boldsymbol{M}_p$的GT通过多个高斯分布的组合来定义，具体而言，对每个目标，它的监督信号是一个高斯掩膜如下所示，这里的$c_{i}=\left(c_{i}^{x}, c_{i}^{y}\right)$表示一个目标的中心位置而$\sigma_{i}$是目标尺寸自适应的标准差。<strong>这里需要注意的是，由于GT是根据当前帧产生的，而re-check网络的输入是上一帧，因此网络想要预测出GT必须学会运动预测的能力。</strong></p>
 <script type="math/tex; mode=display">
 \boldsymbol{t}_{i}=\exp \left(-\frac{\left(x-c_{i}^{x}\right)^{2}+\left(y-c_{i}^{y}\right)^{2}}{2 \sigma_{i}^{2}}\right)</script><p>上面的式子生成一系列的GT mask $\boldsymbol{t}=\left{\boldsymbol{t}_{1}, \ldots, \boldsymbol{t}_{n}\right}$，然后沿着通道维度求和就得到了$\boldsymbol{M}_p$的监督信号$\boldsymbol{T}$。为了减少两个高斯分布之间的重叠，为$\sigma_{i}$设置一个值为1的上界。使用Logistic-MSE损失来训练re-check网络，损失公式如下式，$\boldsymbol{M}^{x y}$和$\boldsymbol{T}^{x y}$分别表示$\boldsymbol{M}_p$和$\boldsymbol{T}$上$(x,y)$位置的值。</p>
 <script type="math/tex; mode=display">
@@ -801,7 +801,7 @@ s=1-\max \left(\operatorname{IOU}\left(\boldsymbol{b}_{i}, \boldsymbol{D}_{\text
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/04/22/siammot/">
+                <a href="/2021/04/22/cstrackv2/">
                     <div class="card-image">
                         
                         

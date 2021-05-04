@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-04-26T02:51:26.109Z</updated>
+  <updated>2021-05-04T12:24:13.950Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Minetorch教程</title>
+    <link href="https://zhouchen1998.cn/2021/05/04/minetorch/"/>
+    <id>https://zhouchen1998.cn/2021/05/04/minetorch/</id>
+    <published>2021-05-04T12:23:25.000Z</published>
+    <updated>2021-05-04T12:24:13.950Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;关于PyTorch的实验工具之前我介绍过NVIDIA的runx，欢迎&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Python工具包" scheme="https://zhouchen1998.cn/categories/Python%E5%B7%A5%E5%85%B7%E5%8C%85/"/>
+    
+    
+    <category term="Minetorch教程" scheme="https://zhouchen1998.cn/tags/Minetorch%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>CSTrackV2解读</title>
@@ -507,31 +533,6 @@
     
     
     <category term="DetNet解读" scheme="https://zhouchen1998.cn/tags/DetNet%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MLT解读</title>
-    <link href="https://zhouchen1998.cn/2021/01/21/mlt/"/>
-    <id>https://zhouchen1998.cn/2021/01/21/mlt/</id>
-    <published>2021-01-21T05:01:01.000Z</published>
-    <updated>2021-01-21T05:04:58.153Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="MLT解读" scheme="https://zhouchen1998.cn/tags/MLT%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

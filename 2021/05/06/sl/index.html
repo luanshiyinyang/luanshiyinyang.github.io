@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Minetorch教程, Chen&#39;s blog">
+    <meta name="keywords" content="SL解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Minetorch教程 | Chen&#39;s blog</title>
+    <title>SL解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Minetorch教程</h1>
+                    <h1 class="description center-align post-title">SL解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Minetorch%E6%95%99%E7%A8%8B/">
-                                <span class="chip bg-color">Minetorch教程</span>
+                            <a href="/tags/SL%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">SL解读</span>
                             </a>
                         
                     </div>
@@ -446,8 +446,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Python%E5%B7%A5%E5%85%B7%E5%8C%85/" class="post-category">
-                                Python工具包
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                论文解读
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-04
+                    2021-05-06
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    3.4k
                 </div>
                 
 
@@ -494,202 +494,67 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>关于PyTorch的实验工具之前我介绍过NVIDIA的runx，欢迎<a target="_blank" rel="noopener" href="https://zhouchen.blog.csdn.net/article/details/107334562">访问</a>，不过runx是个偏向于集群使用的一个运行实验工具，我往往只使用其中日志记录的logx模块，本文则介绍一个主攻实验控制和记录的PyTorch实验工具—-Minetorch，考虑到国内好像还没有介绍该工具包的文章，因而有了这篇教程，作为一个Minecraft玩家，这个工具作者给我的感觉是很有情怀的。</p>
+<p>最近看到<a target="_blank" rel="noopener" href="https://blog.csdn.net/jackzhang11">汐梦聆海</a>关于SL这个工作的阅读分享，发现自己工作中也有含噪声标签分类的问题（甚至有些场景标签干脆就是置信度不高的伪标签）。其实由于数据量大和标注成本受限，工业界的数据集常常会出现噪声标签，模型对这类标签的拟合会导致学习的异常进行。SL这个工作从数学层面对交叉熵进行改进，提出了一种更加鲁棒的Symmetric Cross Entropy（SCE）损失，可以一定程度上缓解由于noisy label带来的训练问题，该工作也被ICCV2019收录。</p>
 </blockquote>
-<h1 id="Minetorch教程"><a href="#Minetorch教程" class="headerlink" title="Minetorch教程"></a>Minetorch教程</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>“在Minecraft中，火把对于挖矿是非常重要的，没有火把玩家很难获得大量的钻石等矿物。在数据科学领域也是如此，一个名为PyTorch的深度学习工具库可以帮助我们获得数据中的钻石等宝藏。Minetorch则作为研究者的工具集，帮助我们以一个更加方便的方式使用PyTorch。”这是Minetorch的官方简介，说的直白一点，<strong>这是一个针对PyTorch的工具箱，包括了训练控制、训练日志记录及可视化等诸多功能。</strong></p>
-<p><img src="https://i.loli.net/2021/05/04/39ZnDvL1EcWArmS.jpg" alt="图片源于minetorch官方，侵删"></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先是该库的安装，通过下面的命令使用pip进行安装即可。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pip install minetorch<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>此外，还需要安装<code>tqdm</code>、<code>sklearn</code>和<code>jupyter</code>等包，而且需要注意，<strong>PyTorch的版本必须大于1.7.0才能运行成功。</strong></p>
-<h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><p>首先需要说明的是，Minetorch其实对Google Sheets做了非常强大的对接，用户可以通过配置非常方便地在训练时自动将实验记录上传到电子表格中，不过由于国内Google Sheets使用不多因此本文将忽略这一部分，感兴趣的可以参考<a target="_blank" rel="noopener" href="https://github.com/minetorch/minetorch">官方教程</a>进行配置。下文主要围绕目前版本Minetorch的核心两个功能展开叙述，即<strong>实验记录</strong>和<strong>训练控制</strong>。</p>
-<h3 id="实验记录"><a href="#实验记录" class="headerlink" title="实验记录"></a>实验记录</h3><p>首先我们来看我们使用实验记录工具最关心的实验记录功能，这就不得不提到Minetorch的一个核心类<code>Miner</code>，这是一个高度封装的训练器（trainer），将Model和Dataloader传给它即可方便的实现训练而不需要自己手动写循环来控制整个流程。下面就是一个Miner的构建方法，它只是将我们原本的训练流程通过这个类封装了，模型和数据的构建是不需要改动的，该对象的初始化需要的大部分参数我已经在下面的代码中详细备注了，其中<code>drawer</code>这个参数控制绘图器为tensorboard还是matplotlib，默认为matplotlib，它会自动绘制训练和验证损失图像。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer <span class="token operator">=</span> Miner<span class="token punctuation">(</span>
-        alchemistic_directory<span class="token operator">=</span><span class="token string">'./runs'</span><span class="token punctuation">,</span>  <span class="token comment"># 日志根目录</span>
-        train_dataloader<span class="token operator">=</span>train_loader<span class="token punctuation">,</span>  <span class="token comment"># 训练dataloader</span>
-        model<span class="token operator">=</span>model<span class="token punctuation">,</span>  <span class="token comment"># 模型</span>
-        loss_func<span class="token operator">=</span>loss_fn<span class="token punctuation">,</span>  <span class="token comment"># 损失函数</span>
-        optimizer<span class="token operator">=</span>optimizer<span class="token punctuation">,</span>  <span class="token comment"># 优化器</span>
-        code<span class="token operator">=</span><span class="token string">"exp1"</span><span class="token punctuation">,</span>  <span class="token comment"># 实验子目录</span>
-        val_dataloader<span class="token operator">=</span>val_loader<span class="token punctuation">,</span>  <span class="token comment"># 验证dataloader</span>
-        resume<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>  <span class="token comment"># 是否自动加载之前的last模型接着训练</span>
-        eval_stride<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>  <span class="token comment"># 多少轮进行一次评估</span>
-        persist_stride<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>  <span class="token comment"># 多少轮进行一次checkpoint的保存</span>
-        drawer<span class="token operator">=</span><span class="token string">'tensorboard'</span><span class="token punctuation">,</span>  <span class="token comment"># 绘图器设置</span>
-        hooks<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>  <span class="token comment"># hooks配置</span>
-        logging_format<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>  <span class="token comment"># 日志格式，默认即可</span>
-        max_epochs<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span>  <span class="token comment"># 训练轮数</span>
-        plugins<span class="token operator">=</span><span class="token punctuation">[</span>
-            MultiClassesClassificationMetricWithLogic<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            NoiseSampleDetector<span class="token punctuation">(</span>metric<span class="token operator">=</span>torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span>reduction<span class="token operator">=</span><span class="token string">'none'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment"># 插件</span>
-        accumulated_iter<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>  <span class="token comment"># 累积多少次迭代后进行参数更新</span>
-        trival<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>  <span class="token comment"># 是否同时完成训练后随机进行验证</span>
-        in_notebook<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>  <span class="token comment"># 是否启用notebook模式，由于该库默认支持notebook，请务必打开该模式</span>
-        amp<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>  <span class="token comment"># 是否开启混合精度</span>
-        statable<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment"># 实现了`state_dict`和`load_state_dict`方法的对象组成的字典，例如一个学习率调度器，trainer会自动保存这个对象的参数，注意优化器和模型默认是保存的因此不需要指定 </span>
-
-    <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>只要调用这个trainer的train方法训练就会开始进行训练，训练其实就是类似我们自己for循环取数据进行训练，需要注意的是，这里默认是将dataloader的整个返回结果送入模型中，如果模型没有定义解包方式那么需要构建trainer的时候传入一个自定义的forward函数，参数名为forward。</p>
-<h3 id="训练控制"><a href="#训练控制" class="headerlink" title="训练控制"></a>训练控制</h3><p>上面的这些配置只是完成了一些基本的训练流程，如果想要自定义一些新的功能那么就必须自定义一些东西，为了方便使用者控制在那个阶段干些什么，minetorch将训练分为多个hook点，用户可以注册这些hook来在不同的训练阶段做些不同的操作。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">hook points</th>
-<th style="text-align:center">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">after_init</td>
-<td style="text-align:center">trainer初始化完成调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">before_epoch_start</td>
-<td style="text-align:center">每轮开始时调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">after_epoch_end</td>
-<td style="text-align:center">每轮结束时调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">before_train_iteration_start</td>
-<td style="text-align:center">每次训练迭代开始之前调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">after_train_iteration_end</td>
-<td style="text-align:center">每次训练迭代完成后调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">before_val_iteration_start</td>
-<td style="text-align:center">每次验证迭代开始之前调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">after_val_iteration_end</td>
-<td style="text-align:center">每次验证迭代完成之前调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">before_checkpoint_persisted</td>
-<td style="text-align:center">checkpoint保存前调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">after_checkpoint_persisted</td>
-<td style="text-align:center">checkpoint保存后调用该方法</td>
-</tr>
-<tr>
-<td style="text-align:center">before_quit</td>
-<td style="text-align:center">训练完成退出前调用该方法</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>这些hook点的设计使得用户可以在不同的阶段嵌入自己想要增加的功能，例如想在训练每轮开始的时候打印当前轮次，那么我需要定义下面这个函数，它必须传入的是一个Miner对象用于访问miner中的所有成员。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">before_epoch_start</span><span class="token punctuation">(</span>miner<span class="token punctuation">:</span> Miner<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"start training, this is epoch {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>miner<span class="token punctuation">.</span>current_epoch<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>然后创建trainer的时候传入hook这个字典即可，那么每次之前就会输出当前轮数。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer <span class="token operator">=</span> Miner<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> hooks<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'before_epoch_start'</span><span class="token punctuation">:</span> before_epoch_start<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>hooks的设计使得训练的拓展变得上限极高，那么插件Plugin的存在则是更具体的一种实现，它的处理流程和hook函数类似，不同的是它封装了多个hook点的功能因而实现了一个更加完善的功能，例如上面代码示例中使用的<code>MultiClassesClassificationMetricWithLogic</code>即实现了多分类任务指标输出和drawer（通过miner获得drawer）绘制。设计新的插件需要注册自<code>Plugin</code>类然后实现自己不同hook点的方法。我这里就不具体讲解了，通过阅读作者实现的异常检测的plugin，应该可以理解设计的流程，我这里给出<a target="_blank" rel="noopener" href="https://github.com/minetorch/minetorch/blob/master/minetorch/plugins/noise_detector.py">代码</a>。</p>
-<h3 id="训练演示"><a href="#训练演示" class="headerlink" title="训练演示"></a>训练演示</h3><p>经过上面的讲解，其实可以发现，Minetorch是一个可拓展性非常强的工具库并且仍在不断地维护升级中，下面是我随机生成数据集进行训练流程测试的代码，由于是随机生成的数据所以拟合能力我们可以暂且忽略，可以重点看看该工具库的日志输出形式。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
-<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
-<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional <span class="token keyword">as</span> F
-<span class="token keyword">from</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data <span class="token keyword">import</span> Dataset<span class="token punctuation">,</span> DataLoader
-<span class="token keyword">from</span> minetorch<span class="token punctuation">.</span>miner <span class="token keyword">import</span> Miner
-<span class="token keyword">from</span> minetorch<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> MultiClassesClassificationMetricWithLogic
-<span class="token keyword">from</span> minetorch<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>noise_detector <span class="token keyword">import</span> NoiseSampleDetector
-
-<span class="token comment"># create dataset</span>
-x <span class="token operator">=</span> torch<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token number">1600</span> <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token number">1600</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-x <span class="token operator">=</span> x <span class="token operator">+</span> torch<span class="token punctuation">.</span>rand_like<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-y <span class="token operator">=</span> torch<span class="token punctuation">.</span>randint<span class="token punctuation">(</span>low<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> high<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1600</span><span class="token punctuation">,</span> <span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-
-<span class="token keyword">class</span> <span class="token class-name">MyDataset</span><span class="token punctuation">(</span>Dataset<span class="token punctuation">)</span><span class="token punctuation">:</span>
-
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">assert</span> x<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
-
-    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>x<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>y<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
-
-    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>x<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-
-
-<span class="token comment"># create model</span>
-<span class="token keyword">class</span> <span class="token class-name">Model</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token builtin">super</span><span class="token punctuation">(</span>Model<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        x <span class="token operator">=</span> self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        x <span class="token operator">=</span> F<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        x <span class="token operator">=</span> self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> x
-
-
-<span class="token keyword">def</span> <span class="token function">before_epoch_start</span><span class="token punctuation">(</span>miner<span class="token punctuation">:</span> Miner<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"start training, this is epoch {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>miner<span class="token punctuation">.</span>current_epoch<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-
-<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    model <span class="token operator">=</span> Model<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    train_loader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>MyDataset<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    val_loader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>MyDataset<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    loss_fn <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    optimizer <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>SGD<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.001</span><span class="token punctuation">)</span>
-    <span class="token comment"># create trainer</span>
-    trainer <span class="token operator">=</span> Miner<span class="token punctuation">(</span>
-        alchemistic_directory<span class="token operator">=</span><span class="token string">'./runs'</span><span class="token punctuation">,</span>
-        train_dataloader<span class="token operator">=</span>train_loader<span class="token punctuation">,</span>
-        model<span class="token operator">=</span>model<span class="token punctuation">,</span>
-        loss_func<span class="token operator">=</span>loss_fn<span class="token punctuation">,</span>
-        optimizer<span class="token operator">=</span>optimizer<span class="token punctuation">,</span>
-        code<span class="token operator">=</span><span class="token string">"exp1"</span><span class="token punctuation">,</span>
-        val_dataloader<span class="token operator">=</span>val_loader<span class="token punctuation">,</span>
-        resume<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-        eval_stride<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
-        persist_stride<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
-        drawer<span class="token operator">=</span><span class="token string">'tensorboard'</span><span class="token punctuation">,</span>
-        logging_format<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>
-        max_epochs<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span>
-        plugins<span class="token operator">=</span><span class="token punctuation">[</span>
-            MultiClassesClassificationMetricWithLogic<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            NoiseSampleDetector<span class="token punctuation">(</span>metric<span class="token operator">=</span>torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span>reduction<span class="token operator">=</span><span class="token string">'none'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        accumulated_iter<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
-        trival<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-        in_notebook<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-        amp<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-        hooks<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'before_epoch_start'</span><span class="token punctuation">:</span> before_epoch_start<span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span>
-    trainer<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>首先，会在trainer构建时指定的日志根目录里生成以<code>code</code>参数为后缀的当前实验的日志目录，然后根据使用的hook和插件以及基本的功能生成如下结构的日志目录，其中models存放保存的模型，各自插件生成的结果保存在插件名的目录下，如这里的NoiseSampleDetector和MultiClassesClassificationMetricWithLogic目录（这是基本设计，不是一定要生成在这里，比如MultiClassesClassificationMetricWithLogic的绘图结果就在其他目录里面），和上级目录同名的目录里是各种指标的绘图结果，损失是基本项，其他的均由插件支持生成。此外，还有一个名为log.txt的文本文件记录输出的日志，便于我们回顾训练的各个步骤的执行情况。</p>
-<pre class="line-numbers language-none"><code class="language-none">└─trival_exp1
-    ├─models
-    ├─MultiClassesClassificationMetricWithLogic
-    ├─NoiseSampleDetector
-    └─trival_exp1
-        ├─accuracy
-        │  └─accuracy
-        ├─kappa_score
-        │  └─kappa_score
-        └─loss
-            ├─train
-            └─val
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>由于我这里采用的tensorboard进行绘制，通过可视化可以看到如下图所示的各个指标的绘图结果。</p>
-<p><img src="https://i.loli.net/2021/05/04/ontJZh9yEr3jODX.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文主要介绍了一个在竞赛和项目中比较使用的PyTorch工具库—-Minetorch，它让基于PyTorch的训练变得更加方便，欢迎大家的尝试使用。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>如何在有噪声标注的数据集上进行训练是一直受到工业界关注的问题，也产生了很多不错的工作。具体到分类任务上来看，论文作者发现使用交叉熵学习的深度神经网络会去过拟合那些简单类别而在一些困难类别上欠学习。直觉上，交叉熵需要额外的一项来促进困难类别的学习，更重要的是，这一项应该对噪声有容忍能力以避免过拟合噪声标签。受到KL散度的启发，论文提出了一种<strong>Symmetric cross entropy Learning（SL，对称交叉熵学习）</strong>，该方法通过具有噪声鲁棒性的反向交叉熵（RCE）来对称地增强交叉熵。SL方法同时解决存在噪声标签的情况下交叉熵的欠学习和过拟合的问题。作者对SL的进行了理论分析，并在一系列基准数据集上证明了SL优于SOTA方法，而且SL可以方便地集成到现有的方法中以提高模型性能。</p>
+<ul>
+<li><p>论文标题</p>
+<p>  Symmetric Cross Entropy for Robust Learning with Noisy Labels</p>
+</li>
+<li><p>论文地址</p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1908.06112">http://arxiv.org/abs/1908.06112</a></p>
+</li>
+<li><p>论文源码</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/HanxunH/SCELoss-Reproduce">https://github.com/HanxunH/SCELoss-Reproduce</a></p>
+</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>目前的深度神经网络往往都是上百层有着百万级别的训练参数，这样的模型需要大规模的清晰标注的数据集才能合理训练。然而，时至今日，即使ImageNet这样的高质量数据集也存在不少的误标，这主要是因为标注大规模数据集确实代价昂贵并且容易出错。因此如何在存在噪声标注的情况下训练深度神经网络是一个非常重要的研究课题。</p>
+<p>在这篇论文中，作者主要关注计算机视觉中常见的图像分类任务，经过调查发现，交叉熵（Cross Entropy，CE）虽然是分类任务最常用的损失，但是使用CE训练的网络其实存在类别偏置现象：一些容易类别（”easy” class）收敛的速度快于其他的困难类别（”hard” class）。不妨看下图，首先来看图a，即使标签是干净的，使用CE训练的模型在各个类别上的测试准确率依然相去甚远，比如class 1和class 3相差近20%；如图b，在添加噪声后采用CE进行训练，可以看到，这种差距更加明显，如class 6的容易类别已经对噪声过拟合了，像class 3这样的困难类别依然处于欠学习状态（即分类准确率低于标注清晰的情况）；而图c中采用了广为人知的Label Smoothing Regularization（LSR），显然，它依然存在欠学习问题。因此，从这些实验结果可以看出，整体准确率的低下源于难类别的准确率较低，这和之前的研究认为的仅仅是过拟合噪声标签这个原因还是有区别的。</p>
+<p><img src="https://i.loli.net/2021/05/06/mgTKGCrOPuVMpqh.png" alt=""></p>
+<p>下图是对学习到的embedding进行可视化的结果，图a是干净标注的数据，图b则是加入40%噪声的数据，显然图a情况下各类的边界更加清晰，但是无论是图a还是图b，都存在一些容易类别的边界清晰而一些困难类别的边界模糊。</p>
+<p><img src="https://i.loli.net/2021/05/06/OsTvJ5V6KYoG8mz.png" alt=""></p>
+<p>受到KL散度的启发，作者在CE基础上添加了一个噪声容忍的项，名为Reverse Cross Entropy（RCE），它和CE组合构成了Symmetric<br>cross entropy Learning（SL）的基础。SL不仅可以改进困难类别的学习，而且可以增强网络对噪声标签的鲁棒性，它们的改进效果可以从上面的图中最后一张子图看出来。和那些动辄修改网络或者对现有方法改动颇多的方法相比，SL非常容易使用，只需要对现有训练流程轻微改动即可。</p>
+<h2 id="SL"><a href="#SL" class="headerlink" title="SL"></a>SL</h2><h3 id="交叉熵局限"><a href="#交叉熵局限" class="headerlink" title="交叉熵局限"></a>交叉熵局限</h3><p>在具体介绍SL方法之前，首先来回顾一下交叉熵损失。给定一个$K$类的数据集$\mathcal{D}=\left{(x, y)^{(i)}\right}_{i=1}^{n}$，其中$x \in \mathcal{X} \subset \mathbb{R}^{d}$表明一个样本的输入是$d$维的，而$y \in \mathcal{Y}={1, \cdots, K}$是其对应的标签。对每个样本$x$而言，一个分类器$f(x)$计算其属于各个类别的概率分布，对于某个类别$k$而言，其概率为$p(k \mid x)=\frac{e^{z_{k}}}{\sum_{j=1}^{K} e^{z_{j}}}$，这里的$z_j$是概率值。不妨记$x$的GT分布为$q(k \mid x)$，显然有$\sum_{k=1}^{K} q(k \mid x)=1$。如果是单标签的情况，那么必有$q(y \mid x) = 1$且对所有$k \ne y$的情况有$q(k \mid x)=0$。综上，交叉熵损失定义如下。</p>
+<script type="math/tex; mode=display">
+\ell_{c e}=-\sum_{k=1}^{K} q(k \mid \mathbf{x}) \log p(k \mid \mathbf{x})</script><p>作者这里在Cifar10上随机生成了一些噪声标签（40%），使用一个8层卷积神经网络进行分类，训练总共120轮，选取第10轮、第50轮和第100轮作为前期、中期和后期。 下图所示的为CE训练清晰标注和添加噪声的标注的测试准确率，无论是清晰数据还是噪声数据，不同类别之间存在差异，但是随着训练的进行，清晰数据后期差异较小但是即使在后期，噪声数据的差异依然存在，一些难类别并没有得到充分训练，而一些容易类别已经出现了过拟合现象。因此，得出结论，难类别的欠学习才是网络整体性能下降的原因而不是过拟合噪声标签。</p>
+<p><img src="https://i.loli.net/2021/05/06/f2dTIHNV8xqStbg.png" alt=""></p>
+<p>进一步从学习到的表示的角度来探索CE造成欠学习的原因。由于难类别的表示和其他类别的相似度较高，因此极有困难被预测为其他类别标签，这就是之前聚类图上class 3没有明显聚类的原因。但是，class 3中仍有60%干净的标注，对此进一步研究，下图是class 3对干净数据的预测置信度和分布情况，可以看出，即使是干净的数据，置信度也不是很高，这表示网络其实没有得到充分的训练。</p>
+<p><img src="https://i.loli.net/2021/05/06/dVl3FxIDnT7rKwz.png" alt=""></p>
+<p><strong>因此，最终总结得到，CE对于难类别的学习是不够充分的，尤其是存在噪声标签的场景下。</strong></p>
+<h3 id="对称交叉熵学习"><a href="#对称交叉熵学习" class="headerlink" title="对称交叉熵学习"></a>对称交叉熵学习</h3><p>为了解决上文提到的交叉熵的局限性，作者提出了一种充分学习和噪声鲁棒性之间寻求平衡的方法，称为Symmetric cross entropy Learning，简称SL。 </p>
+<p><strong>定义</strong></p>
+<p>给定两个分布$q$和$p$，交叉熵$H(q,p)$和KL散度$KL(q||p)$之间的关系如下式，$H(q)$表示$q$的熵，$q=q(k|x)$表示样本$x$的真实类别分布，$p(k|x)$则是预测类别分布。从KL散度的角度来看，优化的目的就是使得$p$接近$q$，也就是最小化两者的KL散度$KL(q||p)$。</p>
+<script type="math/tex; mode=display">
+K L(q \| p)=H(q, p)-H(q)</script><p>但是，当存在噪声时，$q(k|x)$未必代表真实分布，反而$p(k|x)$一定程度上可以反映真实的分布，所以可以考虑另一个方向的KL散度$KL(p||q)$，将正反向的KL散度结合从而得到对称KL散度的公式如下所示。</p>
+<script type="math/tex; mode=display">
+S K L=K L(q \| p)+K L(p \| q)</script><p>将这个思路从KL散度迁移到交叉熵上面，就可以得到对称交叉熵SCE的公式如下所示。</p>
+<script type="math/tex; mode=display">
+S C E=C E+R C E=H(q, p)+H(p, q)</script><p>这里的$RCE = H(p,q)$是$H(q,p)$的反向版本，称为反向交叉熵Reverse Cross Entropy，RCE损失的计算式如下。</p>
+<script type="math/tex; mode=display">
+\ell_{r c e}=-\sum_{k=1}^{K} p(k \mid \mathbf{x}) \log q(k \mid \mathbf{x})</script><p>因此最终的对称交叉熵损失SCE定义如下。</p>
+<script type="math/tex; mode=display">
+\ell_{s c e}=\ell_{c e}+\ell_{r c e}</script><p>关于RCE的噪声容忍性下文会证明，但是CE项时对噪声非鲁棒的，但是CE对模型收敛又是非常有效的，因此为了获得有效性和鲁棒性，作者设计了两个超参数来解耦学习框架，超参数$\alpha$用于解决CE的过拟合问题而$\beta$则探索RCE的鲁棒性，因此，形式上，SL损失如下式所示。在$\ell_{rce}$中由于真实分布$q(k|x)$是one-hot编码，因此含有0值，因此定义$log 0 = A$，这里的A是一个小于0的常数，$\beta$的设置也和A的值有关。</p>
+<script type="math/tex; mode=display">
+\ell_{s l}=\alpha \ell_{c e}+\beta \ell_{r c e}</script><p><strong>理论分析</strong></p>
+<p>首先是关于鲁棒性的分析，也就是$\ell_{rce}$对噪声是鲁棒的。不妨记样本$x$的噪声标签为$\hat{y}$而真实标签为$y$，分类器为$f$且损失函数为$\ell_{rce}$。定义$f$在清晰标签下的风险为$R(f)=\mathbb{E}_{\mathbf{x}, y} \ell_{r c e}$，而在噪声率为$\eta$的标注下的风险为$R^{\eta}(f)=\mathbb{E}_{\mathbf{x}, \hat{y}} \ell_{r c e}$，记$f^{<em>}$和$f_{\eta}^{</em>}$为$R^{\eta}(f)$和$R^{\eta}(f)$的全局最小值。如果$f_{\eta}^{<em>}$和$f^{</em>}$在噪声数据下有同样的分类概率，那么称该损失是噪声鲁棒的，也叫noise-tolerant。这个的证明过程感兴趣的可以查看论文的Theorem 1部分，我这里不多赘述了，此外作者下面还继续对SL的梯度进行了推导从而分析了SL的学习过程不同于CE损失，我这里忽略推导过程，给出推导的结果，见下面的式子。</p>
+<script type="math/tex; mode=display">
+\frac{\partial \ell_{s l}}{\partial z_{j}}=\left\{\begin{array}{ll}
+\frac{\partial \ell_{c e}}{\partial z_{j}}-\left(A p_{j}^{2}-A p_{j}\right), & q_{j}=q_{y}=1 \\
+\frac{\partial \ell_{c e}}{\partial z_{j}}+\left(-A p_{j} p_{y}\right), & q_{j}=0
+\end{array}\right.</script><script type="math/tex; mode=display">
+\frac{\partial \ell_{c e}}{\partial z_{j}}=\left\{\begin{array}{ll}
+p_{j}-1 \leq 0, & q_{j}=q_{y}=1 \\
+p_{j} \geq 0, & q_{j}=0
+\end{array}\right.</script><p>从上面的式子，学习的过程是使得$p_j$趋近于1，当$p_j&lt;0.5$时RCE会促进学习，当$p_j&gt;0.5$时，RCE会降低样本的学习速度。当$q_{j}=0\left(\frac{\partial \ell_{c e}}{\partial z_{j}} \geq 0\right)$时，第二项$-A p_{j} p_{y}$取决于$p_j$和$p_y$，$p_y$越大说明模型越信任自己的预测，同时$-A p_{j} p_{y}$也越大，其他标签的预测概率的下降速度就越快。当$p_y=0$的时候，$-A p_{j} p_{y}$为0对梯度的大小没有改变，这意味着网络对标注类别没有信息，标签很有可能是错误的。</p>
+<p>接着作者还证明了当$A=-2$时，RCE就退化为MAE，也就是说RCE其实是MAE的推广形式，且和GCE不同，的两项是对称的。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>关于实验配置包括如何引入噪声的，可以查看原论文，这里不展开叙述了。</p>
+<p>下图是添加60%噪声后使用CE和SL的逐类测试准确率的区别，可以发现，SL整体性能是大大提高的，更加充分学习了每一个类别，尤其是难类别，这源于SL自适应速度会对难类别更加充分学习。</p>
+<p><img src="https://i.loli.net/2021/05/06/IHKijotWeRkafEV.png" alt=""></p>
+<p>通过可视化CE和SL训练后学到的Representations，可以发现，即使面对噪声，SL各个类别之间的分界还是非常分明的，这就是说，SL更加noise-tolerant。</p>
+<p><img src="https://i.loli.net/2021/05/06/oKxAr8lUhZvJpcf.png" alt=""></p>
+<p>作者还进行了一些参数分析和消融实验，我这里就不一一展示了，下图是各个数据集上和其他方法的比较，证明了SL的SOTA性能。</p>
+<p><img src="https://i.loli.net/2021/05/06/UDA6xba3WglGsRY.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于标签噪声的问题，作者进行了大量的实验分析，最终得到了和前人不同的结论，噪声标签下分类效果差的原因主要来源于难类别学习不充分而不是过拟合噪声标签。受到KL散度的启发，设计了和CE对称的RCE并组合得到了SL损失，作者理论证明了RCE的噪声容忍能力并实验验证了SL的噪声标签下学习的效果，是很值得关注的一个方法。本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -719,8 +584,8 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Minetorch%E6%95%99%E7%A8%8B/">
-                                    <span class="chip bg-color">Minetorch教程</span>
+                                <a href="/tags/SL%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">SL解读</span>
                                 </a>
                             
                         </div>
@@ -891,7 +756,7 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-05-04T20-23-25',
+        id: '2021-05-06T19-45-24',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -917,9 +782,10 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/05/06/sl/">
                     <div class="card-image">
@@ -937,9 +803,9 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -952,6 +818,7 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -970,13 +837,13 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/22/cstrackv2/">
+                <a href="/2021/05/04/minetorch/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="CSTrackV2解读">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Minetorch教程">
                         
-                        <span class="card-title">CSTrackV2解读</span>
+                        <span class="card-title">Minetorch教程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -987,14 +854,14 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
-                                    论文解读
+                            <a href="/categories/Python%E5%B7%A5%E5%85%B7%E5%8C%85/" class="post-category">
+                                    Python工具包
                                 </a>
                             
                             
@@ -1004,8 +871,8 @@ y <span class="token operator">=</span> torch<span class="token punctuation">.</
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CSTrackV2%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">CSTrackV2解读</span>
+                    <a href="/tags/Minetorch%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">Minetorch教程</span>
                     </a>
                     
                 </div>

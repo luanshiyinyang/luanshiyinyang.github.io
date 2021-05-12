@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-05-12T05:18:26.707Z</updated>
+  <updated>2021-05-12T06:28:50.315Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhouchen1998.cn/2021/05/12/relationtrack/"/>
     <id>https://zhouchen1998.cn/2021/05/12/relationtrack/</id>
     <published>2021-05-12T05:17:58.000Z</published>
-    <updated>2021-05-12T05:18:26.707Z</updated>
+    <updated>2021-05-12T06:28:50.315Z</updated>
     
     
       
@@ -29,7 +29,7 @@
         
         
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;MOT领域的一个新的SOTA方法，在FairMOT的基础上提出了特征图解耦和全局信息下的ReID Embedding的学习，前者和CSTrack思路类似，后者则采用了Doformable DETR里的deformable</summary>
+&lt;p&gt;MOT领域的一个新的SOTA方法，在FairMOT的基础上提出了特征图解耦和全局信息下的ReID Embedding的学习，前者和CSTrack思路类似，后者则采用了Deformable DETR里的deformable</summary>
         
       
     

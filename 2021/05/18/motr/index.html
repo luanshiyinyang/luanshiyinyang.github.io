@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="RelationTrack解读, Chen&#39;s blog">
+    <meta name="keywords" content="MOTR解读, Chen&#39;s blog">
     <meta name="description" content="The effort of today is the effortless of tomorrow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>RelationTrack解读 | Chen&#39;s blog</title>
+    <title>MOTR解读 | Chen&#39;s blog</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">RelationTrack解读</h1>
+                    <h1 class="description center-align post-title">MOTR解读</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/RelationTrack%E8%A7%A3%E8%AF%BB/">
-                                <span class="chip bg-color">RelationTrack解读</span>
+                            <a href="/tags/MOTR%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">MOTR解读</span>
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-12
+                    2021-05-18
                 </div>
                 
 
@@ -468,7 +468,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.5k
+                    4k
                 </div>
                 
 
@@ -494,69 +494,66 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>MOT领域的一个新的SOTA方法，在FairMOT的基础上提出了特征图解耦和全局信息下的ReID Embedding的学习，前者和CSTrack思路类似，后者则采用了Deformable DETR里的deformable attention配合Transformer Encoder来捕获和目标相关的全图信息增强ReID的表示能力。</p>
+<p>最新的一篇MOT领域基于Transformer的工作，是第一个真正严格意义上端到端的多目标跟踪框架，超越了此前的TransTrack和TrackFormer等工作。</p>
 </blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>现有的多目标跟踪方法为了速度通常会将检测和ReID任务统一为一个网络来完成，然而这两个任务需要的是不同的特征，这也是之前很多方法提到的任务冲突问题。为了缓解这个问题，论文作者设计了Global Context Disentangling（GCD）模块来对骨干网络提取到的特征解耦为任务指定的特征。此外，作者还发现，此前的方法在使用ReID特征为主的关联中，只考虑了检测框的局部信息而忽视了全局语义相关性的考虑。对此，作者设计了Guided Transformer Encoder（GTE）模块来学习更好的全局感知的ReID特征，这个模块不是密集相关性的而是捕获query节点和少量的自适应关键样本位置之间的相关性信息。因此非常高效。实验表明，由GCD和GTE构成的跟踪框架RelationTrack在MOT16和MOT17上均达到SOTA表现，在MOT20上更是超过此前的所有方法。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>多目标跟踪的关键挑战在于轨迹上目标的时序建模，而现有的TBD方法大多采用简单的启发式策略，如空间和外观相似度。尽管这些方法具有通用性，但它们过于简单，不足以对复杂的变化进行建模，例如通过遮挡进行跟踪。 <strong>本质上，现有方法缺乏时间建模的能力。</strong> 这篇论文中，作者提出了MOTR，这是一个真正的完全端到端的跟踪框架。MOTR能够学习建模目标的长程时间变化，它隐式地进行时间关联，并避免了以前的显式启发式策略。基于Transformer和DETR，MOTR引入了track query这个概念，一个track query负责建模一个目标的整个轨迹，它可以在帧间传输并更新从而无缝完成目标检测和跟踪任务。时间聚合网络（temporal aggregation network，TAN）配合多帧训练被用来建模长程时间关系。实验结果表明MOTR达到了SOTA效果。</p>
 <ul>
 <li><p>论文标题</p>
-<p>  RelationTrack: Relation-aware Multiple Object Tracking with Decoupled Representation</p>
+<p>  MOTR: End-to-End Multiple-Object Tracking with TRansformer</p>
 </li>
 <li><p>论文地址</p>
-<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2105.04322">http://arxiv.org/abs/2105.04322</a></p>
+<p>  <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2105.03247">http://arxiv.org/abs/2105.03247</a></p>
 </li>
 <li><p>论文源码</p>
-<p>  暂未开源</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/megvii-model/MOTR">https://github.com/megvii-model/MOTR</a></p>
 </li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>目前主流的多目标跟踪方法主要包含两个子模型，即用于目标定位的检测模型和用于轨迹连接的ReID模型。分开训练检测和ReID两个模型可以在精度上获得较好的表现，然而推理速度较慢，很难达到实时跟踪的效果。一个较好的解决方案就是JDE首先提出的在一个网络中联合训练检测和ReID的思路。</p>
-<p><img src="https://i.loli.net/2021/05/12/xO56sENBFH3LZIa.png" alt=""></p>
-<p>遗憾的是，直接将这两个任务放到一个网络中联合优化造成了精度大幅度的下降，这是因为这两个任务存在严重的优化矛盾。对检测分支而言，它期望同类目标之间的相似度尽量高，也就是网络能够最大化不同类目标之间的距离；但是，对ReID分支而言，它则希望最大化不同实例之间的距离（对行人跟踪而言这些不同实例是同类别的）。它们不一致的优化目标阻碍了当前的MOT框架向更高效的形式发展。</p>
-<p><img src="https://i.loli.net/2021/05/12/f9KUNvM8FRJLeBV.png" alt=""></p>
-<p>为了缓解这个矛盾，作者设计了一个特征解耦模块称为<strong>Global Context Disentangling</strong> (GCD)，它将特征图解耦为检测任务指定和ReID任务指定的特征表示，如上图所示。这个模块的设计下文再阐述，不过经过实验验证，这个模块带来了1-2个点的收益，<strong>可见它对解决任务冲突是很有效的</strong>。</p>
-<p>此外，作者发现，此前的方法通常利用局部信息来跟踪目标，然而，实际上，目标和周围目标以及背景之间的关系对于跟踪任务是非常重要的。为了捕获这种长程依赖，使用全局注意力是一个解决方案，但是全局注意力需要逐像素之间计算相关性以构成注意力图，这在计算上是代价极为昂贵的，也严重阻碍了实时MOT任务的进行。作者又发现，其实并不是所有的像素都对query node（查询节点）有影响的，因此只需要考虑和少数关键样本之间的关系可能是更好的选择，基于这个假设，作者使用deformable attention（源于Defomable DETR）来捕获上下文关系。相比于全局注意力，deformable attention是非常轻量的，计算复杂度从$O\left(n^{2}\right)$降低到了$O\left(n\right)$。而且，相比于基于图的受限邻域信息收集，deformable attention可以自适应选择整个图像上合适的关键样本来计算相关性。</p>
-<p>接着，考虑到Transformer强大的建模能力，作者将deformable attention和Transformer Encoder进行了组合形成了Guided Transformer Encoder (GTE)模块，它使得MOT任务可以在全局感受野范围内捕获逐像素的相关性。</p>
-<p>为了证明RelationTrack的效果，作者在MOT多个benchmark数据集上进行了实验，在IDF1上超越了此前的SOTA方法FairMOT3个点（MOT16）和2.4个点（MOT17）。</p>
-<h2 id="RelationTrack"><a href="#RelationTrack" class="headerlink" title="RelationTrack"></a>RelationTrack</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>RelationTrack旨在完成目标检测和基于ReID的轨迹关联任务，由三个部分组成，分别是检测器$\phi(\cdot)$、ReID特征提取器$\psi(\cdot)$以及关联器$\varphi(\cdot)$，它们分别负责目标的定位、目标的特征提取以及轨迹的生成。</p>
-<p>形式上，输入图像$I_{t} \in \mathbb{R}^{H \times W \times C}$，不妨记$\phi\left(I_{t}\right)$和$\psi\left(I_{t}\right)$为$b_{t}$和 $e_{t}$，显然可以知道$b_{t} \in \mathbb{R}^{k \times 4}$且$e_{t} \in \mathbb{R}^{k \times D}$。上面的$H$、$W$和$C$分别表示输入图像的高、宽和通道数，$k$、$t$和$D$则表示检测到的目标数、图像的帧索引以及ReID embedding向量的维度。$b_t$和$e_t$分别指的是目标的边框坐标和相应的ReID特征向量。在完成检测和特征向量的提取之后，$\varphi(\cdot)$基于$e_t$对不同帧的$b_t$进行关联从而生成轨迹，目前的主流思路是只要检测和ReID足够准，使用一个简单的关联器即可，如匈牙利算法。</p>
-<h3 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h3><p>下面的这个图就是RelationTrack的整体框架，总的来看分为五部分，分别是特征提取、特征解耦、ReID表示学习以及最后的数据关联，整个框架都是针对单帧进行处理的。首先，图像送入backbone中得到特征图，随后GCD模块将这个特征图解耦为两个特征图，分别为检测信息和ReID信息，检测分支通过检测信息进行类似于CenterNet的目标定位而GTE模块则负责生成判别性的目标特征表示。最后，有了目标框和对应的特征表示，就可以通过匈牙利算法进行关联从而得到最终的跟踪轨迹了。</p>
-<p><img src="https://i.loli.net/2021/05/12/ZEXjyvPrMwHVSuG.png" alt=""></p>
-<h3 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h3><p>在上面的整体框架了解后，我们来看看GCD（Global Context Disentangling）模块具体是如何实现特征图解耦的。实际上，GCD分为两个阶段进行，<strong>首先是全局上下文向量的生成然后利用这个向量去解耦输入特征图</strong>，它的流程其实就是上图的中间部分。</p>
-<p>记$x=\left{x_{i}\right}_{i=1}^{N_{p}}$为输入的特征图（就是backbone得到的，一般是64通道的），这里的$N_p$表示像素数目即$H^{\prime} \times W^{\prime}$，$H^{\prime}$和$W^{\prime}$分别表示特征图的高和宽。首先，第一个阶段先是计算全局上下文特征向量，可以用下面的式子表示，这里的$W_k$表示的是一个可学习的线性变换，文中采用1x1卷积实现。<strong>这个过程其实是一个空间注意力图的形成。</strong></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>多目标跟踪是在视频序列的每一帧中定位所有的目标并确定它们的移动轨迹的一个任务。多目标跟踪是极具挑战的一个任务，因为每帧中的目标都可能因为环境的变化而被遮挡，而且跟踪器要想进行长期跟踪或者低帧率的跟踪是比较困难的。这些复杂多样的跟踪场景为MOT方法的设计带来了诸多挑战。</p>
+<p>现有的多目标跟踪方法基本上都遵循tracking-by-detection（TBD）范式，它将轨迹的生成分为两个步骤：<strong>目标定位</strong>和<strong>时序关联</strong>。对目标定位而言，使用检测器逐帧检测目标即可。而对于时序关联，现有的方法要么使用空间相似性（即基于IoU关联）要么使用外观相似性（即基于ReID关联）。对于基于IoU的方法，计算两帧检测框的两两之间的IoU矩阵，若两个目标之间的IoU高于某个阈值则赋予同一个ID，如下图的(a)所示。基于ReID的方法思路类似，两帧之间目标两两计算特征相似度，具有最高相似度的两个目标赋予同一个ID，不过，单独训练一个检测器和ReID模型代价太大，最近的主流思路是一个模型联合训练检测和ReID分支，这类方法称为JDT（joint detection and tracking）方法，如下图(b)所示。</p>
+<p><img src="https://i.loli.net/2021/05/18/X4mROEBF2eo8ivA.png" alt=""></p>
+<p>上述的时序关联方法都是启发式的，并且是相当简单的，因此它们难以建模长时间的物体复杂的空间和外观变化。本质上看，其不具备对时间变化建模的能力，这和深度学习“端到端学习”的理念是不一致的。这些方法也许大多数情况下工作正常，但是对于一些挑战性的场景缺乏鲁棒性，这些场景下IoU和外观是不可信的，而这些复杂场景才是MOT任务的关键。因此，作者为了解决这个问题，构建了一个不需要任何数据关联处理的端到端跟踪框架。</p>
+<p>最近，DETR提出了一套端到端目标检测的策略，它开创性地提出了“object query”这个概念，这是目标的显式解耦表示（representation），这种表示简化了Transformer框架的学习。首次启发，论文作者拓展“object query”到目标跟踪领域，形成了“track query”，每个track query负责预测一个对象的完整轨迹。如上图(c)所示，和分类和回归分支并行，MOTR对每一帧预测track query集合，这个track query集输入到decoder网络中以产生当前帧的跟踪预测和更新的track query，更新后的track query传递到下一帧的decoder中。这个query传递和预测的处理过程会在整个视频序列上一帧帧重复进行，因此称为连续query传递（continuous query passing）。由于一个query一旦和某个目标匹配，这个query就会一直跟随这个目标，因此continuous query passing可以很自然地消除数据关联和一些手工操作，如NMS。</p>
+<p>接着，为了建模长期时间关系，作者进一步引入了多帧训练以及时间聚合网络（TAN），TAN建立了一个query memory bank来收集历史帧中和已跟踪目标对应的query，当前帧的track query会和memory 板块中的每个query通过多头注意力进行交互。</p>
+<p>作者认为，MOTR是简单且高效的，并且严格意义上它是第一个端到端的MOT框架。通过多帧时间聚合学习的track query有强大的时间建模能力，因而MOTR不需要时间关联处理或者手工操作。相反，此前基于Transformer的工作并非完全端到端的，它们依然需要IoU匹配或者Tracking NMS等操作。在MOT16和MOT17上的实验结果表明，MOTR达到SOTA性能并且比之前的方法具有更低的复杂度。</p>
+<h2 id="MOTR"><a href="#MOTR" class="headerlink" title="MOTR"></a>MOTR</h2><h3 id="Deformable-DETR"><a href="#Deformable-DETR" class="headerlink" title="Deformable DETR"></a>Deformable DETR</h3><p>DETR是Transformer在目标检测领域的经典成功案例之一。在DETR中，object query是固定数量的可学习位置嵌入，表示可能的目标的proposal。一个object query只会对应一个目标，这种对应关系是通过二分图匹配构建的。考虑到DETR较高的复杂度和较慢的收敛速度，Deformable DETR将Transformer中的self-attention替换为了multi-scale deformable attention。为了表示object query如何通过decoder与特征交互，作者重新设计了Deformable DETR的解码器。</p>
+<p>令$q \in R^{C}$表示object query集且$f \in R^{C}$表示从encoder获得的特征图，这里的$C$表示特征的维度。解码器的处理过程可以描述如下式，其中$k \in 1, \ldots, K$（$K$为decoder的层数），$q^k$表示第$k$个decoder层的output query。$G_{sa}$表示DETR中的self-attention操作，$G_{ca}$则表示multi-scale deformable attention操作。</p>
 <script type="math/tex; mode=display">
-z=\sum_{j=1}^{N_{p}} \frac{\exp \left(W_{k} x_{j}\right)}{\sum_{m=1}^{N_{p}} \exp \left(W_{k} x_{m}\right)} x_{j}</script><p><strong>不过，作者这里似乎没有刻意提及利用这个注意力图更新原始输入在进行通道注意力得到一个特征向量，这个向量才是后续两个转换层的输入。（个人理解）</strong></p>
-<p>接着，进入第二个阶段，两个转换层（对应上图中间部分的上下对称的两个结构，由卷积、LayerNorm、ReLU和卷积构成），它将上一个阶段的输出$z$结构成两个任务指定的特征向量，将这个向量和原始的特征图broadcast之后相加则可以获得检测任务特定的embedding $d=\left{d_{i}\right}_{i=1}^{N_{p}}$和ReID任务指定的$r=\left{r_{i}\right}_{i=1}^{N_{p}}$。这个过程可以通过下面的式子描述，其中的$W_{d 1}, W_{d 2}, W_{e 1}$ and $W_{e 2}$均表示可学习的参数矩阵，$\operatorname{ReL} U(\cdot)$和$\Psi_{\ln }(\cdot)$表示线性修正单元和层标准化操作。</p>
+q^{k}=G_{c a}\left(G_{s a}\left(q^{k-1}\right), f\right)</script><h3 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h3><p>MOTR中，作者引入track query和continuous query passing来进行端到端的跟踪，temporal aggregation network进一步被提出用来增强多帧的时间信息。下面就逐一阐述这几个核心模块。</p>
+<h4 id="End-to-End-Track-Query-Passing"><a href="#End-to-End-Track-Query-Passing" class="headerlink" title="End-to-End Track Query Passing"></a><strong>End-to-End Track Query Passing</strong></h4><p><strong>Track Query:</strong></p>
+<p><img src="https://i.loli.net/2021/05/18/ExyRcAlIL1Q29ph.png" alt=""></p>
+<p>DETR中的object query并不负责预测特定的目标，因此一个object query在不同的帧上可能预测不同的目标。如上图所示，DETR对MOT数据集进行检测，同一个object query在两个不同帧中预测的目标是不一样的（如上图中(a)绿色框所示），因此将query的id用于轨迹关联是不合理的。（<strong>作者这里其实想表述的是，object query只是对一个区域目标负责，并不具体到id级别。</strong>）</p>
+<p>针对上述问题，作者拓展object query进行跟踪任务，拓展后的称为track query，每个track query负责一个目标的整个轨迹的预测。如上图(b)所示，一旦一个track query在某一帧和某个目标匹配之后，这个track query将一直预测这个目标直到该目标消失。因此，同一个track query的所有预测结果就形成了一个目标的轨迹，不需要显式的数据关联步骤，至于track query之间的order-preserving则是依据特定目标的track query监督的。当然，还有一个问题，那就是新目标的产生，因此作者进一步提出了empty query来负责新目标的检测。</p>
+<p><strong>Continuous Query Passing:</strong></p>
+<p>基于上述提出的track query，作者进一步提出了continuous query passing机制，在这个机制下，track query随着帧的变化而改变representation和匹配的目标的localization。然后，作者提出了基于continuous query passing的端到端MOT框架，即MOTR。在MOTR中，目标的时间变化建模是编码器的多头注意力隐式学习的，因此不需要显式的数据关联。</p>
+<p><img src="https://i.loli.net/2021/05/18/q8WrZLundsOxXg2.png" alt=""></p>
+<p>MOTR的整体结构如上图所示，视频序列首先会送入CNN中，随后进入Deformable DETR的编码器提取基本特征$f=\left{f_{0}, f_{1}, \ldots, f_{N}\right}$，这里的$f_0$表示第$T_0$帧的特征。对第$T_0$帧而言，特征$f_0$和empty query set $q_e$被输入到decoder网络中定位所有初始化目标并生成原始的track query set $q_{ot}^1$。<strong>到这里，对应到上图就是最左侧的那部分，需要注意，这里的continuous query passing其实将$T_0$的$q^0_{ot}$传递到了下一帧。</strong> $q^0_{ot}$通过QIM模块生成了下一帧（<br>$T_1$）的track query输入，也就是图上对应的$q^1_t$。所以从上图可以看出来，整个模型迭代式地处理每一帧$T_i$（$i \in[1, N]$），QIM根据上一帧地输出产生的$q^i_t$会和empty query set $q_e$级联到一起，级联后的query set $q_e$回合特征$f_i$一起送入decoder中直接产生当前帧的预测结果，并且更新query set $q_{ot}^{i+1}$将其送入到下一帧。</p>
+<h4 id="Query-Interaction-Module"><a href="#Query-Interaction-Module" class="headerlink" title="Query Interaction Module"></a><strong>Query Interaction Module</strong></h4><p>在上面的叙述中，QIM负责接受上一帧的track query输出并生成当前帧的track query输入，在这一节将具体阐述Query Interaction Module（QIM）。QIM主要包括目标进出机制（object entrance and exit mechanism）和时间聚合网络（temporal aggregation network）。</p>
+<p><strong>Object Entrance and Exit:</strong> 首先来看目标进出机制，我们知道，每个track query表示一个完整轨迹，然而，一些目标可能在中间某一帧出现或者消失，因此MOTR需要输出一些边界框$\left{b o x_{i}, \ldots, b o x_{j}\right}$假定目标在$T_i$帧出现但在$T_j$帧消失。</p>
+<p>MOTR是如何处理目标进出的情况呢？在训练时，track query的学习可以通过二分图匹配的GT来监督。但是，在推理时，使用跟踪得分预测来决定一个轨迹的出现和消失。来看下图，这是QIM的结构图，对$T_i$帧而言，track query set $q^i_t$通过QIM从$T_{i-1}$帧生成，然后和empty query set $q_e$级联到一起，级联的结果继而输入到decoder并产生原始的包含跟踪得分的track query set $q_{ot}^i$。$q_{ot}^i$随机被分割为两个query set，即$q_{e n}^{i}=q_{\text {ot }}^{i}\left[: d_{e}\right]$和$q_{c e}^{i}=q_{o t}^{i}\left[d_{e}:\right]$，这里的$d_e$是$q_e$中query的数量。$q_{en}^i$包含进入的目标而$q_{ce}^i$包含跟踪着的和离开的目标。对目标的进入，$q_{en}^i$中的query（下图的“3”）如果跟踪得分大于进入阈值$\tau_{e n}$则被保留，其余的被移除。表示如下式，$s_k$表示$q_{en}^i$的第$k$个query $q_k$的分类得分。</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-d_{i}=x_{i}+W_{d 2} R e L U\left(\Psi_{l n}\left(W_{d 1} z\right)\right) \\
-r_{i}=x_{i}+W_{r 2} R e L U\left(\Psi_{l n}\left(W_{r 1} z\right)\right)
-\end{array}</script><p>如果考虑批量输入$I$，它的shape为$\left(B^{\prime}, H^{\prime}, W^{\prime}, C^{\prime}\right)$，则$\Psi_{l n}(\cdot)$这个标准化可以使用下面的式子定义，其中的$I_{b h w c}$和$\tilde{I}_{b h w c}$是输入和输出在$(b,h,w,c)$处的元素。</p>
+\bar{q}_{e n}^{i}=\left\{q_{k} \in q_{e n}^{i} \mid s_{k}>\tau_{e n}\right\}</script><p><img src="https://i.loli.net/2021/05/18/cFhCkfBerJE7URA.png" alt=""></p>
+<p>对目标的退出，$q_{ce}^i$的query（上图的“2”）如果跟踪得分连续M帧低于退出阈值$\tau_{ex}$，将被移除，剩下的query（上图的“1”）则被保留，式子如下，实验中设置$\tau_{e n}=0.8, \tau_{e x}=0.6$且$M=5$。</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-\mu_{b}=\frac{1}{H^{\prime} W^{\prime} C^{\prime}} \sum_{1}^{H^{\prime}} \sum_{1}^{W^{\prime}} \sum_{1}^{C^{\prime}} I_{b h w c} \\
-\sigma_{b}^{2}=\frac{1}{H^{\prime} W^{\prime} C^{\prime}} \sum_{1}^{H^{\prime}} \sum_{1}^{W^{\prime}} \sum_{1}^{C^{\prime}}\left(I_{b h w c}-\mu_{b}\right)^{2} \\
-\tilde{I}_{b h w c}=\frac{I_{b h w c}-\mu_{b}}{\sqrt{\sigma_{b}^{2}+\epsilon}}
-\end{array}</script><p>从上面第一个式子可以看到，$z$的计算与$i$的选择是无关的，$d$和$r$的所有元素都可以通过同一个$z$计算得到。由此，其实GCD的复杂度只有$O\left(C^{2}\right)$，相比于此前那些$O\left(H W C^{2}\right)$复杂度的全局注意力方法，GCD是非常高效的，后面的实验也证明了其有效性。</p>
-<h3 id="GTE"><a href="#GTE" class="headerlink" title="GTE"></a>GTE</h3><p>下面来看看GTE（Guided Transformer Encoder）模块是如何实现的。事实上，注意力作为学习判别性特征的有效手段已经被广泛使用，但是此前的方法都使用固定感受野的卷积操作来获得注意力图，这其实忽视了不同目标和背景区域之间的全局相关性。为了弥补这一点，每个像素之间的全局注意力是作者考虑采用的手段，但是常规的全局注意力太庞大了，对分辨率较高的特征图难以进行。</p>
-<p>为此，作者采用deformable attention来捕获上下文的结构化信息，它只需要在query nodes和自适应选择的关键样本之间计算相似性而不需要使用所有特征图上的样本点，这个操作可以将复杂度从$O\left(H^{2} W^{2} C\right)$ 降到$O(H W C)$。</p>
-<p>进一步，作者结合deformable attention和Transformer Encoder的优势，形成了GTE模块，如下图所示。结合Transformer出色的推理能力和可变形注意力的自适应全局感受野，GTE产生了非常有效的embedding。</p>
-<p><img src="https://i.loli.net/2021/05/12/hXJxpwFsVq4vdlM.png" alt=""></p>
-<p>下面，对着上面的图我们来阐述一下Transformer encoder和deformable<br>attention的细节。</p>
-<p>如上图所示，这里采用Transformer的encoder结构来进行特征的，它的结构和原始的Transformer的Encoder非常类似，我这里不多赘述，不过原始的Self-Attention操作计算量过大，作者这里采用Deformble Attention替换它。</p>
-<p>deformable attention的思想如下图，对于下图a感兴趣区域的每个query node，deformable attention自适应在整个图上选择有价值的key样本点，如下图b所示，然后query和key进行交互即可得到下图c所示的注意力图。deformable attention的具体工作流程如上图的下半部分所示，给定输入特征图$I$，三个独立的encoder $\Phi_{a}(\cdot), \Phi_{b}(\cdot)$和$\Phi_{c}(\cdot)$分别编码生成offset map $F_a$、key map $F_b$以及query map $F_c$。若每个query选择$N_k$个key样本，那么$F_a$将包含$2N_k$个通道，分别表示$N_k$个key相对于query的横向和纵向的偏移。因此，对每个query节点$q \in I$而言，它的坐标$Z_q$以及key相对于$Z_q$的$F_a$上的偏移$\triangle Z_{k}=\left{\triangle Z_{k}^{i}\right}_{i=1}^{N_{k}}$是可以知道的。</p>
-<p><img src="https://i.loli.net/2021/05/12/qJnYgC39ysNOVlP.png" alt=""></p>
-<p>接着，根据key的坐标$Z_{k}=\left{Z_{k}^{i}\right}_{i=1}^{N_{k}}$以及key map $F_b$，可以获得key 样本向量$V_{k}=\left{V_{k}^{i}\right}_{i=1}^{N_{k}}$，它进一步被$\Phi_{d}(\cdot)$转换。根据$Z_k$也可以对来自$F_c$的query attention map $V_{q}=\left{V_{q}^{i}\right}_{i=1}^{N_{k}}$进行裁剪。最终得到的特征图$F_o$可以通过下面的式子计算得到，这里的$W_m$是可学习参数，$\bullet$则是hadamard积。</p>
+\bar{q}_{c}^{i}=\left\{q_{k} \in q_{c e}^{i} \mid \max \left\{s_{k}^{i}, \ldots, s_{k}^{i-M}\right\}>\tau_{e x}\right\}</script><p><strong>Temporal Aggregation Network:</strong> 接着，来看时间聚合网络TAN，TAN的目的是增强时间相关性并为跟踪目标提供上下文先验信息。还是上面那张图，首先构建了一个memory bank以便于跟踪目标的时间聚合。memory bank $q_{bank} = \left{\widetilde{q}_{c}^{i-M}, \ldots, \tilde{q}_{c}^{i}\right}$首先收集历史query（也就是和已跟踪目标相关联的query），然后这些memory bank中的query将被级联到一起，如下式所示。</p>
 <script type="math/tex; mode=display">
-F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detection-and-Association"><a href="#Detection-and-Association" class="headerlink" title="Detection and Association"></a>Detection and Association</h3><p>检测分支思路和CenterNet是一致的，跟踪方面也是和FairMOT一样的匈牙利算法，不过这里采用了MAT的轨迹填充策略来平衡正负样本。</p>
-<h3 id="Optimization-objectives"><a href="#Optimization-objectives" class="headerlink" title="Optimization objectives"></a>Optimization objectives</h3><p>两个分支共同优化，损失函数加权求和，和FairMOT的优化方式几乎一样，如下所示，不详细展开了。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验数据集是MOT16、MOT17和MOT20，额外数据集和FairMOT一致，包括了CrowdHuman，预训练策略也和之前一样。</p>
-<p><img src="https://i.loli.net/2021/05/12/BHyk3MLhdsuTSrW.png" alt=""></p>
-<p>各个模块的消融实验如下。</p>
-<p><img src="https://i.loli.net/2021/05/12/2HOwpEjyKGcWSZ5.png" alt=""></p>
-<p>解耦前后特征图可视化如下，解耦效果还是很明显的。</p>
-<p><img src="https://i.loli.net/2021/05/12/1rQ5uBkWexIqfJs.png" alt=""></p>
-<p>下面这个可视化则证明了RelationTrack的鲁棒性很强。</p>
-<p><img src="https://i.loli.net/2021/05/12/wGekpaUELBAxgl3.png" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>针对目前JDE范式下MOT方法的主流问题，即分支矛盾采用了特征图结构的策略进行缓解，利用Deformable DETR的思路进行reid的全局信息捕获，工作量还是挺大的，在MOT领域是值得关注的工作。本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
+t g t=\widetilde{q}_{c}^{i-M} \oplus \cdots \tilde{q}_{c}^{i-1} \oplus \tilde{q}_{c}^{i}</script><p>级联之后，这些query被送入多头注意力模块，它们既是value也是key，继而生成注意力权重。$\bar{q}_{c}^{\imath}$被作为MHA（多头注意力）的query，因此有下面的点积注意力的式子，其中的$\sigma_s$表示softmax函数而$d$表示track query的维度。</p>
+<script type="math/tex; mode=display">
+q_{s a}^{i}=\sigma_{s}\left(\frac{t g t \cdot \operatorname{tg} t^{T}}{\sqrt{d}}\right) \cdot \bar{q}_{c}^{i}</script><p>之后，$q_{sa}^i$被FFN网络进一步调整，这里的FC表示线性投影层而LN表示层标准化，$\sigma_r$表示ReLU激活函数。</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+t \tilde{g} t=L N\left(q_{s a}^{i}+\bar{q}_{c}^{i}\right) \\
+\hat{q}_{c}^{i}=L N\left(F C\left(\sigma_{r}(F C(\tilde{g g} t))+t \tilde{g} t\right)\right.
+\end{array}</script><p>TAN的输出$\hat{q}_{c}$和$\bar{q}_{e n}^{i}$串联到一起来产生$T_{i+1}$帧的track query set $q_t^{i+1}$。</p>
+<h4 id="Overall-Optimization"><a href="#Overall-Optimization" class="headerlink" title="Overall Optimization"></a><strong>Overall Optimization</strong></h4><p>既然是端到端的结构，那么优化就显得非常重要，MOTR是以视频序列作为输入并且逐帧计算跟踪损失的，整体的跟踪损失是每一帧的损失的和并根据GT数目标准化的结果，如下式所示，这里的$N$表示视频序列的长度，$Y_{i}$和$\hat{Y}_{i}$分别表示$T_i$帧的预测和对应的GT。$V_{i}=V_{t}^{i}+V_{e}^{i}$表示$T_i$帧上所有的GT数目，$V_{t}^{i}$和$V_{e}^{i}$分别是已跟踪的目标数目和新轨迹的数目。</p>
+<script type="math/tex; mode=display">
+L_{o t}(Y, \hat{Y})=\frac{\sum_{n=0}^{N}\left(L_{t}\left(Y_{i}, \hat{Y}_{i}\right)\right)}{\sum_{n=0}^{N}\left(V_{i}\right)}</script><p>$L_t$是单帧的跟踪损失，和Deformable DETR中的检测损失是类似的，单帧损失$L_t$可以用下面的式子表示，其中$L_{c l s}$是focal loss，$L_{l_{1}}$表示L1损失而$L_{\text {giou }}$表示GIoU损失，$\lambda_{c l s}, \lambda_{l_{1}}$和$\lambda_{\text {giou }}$则是相应的权重系数。</p>
+<script type="math/tex; mode=display">
+L_{t}\left(Y_{i}, \hat{Y}_{i}\right)=\lambda_{c l s} L_{c l s}+\lambda_{l_{1}} L_{l_{1}}+\lambda_{\text {giou }} L_{\text {giou }}</script><p>MOTR的跟踪损失和Deformable DETR的检测损失主要的不同在于标签分配的方式不同，对检测损失而言，标签的分配完全由匈牙利的分配结果决定，但是对跟踪损失而言，每个track query负责特定的目标，因此其GT是由对应ID的目标决定的，对empty query而言，它的GT才是通过匈牙利匹配得到的。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>首先是和其他SOTA的比较，MOTR确实取得了相当不错的效果，相比此前基于Transformer的方法也有了不小的提高。</p>
+<p><img src="https://i.loli.net/2021/05/18/PNgZcRo3vquLsQ7.png" alt=""></p>
+<p>也进行了一些模块的消融实验，如下。</p>
+<p><img src="https://i.loli.net/2021/05/18/JkIKzHyPi5D4dTc.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>论文基于Transfomer提出了一个真正的端到端的多目标跟踪框架MOTR并超越了之前的方法，该框架真正意义上不需要数据关联和NMS等后处理操作，并且在基准数据集上达到了SOTA效果，是很值得关注的工作。本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
 
                 
             </div>
@@ -586,8 +583,8 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/RelationTrack%E8%A7%A3%E8%AF%BB/">
-                                    <span class="chip bg-color">RelationTrack解读</span>
+                                <a href="/tags/MOTR%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">MOTR解读</span>
                                 </a>
                             
                         </div>
@@ -758,7 +755,7 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
         repo: 'luanshiyinyang.github.io',
         owner: 'luanshiyinyang',
         admin: "luanshiyinyang",
-        id: '2021-05-12T13-17-58',
+        id: '2021-05-18T18-41-42',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -784,9 +781,10 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/05/18/motr/">
                     <div class="card-image">
@@ -804,9 +802,9 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -819,6 +817,7 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -837,13 +836,13 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/05/09/eanet/">
+                <a href="/2021/05/12/relationtrack/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="EANet解读">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="RelationTrack解读">
                         
-                        <span class="card-title">EANet解读</span>
+                        <span class="card-title">RelationTrack解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -854,7 +853,7 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-12
                             </span>
                         <span class="publish-author">
                             
@@ -871,8 +870,8 @@ F_{o}=W_{m} \sum_{i=1}^{N_{k}} V_{q}^{i} \bullet F_{c}^{i}</script><h3 id="Detec
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/EANet%E8%A7%A3%E8%AF%BB/">
-                        <span class="chip bg-color">EANet解读</span>
+                    <a href="/tags/RelationTrack%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">RelationTrack解读</span>
                     </a>
                     
                 </div>

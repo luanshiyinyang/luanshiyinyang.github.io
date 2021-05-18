@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-05-17T02:45:58.065Z</updated>
+  <updated>2021-05-18T10:42:08.420Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MOTR解读</title>
+    <link href="https://zhouchen1998.cn/2021/05/18/motr/"/>
+    <id>https://zhouchen1998.cn/2021/05/18/motr/</id>
+    <published>2021-05-18T10:41:42.000Z</published>
+    <updated>2021-05-18T10:42:08.420Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最新的一篇MOT领域基于Transformer的工作，是第一个真正严格意义上端到端的多目标跟踪框架，超越了此前的TransTrack和TrackFormer等工作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;简介&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="MOTR解读" scheme="https://zhouchen1998.cn/tags/MOTR%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>RelationTrack解读</title>
@@ -507,32 +535,6 @@
     
     
     <category term="ATSS解读" scheme="https://zhouchen1998.cn/tags/ATSS%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MOTDT解读</title>
-    <link href="https://zhouchen1998.cn/2021/02/24/motdt/"/>
-    <id>https://zhouchen1998.cn/2021/02/24/motdt/</id>
-    <published>2021-02-24T06:35:59.000Z</published>
-    <updated>2021-02-24T06:36:26.913Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;最近MOT的新文章不是特别多，正好趁此机会来回顾一些比较经典的文章，以弥补那些年为了赶调研进度没能精读而错过的一些方法。本文就是逛知乎的时候看到的&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="MOTDT解读" scheme="https://zhouchen1998.cn/tags/MOTDT%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-05-18T10:42:08.420Z</updated>
+  <updated>2021-06-04T05:03:35.174Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SiamMOT解读</title>
+    <link href="https://zhouchen1998.cn/2021/06/04/siammot/"/>
+    <id>https://zhouchen1998.cn/2021/06/04/siammot/</id>
+    <published>2021-06-04T05:03:01.000Z</published>
+    <updated>2021-06-04T05:03:35.174Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;AWS的一篇新的MOT工作，将孪生跟踪器引入多目标跟踪中进行运动建模并获得了SOTA表现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="SiamMOT解读" scheme="https://zhouchen1998.cn/tags/SiamMOT%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>MOTR解读</title>
@@ -510,31 +538,6 @@
     
     
     <category term="CoordAttention解读" scheme="https://zhouchen1998.cn/tags/CoordAttention%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ATSS解读</title>
-    <link href="https://zhouchen1998.cn/2021/02/28/atss/"/>
-    <id>https://zhouchen1998.cn/2021/02/28/atss/</id>
-    <published>2021-02-28T04:11:26.000Z</published>
-    <updated>2021-02-28T04:12:21.886Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="ATSS解读" scheme="https://zhouchen1998.cn/tags/ATSS%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

@@ -1,0 +1,1366 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="ResT解读, Chen&#39;s blog">
+    <meta name="description" content="The effort of today is the effortless of tomorrow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>ResT解读 | Chen&#39;s blog</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Chen's blog" type="application/atom+xml">
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Chen&#39;s blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友链</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Chen&#39;s blog</div>
+        <div class="logo-desc">
+            
+            The effort of today is the effortless of tomorrow
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友链
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/luanshiyinyang/luanshiyinyang.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/luanshiyinyang/luanshiyinyang.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">ResT解读</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ResT%E8%A7%A3%E8%AF%BB/">
+                                <span class="chip bg-color">ResT解读</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                论文解读
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-15
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.5k
+                </div>
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>最近的一篇基于Transformer的工作，由南京大学的研究者提出一种高效的视觉Transformer结构，设计思想类似ResNet，称为ResT，这是我个人觉得值得关注的一篇工作。</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>ResT是一个高效的多尺度视觉Transformer结构，可以作为图像识别的通用骨干网络，它采用类似ResNet的设计思想，分阶段捕获不同尺度的信息。不同于现有的Transformer方法只使用标准的Transformer block来处理具有固定分辨率的原始图像，ResT有着几个优势：提出一种内存高效的多头自注意力，使用深度卷积进行内存压缩，并且跨注意力头的维度投影交互同时保持多头的多样性能力；将位置编码构建为空间注意力，它可以以更加灵活的方式处理任意尺寸的输入而无需插值或者微调；不同于直接在每个阶段开始进行序列化，而是将patch embedding设计为一系列重叠的有stride的卷积操作。作者在图像分类以及下游任务中验证了ResT的性能，结果表明，ResT大幅度优于当前SOTA骨干网络，在ImageNet数据集上，同等计算量前提下，所提方法取得了优于PVT、Swin。</p>
+<ul>
+<li><p>论文标题</p>
+<p>  ResT: An Efficient Transformer for Visual Recognition</p>
+</li>
+<li><p>论文地址</p>
+<p>  <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2105.13677">https://arxiv.org/abs/2105.13677</a></p>
+</li>
+<li><p>论文源码</p>
+<p>  <a target="_blank" rel="noopener" href="https://github.com/wofmanaf/ResT">https://github.com/wofmanaf/ResT</a></p>
+</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>用于提取图像特征的骨干网络（backbone）在计算机视觉任务中至关重要，好的特征有利于下游任务的展开，如图像分类、目标检测、实例分割等。如今，计算机视觉中主要有两种骨干网络结构，一种是<strong>卷积神经网络结构</strong>，一种是<strong>Transformer结构</strong>，它们都是堆叠多个块（block）来捕获特征信息的。</p>
+<p>CNN block通常是一个bottleneck结构，可以定义为堆叠的1x1卷积、3x3卷积和1x1卷积配合一个残差连接，如下图的(a)所示。两个1x1卷积分别用于通道降维和通道升维，保证3x3卷积处理的特征图通道数不会太高。CNN骨干网络通常更快一些，这主要得益于参数共享、局部信息聚合以及维度缩减，然而，受限于有限且固定的感受野，卷积网络在那些需要长程依赖的场景中效果并不好，比如实例分割中，从一个更大的邻域中收集并关联目标间的关系是很重要的。</p>
+<p><img src="https://i.loli.net/2021/06/15/ZA3VkJpXv2yH5ma.png" alt=""></p>
+<p>为了克服这些限制，能够捕获长程信息的Transformer结构最近被探索用于设计骨干网络。不同于CNN网络，Transformer网络首先是将图片切分为一系列块（patch，也叫token），然后将这些token和位置编码相加来表示粗糙的空间信息，最终采用堆叠的Transformer block来捕获特征信息。一个标准的Transformer block由一个多头自注意力（multi-head self-attention，MSA）和一个前馈神经网络（feed-forward network，FFN）构成，其中MSA通过query-key-value分解来建模token之间的全局依赖，FFN则用来学习更宽泛的表示。Transformer block的结构如上图的(b)所示，它能够根据图像内容自适应调整感受野。</p>
+<p>虽然相比于CNN backbone。Transformer backbone潜力巨大，但它依然有四个主要的缺点如下。</p>
+<ol>
+<li>由于现有的Transformer backbone直接对原始输入图像中的块进行序列化，因此很难提取形成图像中一些基本结构（例如，角和边缘）的低级特征。</li>
+<li>Transformer block中MSA的内存和计算与空间或通道维度成二次方扩展，导致大量的训练和推理开销。</li>
+<li>MSA 中的每个head只负责输入token的一个子集，这可能会损害网络的性能，特别是当每个子集中的通道维度太低时，使得query和key的点积无法构成信息函数。</li>
+<li>现有 Transformer backbone中的输入token和位置编码都是固定规模的，不适合需要密集预测的视觉任务。</li>
+</ol>
+<p>在这篇论文中，作者提出一种高效的通用backbone ResT（以ResNet命名），该结构可以解决上述的问题，这个结构会在下一节具体说明。</p>
+<h2 id="ResT"><a href="#ResT" class="headerlink" title="ResT"></a>ResT</h2><p><img src="https://i.loli.net/2021/06/15/VA5Wid3fX8LYaue.png" alt=""></p>
+<p>上图所示的即为ResT的结构图，可以看到，它和ResNet有着非常类似的pipeline，即采用一个stem模块来提取底层特征，然后跟着四个stage捕获多尺度特征。每个stage由三个组件构成，一个<strong>patch embedding</strong>模块，一个<strong>position encoding</strong>模块以及L个<strong>efficient Transformer block</strong>。具体而言，在每个stage的开始，patch embedding模块用来减少输入token的分辨率并且拓展通道数。位置编码模块则被融合进来用于抑制位置信息并且加强patch embedding的特征提取能力。这两个阶段完成之后，输入token被送入efficient Transformer block。</p>
+<h3 id="Rethinking-of-Transformer-Block"><a href="#Rethinking-of-Transformer-Block" class="headerlink" title="Rethinking of Transformer Block"></a>Rethinking of Transformer Block</h3><p>标准的Transformer block包含两个子层，分别是MSA和FFN，每个子层包围着一个残差连接。在MSA和FFN前，先经过了一个layer normalization（下面简称LN）。假定输入token为$\mathrm{x} \in \mathbb{R}^{n \times d_{m}}$，这里的$n$和$d_m$分别表示空间维度和通道维度，每个Transformer block的输出表示如下。</p>
+<script type="math/tex; mode=display">
+\mathrm{y}=\mathrm{x}^{\prime}+\mathrm{FFN}\left(\mathrm{LN}\left(\mathrm{x}^{\prime}\right)\right), \text { and } \mathrm{x}^{\prime}=\mathrm{x}+\mathrm{MSA}(\mathrm{LN}(\mathrm{x}))</script><p>对上面的式子，我们先来看<strong>MSA</strong>，它首先通过三组线性投影获取query $\mathbf{Q}$、key $\mathbf{K}$和value $\mathbf{V}$，每组投影有$k$个线性层（即heads）将$d_m$映射到$d_k$的空间中，这里$d_{k}=d_{m} / k$。为了描述方便，后续所有的说明都是基于$k=1$，因此MSA可以简化为单头注意力（SA），token序列之间的全局关系可以定义为下式，每个head的输出concatenate到一起之后经过线性投影得到最终输出。可以得知，MSA的计算复杂度为$\mathcal{O}\left(2 d_{m} n^{2}+4 d_{m}^{2} n\right)$，它根据输入token的空间维度或者通道维度次方级变化。</p>
+<script type="math/tex; mode=display">
+\mathrm{SA}(\mathbf{Q}, \mathbf{K}, \mathbf{V})=\operatorname{Softmax}\left(\frac{\mathbf{Q K}^{\mathrm{T}}}{\sqrt{d_{k}}}\right) \mathbf{V}</script><p>接着，来看<strong>FFN</strong>，它主要用于特征转换和非线性，通常由两个线性层和一个非线性激活函数构成，第一层将输入的通道数从$d_m$拓展到$d_f$，第二层则从$d_f$降到$d_m$。数学上表示如下式，其中$\mathbf{W}_{1} \in \mathbb{R}^{d_{m} \times d_{f}}$且$\mathbf{W}_{2} \in \mathbb{R}^{d_{f} \times d_{m}}$为两个线性层的权重，$\mathbf{b}_{1} \in \mathbb{R}^{d_{f}}$和$\mathbf{b}_{2} \in \mathbb{R}^{d_{m}}$则是相应的偏置项，$\sigma(\cdot)$表示GELU激活函数。标准的Transformer block中，通道数通常4倍扩大，即$d_{f}=4 d_{m}$。FFN的计算代价为$8 n d_{m}^{2}$。</p>
+<script type="math/tex; mode=display">
+\mathrm{FFN}(\mathrm{x})=\sigma\left(\mathrm{x} \mathbf{W}_{1}+\mathbf{b}_{1}\right) \mathbf{W}_{2}+\mathbf{b}_{2}</script><h3 id="Efficient-Transformer-Block"><a href="#Efficient-Transformer-Block" class="headerlink" title="Efficient Transformer Block"></a>Efficient Transformer Block</h3><p>如上面所述，MSA有两个缺点，第一是其计算量是二次方倍的，这给训练和推理都带来了不小的负担；第二，MSA中的每个head只负责输入token序列的一个子集，当通道数比较少的时候这个会损害模型的表现。</p>
+<p><img src="https://i.loli.net/2021/06/15/bBcu1lzQHLgyq3U.png" alt=""></p>
+<p>为了解决这些问题，作者提出了一种高效的多头自注意力模块，如上图所示。和MSA类似，EMSA首先采用一组投影获取query $\mathbf{Q}$。为了压缩内存，2D输入的token $\mathrm{x} \in \mathbb{R}^{n \times d_{m}}$会被沿着空间维度reshape为3D形式（$\hat{\mathrm{x}} \in \mathbb{R}^{d_{m} \times h \times w}$）然后送入深度可分离卷积中按照因子$s$降低宽高，为了简单，$s$根据$k$自适应为$s=8 / k$，卷积核尺寸、stride和padding分别是$s+1$、$s$和$s/2$。然后，下采样后的token map为$\hat{\mathrm{x}} \in \mathbb{R}^{d_{m} \times h / s \times w / s}$，它被reshape为2D的形式，也就是$\hat{\mathbf{x}} \in \mathbb{R}^{n^{\prime} \times d_{m}}, n^{\prime}=h / s \times w / s$，然后$\hat{x}$送入两组投影层获得key $\mathbf{K}$和value $\mathbf{V}$。再然后，采用下面的式子计算qkv之间的注意力函数，式子中的Conv表示标准的1x1卷积，它用于建模不同head之间的交互，通过这个方法attention的结果依赖于所有的key和query，然而，这将削弱 MSA 联合处理来自不同位置的不同表示子集的信息的能力。为了重建这种多样性能力，在点击矩阵后添加了一个LN，也就是Softmax之后。</p>
+<script type="math/tex; mode=display">
+\operatorname{EMSA}(\mathbf{Q}, \mathbf{K}, \mathbf{V})=\operatorname{IN}\left(\operatorname{Softmax}\left(\operatorname{Conv}\left(\frac{\mathbf{Q} \mathbf{K}^{\mathrm{T}}}{\sqrt{d_{k}}}\right)\right)\right) \mathbf{V}</script><p>最后，所有head的输出concatenate到一起经过投影得到最终输出。这就是整个EMSA块的计算过程，其实对照上图就能理解得很明白了，EMSA的计算代价为$\mathcal{O}\left(\frac{2 d_{m} n^{2}}{s^{2}}+2 d_{m}^{2} n\left(1+\frac{1}{s^{2}}\right)+d_{m} n \frac{(s+1)^{2}}{s^{2}}+\frac{k^{2} n^{2}}{s^{2}}\right)$，假定$s=1$的话这个复杂度是远远低于原始的MSA的，特别是较浅的stage时，$n$相对高一些。</p>
+<p>当然，EMSA之后也添加了FFN以进行特征变换和非线性，因此最终effcient Transformer block的输出如下。</p>
+<script type="math/tex; mode=display">
+\mathrm{y}=\mathrm{x}^{\prime}+\mathrm{FFN}\left(\mathrm{LN}\left(\mathrm{x}^{\prime}\right)\right), \text { and } \mathrm{x}^{\prime}=\mathrm{x}+\operatorname{EMSA}(\mathrm{LN}(\mathrm{x}))</script><h3 id="Patch-Embedding"><a href="#Patch-Embedding" class="headerlink" title="Patch Embedding"></a>Patch Embedding</h3><p>知道了最核心的EMSA，接下来是关于Patch Embedding的内容。在标准的Transformer中，一个token序列的embedding作为输入，以ViT为例，3D图像$\mathrm{x} \in \mathbb{R}^{3 \times h \times w}$为输入，它被按照patch size为$p \times p$进行切分。这些patch被展平为2D然后被映射为隐嵌入$\mathrm{x} \in \mathbb{R}^{n \times c}$（其中$n=h w / p^{2}$）。然而，这种直接的标记化难以捕获底层特征信息(比如边缘、角点)。此外，ViT中的token序列长度是固定的，这使其难以进行下游任务(比如目标检测、实例分割)适配，因为这些任务往往需要多尺度特征图。</p>
+<p>为了解决上述问题，作者构建了一种高效的多尺度backbone，名为ResT以进行密集预测任务。如上文所述，每个阶段的efficient Transformer block在一个确定的尺度和分辨率上跨空间和通道进行操作，因此，patch embedding模块需要减少空间分辨率的同时拓展通道维度。</p>
+<p>和ResNet类似，stem模块（也就是第一个patch embedding模块）以4的缩减因子缩小高度和宽度。为了是圆通很少的参数高效捕获底层特征，作者引入了一个简单但有效的方式，即堆叠3个3x3卷积层（padding为1），stride分别为2、1、2，前两层紧跟一个BN和ReLU层。在stage2、stage3和stage4，patch embedding模块被用来4倍下采样空间维度并且2倍通道维度。这可以通过标准的3x3卷积以stride2和padding1实现。在stage2中，patch embedding模块将输入分辨率从$h / 4 \times w / 4 \times c$调整到$h / 8 \times w / 8 \times 2 c$。</p>
+<h3 id="Position-Encoding"><a href="#Position-Encoding" class="headerlink" title="Position Encoding"></a>Position Encoding</h3><p>位置编码对于序列顺序非常关键，在ViT中，一系列可学习参数被加（加法）到输入token上编码位置信息，假定$\mathrm{x} \in \mathbb{R}^{n \times c}$为输入，$\theta \in \mathbb{R}^{n \times c}$为位置参数，编码后的输入可以表示如下。</p>
+<p>$\hat{\mathrm{x}}=\mathrm{x}+\theta$</p>
+<p>但是，位置的长度需要和输入token的长度一致，这就限制了很多应用的场景，因此需要一种可以根据输入改变长度的位置编码。回顾上面的式子，其实相加操作非常类似逐像素对输入加权。假定$\theta$和$x$相关，即$\theta=\mathrm{GL}(\mathrm{x})$，这里的$\mathrm{GL}(\cdot)$表示组线性操作且组数为$c$，上式就被修改为下面的式子，$\theta$可以通过更灵活的注意力机制获得。</p>
+<script type="math/tex; mode=display">
+\hat{\mathrm{x}}=\mathrm{x}+\mathrm{GL}(\mathrm{x})</script><p>因此，作者这里提出了一种简单高效的像素级注意力（pixel-wise attention，PA）来编码位置。具体而言，PA采用3x3深度卷积操作来获得像素级权重，然后使用sigmoid激活，最终使用PA获得的位置编码如下式。</p>
+<script type="math/tex; mode=display">
+\hat{\mathrm{x}}=\mathrm{PA}(\mathrm{x})=\mathrm{x} * \sigma(\operatorname{DWConv}(\mathrm{x}))</script><p>由于每个stage的输入token通过卷积得到，可以将位置编码嵌入到patch embedding模块中，整体结果见下图。注：这里的PA可以采用任意空间注意力替换，这使得ResT中的PE极为灵活。</p>
+<p><img src="https://i.loli.net/2021/06/15/fNeH2Ll9ukXYGVg.png" alt=""></p>
+<h3 id="Classification-Head"><a href="#Classification-Head" class="headerlink" title="Classification Head"></a>Classification Head</h3><p>分类head的设计非常简单，一个池化接线性层即可，在图像分类任务上的模型结构如下图所示。</p>
+<p><img src="https://i.loli.net/2021/06/15/Z89vQhcEMIb4qYx.png" alt=""></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>图像分类、目标检测、实例分割的结果如下，超越了PVT、Swin等。</p>
+<p><img src="https://i.loli.net/2021/06/15/SMkGfRzt2pWBD5r.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/06/15/K29hxrVRs4nvz5E.png" alt=""></p>
+<p><img src="https://i.loli.net/2021/06/15/WAGt3RMYmInkUbL.png" alt=""></p>
+<p>此外作者还对各个模块进行了消融实验，具体可以查看论文。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章作者提出了一种新的Transformer架构的视觉backbone，它可以捕获多尺度特征因而非常适用于密集预测任务。作者压缩了标准 MSA 的内存，并在保持多样性能力的同时对多头之间的交互进行建模。 为了处理任意输入图像，作者进一步将位置编码重新设计为空间注意力。本文也只是我本人从自身出发对这篇文章进行的解读，想要更详细理解的强烈推荐阅读原论文。最后，如果我的文章对你有所帮助，欢迎一键三连，你的支持是我不懈创作的动力。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/ResT%E8%A7%A3%E8%AF%BB/">
+                                    <span class="chip bg-color">ResT解读</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '362322c1eb71f43ce38c',
+        clientSecret: '4e596c1175ad2c22c8335621b796e34bb4dad1fb',
+        repo: 'luanshiyinyang.github.io',
+        owner: 'luanshiyinyang',
+        admin: "luanshiyinyang",
+        id: '2021-06-15T10-19-49',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/06/15/rest/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="ResT解读">
+                        
+                        <span class="card-title">ResT解读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                    论文解读
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ResT%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">ResT解读</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/04/siammot/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="SiamMOT解读">
+                        
+                        <span class="card-title">SiamMOT解读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" class="post-category">
+                                    论文解读
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SiamMOT%E8%A7%A3%E8%AF%BB/">
+                        <span class="chip bg-color">SiamMOT解读</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Chen&#39;s blog<br />'
+            + '文章作者: 周先森爱吃素<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2016-2021</span>
+            
+            <span id="year">2016</span>
+            <a href="/about" target="_blank">周先森爱吃素</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2016";
+                    var startMonth = "09";
+                    var startDate = "1";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/luanshiyinyang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:luanshiyinyang@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://www.facebook.com/luanshiyinyang" class="tooltipped" target="_blank" data-tooltip="关注我的Facebook: https://www.facebook.com/luanshiyinyang" data-position="top" data-delay="50">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1695735420" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1695735420" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/luanshiyinyang" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/luanshiyinyang" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?daf9ab2e537a0ec499d84d6416112b1a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "d517dad6"
+        });
+        daovoice('update');
+    </script>
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

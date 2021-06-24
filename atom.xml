@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-06-19T05:46:53.021Z</updated>
+  <updated>2021-06-24T01:46:02.541Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TADAM解读</title>
+    <link href="https://zhouchen1998.cn/2021/06/24/tadam/"/>
+    <id>https://zhouchen1998.cn/2021/06/24/tadam/</id>
+    <published>2021-06-24T01:45:12.000Z</published>
+    <updated>2021-06-24T01:46:02.541Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;这是最近公开的CVPR2021主会议论文中一篇MOT方向的论文，将位置预测和特征提取两个任务协同工作，从而有效改善了遮挡等问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="TADAM解读" scheme="https://zhouchen1998.cn/tags/TADAM%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>GCT解读</title>
@@ -516,32 +544,6 @@
     
     
     <category term="TTFNet解读" scheme="https://zhouchen1998.cn/tags/TTFNet%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TrackFormer解读</title>
-    <link href="https://zhouchen1998.cn/2021/03/14/trackformer/"/>
-    <id>https://zhouchen1998.cn/2021/03/14/trackformer/</id>
-    <published>2021-03-14T02:38:31.000Z</published>
-    <updated>2021-03-14T02:39:06.064Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;TrackFormer和TransTrack一样是基于Transformer在MOT上的工作，其中一位作者就是DETR的作者，相比TransTrack虽然MOTA上不是很高，但是IDF1和IDs都是好不少的，个人觉得也是值得关注的工作，甚至有点更简</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="TrackFormer解读" scheme="https://zhouchen1998.cn/tags/TrackFormer%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   

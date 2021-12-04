@@ -6,7 +6,7 @@
   <link href="https://zhouchen1998.cn/atom.xml" rel="self"/>
   
   <link href="https://zhouchen1998.cn/"/>
-  <updated>2021-06-24T01:46:02.541Z</updated>
+  <updated>2021-12-04T10:52:43.064Z</updated>
   <id>https://zhouchen1998.cn/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ViP解读</title>
+    <link href="https://zhouchen1998.cn/2021/12/04/vip/"/>
+    <id>https://zhouchen1998.cn/2021/12/04/vip/</id>
+    <published>2021-12-04T10:49:45.000Z</published>
+    <updated>2021-12-04T10:52:43.064Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最近的一篇新的视觉MLP方面的工作，天津大学程明明组参与其中，通过充分利用2D特征图的位置信息设计的一个MLP结构ViP（Vision Permutator），获得了相当不错的性能。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="ViP解读" scheme="https://zhouchen1998.cn/tags/ViP%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PoolFormer解读</title>
+    <link href="https://zhouchen1998.cn/2021/12/04/poolformer/"/>
+    <id>https://zhouchen1998.cn/2021/12/04/poolformer/</id>
+    <published>2021-12-04T10:48:15.000Z</published>
+    <updated>2021-12-04T10:49:29.487Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;这是近期的一篇视觉Transformer领域的工作，文章并没有设计更加复杂的token mixer，而是通过简单的池化算子验证视觉Transformer的成功在于整体架构设计，即MetaFormer。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+    <category term="PoolFormer解读" scheme="https://zhouchen1998.cn/tags/PoolFormer%E8%A7%A3%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>TADAM解读</title>
@@ -490,60 +546,6 @@
     
     
     <category term="GFocalV2解读" scheme="https://zhouchen1998.cn/tags/GFocalV2%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GFocal解读</title>
-    <link href="https://zhouchen1998.cn/2021/03/18/gfocal/"/>
-    <id>https://zhouchen1998.cn/2021/03/18/gfocal/</id>
-    <published>2021-03-18T04:28:22.000Z</published>
-    <updated>2021-03-18T04:28:49.650Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;总的来说，GFocal这篇文章的数学性还是很高的，如果对此不感兴趣，可以阅读原作者的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/147691786&quot;&gt;《大白话 Generalized Focal</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="GFocal解读" scheme="https://zhouchen1998.cn/tags/GFocal%E8%A7%A3%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TTFNet解读</title>
-    <link href="https://zhouchen1998.cn/2021/03/16/ttfnet/"/>
-    <id>https://zhouchen1998.cn/2021/03/16/ttfnet/</id>
-    <published>2021-03-16T12:19:37.000Z</published>
-    <updated>2021-03-16T12:20:12.585Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;正巧最近CenterNet的作者发布了CenterNet2，趁此机会也读一读这篇之前针对CenterNet训练时间改进的TTFNet。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="论文解读" scheme="https://zhouchen1998.cn/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-    <category term="TTFNet解读" scheme="https://zhouchen1998.cn/tags/TTFNet%E8%A7%A3%E8%AF%BB/"/>
     
   </entry>
   
